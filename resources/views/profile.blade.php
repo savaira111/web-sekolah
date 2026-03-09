@@ -30,9 +30,6 @@
             <a href="{{ route('jurusan') }}" class="px-8 py-4 bg-[#1D82F6] text-white rounded-xl font-bold text-lg hover:bg-blue-600 transition-all">
                 Jelajahi Program
             </a>
-            <a href="{{ route('staff') }}" class="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all flex items-center gap-2">
-                Guru & Staff
-            </a>
             <a href="https://www.instagram.com/reel/DT_68DBAYuB/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all">
                 Tonton Video Profil
             </a>
@@ -63,8 +60,8 @@
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                     </div>
                     <h3 class="text-2xl font-black text-[#0F172A]">Visi Kami</h3>
-                    <p class="text-gray-600 leading-relaxed font-medium">
-                        "Menjadi Lembaga Pendidikan Kejuruan yang unggul, inovatif, dan berstandar internasional untuk menghasilkan lulusan yang berakhlak mulia, kompeten, dan mandiri pada tahun 2030."
+                    <p class="text-gray-600 leading-relaxed font-bold uppercase text-sm">
+                        Menjadi Penyelenggara Pendidikan Kejuruan Berkarakter Religius dan Berakhlak Mulia yang Melahirkan Tenaga Ahli Kreatif, Inovatif dan Berpengetahuan Global yang Ramah Lingkungan.
                     </p>
                 </div>
             </div>
@@ -80,27 +77,45 @@
                     <ul class="space-y-4">
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <svg class="w-3 h-3 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-[#F97316] font-black text-xs">1</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-medium">Menyelenggarakan proses pembelajaran yang berbasis industri dan kewirausahaan.</span>
+                            <span class="text-gray-600 text-sm font-bold uppercase">Menyelenggarakan pendidikan kejuruan.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <svg class="w-3 h-3 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-[#F97316] font-black text-xs">2</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-medium">Meningkatkan kualitas SDM pendidik dan tenaga kependidikan secara berkelanjutan.</span>
+                            <span class="text-gray-600 text-sm font-bold uppercase">Melahirkan tenaga ahli tingkat menengah.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <svg class="w-3 h-3 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-[#F97316] font-black text-xs">3</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-medium">Memperkuat kemitraan strategis dengan Dunia Usaha dan Dunia Industri (DUDI).</span>
+                            <span class="text-gray-600 text-sm font-bold uppercase">Mewujudkan tenaga kreatif inovatif dan berpengalaman.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <svg class="w-3 h-3 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-[#F97316] font-black text-xs">4</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-medium">Mengembangkan sarana dan prasarana pendidikan yang relevan dengan perkembangan teknologi.</span>
+                            <span class="text-gray-600 text-sm font-bold uppercase">Menyediakan sarana prasarana pendukung kegiatan pembelajaran yang berwawasan global dan lingkungan.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-xs">5</span>
+                            </div>
+                            <span class="text-gray-600 text-sm font-bold uppercase">Mewujudkan lingkungan sekolah yang bersih, hijau dan sehat.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-xs">6</span>
+                            </div>
+                            <span class="text-gray-600 text-sm font-bold uppercase">Menerapkan kesadaran warga sekolah berperilaku hidup yang berbudaya lingkungan.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-xs">7</span>
+                            </div>
+                            <span class="text-gray-600 text-sm font-bold uppercase">Menjalin kemitraan dan kerjasama yang harmonis dengan masyarakat dan instansi terkait.</span>
                         </li>
                     </ul>
                 </div>

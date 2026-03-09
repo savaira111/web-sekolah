@@ -46,6 +46,11 @@ class PageController extends Controller
         return view('profile');
     }
 
+    public function seragam()
+    {
+        return view('seragam');
+    }
+
     public function enrollmentGuide()
     {
         return view('enrollment_guide');
@@ -71,9 +76,34 @@ class PageController extends Controller
         return view('extracurriculars.index');
     }
 
-    public function extracurricularDetail()
+    public function panahan()
     {
-        return view('extracurriculars.detail');
+        return view('extracurriculars.panahan');
+    }
+
+    public function rohis()
+    {
+        return view('extracurriculars.rohis');
+    }
+
+    public function silat()
+    {
+        return view('extracurriculars.silat');
+    }
+
+    public function futsal()
+    {
+        return view('extracurriculars.futsal');
+    }
+
+    public function paskibra()
+    {
+        return view('extracurriculars.paskibra');
+    }
+
+    public function pramuka()
+    {
+        return view('extracurriculars.pramuka');
     }
 
     public function registrationSuccess()

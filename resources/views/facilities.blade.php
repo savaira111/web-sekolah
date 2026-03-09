@@ -42,7 +42,7 @@
         <!-- Lab DKV -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
-                <img src="{{ asset('images/fasilitas/lab-dkv.jpg') }}" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/lab dkv.png') }}" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
             </div>
             <div class="p-8 space-y-5">
@@ -58,7 +58,7 @@
         <!-- Lab PPLG -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
-                <img src="{{ asset('images/fasilitas/lab-pplg.jpg') }}" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/lab pplg.png') }}" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
             </div>
             <div class="p-10 space-y-6">
@@ -75,7 +75,7 @@
         <!-- Lab Multimedia -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
-                <img src="https://smksmahaputra.sch.id/storage/images/fasilitas/lab-dkv_thumb.jpg" alt="Lab Multimedia" class="w-full h-full object-cover transition-transform duration-700 grayscale">
+                <img src="{{ asset('images/fasilitas/lab multimedia.png') }}" alt="Lab Multimedia" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
             </div>
             <div class="p-10 space-y-6">
@@ -92,7 +92,7 @@
         <!-- Lab Interaktif -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1000" alt="Lab Interaktif" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/lab interaktif.png') }}" alt="Lab Interaktif" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-400 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
             </div>
             <div class="p-10 space-y-6">
@@ -109,7 +109,7 @@
         <!-- VIP Lounge -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000" alt="VIP" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/vip.png') }}" alt="VIP" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
             </div>
             <div class="p-10 space-y-6">
@@ -126,7 +126,7 @@
         <!-- BNB Cafe -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000" alt="Cafe" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/bnb.png') }}" alt="Cafe" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
             </div>
             <div class="p-10 space-y-6">
@@ -143,7 +143,7 @@
         <!-- Masjid -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1596701062351-8c2c14d1fdd0?q=80&w=1000" alt="Masjid" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/masjid mushola.png') }}" alt="Masjid" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
             </div>
             <div class="p-10 space-y-6">
@@ -160,7 +160,7 @@
         <!-- Gedung Kelas -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik">
             <div class="aspect-video relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?q=80&w=1000" alt="Gedung" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/gedung kelas.png') }}" alt="Gedung" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Akademik</span>
             </div>
             <div class="p-10 space-y-6">
@@ -177,7 +177,7 @@
         <!-- Bale Mahaputra -->
         <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
-                <img src="https://smksmahaputra.sch.id/storage/images/fasilitas/aula_thumb.jpg" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/bale mahaputra.png') }}" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
             </div>
             <div class="p-10 space-y-6">
@@ -193,6 +193,25 @@
     </div>
 </section>
 
+<!-- parkiran -->
+<div class="facility-card group bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 max-w-sm mx-auto" data-category="Umum">
+    <div class="aspect-video relative overflow-hidden">
+        <img src="{{ asset('images/fasilitas/parkiran.png') }}" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
+        <span class="absolute top-4 left-4 px-3 py-1 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
+    </div>
+    <div class="p-6 space-y-4">
+        <h3 class="text-lg font-bold text-[#0F172A]">Parkiran</h3>
+        <p class="text-gray-500 text-xs">Area parkir yang nyaman dan aman untuk kendaraan siswa dan karyawan.</p>
+        <div class="pt-4 border-t border-gray-50 flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Sound System</span>
+            <span class="px-2 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Stage Lighting</span>
+            <span class="px-2 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Multi-purpose</span>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+
 <script>
     function filterFacilities(category) {
         const cards = document.querySelectorAll('.facility-card');
@@ -203,27 +222,53 @@
             if (btn.getAttribute('data-filter') === category) {
                 btn.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-200');
                 btn.classList.remove('bg-white', 'text-gray-500', 'border-gray-100');
+                // Tambahkan efek animasi klik pada tombol
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => btn.style.transform = 'scale(1)', 150);
             } else {
                 btn.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-200');
                 btn.classList.add('bg-white', 'text-gray-500', 'border-gray-100');
+                btn.style.transform = 'scale(1)';
             }
         });
 
-        // Filter cards
+        // Filter cards dengan staggered animation
+        let delay = 0;
         cards.forEach(card => {
             const categories = card.getAttribute('data-category').split(' ');
-            if (category === 'all' || categories.includes(category)) {
+            
+            // Filter Akademik hanya memunculkan kategori Akademik saja
+            let isMatch = false;
+            if (category === 'all') {
+                isMatch = true;
+            } else if (category === 'Akademik') {
+                isMatch = card.getAttribute('data-category').trim() === 'Akademik';
+            } else {
+                isMatch = categories.includes(category);
+            }
+
+            if (isMatch) {
                 card.style.display = 'block';
+                // Trigger reflow
+                void card.offsetWidth;
                 setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
                     card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                }, 10);
+                    card.style.transform = 'scale(1) translateY(0)';
+                }, 10 + delay);
+                
+                // Tambahkan stagger untuk animasi cascade pada 'all' dan 'Akademik'
+                if (category === 'all' || category === 'Akademik') {
+                    delay += 50; 
+                }
             } else {
                 card.style.opacity = '0';
-                card.style.transform = 'scale(0.95)';
+                card.style.transform = 'scale(0.95) translateY(10px)';
                 setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);
+                    if (card.style.opacity === '0') {
+                        card.style.display = 'none';
+                    }
+                }, 500);
             }
         });
     }

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Paskibra (Pasukan Pengibar Bendera) - SMKS Mahaputra')
+@section('title', 'Pencak Silat - SMKS Mahaputra')
 
 @section('content')
 <!-- Hero Section -->
 <section class="relative h-[600px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
-        <img src="https://smksmahaputra.sch.id/storage/images/berita/paskibra-mahaputra-meraih-juara-umum-lkbb-tingkat-jawa-barat_thumb.jpg" alt="Paskibra Hero" class="w-full h-full object-cover">
+        <img src="{{ asset('images/extracurriculars/thumbs/silat.png') }}" alt="Hero" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-[#0F172A]/80 backdrop-blur-sm"></div>
     </div>
 
@@ -19,13 +19,12 @@
         </div>
         <div class="space-y-8 max-w-4xl">
             <div class="space-y-4">
-                <span class="inline-block px-4 py-1.5 bg-blue-600 text-white text-[10px] font-bold rounded-lg uppercase tracking-wider">Official Organization</span>
+                <span class="inline-block px-4 py-1.5 bg-blue-600 text-white text-[10px] font-bold rounded-lg uppercase tracking-wider">Olahraga</span>
                 <h1 class="text-6xl lg:text-8xl font-black text-white leading-tight">
-                    Paskibra (Pasukan <br>
-                    <span class="text-blue-500">Pengibar Bendera)</span>
+                    Pencak <br><span class="text-blue-500">Silat</span>
                 </h1>
                 <p class="text-xl text-gray-300 max-w-2xl leading-relaxed">
-                    Menumbuhkan jiwa kepemimpinan, kedisiplinan, dan rasa nasionalisme tinggi melalui formasi baris-berbaris yang presisi.
+                    Seni bela diri tradisional Indonesia untuk pertahanan diri, kebugaran fisik, dan kedisiplinan mental.
                 </p>
             </div>
 
@@ -51,10 +50,10 @@
                     <div class="space-y-6">
                         <div class="flex items-center gap-4">
                             <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
-                            <h2 class="text-4xl font-black text-[#0F172A]">Tentang Paskibra</h2>
+                            <h2 class="text-4xl font-black text-[#0F172A]">Tentang Pencak Silat</h2>
                         </div>
                         <p class="text-lg text-gray-500 leading-relaxed">
-                            Paskibra SMKS Mahaputra Cerdas Utama merupakan wadah pembinaan generasi muda untuk meningkatkan kedisiplinan, ketangkasan fisik, serta rasa cinta tanah air. Anggota dilatih untuk memiliki ketahanan fisik yang kuat, mental baja, dan etika yang luhur dalam menjalankan tugas negara di tingkat sekolah maupun wilayah.
+                            Pencak Silat SMKS Mahaputra Cerdas Utama merupakan wadah pembinaan generasi muda untuk mengembangkan potensi, bakat, dan semangat positif. Anggota dilatih untuk memiliki karakter unggul, kedisiplinan, dan etika yang baik serta berprestasi dalam berbagai kegiatan.
                         </p>
                     </div>
 
@@ -66,7 +65,7 @@
                             </div>
                             <div class="space-y-1">
                                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Anggota Aktif</p>
-                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">45 Siswa</p>
+                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">40 Siswa</p>
                             </div>
                         </div>
                         <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4 group transition-all duration-500">
@@ -75,7 +74,7 @@
                             </div>
                             <div class="space-y-1">
                                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Penghargaan</p>
-                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">25+ Trophy</p>
+                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">15+ Trophy</p>
                             </div>
                         </div>
                         <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4 group transition-all duration-500">
@@ -84,7 +83,7 @@
                             </div>
                             <div class="space-y-1">
                                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Berdiri</p>
-                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">Sejak 2010</p>
+                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">Sejak 2012</p>
                             </div>
                         </div>
                     </div>
@@ -138,19 +137,9 @@
                             </thead>
                             <tbody class="divide-y divide-gray-50">
                                 <tr class="hover:bg-blue-50/30 transition-colors">
-                                    <td class="px-8 py-6 font-bold text-[#0F172A]">Selasa</td>
+                                    <td class="px-8 py-6 font-bold text-[#0F172A]">Rabu</td>
                                     <td class="px-8 py-6 text-gray-500">15:30 - 17:30</td>
-                                    <td class="px-8 py-6 text-gray-500 font-bold">PBB Dasar & Fisik</td>
-                                </tr>
-                                <tr class="hover:bg-blue-50/30 transition-colors">
-                                    <td class="px-8 py-6 font-bold text-[#0F172A]">Kamis</td>
-                                    <td class="px-8 py-6 text-gray-500">15:30 - 17:30</td>
-                                    <td class="px-8 py-6 text-gray-500 font-bold">Variasi & Formasi</td>
-                                </tr>
-                                <tr class="hover:bg-blue-50/30 transition-colors">
-                                    <td class="px-8 py-6 font-bold text-[#0F172A]">Sabtu</td>
-                                    <td class="px-8 py-6 text-gray-500">08:00 - 12:00</td>
-                                    <td class="px-8 py-6 text-gray-500 font-bold">Pemantapan & Simulasi</td>
+                                    <td class="px-8 py-6 text-gray-500 font-bold">Jurus & Tanding</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -164,14 +153,12 @@
                         <h2 class="text-4xl font-black text-[#0F172A]">Galeri Kegiatan</h2>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        @for ($i = 1; $i <= 6; $i++)
                         <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="https://smksmahaputra.sch.id/storage/images/berita/paskibra-mahaputra-meraih-juara-umum-lkbb-tingkat-jawa-barat_thumb.jpg" class="w-full h-full object-cover transition-transform duration-700">
+                            <img src="{{ asset('images/extracurriculars/thumbs/silat.png') }}" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
-                        @endfor
                     </div>
                 </div>
 
@@ -187,7 +174,7 @@
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="group space-y-4">
                             <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-100">
-                                <img src="https://smksmahaputra.sch.id/storage/images/berita/paskibra-mahaputra-meraih-juara-umum-lkbb-tingkat-jawa-barat_thumb.jpg" class="w-full h-full object-cover transition-transform duration-500">
+                                <img src="{{ asset('images/extracurriculars/thumbs/silat.png') }}" class="w-full h-full object-cover transition-transform duration-500">
                             </div>
                             <div class="space-y-2">
                                 <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">
@@ -195,7 +182,7 @@
                                     <span>•</span>
                                     <span>5 Min Read</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Juara 1 Lomba Ketangkasan Baris Berbaris Tingkat Provinsi</h3>
+                                <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Prestasi Gemilang Pencak Silat Tingkat Provinsi</h3>
                                 <div class="flex items-center gap-3 pt-2">
                                     <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                                         <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
@@ -206,7 +193,7 @@
                         </div>
                         <div class="group space-y-4">
                             <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-100">
-                                <img src="https://smksmahaputra.sch.id/storage/images/berita/paskibra-mahaputra-meraih-juara-umum-lkbb-tingkat-jawa-barat_thumb.jpg" class="w-full h-full object-cover transition-transform duration-500">
+                                <img src="{{ asset('images/extracurriculars/thumbs/silat.png') }}" class="w-full h-full object-cover transition-transform duration-500">
                             </div>
                             <div class="space-y-2">
                                 <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">
@@ -214,7 +201,7 @@
                                     <span>•</span>
                                     <span>3 Min Read</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Pelatihan Kepemimpinan Anggota Baru Paskibra Tahun 2023</h3>
+                                <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Agenda Tahunan & Pelatihan Anggota Baru Pencak Silat</h3>
                                 <div class="flex items-center gap-3 pt-2">
                                     <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                                         <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
@@ -269,8 +256,8 @@
                                 <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
                             </div>
                             <div class="space-y-1">
-                                <p class="font-bold text-[#0F172A]">Rina Rahayu</p>
-                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Ketua Paskibra</p>
+                                <p class="font-bold text-[#0F172A]">Siswa Terpilih</p>
+                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Ketua Pencak Silat</p>
                             </div>
                         </div>
                     </div>
@@ -319,7 +306,7 @@
                 </p>
                 <div class="flex justify-center pt-8">
                      <a href="{{ route('registration') }}" class="px-16 py-6 bg-blue-600 text-white rounded-2xl font-black text-2xl uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
-                        Daftar Paskibra
+                        Daftar Pencak Silat
                     </a>
                 </div>
             </div>

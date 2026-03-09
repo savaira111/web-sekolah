@@ -58,11 +58,14 @@
         <!-- Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
             <!-- Card 1: Archery -->
-            <a href="{{ route('extracurriculars.detail') }}" 
+            <a href="{{ route('extracurriculars.panahan') }}" 
                x-show="active === 'semua' || active === 'olahraga'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
                x-transition:enter-end="opacity-100 scale-100"
+               x-transition:leave="transition ease-in duration-200"
+               x-transition:leave-start="opacity-100 scale-100"
+               x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-6">
                 <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
                     <img src="{{ asset('images/extracurriculars/thumbs/archery.png') }}" alt="Archery" class="w-full h-full object-cover transition-transform duration-700 font-medium">
@@ -79,10 +82,14 @@
             </a>
 
             <!-- Card 2: Rohis -->
-            <div x-show="active === 'semua' || active === 'umum'"
+            <a href="{{ route('extracurriculars.rohis') }}" 
+                 x-show="active === 'semua' || active === 'umum'"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95"
                  x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-95"
                  class="group space-y-6">
                 <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
                     <img src="{{ asset('images/extracurriculars/thumbs/rohis.png') }}" alt="Rohis" class="w-full h-full object-cover transition-transform duration-700 font-medium">
@@ -96,14 +103,17 @@
                         <span class="text-xs font-bold text-blue-600 flex items-center gap-2">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Card 3: Pencak Silat -->
-            <a href="{{ route('extracurriculars.detail') }}" 
+            <a href="{{ route('extracurriculars.silat') }}" 
                x-show="active === 'semua' || active === 'olahraga'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
                x-transition:enter-end="opacity-100 scale-100"
+               x-transition:leave="transition ease-in duration-200"
+               x-transition:leave-start="opacity-100 scale-100"
+               x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-6">
                 <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
                     <img src="{{ asset('images/extracurriculars/thumbs/silat.png') }}" alt="Silat" class="w-full h-full object-cover transition-transform duration-700 font-medium">
@@ -120,11 +130,14 @@
             </a>
 
             <!-- Card 4: Futsal -->
-            <a href="{{ route('extracurriculars.detail') }}" 
+            <a href="{{ route('extracurriculars.futsal') }}" 
                x-show="active === 'semua' || active === 'olahraga'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
                x-transition:enter-end="opacity-100 scale-100"
+               x-transition:leave="transition ease-in duration-200"
+               x-transition:leave-start="opacity-100 scale-100"
+               x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-6">
                 <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
                     <img src="{{ asset('images/extracurriculars/thumbs/futsal.png') }}" alt="Futsal" class="w-full h-full object-cover transition-transform duration-700 font-medium">
@@ -141,11 +154,14 @@
             </a>
 
             <!-- Card 5: Paskibra -->
-            <a href="{{ route('extracurriculars.detail') }}" 
+            <a href="{{ route('extracurriculars.paskibra') }}" 
                x-show="active === 'semua' || active === 'umum'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
                x-transition:enter-end="opacity-100 scale-100"
+               x-transition:leave="transition ease-in duration-200"
+               x-transition:leave-start="opacity-100 scale-100"
+               x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-6">
                 <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
                     <img src="{{ asset('images/extracurriculars/thumbs/paskibra.png') }}" alt="Paskibra" class="w-full h-full object-cover transition-transform duration-700 font-medium">
@@ -162,11 +178,14 @@
             </a>
 
             <!-- Card 6: Pramuka -->
-            <a href="{{ route('extracurriculars.detail') }}" 
+            <a href="{{ route('extracurriculars.pramuka') }}" 
                x-show="active === 'semua' || active === 'umum'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
                x-transition:enter-end="opacity-100 scale-100"
+               x-transition:leave="transition ease-in duration-200"
+               x-transition:leave-start="opacity-100 scale-100"
+               x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-6">
                 <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
                     <img src="{{ asset('images/extracurriculars/thumbs/pramuka.png') }}" alt="Pramuka" class="w-full h-full object-cover transition-transform duration-700 font-medium">

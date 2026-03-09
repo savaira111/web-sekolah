@@ -216,28 +216,28 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="group relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-lg">
-                <img src="{{ asset('images/fasilitas/lab-dkv.jpg') }}" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/lab dkv.png') }}" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Lab DKV</h4>
                 </div>
             </div>
             <div class="group relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-lg">
-                <img src="{{ asset('images/fasilitas/lab-pplg.jpg') }}" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/lab pplg.png') }}" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Lab PPLG</h4>
                 </div>
             </div>
             <div class="group relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-lg">
-                <img src="{{ asset('images/fasilitas/parkiran.jpg') }}" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/parkiran.png') }}" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Parkiran</h4>
                 </div>
             </div>
             <div class="group relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-lg">
-                <img src="https://smksmahaputra.sch.id/storage/images/fasilitas/aula_thumb.jpg" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="{{ asset('images/fasilitas/bale mahaputra.png') }}" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Bale Mahaputra</h4>
