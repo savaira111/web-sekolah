@@ -258,7 +258,7 @@
         <div class="grid md:grid-cols-3 gap-8">
             <div class="group">
                 <div class="aspect-video rounded-3xl overflow-hidden mb-6">
-                    <img src="https://smksmahaputra.sch.id/storage/images/berita/siswa-pplg-smk-mahaputra-meraih-prestasi_thumb.jpg" alt="Berita 1" class="w-full h-full object-cover transition-transform duration-500">
+                    <img src="images/berita 1.png" alt="Berita 1" class="w-full h-full object-cover transition-transform duration-500">
                 </div>
                 <div class="space-y-4">
                     <div class="flex items-center gap-4 text-sm text-gray-500">
@@ -273,7 +273,7 @@
             
             <div class="group">
                 <div class="aspect-video rounded-3xl overflow-hidden mb-6">
-                    <img src="https://smksmahaputra.sch.id/storage/images/berita/seminar-industri-menyiapkan-karir-di-era-digital_thumb.jpg" alt="Berita 2" class="w-full h-full object-cover transition-transform duration-500">
+                    <img src="images/berita 2.png" alt="Berita 2" class="w-full h-full object-cover transition-transform duration-500">
                 </div>
                 <div class="space-y-4">
                     <div class="flex items-center gap-4 text-sm text-gray-500">
@@ -288,7 +288,7 @@
 
             <div class="group">
                 <div class="aspect-video rounded-3xl overflow-hidden mb-6">
-                    <img src="https://smksmahaputra.sch.id/storage/images/berita/pameran-karya-siswa-akhir-tahun_thumb.jpg" alt="Berita 3" class="w-full h-full object-cover transition-transform duration-500">
+                    <img src="images/berita 3.png" alt="Berita 3" class="w-full h-full object-cover transition-transform duration-500">
                 </div>
                 <div class="space-y-4">
                     <div class="flex items-center gap-4 text-sm text-gray-500">

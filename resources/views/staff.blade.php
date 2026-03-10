@@ -48,6 +48,10 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 Normatif - Adaptif
             </button>
+            <button onclick="filterStaff('Staff & Pekerja')" class="filter-btn px-8 py-3.5 bg-white text-slate-500 rounded-full font-bold text-sm hover:bg-slate-50 hover:shadow-md transition-all border border-slate-100 flex items-center gap-2" data-filter="Staff & Pekerja">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                Staff & Pekerja
+            </button>
         </div>
     </div>
 </section>
@@ -58,30 +62,37 @@
         <div id="staff-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-16">
             @php
                 $staff = [
-                    ['name' => 'Deni Setiawan, S.ST., Gr', 'role' => 'PKK (Produk Kreatif & Kewirausahaan)', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/deni-setiawan-sst-gr_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Hamdan Firmansyah, S.Pd., Gr', 'role' => 'PJOK (Pendidikan Jasmani Olahraga & Kesehatan)', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/hamdan-firmansyah-spd-gr_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Leni Maulyani, S.Pd., Gr', 'role' => 'Bahasa Indonesia', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/leni-maulyani-spd-gr_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Siti Saadah, S.Pd.I., Gr', 'role' => 'PAI dan BP (Pendidikan Agama Islam)', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/siti-saadah-spdi-gr_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Dewi Astri Indriani, S.Pd., Gr', 'role' => 'Projek IPAS (Ilmu Pengetahuan Alam & Sosial)', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/dewi-astri-indriani-spd-gr_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Esna Amalia Khairina, S.Pd', 'role' => 'Bahasa Inggris X & XII', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/esna-amalia-khairina-spd_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Dyah Wiwit Cahyaningsih, S.Pd', 'role' => 'Projek IPAS & PLH (Pendidikan Lingkungan Hidup)', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/dyah-wiwit-cahyaningsih-spd_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Rizki Reynaldi F, S.Hum', 'role' => 'Bahasa Jepang', 'img' => 'https://smksmahaputra.sch.id/images/staff/dummy.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Roslaila, S.Kom', 'role' => 'Koding, AI, Desain Grafis, 3D, Basis Data', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/roslaila-skom_thumb.png', 'category' => 'PPLG'],
-                    ['name' => 'Rafangga Agus Triono, S.Ds', 'role' => 'Seni Rupa, Videografi, DKV', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/rafangga-agus-triono-sds_thumb.png', 'category' => 'DKV'],
-                    ['name' => 'Rika Mustika, S.Ds', 'role' => 'Dasar DKV & DKV', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/rika-mustika-sds_thumb.png', 'category' => 'DKV'],
-                    ['name' => 'Oktapiyanti, S.Pd', 'role' => 'Matematika X & XII', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/oktapiyanti-spd_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Sintia Apriyanti, S.Kom', 'role' => 'BK, Algoritma, PBTGM, Kewirausahaan', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/sintia-apriyanti-skom_thumb.png', 'category' => 'PPLG'],
-                    ['name' => 'Azhara Fathya Silmi, S.Kom', 'role' => 'Pemrograman Bergerak, PBTGM, Kewirausahaan', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/azhara-fathya-silmi-skom_thumb.png', 'category' => 'PPLG'],
-                    ['name' => 'Taufik Faturrochman', 'role' => 'Pemrograman Dasar & Pemrograman Web', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/taufik-faturrochman_thumb.png', 'category' => 'PPLG'],
-                    ['name' => 'Cici Febrianti, S.Pd', 'role' => 'BK (Bimbingan Konseling)', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/cici-febrianti-spd_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Rizki Mantini Baehaqy, S.Si', 'role' => 'Matematika', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/rizki-mantini-baehaqy-ssi_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Bella Julianti, S.Pd', 'role' => 'PJOK (Pendidikan Jasmani Olahraga & Kesehatan)', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/bella-julianti-spd_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Nurul Fadillah, S.Pd', 'role' => 'Bahasa Inggris', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/nurul-fadillah-spd_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Zulistiani Noer Amalina, S.Ds', 'role' => 'Seni Rupa, DKV, Videografi', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/zulistiani-noer-amalina-sds_thumb.png', 'category' => 'DKV'],
-                    ['name' => 'Yan Yan Sopian, S.Pd', 'role' => 'Sejarah Indonesia', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/yan-yan-sopian-spd_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Neng Saroh Nitra, S.Pd., Gr', 'role' => 'Pendidikan Pancasila', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/neng-saroh-nitra-spd-gr_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Rida Arisa, S.Pd., Gr', 'role' => 'Bahasa Indonesia', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/rida-arisa-spd-gr_thumb.png', 'category' => 'Normatif - Adaptif'],
-                    ['name' => 'Pasha Yudha, S.Ds', 'role' => 'Animasi & DKV', 'img' => 'https://smksmahaputra.sch.id/storage/images/biodata/pasha-yudha-sds_thumb.png', 'category' => 'DKV'],
+                    ['name' => 'Siti Robiah, S.Pd', 'role' => 'Kepala Sekolah', 'img' => 'images/guru/siti robiah.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Agus Sofyan', 'role' => 'Wakil Kepala Sekolah', 'img' => 'images/staff/agus.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Hamdan Firmansyah, S.Pd., Gr', 'role' => 'PJOK & Ketua Staf', 'img' => 'images/guru/hamdan.png', 'category' => 'Normatif - Adaptif, Staff & Pekerja'],
+                    ['name' => 'Azhara Silmi Fathiyah', 'role' => 'Ketua Bidang Keahlian PPLG & Guru KIK, PBTGM, Pengembangan Perangkat Bergerak', 'img' => 'images/guru/azhara fathiyah silmi.png', 'category' => 'PPLG, Staff & Pekerja'],
+                    ['name' => 'Refangga Agus Triono, S.Ds', 'role' => 'Seni Rupa, Videografi, DKV & Ketua Bidang Keahlian DKV', 'img' => 'images/guru/refangga.png', 'category' => 'DKV, Staff & Pekerja'],
+                    ['name' => 'Rida Arisa, S.Pd., Gr', 'role' => 'Bahasa Indonesia & Ketua Perpustakaan', 'img' => 'images/guru/rida.png', 'category' => 'Normatif - Adaptif, Staff & Pekerja'],
+                    ['name' => 'Ginna Ditianingsih', 'role' => 'Staf TU & Admin Sekolah', 'img' => 'images/staff/ghinna.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Siti Nurrohmah', 'role' => 'Staf TU & Admin Media Sosial', 'img' => 'images/staff/siti nurrohma.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Enjang Suryana', 'role' => 'Staf Administrasi', 'img' => 'images/staff/enjang.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Nuron Mumin', 'role' => 'Staf Perpustakaan', 'img' => 'images/staff/nuron.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Deni Setiawan, S.ST., Gr', 'role' => 'PKK (Produk Kreatif & Kewirausahaan), Informatika', 'img' => 'images/guru/deni setiawan.png', 'category' => 'Normatif - Adaptif, PPLG'],
+                    ['name' => 'Leni Maulyani, S.Pd., Gr', 'role' => 'Bahasa Indonesia', 'img' => 'images/guru/leni.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Siti Saadah, S.Pd.I., Gr', 'role' => 'PAI dan BP (Pendidikan Agama Islam)', 'img' => 'images/guru/siti saada.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Dewi Astri Indriani, S.Pd., Gr', 'role' => 'Projek IPAS (Ilmu Pengetahuan Alam & Sosial)', 'img' => 'images/guru/dewi.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Essa Amalia Khairina, S.Pd', 'role' => 'Bahasa Inggris X & XII', 'img' => 'images/guru/essa.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Dyah Wiwit Cahyaningsih, S.Pd', 'role' => 'Projek IPAS & PLH (Pendidikan Lingkungan Hidup)', 'img' => 'images/guru/dyahwiwit.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Rizki Reynaldi F, S.Hum', 'role' => 'Bahasa Jepang', 'img' => 'images/Sample_User_Icon.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Roslaila, S.Kom', 'role' => 'Guru KIK, PBTGM, Pengembangan Perangkat Bergerak, Koding, AI, Desain Grafis, 3D, Basis Data', 'img' => 'images/guru/roslaila.png', 'category' => 'PPLG'],
+                    ['name' => 'Rika Mustika, S.Ds', 'role' => 'Dasar DKV & DKV', 'img' => 'images/guru/rika.png', 'category' => 'DKV'],
+                    ['name' => 'Oktapiyanti, S.Pd', 'role' => 'Matematika X & XII', 'img' => 'images/guru/oktapiyanti.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Sintia Apriyanti, S.Kom', 'role' => 'BK, Algoritma, PBTGM, Kewirausahaan', 'img' => 'images/guru/sintia.png', 'category' => 'PPLG'],
+                    ['name' => 'Zulistiani Noer Amalina, S.Ds', 'role' => 'Seni Rupa, DKV, Videografi', 'img' => 'images/guru/zulis.png', 'category' => 'DKV'],
+                    ['name' => 'Rizki Rantisi Baehaqy, S.Si', 'role' => 'Matematika', 'img' => 'images/guru/rizki.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Neng Saroh Nitra, S.Pd., Gr', 'role' => 'Pendidikan Pancasila', 'img' => 'images/guru/neng saroh.png', 'category' => 'Normatif - Adaptif'],
+                    ['name' => 'Pasha Yudha, S.Ds', 'role' => 'Animasi & DKV', 'img' => 'images/Sample_User_Icon.png', 'category' => 'DKV'],
+                    ['name' => 'Taufik Pathurrochman, S.Kom', 'role' => 'Pengembangan Website dan Pemrograman Dasar', 'img' => 'images/guru/taufik faturohman.png', 'category' => 'PPLG'],
+                    ['name' => 'Heriyanto', 'role' => 'Petugas Kebersihan Sekolah', 'img' => 'images/staff/heriyanto.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Kharim Sasmita', 'role' => 'Petugas Kebersihan Sekolah', 'img' => 'images/staff/kharim.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Romy Sunansyah', 'role' => 'Satpam Sekolah', 'img' => 'images/staff/romy.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Sofyan Fetriana', 'role' => 'Satpam Sekolah', 'img' => 'images/staff/sofyan.png', 'category' => 'Staff & Pekerja'],
+                    ['name' => 'Dede Masliah', 'role' => 'Pengelola Kantin Sekolah', 'img' => 'images/staff/dede.png', 'category' => 'Staff & Pekerja'],
                 ];
             @endphp
 
@@ -90,7 +101,7 @@
                 <!-- Circular Image Container -->
                 <div class="relative inline-block">
                     <div class="w-40 h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-white shadow-xl relative z-10 transition-transform duration-500 group-hover:scale-105">
-                        <img src="{{ $person['img'] }}" alt="{{ $person['name'] }}" class="w-full h-full object-cover">
+                        <img src="{{ asset($person['img']) }}" alt="{{ $person['name'] }}" class="w-full h-full object-cover">
                     </div>
                     <!-- Decorative Circle behind -->
                     <div class="absolute inset-0 bg-blue-100 rounded-full scale-[1.08] z-0 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
@@ -128,17 +139,17 @@
         // Update button styles
         buttons.forEach(btn => {
             if (btn.getAttribute('data-filter') === category) {
-                btn.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-200');
-                btn.classList.remove('bg-gray-50', 'text-gray-500', 'border-gray-100');
+                btn.classList.add('bg-blue-600', 'text-white', 'shadow-xl', 'shadow-blue-200');
+                btn.classList.remove('bg-white', 'text-slate-500', 'hover:bg-slate-50', 'hover:shadow-md', 'border', 'border-slate-100');
             } else {
-                btn.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-200');
-                btn.classList.add('bg-gray-50', 'text-gray-500', 'border-gray-100');
+                btn.classList.remove('bg-blue-600', 'text-white', 'shadow-xl', 'shadow-blue-200');
+                btn.classList.add('bg-white', 'text-slate-500', 'hover:bg-slate-50', 'hover:shadow-md', 'border', 'border-slate-100');
             }
         });
 
         // Filter cards
         cards.forEach(card => {
-            if (category === 'all' || card.getAttribute('data-category') === category) {
+            if (category === 'all' || card.getAttribute('data-category').includes(category)) {
                 card.style.display = 'block';
                 setTimeout(() => {
                     card.style.opacity = '1';

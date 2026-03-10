@@ -36,7 +36,35 @@ Route::post('/login', [AuthController::class, 'authenticate'])->name('login.post
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
+    // Add other auth routes here if needed
+});
+
+// Superadmin Routes
+Route::prefix('superadmin')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        return view('superadmin.dashboard');
+    });
+    Route::get('/users', function () {
+        return view('superadmin.users.index');
+    });
+    Route::get('/users/edit/{id?}', function () {
+        return view('superadmin.users.edit');
+    });
+
+    // Articles Management
+    Route::get('/articles', function () {
+        return view('superadmin.articles.index');
+    });
+    
+    Route::get('/articles/create', function () {
+        return view('superadmin.articles.create');
+    });
+    
+    Route::get('/articles/edit/{id?}', function () {
+        return view('superadmin.articles.edit');
+    });
+    
+    Route::get('/articles/{id}', function () {
+        return view('superadmin.articles.show');
+    });
 });
