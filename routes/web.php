@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'index'])->name('home');
@@ -16,6 +18,7 @@ Route::get('/seragam', [PageController::class, 'seragam'])->name('seragam');
 Route::get('/pendaftaran/panduan', [PageController::class, 'enrollmentGuide'])->name('enrollment.guide');
 Route::get('/pendaftaran/formulir', [PageController::class, 'registration'])->name('registration');
 Route::get('/kontak', [PageController::class, 'contact'])->name('contact');
+Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/ekstrakurikuler', [PageController::class, 'extracurriculars'])->name('extracurriculars');
 Route::get('/ekstrakurikuler/panahan', [PageController::class, 'panahan'])->name('extracurriculars.panahan');
@@ -52,19 +55,21 @@ Route::prefix('superadmin')->group(function () {
     });
 
     // Articles Management
-    Route::get('/articles', function () {
-        return view('superadmin.articles.index');
-    });
-    
-    Route::get('/articles/create', function () {
-        return view('superadmin.articles.create');
-    });
-    
-    Route::get('/articles/edit/{id?}', function () {
-        return view('superadmin.articles.edit');
-    });
-    
-    Route::get('/articles/{id}', function () {
-        return view('superadmin.articles.show');
+    Route::get('/articles', [ArticleController::class, 'index'])->name('superadmin.articles.index');
+    Route::get('/articles/create', [ArticleController::class, 'create'])->name('superadmin.articles.create');
+    Route::post('/articles', [ArticleController::class, 'store'])->name('superadmin.articles.store');
+    Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('superadmin.articles.show');
+    Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('superadmin.articles.edit');
+    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('superadmin.articles.update');
+    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('superadmin.articles.destroy');
+
+    // Contact Messages Management
+    Route::get('/messages', [ContactController::class, 'index'])->name('superadmin.messages.index');
+    Route::get('/messages/{message}', [ContactController::class, 'show'])->name('superadmin.messages.show');
+    Route::delete('/messages/{message}', [ContactController::class, 'destroy'])->name('superadmin.messages.destroy');
+
+    // Profile Management
+    Route::get('/profile', function () {
+        return view('superadmin.profile');
     });
 });

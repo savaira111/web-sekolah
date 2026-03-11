@@ -1,398 +1,488 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>User Management - EduAdmin Pro</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+@extends('layouts.superadmin.app')
+@section('title', 'User Management - EduAdmin Pro')
 
-    <!-- Styles -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@section('content')
+<div x-data="{ 
+    darkMode: false, 
+    isAddUserModalOpen: false, 
+    isEditUserModalOpen: false,
+    isDeleteModalOpen: false, 
+    isSuccessModalOpen: false,
+    isCreatedSuccessModalOpen: false,
     
-    <style>
-        [x-cloak] { display: none !important; }
+    // Modal Konfirmasi Baru
+    isRestoreConfirmOpen: false,
+    isPermanentDeleteConfirmOpen: false,
+    
+    searchQuery: '',
+    currentFilter: 'Semua',
+    showTrash: false,
+    
+    // Password States
+    showPw: false,
+    showConfirmPw: false,
+    
+    users: [
+        { id: 1, name: 'Johnathan Doe', email: 'john.doe@eduadmin.com', role: 'Admin', image: '{{ asset('images/guru-1.jpg') }}' },
+        { id: 2, name: 'Jane Smith', email: 'jane.smith@eduadmin.com', role: 'Guru', image: '{{ asset('images/guru-2.jpg') }}' }
+    ],
 
-        body {
-            font-family: 'Outfit', sans-serif;
+    trash: [],
+    userToDelete: null,
+    itemToRestore: null,
+    itemToPermanentDelete: null,
+    
+    newUser: { name: '', email: '', role: 'Admin', password: '', confirm_password: '' },
+    editingUser: { id: null, name: '', email: '', role: '', password: '', confirm_password: '' },
+
+    // Password Validation Logic
+    passwordValidations(pw) {
+        return {
+            length: pw.length >= 8,
+            upper: /[A-Z]/.test(pw),
+            lower: /[a-z]/.test(pw),
+            number: /[0-9]/.test(pw),
+            symbol: /[!@#$%^&*(),.?\':{}|<>]/.test(pw)
         }
+    },
+
+    isPasswordStrong(pw) {
+        const v = this.passwordValidations(pw);
+        return v.length && v.upper && v.lower && v.number && v.symbol;
+    },
+    
+    addUser() {
+        if(this.newUser.name && this.newUser.email && this.isPasswordStrong(this.newUser.password) && this.newUser.password === this.newUser.confirm_password) {
+            const userToAdd = {
+                id: Date.now(),
+                name: this.newUser.name,
+                email: this.newUser.email,
+                role: this.newUser.role,
+                image: 'https://ui-avatars.com/api/?name=' + encodeURIComponent(this.newUser.name) + '&background=random'
+            };
+            this.users.unshift(userToAdd);
+            this.isAddUserModalOpen = false;
+            this.newUser = { name: '', email: '', role: 'Admin', password: '', confirm_password: '' };
+            this.isCreatedSuccessModalOpen = true;
+        }
+    },
+
+    openEditModal(user) {
+        this.editingUser = { ...user, password: '', confirm_password: '' };
+        this.isEditUserModalOpen = true;
+    },
+
+    updateUser() {
+        const index = this.users.findIndex(u => u.id === this.editingUser.id);
+        if (index !== -1) {
+            this.users[index] = { ...this.editingUser };
+            this.isEditUserModalOpen = false;
+        }
+    },
+
+    confirmDelete(user) {
+        this.userToDelete = user;
+        this.isDeleteModalOpen = true;
+    },
+
+    softDelete() {
+        if (this.userToDelete) {
+            const deletedAt = new Date();
+            const autoDeleteDate = new Date();
+            autoDeleteDate.setDate(deletedAt.getDate() + 7);
+
+            this.trash.push({
+                ...this.userToDelete,
+                deleted_at: deletedAt.toLocaleString('id-ID'),
+                expires_at: autoDeleteDate
+            });
+
+            this.users = this.users.filter(u => u.id !== this.userToDelete.id);
+            this.isDeleteModalOpen = false;
+            this.userToDelete = null;
+            setTimeout(() => this.isSuccessModalOpen = true, 300);
+        }
+    },
+
+    restoreUser() {
+        if(this.itemToRestore) {
+            this.users.push(this.itemToRestore);
+            this.trash = this.trash.filter(t => t.id !== this.itemToRestore.id);
+            this.isRestoreConfirmOpen = false;
+            this.itemToRestore = null;
+        }
+    },
+
+    destroyPermanently() {
+        if(this.itemToPermanentDelete) {
+            this.trash = this.trash.filter(t => t.id !== this.itemToPermanentDelete.id);
+            this.isPermanentDeleteConfirmOpen = false;
+            this.itemToPermanentDelete = null;
+        }
+    },
+
+    getRemainingTime(expiresAt) {
+        const now = new Date();
+        const diff = expiresAt - now;
+        if (diff <= 0) return 'Segera dihapus';
         
-        .sidebar { background-color: #111827; }
-        .sidebar-active { background-color: #3B82F6; color: white; }
-        .sidebar-item { color: #9CA3AF; }
-        .sidebar-item:hover { background-color: #1F2937; color: white; }
-    </style>
-    <script>
-        if (localStorage.getItem('darkMode') === 'true' || !('darkMode' in localStorage)) {
-            document.documentElement.style.backgroundColor = '#0F172A';
-        } else {
-            document.documentElement.style.backgroundColor = '#F8FAFC';
-        }
-        document.write('<style id="no-trans">*, *::before, *::after { transition: none !important; }</style>');
-        document.addEventListener('alpine:initialized', () => {
-            setTimeout(() => {
-                const el = document.getElementById('no-trans');
-                if (el) el.remove();
-            }, 50);
+        const weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        
+        let timeString = '';
+        if (weeks > 0) timeString += weeks + 'w ';
+        if (days > 0) timeString += days + 'd ';
+        timeString += hours + 'h';
+        return timeString;
+    },
+    
+    get filteredUsers() {
+        return this.users.filter(user => {
+            const matchesSearch = user.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                                 user.email.toLowerCase().includes(this.searchQuery.toLowerCase());
+            const matchesRole = this.currentFilter === 'Semua' || user.role === this.currentFilter;
+            return matchesSearch && matchesRole;
         });
-    </script>
-</head>
-<body class="antialiased flex h-screen overflow-hidden transition-colors duration-300" 
-      x-data="{ sidebarOpen: true, darkMode: localStorage.getItem('darkMode') ? localStorage.getItem('darkMode') === 'true' : true, isAddUserModalOpen: false, isDeleteModalOpen: false, isSuccessModalOpen: false, userToDelete: null, showNotifications: false }" 
-      x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
-      :class="darkMode ? 'bg-[#0F172A] text-[#F8FAFC]' : 'bg-[#F8FAFC] text-[#0F172A]'">
+    }
+}" class="px-8 pb-8 flex-1 w-full max-w-[1400px]">
+    
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-8 mb-8 gap-4">
+        <div>
+            <h2 class="text-[32px] font-extrabold tracking-tight leading-none mb-2 transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">Manajemen Pengguna</h2>
+            <p class="text-sm font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Kelola akses dan hak akses untuk staf sekolah.</p>
+        </div>
+        
+        <div class="flex items-center gap-3">
+            <button @click="showTrash = !showTrash" class="p-2.5 rounded-xl border flex items-center gap-2 transition-all font-bold text-sm" :class="darkMode ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-600'">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                Trash (<span x-text="trash.length"></span>)
+            </button>
 
-    <!-- Sidebar -->
-    <aside class="w-64 sidebar h-full flex flex-col transition-all duration-300 z-20 shrink-0" :class="{'hidden': !sidebarOpen}">
-        <!-- Brand -->
-        <div class="h-20 flex items-center px-6 border-b border-gray-800">
-            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center font-bold text-xl shrink-0 overflow-hidden">
-                <img src="{{ asset('images/logo-mahaputra.png') }}" alt="M" class="w-full h-full object-contain p-1" onerror="this.src='https://ui-avatars.com/api/?name=M&background=3B82F6&color=fff'">
+            <div class="relative mr-2">
+                <input type="text" x-model="searchQuery" placeholder="Cari nama pengguna..." class="pl-10 pr-4 py-2.5 rounded-xl text-sm border focus:ring-2 transition-all outline-none" :class="darkMode ? 'bg-[#1E293B] border-gray-700 text-white focus:ring-blue-500/20' : 'bg-white border-gray-200 text-gray-900 focus:ring-blue-500/10'">
+                <svg class="w-4 h-4 absolute left-3.5 top-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
-            <div class="ml-3">
-                <h1 class="text-white font-bold text-lg leading-tight">SMKS Mahaputra</h1>
-                <p class="text-xs text-blue-400 font-medium">Super Admin</p>
+
+            <button @click="isAddUserModalOpen = true" class="px-5 py-2.5 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-colors duration-300 shadow-md shadow-blue-600/20 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Tambah Pengguna
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="rounded-3xl p-6 shadow-sm border transition-colors duration-300 flex items-center gap-5" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-blue-50/10' : 'bg-blue-50'">
+                <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <div>
+                <p class="text-[11px] font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Pengguna Aktif</p>
+                <h3 class="text-3xl font-extrabold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'" x-text="users.length"></h3>
             </div>
         </div>
-
-        <!-- Navigation -->
-        <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
-            <a href="/superadmin/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl sidebar-item font-medium text-sm transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                Dashboard
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl sidebar-active font-medium text-sm transition-colors">
-                <svg class="w-5 h-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                User Management
-            </a>
-            <a href="/superadmin/articles" class="flex items-center gap-3 px-4 py-3 rounded-xl sidebar-item font-medium text-sm transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Artikel / Berita
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl sidebar-item font-medium text-sm transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
-                PPDB Management
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl sidebar-item font-medium text-sm transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                Eskul Management
-            </a>
-        </div>
-
-        <!-- User Profile -->
-        <div class="p-4 border-t border-gray-800">
-            <div class="bg-[#1F2937] rounded-2xl p-3 flex items-center justify-between">
-                <form method="POST" action="{{ route('logout') }}" class="w-full">
-                    @csrf
-                    <button type="submit" class="flex items-center gap-3 text-red-500 hover:text-red-400 font-semibold text-sm transition-colors w-full p-2" title="Logout">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                        Logout
-                    </button>
-                </form>
+        <div class="rounded-3xl p-6 shadow-sm border transition-colors duration-300 flex items-center gap-5" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-emerald-50/10' : 'bg-emerald-50'">
+                <svg class="w-7 h-7 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+                <p class="text-[11px] font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Admin</p>
+                <h3 class="text-3xl font-extrabold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'" x-text="users.filter(u => u.role === 'Admin').length"></h3>
             </div>
         </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]' : 'bg-[#f8fafc]'">
-        <!-- Header -->
-        <header class="h-24 px-8 flex items-center justify-between shrink-0 backdrop-blur-md sticky top-0 z-10 w-full mb-2 transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]/80 border-b border-gray-800' : 'bg-[#f8fafc]/80 border-b border-gray-200'">
-            <div class="relative hidden lg:block w-96">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg class="h-4 w-4 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </div>
-                <input type="text" class="block w-full pl-10 pr-4 py-2.5 border-0 rounded-full text-sm focus:ring-2 focus:ring-blue-500/20 transition-all shadow-sm" :class="darkMode ? 'bg-[#1E293B] text-white placeholder-gray-500' : 'bg-white text-gray-900 placeholder-gray-400'" placeholder="Cari data pengguna...">
+        <div class="rounded-3xl p-6 shadow-sm border transition-colors duration-300 flex items-center gap-5" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-amber-50/10' : 'bg-amber-50'">
+                <svg class="w-7 h-7 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
             </div>
-            
-            <div class="flex items-center gap-5 ml-auto">
-                <button @click="darkMode = !darkMode" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] text-yellow-500 hover:bg-gray-800' : 'bg-white text-gray-600 hover:bg-gray-50'">
-                    <svg x-show="darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                    <svg x-cloak x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <div>
+                <p class="text-[11px] font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Guru</p>
+                <h3 class="text-3xl font-extrabold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'" x-text="users.filter(u => u.role === 'Guru').length"></h3>
+            </div>
+        </div>
+    </div>
+
+    <div x-show="!showTrash" x-transition.opacity class="rounded-[2.5rem] p-8 shadow-sm border mb-4 transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
+        <div class="flex items-center gap-8 mb-8 pb-4 border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
+            <button @click="currentFilter = 'Semua'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Semua' ? (darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Semua Pengguna</button>
+            <button @click="currentFilter = 'Admin'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Admin' ? (darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Admin</button>
+            <button @click="currentFilter = 'Guru'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Guru' ? (darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Guru</button>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left min-w-[800px]">
+                <thead>
+                    <tr class="border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
+                        <th class="pb-4 text-[11px] font-bold uppercase tracking-wider pl-2 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Pengguna</th>
+                        <th class="pb-4 text-[11px] font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Email</th>
+                        <th class="pb-4 text-[11px] font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Peran</th>
+                        <th class="pb-4 text-[11px] font-bold uppercase tracking-wider text-right pr-2 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="text-[13px]">
+                    <template x-for="user in filteredUsers" :key="user.id">
+                        <tr class="border-b last:border-0 transition-colors group" :class="darkMode ? 'border-gray-800 hover:bg-[#0F172A]/50' : 'border-gray-50 hover:bg-gray-50/50'">
+                            <td class="py-5 font-bold transition-colors duration-300 pl-2" :class="darkMode ? 'text-white' : 'text-gray-900'">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-full overflow-hidden border" :class="darkMode ? 'border-gray-700' : 'border-gray-200'">
+                                        <img :src="user.image" alt="Avatar" class="w-full h-full object-cover">
+                                    </div>
+                                    <span x-text="user.name"></span>
+                                </div>
+                            </td>
+                            <td class="py-5 font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'" x-text="user.email"></td>
+                            <td class="py-5">
+                                <span class="px-3 py-1 font-bold text-[10px] rounded-full uppercase border" :class="user.role === 'Admin' ? (darkMode ? 'bg-[#0F172A] text-white border-gray-700' : 'bg-gray-900 text-white border-transparent') : (darkMode ? 'bg-gray-800 text-gray-300 border-gray-700' : 'bg-gray-100 text-gray-600 border-transparent')" x-text="user.role"></span>
+                            </td>
+                            <td class="py-5 text-right pr-2">
+                                <div class="flex items-center justify-end gap-1">
+                                    <button @click="openEditModal(user)" class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:bg-gray-800 hover:text-white' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                    </button>
+                                    <button @click="confirmDelete(user)" class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:bg-red-500/10 hover:text-red-400' : 'text-gray-400 hover:bg-red-50 hover:text-red-500'">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div x-show="showTrash" x-transition.opacity class="rounded-[2.5rem] p-8 shadow-sm border mb-4 transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
+        <div class="flex items-center justify-between mb-8 pb-4 border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
+            <div class="flex items-center gap-4">
+                <button @click="showTrash = false" class="p-2 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors" :class="darkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-50'">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 </button>
-                
-                <!-- Notification -->
-                <div class="relative">
-                    <button @click="showNotifications = !showNotifications" @click.away="showNotifications = false" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors duration-300 relative" :class="darkMode ? 'bg-[#1E293B] text-gray-300 hover:bg-gray-800' : 'bg-white text-gray-600 hover:bg-gray-50'">
-                        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 transition-colors duration-300" :class="darkMode ? 'border-[#1E293B]' : 'border-white'"></span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                    </button>
-                    <!-- Notification Dropdown -->
-                    <div x-cloak x-show="showNotifications" x-transition class="absolute right-0 mt-2 w-80 rounded-2xl shadow-lg border overflow-hidden z-50 transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
-                        <div class="px-4 py-3 border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
-                            <h3 class="font-bold text-sm" :class="darkMode ? 'text-white' : 'text-gray-900'">Notifikasi</h3>
-                        </div>
-                        <div class="max-h-64 overflow-y-auto">
-                            <div class="px-4 py-3 border-b last:border-0 hover:bg-gray-50 dark:hover:bg-[#0F172A] cursor-pointer transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
-                                <p class="text-xs font-semibold" :class="darkMode ? 'text-gray-200' : 'text-gray-800'">Pendaftaran PPDB Baru</p>
-                                <p class="text-[10px]" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Budi mendaftar di jurusan RPL</p>
-                                <span class="text-[9px] text-blue-500 mt-1 block">5 menit yang lalu</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="h-8 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
-                
-                <!-- Navbar Profile Link -->
-                <a href="/profil" class="flex items-center gap-3 group">
-                    <div class="text-right hidden sm:block">
-                        <p class="text-[13px] font-bold leading-none transition-colors duration-300 group-hover:text-blue-500" :class="darkMode ? 'text-white' : 'text-gray-900'">{{ auth()->user()->name ?? 'Admin Utama' }}</p>
-                        <p class="text-[10px] font-bold tracking-wider uppercase transition-colors duration-300 mt-1" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">SUPER ADMIN</p>
-                    </div>
-                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold overflow-hidden border-2 border-transparent group-hover:border-blue-500 transition-all">
-                        <img src="{{ asset('images/guru-1.jpg') }}" alt="Avatar" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Admin&background=bfdbfe&color=1e3a8a'">
-                    </div>
-                </a>
-            </div>
-        </header>
-
-        <!-- Page Content -->
-        <div class="px-8 pb-8 flex-1 w-full max-w-[1400px]">
-            
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
-                <div>
-                    <h2 class="text-[32px] font-extrabold tracking-tight leading-none mb-2 transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">Manajemen Pengguna</h2>
-                    <p class="text-sm font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Kelola akses dan hak akses untuk staf sekolah.</p>
-                </div>
-                
                 <div class="flex items-center gap-3">
-                    <button @click="isAddUserModalOpen = true" class="px-5 py-2.5 bg-blue-600 text-white text-sm font-bold rounded-xl hover:bg-blue-700 transition-colors duration-300 shadow-md shadow-blue-600/20 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        Tambah Pengguna
-                    </button>
+                    <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center" :class="darkMode ? 'bg-red-500/10' : 'bg-red-50'">
+                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold" :class="darkMode ? 'text-white' : 'text-gray-900'">Tempat Sampah</h3>
                 </div>
             </div>
-
-            <!-- Stats Row -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <!-- Stat 1 -->
-                <div class="rounded-3xl p-6 shadow-sm border transition-colors duration-300 flex items-center gap-5" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
-                    <div class="w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-blue-500/10' : 'bg-blue-50'">
-                        <svg class="w-7 h-7 transition-colors duration-300" :class="darkMode ? 'text-blue-400' : 'text-blue-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Pengguna</p>
-                        <h3 class="text-3xl font-extrabold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">128</h3>
-                    </div>
-                </div>
-
-                <!-- Stat 2 -->
-                <div class="rounded-3xl p-6 shadow-sm border transition-colors duration-300 flex items-center gap-5" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
-                    <div class="w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-emerald-500/10' : 'bg-emerald-50'">
-                        <svg class="w-7 h-7 transition-colors duration-300" :class="darkMode ? 'text-emerald-400' : 'text-emerald-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Admin</p>
-                        <h3 class="text-3xl font-extrabold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">5</h3>
-                    </div>
-                </div>
-
-                <!-- Stat 3 -->
-                <div class="rounded-3xl p-6 shadow-sm border transition-colors duration-300 flex items-center gap-5" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
-                    <div class="w-14 h-14 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-amber-500/10' : 'bg-amber-50'">
-                        <svg class="w-7 h-7 transition-colors duration-300" :class="darkMode ? 'text-amber-400' : 'text-amber-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <div>
-                        <p class="text-[11px] font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Guru</p>
-                        <h3 class="text-3xl font-extrabold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">123</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Table Container -->
-            <div class="rounded-[2.5rem] p-8 shadow-sm border mb-4 transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
-                <!-- Tabs and Filters -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-4 border-b gap-4 transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
-                    <div class="flex items-center gap-8 px-2 overflow-x-auto">
-                        <button class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-colors duration-300" :class="darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900'">Semua Pengguna</button>
-                        <button class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 border-transparent -mb-4.5 transition-colors duration-300" :class="darkMode ? 'text-gray-500 hover:text-gray-300' : 'text-gray-500 hover:text-gray-800'">Admin</button>
-                        <button class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 border-transparent -mb-4.5 transition-colors duration-300" :class="darkMode ? 'text-gray-500 hover:text-gray-300' : 'text-gray-500 hover:text-gray-800'">Guru</button>
-                    </div>
-                    <button class="px-4 py-2 border rounded-full text-[13px] font-bold transition-colors duration-300 flex items-center gap-2 w-fit" :class="darkMode ? 'border-gray-700 text-gray-300 hover:bg-gray-800' : 'border-gray-200 text-gray-700 hover:bg-gray-50'">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
-                        Filter Peran
-                    </button>
-                </div>
-
-                <!-- Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse min-w-[800px]">
-                        <thead>
-                            <tr class="border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
-                                <th class="pb-4 text-[11px] font-bold uppercase tracking-wider pl-2 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Pengguna</th>
-                                <th class="pb-4 text-[11px] font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Email</th>
-                                <th class="pb-4 text-[11px] font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Peran</th>
-                                <th class="pb-4 text-[11px] font-bold uppercase tracking-wider text-right pr-2 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-[13px]">
-                            <!-- Row 1 -->
-                            <tr class="border-b last:border-0 transition-colors group" :class="darkMode ? 'border-gray-800 hover:bg-[#0F172A]/50' : 'border-gray-50 hover:bg-gray-50/50'">
-                                <td class="py-5 font-bold transition-colors duration-300 pl-2" :class="darkMode ? 'text-white' : 'text-gray-900'">
-                                    <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded-full overflow-hidden shrink-0 border transition-colors duration-300" :class="darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-100 border-gray-200'">
-                                            <img src="{{ asset('images/guru-1.jpg') }}" alt="Avatar" class="w-full h-full object-cover">
-                                        </div>
-                                        Johnathan Doe
-                                    </div>
-                                </td>
-                                <td class="py-5 font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">john.doe@eduadmin.com</td>
-                                <td class="py-5">
-                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A] text-white border border-gray-700' : 'bg-[#111827] text-white'">Admin</span>
-                                </td>
-                                <td class="py-5 text-right pr-2">
-                                    <div class="flex items-center justify-end gap-1 outline-none">
-                                        <a href="/superadmin/users/edit/1" class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:bg-gray-800 hover:text-white' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                                        </a>
-                                        <button @click="isDeleteModalOpen = true" class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:bg-red-500/10 hover:text-red-400' : 'text-gray-400 hover:bg-red-50 hover:text-red-500'">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- Row 2 -->
-                            <tr class="border-b last:border-0 transition-colors group" :class="darkMode ? 'border-gray-800 hover:bg-[#0F172A]/50' : 'border-gray-50 hover:bg-gray-50/50'">
-                                <td class="py-5 font-bold transition-colors duration-300 pl-2" :class="darkMode ? 'text-white' : 'text-gray-900'">
-                                    <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded-full overflow-hidden shrink-0 border transition-colors duration-300" :class="darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-100 border-gray-200'">
-                                            <img src="{{ asset('images/guru-2.jpg') }}" alt="Avatar" class="w-full h-full object-cover">
-                                        </div>
-                                        Jane Smith
-                                    </div>
-                                </td>
-                                <td class="py-5 font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">jane.smith@eduadmin.com</td>
-                                <td class="py-5">
-                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-gray-100 text-gray-600'">Guru</span>
-                                </td>
-                                <td class="py-5 text-right pr-2">
-                                    <div class="flex items-center justify-end gap-1 outline-none">
-                                        <a href="/superadmin/users/edit/2" class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:bg-gray-800 hover:text-white' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                                        </a>
-                                        <button @click="isDeleteModalOpen = true" class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:bg-red-500/10 hover:text-red-400' : 'text-gray-400 hover:bg-red-50 hover:text-red-500'">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination Footer -->
-                <div class="mt-4 pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <p class="text-xs font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Menampilkan 2 dari 128 hasil</p>
-                    <div class="flex items-center gap-1.5">
-                        <button class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'text-gray-500 hover:bg-gray-800' : 'text-gray-400 hover:bg-gray-50'">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                        </button>
-                        <button class="w-8 h-8 rounded-lg flex items-center justify-center text-[13px] font-bold transition-colors duration-300 bg-blue-600 text-white shadow-sm shadow-blue-600/20">1</button>
-                        <button class="w-8 h-8 rounded-lg flex items-center justify-center text-[13px] font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:bg-gray-800 hover:text-white' : 'text-gray-600 hover:bg-gray-100'">2</button>
-                        <button class="w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'text-gray-500 hover:bg-gray-800' : 'text-gray-400 hover:bg-gray-50'">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-center justify-between text-xs font-medium mt-10" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">
-                <p>© 2024 SMKS Mahaputra. Sistem Manajemen Sekolah.</p>
-                <div class="flex items-center gap-6 mt-4 sm:mt-0">
-                    <a href="#" class="hover:text-gray-600 transition-colors">Bantuan</a>
-                    <a href="#" class="hover:text-gray-600 transition-colors">Privasi</a>
-                </div>
-            </div>
+            <button @click="showTrash = false" class="text-sm font-bold text-blue-600">Kembali ke List</button>
         </div>
-    </main>
 
-    <!-- Add New User Modal -->
-    <div x-show="isAddUserModalOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/60 backdrop-blur-sm p-4 md:p-0" x-transition.opacity>
-        <div class="relative w-full max-w-[500px] p-8 mx-auto rounded-[2rem] shadow-2xl transition-all duration-300 transform scale-100" @click.away="isAddUserModalOpen = false" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
-            
-            <div class="flex items-start justify-between mb-8">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left min-w-[800px]">
+                <thead>
+                    <tr class="text-[11px] font-bold uppercase tracking-wider" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">
+                        <th class="pb-4 pl-2">Pengguna</th>
+                        <th class="pb-4">Dihapus Pada</th>
+                        <th class="pb-4">Otomatis Dihapus Dalam</th>
+                        <th class="pb-4 text-right pr-2">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="text-[13px]">
+                    <template x-for="item in trash" :key="item.id">
+                        <tr class="border-b last:border-0" :class="darkMode ? 'border-gray-800' : 'border-gray-50'">
+                            <td class="py-5 font-bold pl-2" :class="darkMode ? 'text-white' : 'text-gray-900'">
+                                <div class="flex items-center gap-4">
+                                    <img :src="item.image" class="w-10 h-10 rounded-full opacity-60">
+                                    <span x-text="item.name"></span>
+                                </div>
+                            </td>
+                            <td class="py-5 font-medium" :class="darkMode ? 'text-gray-400' : 'text-gray-500'" x-text="item.deleted_at"></td>
+                            <td class="py-5">
+                                <span class="px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-bold" x-text="getRemainingTime(item.expires_at)"></span>
+                            </td>
+                            <td class="py-5 text-right pr-2">
+                                <div class="flex justify-end gap-2">
+                                    <button @click="itemToRestore = item; isRestoreConfirmOpen = true" class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-xs font-bold hover:bg-emerald-600 transition-all">Pulihkan</button>
+                                    <button @click="itemToPermanentDelete = item; isPermanentDeleteConfirmOpen = true" class="px-4 py-2 bg-red-500 text-white rounded-lg text-xs font-bold hover:bg-red-600 transition-all">Hapus Permanen</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                    <template x-if="trash.length === 0">
+                        <tr>
+                            <td colspan="4" class="py-20 text-center font-medium text-gray-400">Tidak ada data di tempat sampah.</td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div x-show="isAddUserModalOpen" x-cloak x-transition class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-[700px] p-8 bg-white rounded-[2rem] shadow-2xl max-h-[90vh] overflow-y-auto" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
+             <div class="flex items-start justify-between mb-8">
                 <div>
-                    <h3 class="text-xl font-extrabold mb-1 tracking-tight transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">Tambah Pengguna Baru</h3>
-                    <p class="text-[13px] font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Daftarkan staf atau guru baru.</p>
+                    <h3 class="text-xl font-extrabold mb-1" :class="darkMode ? 'text-white' : 'text-gray-900'">Tambah Pengguna Baru</h3>
+                    <p class="text-[13px] font-medium" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Daftarkan staf atau guru baru.</p>
                 </div>
-                <button @click="isAddUserModalOpen = false" class="p-2 -mr-2 -mt-2 rounded-full transition-colors duration-300" :class="darkMode ? 'text-gray-500 hover:bg-gray-800 hover:text-white' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
             </div>
+            <form @submit.prevent="addUser" class="space-y-4">
 
-            <form class="space-y-6">
-                <div>
-                    <label class="block text-xs font-extrabold mb-2 transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Nama Lengkap</label>
-                    <input type="text" placeholder="Contoh: Alexander Hamilton" class="w-full px-5 py-3.5 rounded-2xl border text-sm focus:ring-2 focus:ring-blue-500/20 transition-all outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-600 focus:border-blue-500/50' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:border-blue-500'">
-                </div>
-                
-                <div>
-                    <label class="block text-xs font-extrabold mb-2 transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Alamat Email</label>
-                    <input type="email" placeholder="alexander@sekolah.edu" class="w-full px-5 py-3.5 rounded-2xl border text-sm focus:ring-2 focus:ring-blue-500/20 transition-all outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-600 focus:border-blue-500/50' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:border-blue-500'">
-                </div>
-
-                <div class="grid grid-cols-1 gap-5">
+                {{-- Row 1: Nama & Email sejajar --}}
+                <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-extrabold mb-2 transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Peran</label>
+                        <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Nama Lengkap</label>
+                        <input type="text" x-model="newUser.name" required class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Email</label>
+                        <input type="email" x-model="newUser.email" required class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
+                    </div>
+                </div>
+
+                {{-- Row 2: Password & Konfirmasi Password sejajar --}}
+                <div class="grid grid-cols-2 gap-4 items-start">
+                    <div>
+                        <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Password</label>
                         <div class="relative">
-                            <select class="w-full px-5 py-3.5 rounded-2xl border text-sm focus:ring-2 focus:ring-blue-500/20 transition-all outline-none appearance-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white focus:border-blue-500/50' : 'bg-white border-gray-200 text-gray-900 focus:border-blue-500'">
-                                <option>Admin</option>
-                                <option>Guru</option>
-                            </select>
-                            <svg class="w-4 h-4 absolute right-5 top-[18px] pointer-events-none" :class="darkMode ? 'text-gray-500' : 'text-gray-400'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <input :type="showPw ? 'text' : 'password'" x-model="newUser.password" required class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
+                            <button type="button" @click="showPw = !showPw" class="absolute right-4 top-3 text-gray-400 hover:text-blue-500">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!showPw"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="showPw"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.912-3.376M9.172 9.172a3 3 0 014.242 4.242M12 5c4.478 0 8.268 2.943 9.542 7a10.05 10.05 0 01-1.012 2M3 3l18 18"/></svg>
+                            </button>
+                        </div>
+                        <div class="mt-3 grid grid-cols-2 gap-1.5">
+                            <template x-for="(valid, key) in passwordValidations(newUser.password)">
+                                <div class="flex items-center gap-1.5 text-[10px] font-bold transition-all duration-300" 
+                                     :class="valid ? 'text-emerald-500' : 'text-gray-400 opacity-60'"
+                                     x-show="newUser.password.length > 0" x-transition:enter="scale-95 opacity-0">
+                                    <div class="w-3 h-3 rounded-full flex items-center justify-center border flex-shrink-0" :class="valid ? 'bg-emerald-500 border-emerald-500' : 'border-gray-300'">
+                                        <svg x-show="valid" class="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </div>
+                                    <span x-text="key === 'length' ? '8+ Karakter' : key === 'upper' ? 'Huruf Besar' : key === 'lower' ? 'Huruf Kecil' : key === 'number' ? 'Angka' : 'Simbol'"></span>
+                                </div>
+                            </template>
                         </div>
                     </div>
+                    <div>
+                        <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Konfirmasi Password</label>
+                        <input type="password" x-model="newUser.confirm_password" required 
+                               class="w-full px-5 py-3 rounded-2xl border text-sm outline-none transition-colors duration-300" 
+                               :class="newUser.confirm_password.length > 0 ? (newUser.password === newUser.confirm_password ? 'border-emerald-500 bg-emerald-50/10' : 'border-red-500 bg-red-50/10') : (darkMode ? 'border-gray-700 bg-[#0F172A] text-white' : 'border-gray-200')">
+                        <p x-show="newUser.confirm_password.length > 0" class="text-[10px] mt-1 font-bold" :class="newUser.password === newUser.confirm_password ? 'text-emerald-500' : 'text-red-500'">
+                            <span x-text="newUser.password === newUser.confirm_password ? 'Password Cocok' : 'Password Tidak Cocok'"></span>
+                        </p>
+                    </div>
                 </div>
 
-                <div class="p-4 rounded-2xl flex items-start gap-4 text-[13px] transition-colors duration-300 leading-relaxed border" :class="darkMode ? 'bg-amber-500/5 border-amber-500/10 text-gray-300' : 'bg-gray-50 border-gray-100 text-gray-600'">
-                    <svg class="w-5 h-5 shrink-0 mt-0.5" :class="darkMode ? 'text-amber-500/70' : 'text-gray-400'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <p>Sistem akan mengirimkan email undangan untuk aktivasi akun. Kata sandi dapat diatur oleh pengguna nantinya.</p>
+                {{-- Row 3: Peran full width --}}
+                <div>
+                    <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Peran</label>
+                    <select x-model="newUser.role" class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
+                        <option value="Admin">Admin</option>
+                        <option value="Guru">Guru</option>
+                    </select>
                 </div>
 
                 <div class="flex items-center justify-end gap-4 mt-8 pt-4">
-                    <button type="button" @click="isAddUserModalOpen = false" class="px-6 py-3 rounded-full text-[13px] font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:text-white hover:bg-gray-800' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'">Batal</button>
-                    <button type="button" class="px-8 py-3 rounded-full text-white text-[13px] font-bold shadow-lg transition-transform duration-300 hover:scale-[1.02]" :class="darkMode ? 'bg-[#0F172A] hover:bg-[#111827] shadow-gray-900/50 border border-gray-700' : 'bg-[#0F172A] hover:bg-gray-800 shadow-gray-900/20'">Buat Akun</button>
+                    <button type="button" @click="isAddUserModalOpen = false" class="px-6 py-3 text-[13px] font-bold" :class="darkMode ? 'text-gray-400' : 'text-gray-600'">Batal</button>
+                    <button type="submit" :disabled="!isPasswordStrong(newUser.password) || newUser.password !== newUser.confirm_password" 
+                            class="px-8 py-3 rounded-full text-white text-[13px] font-bold bg-[#0F172A] shadow-lg disabled:opacity-30 disabled:cursor-not-allowed">Buat Akun</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div x-show="isDeleteModalOpen" x-cloak class="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/60 backdrop-blur-sm p-4 md:p-0" x-transition.opacity>
-        <div class="relative w-full max-w-md p-8 mx-auto rounded-[2rem] shadow-2xl transition-all duration-300 transform scale-100 text-center" @click.away="isDeleteModalOpen = false" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
-            
-            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300" :class="darkMode ? 'bg-red-500/10' : 'bg-red-50'">
-                <svg class="w-10 h-10 transition-colors duration-300" :class="darkMode ? 'text-red-400' : 'text-red-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+    <div x-show="isEditUserModalOpen" x-cloak x-transition class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-[700px] p-8 bg-white rounded-[2rem] shadow-2xl max-h-[90vh] overflow-y-auto" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
+            <div class="flex items-start justify-between mb-8">
+                <div>
+                    <h3 class="text-xl font-extrabold mb-1" :class="darkMode ? 'text-white' : 'text-gray-900'">Edit Pengguna</h3>
+                    <p class="text-[13px] font-medium" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Perbarui data atau ubah password staf.</p>
+                </div>
             </div>
+            <form @submit.prevent="updateUser" class="space-y-4">
 
-            <h3 class="text-2xl font-extrabold mb-2 tracking-tight transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">Hapus User?</h3>
-            <p class="text-[15px] font-medium mb-8 leading-relaxed transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Data user yang dihapus tidak dapat dipulihkan. Apakah kamu yakin ingin melanjutkan?</p>
+                {{-- Row 1: Nama & Email sejajar --}}
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Nama Lengkap</label>
+                        <input type="text" x-model="editingUser.name" required class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Email</label>
+                        <input type="email" x-model="editingUser.email" required class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
+                    </div>
+                </div>
 
-            <div class="flex items-center justify-center gap-4">
-                <button @click="isDeleteModalOpen = false" class="px-8 py-3.5 rounded-full text-[14px] font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-400 hover:text-white hover:bg-gray-800' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'">Batal</button>
-                <button @click="isDeleteModalOpen = false; setTimeout(() => isSuccessModalOpen = true, 300)" class="px-8 py-3.5 rounded-full text-white text-[14px] font-bold shadow-lg transition-transform duration-300 hover:scale-[1.02] bg-red-500 hover:bg-red-600 shadow-red-500/30">Ya, Hapus!</button>
+                {{-- Row 2: Password & Peran sejajar --}}
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-extrabold mb-2 text-blue-500">Ubah Password <span class="text-[10px] font-medium">(Kosongkan jika tidak diubah)</span></label>
+                        <input type="password" x-model="editingUser.password" class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Peran</label>
+                        <select x-model="editingUser.role" class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
+                            <option value="Admin">Admin</option>
+                            <option value="Guru">Guru</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-4 mt-8 pt-4">
+                    <button type="button" @click="isEditUserModalOpen = false" class="px-6 py-3 text-[13px] font-bold" :class="darkMode ? 'text-gray-400' : 'text-gray-600'">Batal</button>
+                    <button type="submit" class="px-8 py-3 rounded-full text-white text-[13px] font-bold bg-[#0F172A] shadow-lg">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div x-show="isDeleteModalOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
+            <div class="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6" :class="darkMode ? 'bg-red-500/10' : 'bg-red-50'"><svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 class="text-2xl font-extrabold mb-2" :class="darkMode ? 'text-white' : 'text-gray-900'">Pindahkan ke Trash?</h3>
+            <p class="text-[15px] mb-8 text-gray-500">Data dapat dipulihkan kembali dari tempat sampah.</p>
+            <div class="flex gap-4">
+                <button @click="isDeleteModalOpen = false" class="flex-1 font-bold text-gray-600">Batal</button>
+                <button @click="softDelete()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-red-500 hover:bg-red-600 transition-colors">Ya, Pindahkan</button>
             </div>
         </div>
     </div>
 
-    <!-- Success Modal -->
-    <div x-show="isSuccessModalOpen" x-cloak class="fixed inset-0 z-[70] flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/60 backdrop-blur-sm p-4 md:p-0" x-transition.opacity>
-        <div class="relative w-full max-w-sm p-8 mx-auto rounded-[2rem] shadow-2xl transition-all duration-300 transform scale-100 text-center" @click.away="isSuccessModalOpen = false" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
-            
-            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300" :class="darkMode ? 'bg-emerald-500/10' : 'bg-emerald-50'">
-                <svg class="w-10 h-10 transition-colors duration-300" :class="darkMode ? 'text-emerald-400' : 'text-emerald-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <div x-show="isRestoreConfirmOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
+            <div class="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 class="text-2xl font-extrabold mb-2" :class="darkMode ? 'text-white' : 'text-gray-900'">Pulihkan Data?</h3>
+            <p class="text-[15px] mb-8 text-gray-500">Pengguna akan kembali aktif di daftar manajemen.</p>
+            <div class="flex gap-4">
+                <button @click="isRestoreConfirmOpen = false" class="flex-1 font-bold text-gray-600">Batal</button>
+                <button @click="restoreUser()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-emerald-500 hover:bg-emerald-600">Ya, Pulihkan!</button>
             </div>
-
-            <h3 class="text-2xl font-extrabold mb-2 tracking-tight transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">Berhasil!</h3>
-            <p class="text-[15px] font-medium mb-8 leading-relaxed transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Data user telah berhasil dihapus dari sistem.</p>
-
-            <button @click="isSuccessModalOpen = false" class="w-full px-8 py-3.5 rounded-full text-white text-[14px] font-bold shadow-lg transition-transform duration-300 hover:scale-[1.02]" :class="darkMode ? 'bg-[#0F172A] hover:bg-[#111827] shadow-gray-900/50 border border-gray-700' : 'bg-[#0F172A] hover:bg-gray-800 shadow-gray-900/20'">Tutup</button>
         </div>
     </div>
 
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</body>
-</html>
+    <div x-show="isPermanentDeleteConfirmOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
+            <div class="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 class="text-2xl font-extrabold mb-2 text-red-600">Hapus Permanen?</h3>
+            <p class="text-[15px] mb-8 text-gray-500">Tindakan ini tidak dapat dibatalkan. Data akan hilang selamanya.</p>
+            <div class="flex gap-4">
+                <button @click="isPermanentDeleteConfirmOpen = false" class="flex-1 font-bold text-gray-600">Batal</button>
+                <button @click="destroyPermanently()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-gray-900 hover:bg-black">Hapus Selamanya</button>
+            </div>
+        </div>
+    </div>
+
+    <div x-show="isCreatedSuccessModalOpen" x-cloak x-transition class="fixed inset-0 z-[200] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
+            <div class="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 class="text-2xl font-extrabold mb-2" :class="darkMode ? 'text-white' : 'text-gray-900'">Berhasil!</h3>
+            <p class="text-[15px] mb-8 text-gray-500">Data baru berhasil ditambahkan.</p>
+            <button @click="isCreatedSuccessModalOpen = false" class="w-full px-8 py-3.5 rounded-full text-white font-bold bg-[#0F172A]">Mantap!</button>
+        </div>
+    </div>
+
+    <div x-show="isSuccessModalOpen" x-cloak x-transition class="fixed inset-0 z-[200] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white'">
+            <div class="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 class="text-2xl font-extrabold mb-2" :class="darkMode ? 'text-white' : 'text-gray-900'">Terhapus!</h3>
+            <p class="text-[15px] mb-8 text-gray-500">User telah dipindahkan ke folder Trash.</p>
+            <button @click="isSuccessModalOpen = false" class="w-full px-8 py-3.5 rounded-full text-white font-bold bg-[#0F172A]">Oke</button>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+@endpush

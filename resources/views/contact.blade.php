@@ -24,7 +24,22 @@
         <div class="grid lg:grid-cols-2 gap-24 items-start">
             <!-- Contact Form -->
             <div class="bg-white rounded-[3.5rem] p-8 lg:p-12 shadow-2xl shadow-blue-900/5 border border-gray-50">
-                <form action="#" method="POST" class="space-y-8">
+                @if (session('success'))
+                    <div class="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-2xl">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-2xl">
+                        <ul class="list-disc pl-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form action="{{ route('contact.store') }}" method="POST" class="space-y-8">
+                    @csrf
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="space-y-3">
                             <label class="text-sm font-bold text-gray-700">Full Name</label>
@@ -32,7 +47,7 @@
                                 <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                 </span>
-                                <input type="text" placeholder="John Doe" class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
+                                <input type="text" name="name" placeholder="John Doe" class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm" value="{{ old('name') }}">
                             </div>
                         </div>
                         <div class="space-y-3">
@@ -41,7 +56,7 @@
                                 <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"></path></svg>
                                 </span>
-                                <input type="email" placeholder="john@example.com" class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
+                                <input type="email" name="email" placeholder="john@example.com" class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm" value="{{ old('email') }}">
                             </div>
                         </div>
                     </div>
@@ -51,7 +66,7 @@
                             <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
                             </span>
-                            <input type="text" placeholder="Admissions inquiry" class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
+                            <input type="text" name="subject" placeholder="Admissions inquiry" class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm" value="{{ old('subject') }}">
                         </div>
                     </div>
                     <div class="space-y-3">
@@ -60,7 +75,7 @@
                             <span class="absolute left-6 top-8 text-gray-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                             </span>
-                            <textarea placeholder="Tell us how we can help..." class="w-full pl-14 pr-8 py-6 h-48 bg-gray-50 rounded-3xl border-none focus:ring-2 focus:ring-blue-100 text-sm"></textarea>
+                            <textarea name="message" placeholder="Tell us how we can help..." class="w-full pl-14 pr-8 py-6 h-48 bg-gray-50 rounded-3xl border-none focus:ring-2 focus:ring-blue-100 text-sm">{{ old('message') }}</textarea>
                         </div>
                     </div>
                     <button type="submit" class="w-full py-5 bg-blue-600 text-white rounded-[2rem] font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-3">

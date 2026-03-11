@@ -188,40 +188,36 @@
         
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000" alt="Karya 1" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="images/dkv/card 1.png" alt="card 1" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Digital Illustration</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="https://images.unsplash.com/photo-1541462608141-ad4d156fe56d?q=80&w=1000" alt="Karya 2" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="images/dkv/card 2.png" alt="card 2" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Brand Identity Design</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="https://images.unsplash.com/photo-1551043047-1d2adf00f3fd?q=80&w=1000" alt="Karya 3" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="images/dkv/card 3.png" alt="card 3" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Cinematic Photography</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bde2?q=80&w=1000" alt="Karya 4" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="images/dkv/card 4.png" alt="card 4" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Minimalist Logo Pack</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1000" alt="Karya 5" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="images/dkv/card 5.png" alt="card 5" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">3D Character Model</span>
                 </div>
             </div>
-            <div class="group relative aspect-square rounded-[2rem] bg-blue-600 flex flex-col items-center justify-center text-white p-10 text-center hover:bg-blue-700 transition-all">
-                <svg class="w-12 h-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                <span class="text-xl font-bold">Lihat Semua Karya Siswa DKV</span>
-            </div>
-        </div>
+            
     </div>
 </section>
 
