@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ApplicantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::get('/seragam', [PageController::class, 'seragam'])->name('seragam');
 
 Route::get('/pendaftaran/panduan', [PageController::class, 'enrollmentGuide'])->name('enrollment.guide');
 Route::get('/pendaftaran/formulir', [PageController::class, 'registration'])->name('registration');
+Route::post('/pendaftaran/formulir', [ApplicantController::class, 'store'])->name('registration.store');
 Route::get('/pendaftaran/berhasil', [PageController::class, 'registrationSuccess'])->name('registration.success');
 
 Route::get('/kontak', [PageController::class, 'contact'])->name('contact');
@@ -98,6 +100,13 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
     Route::get('/messages', [ContactController::class, 'index'])->name('messages.index');
     Route::get('/messages/{message}', [ContactController::class, 'show'])->name('messages.show');
     Route::delete('/messages/{message}', [ContactController::class, 'destroy'])->name('messages.destroy');
+
+    // PPDB (Applicants)
+    Route::get('/ppdb/{id}/status', function ($id) {
+        return redirect()->route('superadmin.ppdb.show', $id);
+    });
+    Route::patch('/ppdb/{id}/status', [ApplicantController::class, 'updateStatus'])->name('ppdb.status');
+    Route::resource('ppdb', ApplicantController::class);
 
     // Profile
     Route::get('/profile', function () {

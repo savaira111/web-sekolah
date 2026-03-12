@@ -107,10 +107,11 @@
         </a>
 
         <!-- PPDB -->
-        <a href="#"
-        class="flex items-center gap-3 px-4 py-3 rounded-full sidebar-item font-medium text-sm transition-colors mt-2">
+        <a href="{{ route('superadmin.ppdb.index') }}"
+        class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors mt-2
+        {{ request()->routeIs('superadmin.ppdb.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
 
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 {{ request()->routeIs('superadmin.ppdb.*') ? 'text-white' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M18 9v3m0 0v3m0-3h3m-3 

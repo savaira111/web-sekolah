@@ -27,7 +27,7 @@
                         </div>
                         <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+2.4%</span>
                     </div>
-                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Guru</p>
+                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Editor</p>
                     <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">128</h3>
                 </a>
 

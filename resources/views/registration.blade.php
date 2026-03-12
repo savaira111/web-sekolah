@@ -6,9 +6,55 @@
 <div x-data="{ 
     step: 1, 
     maxStep: 3,
-    nextStep() { if(this.step < this.maxStep) this.step++ },
+    showToast: false,
+    toastMsg: '',
+    showSuccessModal: @if(session('success_registration')) true @else false @endif,
+    nextStep() { 
+        if(this.validateStep()) {
+            if(this.step < this.maxStep) this.step++ 
+        }
+    },
     prevStep() { if(this.step > 1) this.step-- },
-    submitForm() { window.location.href = '{{ route('registration.success') }}' }
+    submitForm() { 
+        if(this.validateStep()) {
+            this.$refs.regForm.submit() 
+        }
+    },
+    validateStep() {
+        let currentStepEl = document.querySelector('[x-show=\'step === ' + this.step + '\']');
+        let inputs = Array.from(currentStepEl.querySelectorAll('input[required], select[required], textarea[required]'));
+        let isValid = true;
+        
+        inputs.forEach(input => {
+            if (!this.validateInput(input)) {
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            this.triggerToast('Mohon lengkapi semua bidang yang wajib diisi');
+        }
+        return isValid;
+    },
+    validateInput(input) {
+        if (!input.value.trim()) {
+            input.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+            return false;
+        } else {
+            input.classList.remove('ring-2', 'ring-red-100', 'border-red-300');
+            return true;
+        }
+    },
+    triggerToast(msg) {
+        this.toastMsg = msg;
+        this.showToast = true;
+        setTimeout(() => { this.showToast = false }, 3000);
+    },
+    doc_kk: '',
+    doc_akta: '',
+    doc_ijazah: '',
+    doc_raport: '',
+    profile_image: ''
 }" class="bg-gray-50 min-h-screen">
 
     <!-- Page Header -->
@@ -108,7 +154,35 @@
                 </div>
 
                 <!-- Right Content: The Form Areas -->
-                <div class="lg:col-span-3 space-y-12">
+                <div class="lg:col-span-3">
+                    <!-- Validation Toast -->
+                    <div x-show="showToast" 
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                         x-transition:leave="transition ease-in duration-200"
+                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                         x-transition:leave-end="opacity-0 translate-y-2 scale-95"
+                         class="fixed bottom-10 right-10 z-[110] bg-red-600 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <span class="text-xs font-bold" x-text="toastMsg"></span>
+                    </div>
+
+                    <form action="{{ route('registration.store') }}" method="POST" enctype="multipart/form-data" x-ref="regForm" class="space-y-12">
+                    @if($errors->any())
+                        <div class="bg-red-50 border border-red-200 text-red-600 px-8 py-6 rounded-[2rem] mb-12 flex items-center gap-4">
+                            <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <div>
+                                <p class="font-bold text-sm">Ada kesalahan dalam pendaftaran:</p>
+                                <ul class="text-xs list-disc list-inside mt-1 opacity-80">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+                    @csrf
                     
                     <!-- Step 1: Data Diri -->
                     <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
@@ -121,25 +195,51 @@
                                 <p class="text-gray-400 text-sm mt-3">Lengkapi informasi biodata Anda sesuai dengan kartu identitas atau akta kelahiran.</p>
                             </div>
 
-                            <form class="space-y-10">
-                                <div class="grid md:grid-cols-2 gap-8">
-                                    <div class="space-y-3">
-                                        <label class="text-sm font-bold text-gray-700">Nama Lengkap (Sesuai Ijazah)</label>
-                                        <input type="text" placeholder="Contoh: Muhammad Arkan" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
-                                    </div>
-                                    <div class="space-y-3">
-                                        <label class="text-sm font-bold text-gray-700">NISN</label>
-                                        <input type="text" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
-                                    </div>
-                                    <div class="space-y-3">
-                                        <label class="text-sm font-bold text-gray-700">Tempat Lahir</label>
-                                        <input type="text" placeholder="Contoh: Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
-                                    </div>
-                                    <div class="space-y-3">
-                                        <label class="text-sm font-bold text-gray-700">Tanggal Lahir</label>
-                                        <input type="date" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-400">
-                                    </div>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Nama Lengkap (Sesuai Ijazah)</label>
+                                    <input type="text" name="full_name" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Muhammad Arkan" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">NISN</label>
+                                    <input type="text" name="nisn" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Tempat Lahir</label>
+                                    <input type="text" name="birth_place" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Tanggal Lahir</label>
+                                    <input type="date" name="birth_date" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-400 transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Asal Sekolah</label>
+                                    <input type="text" name="school_origin" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: SMPN 1 Jakarta" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Tahun Lulus</label>
+                                    <input type="number" name="graduation_year" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 2024" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Rata-rata Nilai Ijazah/Raport</label>
+                                    <input type="number" step="0.01" name="average_grade" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 85.50" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Jenis Kelamin</label>
+                                    <select name="gender" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-400 transition-all">
+                                        <option value="Male">Laki-laki</option>
+                                        <option value="Female">Perempuan</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Agama</label>
+                                    <input type="text" name="religion" placeholder="Contoh: Islam" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Kewarganegaraan</label>
+                                    <input type="text" name="citizenship" value="WNI" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                            </div>
 
                                 <div class="pt-12 border-t border-gray-50 flex justify-end">
                                     <button @click="nextStep()" type="button" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3">
@@ -147,9 +247,8 @@
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                     </button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
 
                     <!-- Step 2: Data Orang Tua -->
                     <div x-show="step === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
@@ -162,7 +261,7 @@
                                 <p class="text-gray-400 text-sm mt-3">Lengkapi informasi data orang tua atau wali murid sesuai dengan dokumen resmi.</p>
                             </div>
 
-                            <form class="space-y-10">
+                            <div class="space-y-10">
                                 <!-- Ayah Section -->
                                 <div class="space-y-6">
                                     <h3 class="font-bold flex items-center gap-3 text-gray-900 border-l-4 border-blue-600 pl-4">
@@ -172,20 +271,20 @@
                                     <div class="grid md:grid-cols-2 gap-8">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Nama Lengkap Ayah</label>
-                                            <input type="text" placeholder="Contoh: Ahmad Subarja" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm">
+                                            <input type="text" name="father_name" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Ahmad Subarja" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ayah</label>
-                                            <select class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-400">
-                                                <option>Pilih Pekerjaan</option>
-                                                <option>Wiraswasta</option>
-                                                <option>PNS</option>
-                                                <option>Karyawan Swasta</option>
+                                            <select name="father_job" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-400 transition-all focus:ring-2 focus:ring-blue-100">
+                                                <option value="">Pilih Pekerjaan</option>
+                                                <option value="Wiraswasta">Wiraswasta</option>
+                                                <option value="PNS">PNS</option>
+                                                <option value="Karyawan Swasta">Karyawan Swasta</option>
                                             </select>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ayah (WhatsApp)</label>
-                                            <input type="text" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm">
+                                            <input type="text" name="father_phone" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                     </div>
                                 </div>
@@ -199,20 +298,20 @@
                                     <div class="grid md:grid-cols-2 gap-8">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Nama Lengkap Ibu</label>
-                                            <input type="text" placeholder="Contoh: Siti Aminah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm">
+                                            <input type="text" name="mother_name" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Siti Aminah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ibu</label>
-                                            <select class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-400">
-                                                <option>Pilih Pekerjaan</option>
-                                                <option>Ibu Rumah Tangga</option>
-                                                <option>Wiraswasta</option>
-                                                <option>PNS</option>
+                                            <select name="mother_job" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-400 transition-all focus:ring-2 focus:ring-blue-100">
+                                                <option value="">Pilih Pekerjaan</option>
+                                                <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+                                                <option value="Wiraswasta">Wiraswasta</option>
+                                                <option value="PNS">PNS</option>
                                             </select>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ibu (WhatsApp)</label>
-                                            <input type="text" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm">
+                                            <input type="text" name="mother_phone" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                     </div>
                                 </div>
@@ -226,15 +325,15 @@
                                     <div class="space-y-6">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Alamat Lengkap Orang Tua</label>
-                                            <textarea placeholder="Jl. Raya No. 123, Kel. Merdeka, Kec. Maju Jaya, Kota Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm h-32"></textarea>
+                                            <textarea name="address" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Jl. Raya No. 123, Kel. Merdeka, Kec. Maju Jaya, Kota Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm h-32 transition-all focus:ring-2 focus:ring-blue-100"></textarea>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Penghasilan Gabungan Per Bulan</label>
-                                            <select class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-400">
-                                                <option>Pilih Rentang Penghasilan</option>
-                                                <option>< Rp 2.000.000</option>
-                                                <option>Rp 2.000.000 - Rp 5.000.000</option>
-                                                <option>> Rp 5.000.000</option>
+                                            <select name="parent_income" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-400 transition-all focus:ring-2 focus:ring-blue-100">
+                                                <option value="">Pilih Rentang Penghasilan</option>
+                                                <option value="< 2.000.000">< Rp 2.000.000</option>
+                                                <option value="2.000.000 - 5.000.000">Rp 2.000.000 - Rp 5.000.000</option>
+                                                <option value="> 5.000.000">> Rp 5.000.000</option>
                                             </select>
                                         </div>
                                     </div>
@@ -250,9 +349,9 @@
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                     </button>
                                 </div>
-                            </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
                     <!-- Step 3: Unggah Dokumen -->
                     <div x-show="step === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
@@ -269,47 +368,52 @@
                                 <!-- KK -->
                                 <div class="space-y-4">
                                     <label class="text-sm font-bold text-gray-700">Kartu Keluarga (KK)</label>
-                                    <div class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors cursor-pointer group">
+                                    <input type="file" name="doc_kk" x-ref="kkInput" class="hidden" @change="doc_kk = $event.target.files[0].name" accept=".jpg,.jpeg,.png,.pdf">
+                                    <div @click="$refs.kkInput.click()" class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors cursor-pointer group">
                                         <svg class="w-8 h-8 mx-auto text-gray-300 group-hover:text-blue-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                         <p class="text-[10px] font-bold text-gray-400">Klik untuk unggah atau seret file <br><span class="text-[8px] font-normal">PNG, JPG atau PDF (MAKS. 2MB)</span></p>
                                     </div>
-                                    <p class="text-[8px] text-gray-300">File belum dipilih</p>
+                                    <p class="text-[8px] text-gray-300" x-text="doc_kk ? doc_kk : 'File belum dipilih'"></p>
                                 </div>
                                 <!-- Akta -->
                                 <div class="space-y-4">
                                     <label class="text-sm font-bold text-gray-700">Akta Kelahiran</label>
-                                    <div class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors cursor-pointer group">
+                                    <input type="file" name="doc_akta" x-ref="aktaInput" class="hidden" @change="doc_akta = $event.target.files[0].name" accept=".jpg,.jpeg,.png,.pdf">
+                                    <div @click="$refs.aktaInput.click()" class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors cursor-pointer group">
                                         <svg class="w-8 h-8 mx-auto text-gray-300 group-hover:text-blue-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                         <p class="text-[10px] font-bold text-gray-400">Klik untuk unggah atau seret file <br><span class="text-[8px] font-normal">PNG, JPG atau PDF (MAKS. 2MB)</span></p>
                                     </div>
-                                    <p class="text-[8px] text-gray-300">File belum dipilih</p>
+                                    <p class="text-[8px] text-gray-300" x-text="doc_akta ? doc_akta : 'File belum dipilih'"></p>
                                 </div>
                                 <!-- Ijazah -->
                                 <div class="space-y-4">
                                     <label class="text-sm font-bold text-gray-700">Ijazah / SKL</label>
-                                    <div class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors cursor-pointer group">
+                                    <input type="file" name="doc_ijazah" x-ref="ijazahInput" class="hidden" @change="doc_ijazah = $event.target.files[0].name" accept=".jpg,.jpeg,.png,.pdf">
+                                    <div @click="$refs.ijazahInput.click()" class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors cursor-pointer group">
                                         <svg class="w-8 h-8 mx-auto text-gray-300 group-hover:text-blue-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                         <p class="text-[10px] font-bold text-gray-400">Klik untuk unggah atau seret file <br><span class="text-[8px] font-normal">PNG, JPG atau PDF (MAKS. 2MB)</span></p>
                                     </div>
-                                    <p class="text-[8px] text-gray-300">File belum dipilih</p>
+                                    <p class="text-[8px] text-gray-300" x-text="doc_ijazah ? doc_ijazah : 'File belum dipilih'"></p>
                                 </div>
                                 <!-- Raport -->
                                 <div class="space-y-4">
                                     <label class="text-sm font-bold text-gray-700">Raport Semester 1-5</label>
-                                    <div class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors cursor-pointer group">
+                                    <input type="file" name="doc_raport" x-ref="raportInput" class="hidden" @change="doc_raport = $event.target.files[0].name" accept=".pdf">
+                                    <div @click="$refs.raportInput.click()" class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition-colors cursor-pointer group">
                                         <svg class="w-8 h-8 mx-auto text-gray-300 group-hover:text-blue-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                         <p class="text-[10px] font-bold text-gray-400">Klik untuk unggah atau seret file <br><span class="text-[8px] font-normal">GABUNGKAN PDF (MAKS. 2MB)</span></p>
                                     </div>
-                                    <p class="text-[8px] text-gray-300">File belum dipilih</p>
+                                    <p class="text-[8px] text-gray-300" x-text="doc_raport ? doc_raport : 'File belum dipilih'"></p>
                                 </div>
                             </div>
 
                             <!-- Pas Foto Full Width -->
                             <div class="space-y-4 mb-12">
                                 <label class="text-sm font-bold text-gray-700">Pas Foto (3x4)</label>
-                                <div class="border-2 border-dashed border-gray-200 rounded-[2rem] p-16 text-center hover:border-blue-400 transition-colors cursor-pointer group">
+                                <input type="file" name="profile_image" x-ref="photoInput" class="hidden" @change="profile_image = $event.target.files[0].name" accept=".jpg,.jpeg,.png">
+                                <div @click="$refs.photoInput.click()" class="border-2 border-dashed border-gray-200 rounded-[2rem] p-16 text-center hover:border-blue-400 transition-colors cursor-pointer group">
                                     <svg class="w-12 h-12 mx-auto text-blue-400 transition-transform mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                    <p class="font-bold text-gray-900">Klik untuk unggah atau seret file pas foto</p>
+                                    <p class="font-bold text-gray-900" x-text="profile_image ? profile_image : 'Klik untuk unggah atau seret file pas foto'"></p>
                                     <p class="text-xs text-gray-400 mt-2">HANYA PNG, JPG ATAU JPEG (MAKS. 2MB)</p>
                                 </div>
                             </div>
@@ -326,78 +430,110 @@
                             </div>
                         </div>
                     </div>
+                </form>
+                </div> <!-- closing lg:col-span-3 (line 157) -->
+            </div> <!-- closing grid-cols-4 (line 88) -->
 
-                    <!-- Bottom Document Checklist -->
-                    <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100 space-y-10">
-                        <h3 class="text-xl font-bold text-[#0F172A] flex items-center gap-4">
-                           <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                           Persyaratan Dokumen (Siapkan Dokumen Ini)
-                       </h3>
-                       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                           <div class="flex items-center gap-3">
-                               <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
-                                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <div>
-                                   <p class="text-xs font-bold text-gray-700">Kartu Keluarga</p>
-                                   <p class="text-[8px] text-gray-400">Fotokopi/Scan Asli</p>
-                               </div>
-                           </div>
-                           <div class="flex items-center gap-3">
-                               <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
-                                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <div>
-                                   <p class="text-xs font-bold text-gray-700">Akta Kelahiran</p>
-                                   <p class="text-[8px] text-gray-400">Fotokopi/Scan Asli</p>
-                               </div>
-                           </div>
-                           <div class="flex items-center gap-3">
-                               <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
-                                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <div>
-                                   <p class="text-xs font-bold text-gray-700">Ijazah/SKL</p>
-                                   <p class="text-[8px] text-gray-400">Surat Keterangan Lulus</p>
-                               </div>
-                           </div>
-                           <div class="flex items-center gap-3">
-                               <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
-                                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <div>
-                                   <p class="text-xs font-bold text-gray-700">Raport Semester 1-5</p>
-                                   <p class="text-[8px] text-gray-400">Nilai rata-rata Min. 75</p>
-                               </div>
-                           </div>
-                           <div class="flex items-center gap-3">
-                               <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
-                                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <div>
-                                   <p class="text-xs font-bold text-gray-700">Piagam Prestasi</p>
-                                   <p class="text-[8px] text-gray-400">Opsional (Jika ada)</p>
-                               </div>
-                           </div>
-                           <div class="flex items-center gap-3">
-                               <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
-                                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                               </div>
-                               <div>
-                                   <p class="text-xs font-bold text-gray-700">KIP / PKH</p>
-                                   <p class="text-[8px] text-gray-400">Untuk Jalur Afirmasi</p>
-                               </div>
-                           </div>
-                       </div>
+            <!-- Bottom Document Checklist -->
+            <div class="mt-12 bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100 space-y-10">
+                <h3 class="text-xl font-bold text-[#0F172A] flex items-center gap-4">
+                    <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Persyaratan Dokumen (Siapkan Dokumen Ini)
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-700">Kartu Keluarga</p>
+                            <p class="text-[8px] text-gray-400">Fotokopi/Scan Asli</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-700">Akta Kelahiran</p>
+                            <p class="text-[8px] text-gray-400">Fotokopi/Scan Asli</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-700">Ijazah/SKL</p>
+                            <p class="text-[8px] text-gray-400">Surat Keterangan Lulus</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-700">Raport Smt 1-5</p>
+                            <p class="text-[8px] text-gray-400">Nilai Min. 75</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-700">Prestasi</p>
+                            <p class="text-[8px] text-gray-400">Opsional</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-gray-700">KIP / PKH</p>
+                            <p class="text-[8px] text-gray-400">Jalur Afirmasi</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </div> <!-- closing max-w-7xl (line 87) -->
+    </section> <!-- closing Main Form Section (line 86) -->
 
-    <!-- Success Modal Footer (for interactivity demo) -->
-    <div x-show="step === 4" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#0F172A]/80 backdrop-blur-sm p-4">
-        <!-- This is a demo of the success state within the same page if needed -->
+    <!-- Success Modal -->
+    <div x-show="showSuccessModal" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[200] flex items-start justify-center p-8 bg-[#0F172A]/80 backdrop-blur-sm pt-20">
+        
+        <div @click.away="showSuccessModal = false" 
+             x-show="showSuccessModal"
+             x-transition:enter="transition ease-out duration-500"
+             x-transition:enter-start="opacity-0 scale-90 -translate-y-12"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             class="max-w-md w-full bg-white rounded-[3rem] p-12 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-green-50 rounded-full blur-3xl opacity-50"></div>
+            
+            <div class="relative z-10 space-y-8">
+                <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto shadow-xl shadow-green-100 animate-bounce">
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                
+                <div class="space-y-4">
+                    <h2 class="text-3xl font-bold text-gray-900">Pendaftaran Berhasil!</h2>
+                    <p class="text-gray-500 text-sm leading-relaxed">{{ session('success_registration') }}</p>
+                </div>
+
+                <div class="pt-4">
+                    <button @click="showSuccessModal = false" class="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all">Tutup</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

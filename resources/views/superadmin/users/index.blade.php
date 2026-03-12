@@ -24,7 +24,7 @@
     
     users: [
         { id: 1, name: 'Johnathan Doe', email: 'john.doe@eduadmin.com', role: 'Admin', image: '{{ asset('images/guru-1.jpg') }}' },
-        { id: 2, name: 'Jane Smith', email: 'jane.smith@eduadmin.com', role: 'Guru', image: '{{ asset('images/guru-2.jpg') }}' }
+        { id: 2, name: 'Jane Smith', email: 'jane.smith@eduadmin.com', role: 'Editor', image: '{{ asset('images/guru-2.jpg') }}' }
     ],
 
     trash: [],
@@ -195,8 +195,8 @@
                 <svg class="w-7 h-7 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
             </div>
             <div>
-                <p class="text-[11px] font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Guru</p>
-                <h3 class="text-3xl font-extrabold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'" x-text="users.filter(u => u.role === 'Guru').length"></h3>
+                <p class="text-[11px] font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Editor</p>
+                <h3 class="text-3xl font-extrabold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'" x-text="users.filter(u => u.role === 'Editor').length"></h3>
             </div>
         </div>
     </div>
@@ -205,7 +205,7 @@
         <div class="flex items-center gap-8 mb-8 pb-4 border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
             <button @click="currentFilter = 'Semua'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Semua' ? (darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Semua Pengguna</button>
             <button @click="currentFilter = 'Admin'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Admin' ? (darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Admin</button>
-            <button @click="currentFilter = 'Guru'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Guru' ? (darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Guru</button>
+            <button @click="currentFilter = 'Editor'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Editor' ? (darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Editor</button>
         </div>
 
         <div class="overflow-x-auto">
@@ -312,7 +312,7 @@
              <div class="flex items-start justify-between mb-8">
                 <div>
                     <h3 class="text-xl font-extrabold mb-1" :class="darkMode ? 'text-white' : 'text-gray-900'">Tambah Pengguna Baru</h3>
-                    <p class="text-[13px] font-medium" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Daftarkan staf atau guru baru.</p>
+                    <p class="text-[13px] font-medium" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Daftarkan staf atau editor baru.</p>
                 </div>
             </div>
             <form @submit.prevent="addUser" class="space-y-4">
@@ -369,7 +369,7 @@
                     <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Peran</label>
                     <select x-model="newUser.role" class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
                         <option value="Admin">Admin</option>
-                        <option value="Guru">Guru</option>
+                        <option value="Editor">Editor</option>
                     </select>
                 </div>
 
@@ -414,7 +414,7 @@
                         <label class="block text-xs font-extrabold mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Peran</label>
                         <select x-model="editingUser.role" class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
                             <option value="Admin">Admin</option>
-                            <option value="Guru">Guru</option>
+                            <option value="Editor">Editor</option>
                         </select>
                     </div>
                 </div>
