@@ -8,7 +8,12 @@ class PageController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $articles = \App\Models\Article::published()
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+            
+        return view('index', compact('articles'));
     }
 
     public function jurusan()
@@ -26,9 +31,23 @@ class PageController extends Controller
         return view('programs.pplg');
     }
 
-    public function news()
+    public function news(Request $request)
     {
-        return view('news');
+        $query = \App\Models\Article::published();
+
+        if ($request->has('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('content', 'like', '%' . $request->search . '%');
+        }
+
+        $articles = $query->latest('published_at')->paginate(6);
+        
+        $trendingArticles = \App\Models\Article::published()
+            ->orderBy('views_count', 'desc')
+            ->take(3)
+            ->get();
+            
+        return view('news', compact('articles', 'trendingArticles'));
     }
 
     public function facilities()
@@ -61,9 +80,19 @@ class PageController extends Controller
         return view('registration');
     }
 
-    public function newsDetail()
+    public function newsDetail($slug)
     {
-        return view('news_detail');
+        $article = \App\Models\Article::published()
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $relatedArticles = \App\Models\Article::published()
+            ->where('id', '!=', $article->id)
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+            
+        return view('news_detail', compact('article', 'relatedArticles'));
     }
 
     public function contact()

@@ -49,117 +49,62 @@
 
             <!-- News Grid -->
             <div class="grid md:grid-cols-2 gap-10" id="news-grid">
-                <!-- Article 1 -->
-                <article class="news-card group space-y-6 transition-all duration-500" data-category="Prestasi">
+                @php
+                    $categoryColors = [
+                        'Kegiatan' => 'bg-purple-600',
+                        'Pengumuman' => 'bg-orange-600',
+                        'Prestasi' => 'bg-blue-600',
+                        'Akademik' => 'bg-green-600'
+                    ];
+                    $categoryBg = [
+                        'Kegiatan' => 'bg-purple-50',
+                        'Pengumuman' => 'bg-orange-50',
+                        'Prestasi' => 'bg-blue-50',
+                        'Akademik' => 'bg-green-50'
+                    ];
+                @endphp
+
+                @forelse($articles as $article)
+                <article class="news-card group space-y-6 transition-all duration-500" data-category="{{ $article->category }}">
                     <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden relative">
-                        <img src="https://smksmahaputra.sch.id/storage/images/berita/siswa-pplg-smk-mahaputra-meraih-prestasi_thumb.jpg" alt="News 1" class="w-full h-full object-cover transition-transform duration-700">
-                        <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Prestasi</span>
+                        @if($article->featured_image)
+                            <img src="{{ asset('storage/' . $article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        @else
+                            <div class="w-full h-full {{ $categoryBg[$article->category] ?? 'bg-gray-50' }} flex flex-col items-center justify-center p-10">
+                                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg mb-4">
+                                    <svg class="w-12 h-12 {{ str_replace('bg', 'text', $categoryColors[$article->category] ?? 'text-gray-600') }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                            </div>
+                        @endif
+                        <span class="absolute top-6 left-6 px-4 py-2 {{ $categoryColors[$article->category] ?? 'bg-gray-600' }} text-white text-[10px] font-bold rounded-full uppercase tracking-wider">{{ $article->category }}</span>
                     </div>
                     <div class="space-y-4 px-2">
                         <div class="flex items-center gap-4 text-xs text-gray-400 font-bold">
-                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg> 12 Okt 2023</span>
+                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg> {{ $article->published_at ? $article->published_at->format('d M Y') : $article->created_at->format('d M Y') }}</span>
                             <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 5 mnt</span>
                         </div>
-                        <a href="{{ route('news.detail') }}">
-                            <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-tight uppercase">Siswa PPLG SMK Mahaputra Meraih...</h3>
+                        <a href="{{ route('news.detail', $article->slug) }}">
+                            <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-tight uppercase line-clamp-2">{{ $article->title }}</h3>
                         </a>
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 capitalize">Prestasi membanggakan kembali diukir oleh siswa jurusan Pengembangan Perangkat Luna...</p>
+                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">{{ Str::limit(strip_tags($article->content), 120) }}</p>
                         <div class="pt-4 flex items-center gap-3">
-                            <img src="https://i.pravatar.cc/150?u=budo" alt="Author" class="w-8 h-8 rounded-full grayscale">
-                            <span class="text-xs font-bold text-gray-900">Budo Santoso</span>
+                            <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-[10px] font-bold">
+                                {{ substr($article->author->name ?? 'A', 0, 1) }}
+                            </div>
+                            <span class="text-xs font-bold text-gray-900">{{ $article->author->name ?? 'Admin' }}</span>
                         </div>
                     </div>
                 </article>
-
-                <!-- Article 2 -->
-                <article class="news-card group space-y-6 transition-all duration-500" data-category="Kegiatan">
-                    <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden relative">
-                         <div class="w-full h-full bg-purple-50 flex flex-col items-center justify-center p-10">
-                             <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-lg mb-4">
-                                 <svg class="w-16 h-16 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                             </div>
-                             <p class="text-purple-600 font-bold uppercase tracking-widest text-[10px]">Seminar Industri</p>
-                         </div>
-                        <span class="absolute top-6 left-6 px-4 py-2 bg-purple-600 text-white text-[10px] font-bold rounded-full uppercase">Kegiatan</span>
-                    </div>
-                    <div class="space-y-4 px-2">
-                        <div class="flex items-center gap-4 text-xs text-gray-400 font-bold">
-                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg> 10 Okt 2023</span>
-                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 3 mnt</span>
-                        </div>
-                        <a href="{{ route('news.detail') }}">
-                            <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-tight uppercase">Seminar Industri: Menyiapkan...</h3>
-                        </a>
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 capitalize">Mendatangkan praktisi dari perusahaan IT ternama untuk berbagi insight mengenai tren...</p>
-                        <div class="pt-4 flex items-center gap-3">
-                            <img src="https://i.pravatar.cc/150?u=siti" alt="Author" class="w-8 h-8 rounded-full grayscale">
-                            <span class="text-xs font-bold text-gray-900">Siti Aminah</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Article 3 -->
-                 <article class="news-card group space-y-6 transition-all duration-500" data-category="Akademik">
-                    <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000" alt="News 3" class="w-full h-full object-cover transition-transform duration-700">
-                        <span class="absolute top-6 left-6 px-4 py-2 bg-green-600 text-white text-[10px] font-bold rounded-full uppercase">Akademik</span>
-                    </div>
-                    <div class="space-y-4 px-2">
-                        <div class="flex items-center gap-4 text-xs text-gray-400 font-bold">
-                            <span>08 Okt 2023</span>
-                            <span>4 mnt</span>
-                        </div>
-                        <a href="{{ route('news.detail') }}">
-                            <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-tight uppercase">Penerapan Kurikulum Berbasis...</h3>
-                        </a>
-                        <p class="text-gray-500 text-sm">Meningkatkan kompetensi siswa melalui penyelesaian masalah nyata dalam proyek-proyek...</p>
-                        <div class="pt-4 flex items-center gap-3">
-                            <img src="https://i.pravatar.cc/150?u=budo" alt="Author" class="w-8 h-8 rounded-full grayscale">
-                            <span class="text-xs font-bold text-gray-900">Budo Santoso</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Article 4 -->
-                <article class="news-card group space-y-6 transition-all duration-500" data-category="Pengumuman">
-                    <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden relative">
-                         <div class="w-full h-full bg-orange-50 flex items-center justify-center p-10">
-                             <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000" alt="News 4" class="w-full h-full object-cover rounded-2xl shadow-lg opacity-40">
-                         </div>
-                        <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Pengumuman</span>
-                    </div>
-                    <div class="space-y-4 px-2">
-                        <div class="flex items-center gap-4 text-xs text-gray-400 font-bold">
-                            <span>05 Okt 2023</span>
-                            <span>2 mnt</span>
-                        </div>
-                        <a href="{{ route('news.detail') }}">
-                            <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-tight uppercase">Pendaftaran Siswa Baru...</h3>
-                        </a>
-                        <p class="text-gray-500 text-sm">Segera amankan kursimu di SMK Mahaputra untuk tahun ajaran mendatang. Kuota terbatas!</p>
-                        <div class="pt-4 flex items-center gap-3">
-                            <img src="https://i.pravatar.cc/150?u=rahmat" alt="Author" class="w-8 h-8 rounded-full grayscale">
-                            <span class="text-xs font-bold text-gray-900">Rahmat Hidayat</span>
-                        </div>
-                    </div>
-                </article>
+                @empty
+                <div class="col-span-2 text-center py-20 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
+                    <p class="text-gray-500 font-bold italic">Belum ada artikel yang ditemukan.</p>
+                </div>
+                @endforelse
             </div>
 
-            <!-- Pagination -->
-            <div class="flex items-center justify-center gap-4 pt-12">
-                <button class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-lg text-gray-400">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <div class="flex items-center gap-2">
-                    <button class="w-10 h-10 bg-blue-600 text-white rounded-lg font-bold">1</button>
-                    <button class="w-10 h-10 bg-white text-gray-400 rounded-lg font-bold hover:bg-gray-100 transition-all">2</button>
-                    <button class="w-10 h-10 bg-white text-gray-400 rounded-lg font-bold hover:bg-gray-100 transition-all">3</button>
-                    <span class="text-gray-300">...</span>
-                    <button class="w-10 h-10 bg-white text-gray-400 rounded-lg font-bold hover:bg-gray-100 transition-all">10</button>
+                <div class="mt-8">
+                    {{ $articles->links() }}
                 </div>
-                <button class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-lg text-gray-400">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
             </div>
         </div>
 
@@ -180,18 +125,16 @@
             <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
                 <h4 class="font-bold flex items-center gap-2 mb-8 text-blue-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg> Sedang Tren</h4>
                 <div class="space-y-8">
-                    <div class="space-y-2 group cursor-pointer">
-                        <h5 class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight uppercase text-sm">Peluang Kerja Lulusan PPLG di Tech Startup Jakarta</h5>
-                        <p class="text-[10px] text-gray-400 font-bold">10 OKT 2023</p>
+                    @forelse($trendingArticles as $trend)
+                    <div class="space-y-2 group">
+                        <a href="{{ route('news.detail', $trend->slug) }}">
+                            <h5 class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight uppercase text-sm line-clamp-2">{{ $trend->title }}</h5>
+                        </a>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase">{{ $trend->published_at ? $trend->published_at->format('d M Y') : $trend->created_at->format('d M Y') }}</p>
                     </div>
-                    <div class="space-y-2 group cursor-pointer">
-                        <h5 class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight uppercase text-sm">Tips Portofolio Desain yang Dilirik Agensi Internasional</h5>
-                        <p class="text-[10px] text-gray-400 font-bold">08 OKT 2023</p>
-                    </div>
-                    <div class="space-y-2 group cursor-pointer">
-                        <h5 class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight uppercase text-sm">Beasiswa Jalur Prestasi Akademik 2024</h5>
-                        <p class="text-[10px] text-gray-400 font-bold">05 OKT 2023</p>
-                    </div>
+                    @empty
+                    <p class="text-xs text-gray-400 italic">Belum ada data tren.</p>
+                    @endforelse
                 </div>
             </div>
 

@@ -248,7 +248,7 @@
 </section>
 
 <!-- Latest News -->
-<section class="py-16 bg-white">
+<section id="news" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <h2 class="text-3xl lg:text-4xl font-bold text-[#0F172A]">Kabar Terbaru Mahaputra</h2>
@@ -256,50 +256,70 @@
         </div>
         
         <div class="grid md:grid-cols-3 gap-8">
-            <div class="group">
-                <div class="aspect-video rounded-3xl overflow-hidden mb-6">
-                    <img src="images/berita 1.png" alt="Berita 1" class="w-full h-full object-cover transition-transform duration-500">
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 text-sm text-gray-500">
-                        <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full font-bold">Prestasi</span>
-                        <span>12 Okt 2023</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Siswa PPLG SMK Mahaputra Meraih Prestasi...</h3>
-                    <p class="text-gray-500 line-clamp-2">Prestasi membanggakan kembali diukir oleh siswa jurusan Pengembangan Perangkat Luna...</p>
-                    <a href="{{ route('news') }}" class="inline-flex items-center gap-2 text-blue-600 font-bold">Baca Selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
-                </div>
-            </div>
-            
-            <div class="group">
-                <div class="aspect-video rounded-3xl overflow-hidden mb-6">
-                    <img src="images/berita 2.png" alt="Berita 2" class="w-full h-full object-cover transition-transform duration-500">
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 text-sm text-gray-500">
-                        <span class="px-3 py-1 bg-purple-50 text-purple-600 rounded-full font-bold">Kegiatan</span>
-                        <span>10 Okt 2023</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Seminar Industri: Menyiapkan Karir di Era...</h3>
-                    <p class="text-gray-500 line-clamp-2">Mendatangkan praktisi dari perusahaan IT ternama untuk berbagi insight mengenai tren...</p>
-                    <a href="{{ route('news') }}" class="inline-flex items-center gap-2 text-blue-600 font-bold">Baca Selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
-                </div>
-            </div>
+            @php
+                $categoryStyles = [
+                    'Kegiatan' => ['bg' => 'bg-purple-50', 'text' => 'text-purple-600', 'btn' => 'bg-purple-50', 'icon' => '<svg class="w-12 h-12 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>'],
+                    'Pengumuman' => ['bg' => 'bg-orange-50', 'text' => 'text-orange-600', 'btn' => 'bg-orange-50', 'icon' => '<svg class="w-12 h-12 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>'],
+                    'Prestasi' => ['bg' => 'bg-blue-50', 'text' => 'text-blue-600', 'btn' => 'bg-blue-50', 'icon' => '<svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>'],
+                    'Akademik' => ['bg' => 'bg-green-50', 'text' => 'text-green-600', 'btn' => 'bg-green-50', 'icon' => '<svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>'],
+                ];
+            @endphp
 
-            <div class="group">
-                <div class="aspect-video rounded-3xl overflow-hidden mb-6">
-                    <img src="images/berita 3.png" alt="Berita 3" class="w-full h-full object-cover transition-transform duration-500">
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 text-sm text-gray-500">
-                        <span class="px-3 py-1 bg-green-50 text-green-600 rounded-full font-bold">Akademik</span>
-                        <span>08 Okt 2023</span>
+            @forelse($articles as $article)
+            @php
+                $style = $categoryStyles[$article->category] ?? $categoryStyles['Kegiatan'];
+            @endphp
+            <div class="group bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+                <div class="aspect-video relative overflow-hidden">
+                    @if($article->featured_image)
+                        <img src="{{ asset('storage/' . $article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    @else
+                        <div class="w-full h-full {{ $style['bg'] }} flex flex-col items-center justify-center p-10">
+                            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4 transition-transform duration-500 group-hover:rotate-12">
+                                {!! $style['icon'] !!}
+                            </div>
+                        </div>
+                    @endif
+                    <div class="absolute top-6 left-6">
+                        <span class="px-4 py-2 {{ str_replace('text', 'bg', $style['text']) }} text-white text-[10px] font-bold rounded-full uppercase tracking-widest shadow-lg">
+                            {{ $article->category }}
+                        </span>
                     </div>
-                    <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Pameran Karya Siswa Akhir Tahun Mahaputra...</h3>
-                    <p class="text-gray-500 line-clamp-2">Menampilkan karya-karya terbaik siswa dari berbagai program keahlian sebagai bentuk...</p>
-                    <a href="{{ route('news') }}" class="inline-flex items-center gap-2 text-blue-600 font-bold">Baca Selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+                </div>
+                <div class="p-8 space-y-4">
+                    <div class="flex items-center gap-4 text-xs text-gray-400 font-bold">
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg>
+                            {{ $article->published_at->format('d M Y') }}
+                        </span>
+                        <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            5 Min Baca
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight uppercase">
+                        {{ $article->title }}
+                    </h3>
+                    <p class="text-gray-500 text-sm line-clamp-2 leading-relaxed">
+                        {{ Str::limit(strip_tags($article->content), 100) }}
+                    </p>
+                    <div class="pt-6 border-t border-gray-50 flex items-center justify-between">
+                        <a href="{{ route('news.detail', ['slug' => $article->slug]) }}" class="inline-flex items-center gap-2 text-blue-600 font-bold text-sm tracking-wide group/link">
+                            BACA SELENGKAPNYA 
+                            <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
+            @empty
+            <div class="col-span-3 text-center py-20 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
+                <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm mx-auto mb-4">
+                    <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 2v6h6"></path></svg>
+                </div>
+                <p class="text-gray-500 font-bold italic">Belum ada artikel yang diterbitkan.</p>
+            </div>
+            @endforelse
         </div>
 
         <div class="mt-16 text-center">

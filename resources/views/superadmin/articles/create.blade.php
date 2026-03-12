@@ -35,6 +35,11 @@
             },
 
             async submitForm() {
+                if (!this.title.trim()) {
+                    Swal.fire({ icon: 'error', title: 'Oops...', text: 'Judul artikel wajib diisi.' });
+                    return;
+                }
+
                 Swal.fire({
                     title: 'Menyimpan Artikel...',
                     text: 'Mohon tunggu sebentar',
@@ -43,9 +48,8 @@
                 });
 
                 const formData = new FormData(this.$refs.mainForm);
+                // Based on UI text, it saves as Draft
                 formData.set('is_published', '0');
-                formData.set('allow_comments', this.autoComments ? '1' : '0');
-                formData.set('highlight_article', this.highlightArticle ? '1' : '0');
 
                 try {
                     const response = await fetch("{{ route('superadmin.articles.store') }}", {
@@ -63,13 +67,13 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Berhasil!',
-                            text: 'Artikel disimpan sebagai draf.',
+                            text: data.message || 'Artikel disimpan sebagai draf.',
                             confirmButtonColor: '#3B82F6',
                         }).then(() => {
-                            window.location.href = "{{ route('superadmin.articles.index') }}";
+                            window.location.href = data.redirect || "{{ route('superadmin.articles.index') }}";
                         });
                     } else {
-                        let msg = data.errors ? Object.values(data.errors).flat().join('<br>') : 'Gagal menyimpan.';
+                        let msg = data.errors ? Object.values(data.errors).flat().join('<br>') : (data.message || 'Gagal menyimpan.');
                         Swal.fire({ icon: 'error', title: 'Oops...', html: msg });
                     }
                 } catch (error) {
@@ -144,7 +148,7 @@
                 <h3 class="text-xs font-bold text-gray-400 uppercase mb-5">SETTINGS & SEO</h3>
                 <div class="mb-4">
                     <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2">KATEGORI</label>
-                    <select name="category_id" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm outline-none">
+                    <select name="category" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm outline-none">
                         @foreach($categories as $id => $name)
                             <option value="{{ $id }}">{{ $name }}</option>
                         @endforeach
@@ -167,6 +171,8 @@
                         :class="highlightArticle ? 'bg-blue-600' : 'bg-gray-300'">
                         <span class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform" :class="highlightArticle ? 'translate-x-5' : ''"></span>
                     </button>
+                    {{-- Hidden inputs to mirror the UI state since these fields are not in DB and might be used in the future --}}
+                    <input type="hidden" name="highlight_article" :value="highlightArticle ? '1' : '0'">
                 </div>
 
                 <div class="flex items-center justify-between">
@@ -176,6 +182,7 @@
                         :class="autoComments ? 'bg-blue-600' : 'bg-gray-300'">
                         <span class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform" :class="autoComments ? 'translate-x-5' : ''"></span>
                     </button>
+                    <input type="hidden" name="allow_comments" :value="autoComments ? '1' : '0'">
                 </div>
             </div>
         </div>

@@ -11,23 +11,45 @@ class ArticleController extends Controller
     /**
      * Display a listing of articles.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $total = Article::count();
+        $total     = Article::count();
         $published = Article::where('is_published', true)->count();
-        $drafts = Article::where('is_published', false)->count();
-        $views = Article::sum('views_count');
+        $drafts    = Article::where('is_published', false)->count();
+        $views     = Article::sum('views_count');
 
-        $articles = Article::with('author')
-            ->latest('created_at')
-            ->paginate(10);
+        $query = Article::with('author');
+
+        // Status filter
+        $filter = $request->get('filter', 'all');
+        if ($filter === 'published') {
+            $query->where('is_published', true);
+        } elseif ($filter === 'draft') {
+            $query->where('is_published', false);
+        }
+
+        // Category filter
+        $category = $request->get('category');
+        if ($category) {
+            $query->where('category', $category);
+        }
+
+        // Date sort
+        $sort = $request->get('sort', 'newest');
+        if ($sort === 'oldest') {
+            $query->oldest('created_at');
+        } else {
+            $query->latest('created_at');
+        }
+
+        $articles = $query->paginate(10)->withQueryString();
+
+        // Get all categories for the filter dropdown
+        $categories = Article::distinct()->pluck('category')->sort()->values();
 
         return view('superadmin.articles.index', compact(
-            'articles',
-            'total',
-            'published',
-            'drafts',
-            'views'
+            'articles', 'total', 'published', 'drafts', 'views',
+            'filter', 'category', 'sort', 'categories'
         ));
     }
 
@@ -58,27 +80,33 @@ class ArticleController extends Controller
             'content' => 'required|string',
             'category' => 'required|string|max:50',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_published' => 'boolean',
+            'is_published' => 'nullable',
         ]);
 
-        // Generate slug from title
+        $validated['is_published'] = $request->has('is_published') && $request->is_published == '1';
         $validated['slug'] = Str::slug($request->title) . '-' . time();
         $validated['user_id'] = auth()->id();
 
-        // Handle featured image upload
         if ($request->hasFile('featured_image')) {
             $path = $request->file('featured_image')->store('articles', 'public');
             $validated['featured_image'] = $path;
         }
 
-        // Set published_at if is_published is true
-        if ($request->boolean('is_published')) {
+        if ($validated['is_published']) {
             $validated['published_at'] = now();
         }
 
         $article = Article::create($validated);
 
-        return redirect()->route('superadmin.articles.show', $article->id)
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Artikel berhasil dibuat!',
+                'redirect' => route('superadmin.articles.index')
+            ]);
+        }
+
+        return redirect()->route('superadmin.articles.index')
             ->with('success', 'Artikel berhasil dibuat!');
     }
 
@@ -96,10 +124,10 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $categories = [
-            'Acara' => 'Acara',
-            'Akademik' => 'Akademik',
-            'Prestasi' => 'Prestasi',
+            'Berita Sekolah' => 'Berita Sekolah',
             'Pengumuman' => 'Pengumuman',
+            'Prestasi' => 'Prestasi',
+            'Artikel Guru' => 'Artikel Guru',
             'Kegiatan' => 'Kegiatan',
             'Umum' => 'Umum',
         ];
@@ -117,12 +145,13 @@ class ArticleController extends Controller
             'content' => 'required|string',
             'category' => 'required|string|max:50',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_published' => 'boolean',
+            'is_published' => 'nullable',
+            'slug' => 'required|string|max:255|unique:articles,slug,' . $article->id,
         ]);
 
-        // Handle featured image upload
+        $validated['is_published'] = $request->has('is_published') && $request->is_published == '1';
+
         if ($request->hasFile('featured_image')) {
-            // Delete old image if exists
             if ($article->featured_image) {
                 \Storage::disk('public')->delete($article->featured_image);
             }
@@ -130,14 +159,23 @@ class ArticleController extends Controller
             $validated['featured_image'] = $path;
         }
 
-        // Set published_at if is_published is true and wasn't published before
-        if ($request->boolean('is_published') && !$article->is_published) {
+        if ($validated['is_published'] && !$article->is_published) {
             $validated['published_at'] = now();
+        } elseif (!$validated['is_published']) {
+            $validated['published_at'] = null;
         }
 
         $article->update($validated);
 
-        return redirect()->route('superadmin.articles.show', $article->id)
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Artikel berhasil diperbarui!',
+                'redirect' => route('superadmin.articles.index')
+            ]);
+        }
+
+        return redirect()->route('superadmin.articles.index')
             ->with('success', 'Artikel berhasil diperbarui!');
     }
 
@@ -155,6 +193,40 @@ class ArticleController extends Controller
 
         return redirect()->route('superadmin.articles.index')
             ->with('success', 'Artikel berhasil dihapus!');
+    }
+
+    /**
+     * Toggle publish status of the specified article.
+     */
+    public function publish(Request $request, Article $article)
+    {
+        if ($article->is_published) {
+            // Unpublish
+            $article->update([
+                'is_published' => false,
+                'published_at' => null,
+            ]);
+            $message = 'Artikel berhasil diubah ke Draft.';
+        } else {
+            // Publish
+            $article->update([
+                'is_published' => true,
+                'published_at' => now(),
+            ]);
+            $message = 'Artikel berhasil diterbitkan!';
+        }
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'is_published' => $article->is_published,
+                'published_at' => $article->published_at ? $article->published_at->translatedFormat('d F Y H:i') : null,
+            ]);
+        }
+
+        return redirect()->route('superadmin.articles.index')
+            ->with('success', $message);
     }
 
     /**
