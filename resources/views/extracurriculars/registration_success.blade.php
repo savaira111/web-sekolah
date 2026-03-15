@@ -10,7 +10,7 @@
 
     <div class="max-w-lg w-full relative z-10 animate-in fade-in zoom-in duration-500">
         <!-- Close/Back to Extracurriculars Button -->
-        <a href="{{ route('extracurriculars') }}" class="absolute top-6 right-6 w-12 h-12 bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-[#0F172A] rounded-full flex items-center justify-center transition-all z-20 group" title="Tutup">
+        <a href="{{ route('extracurriculars.index') }}" class="absolute top-6 right-6 w-12 h-12 bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-[#0F172A] rounded-full flex items-center justify-center transition-all z-20 group" title="Tutup">
             <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
         </a>
 
@@ -51,7 +51,7 @@
                     <button onclick="window.location.href='{{ route('home') }}'" class="w-full py-5 bg-blue-50 text-blue-600 rounded-[2rem] font-black text-lg hover:bg-blue-100 transition-all uppercase">
                         Kembali ke Beranda
                     </button>
-                    <button onclick="window.location.href='{{ route('extracurriculars') }}'" class="w-full py-5 bg-gray-50 text-[#0F172A] rounded-[2rem] font-black text-lg hover:bg-gray-100 transition-all uppercase">
+                    <button onclick="window.location.href='{{ route('extracurriculars.index') }}'" class="w-full py-5 bg-gray-50 text-[#0F172A] rounded-[2rem] font-black text-lg hover:bg-gray-100 transition-all uppercase">
                         Tutup
                     </button>
                 </div>

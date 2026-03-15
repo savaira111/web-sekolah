@@ -10,7 +10,7 @@
         <div class="mb-12">
             <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
                 <div class="flex items-start gap-4">
-                    <a href="{{ route('extracurriculars') }}" class="inline-flex items-center justify-center w-12 h-12 bg-white border border-gray-200 text-blue-600 rounded-full hover:bg-blue-50 hover:border-blue-200 transition-all shadow-sm shrink-0" title="Kembali">
+                    <a href="{{ route('extracurriculars.index') }}" class="inline-flex items-center justify-center w-12 h-12 bg-white border border-gray-200 text-blue-600 rounded-full hover:bg-blue-50 hover:border-blue-200 transition-all shadow-sm shrink-0" title="Kembali">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
                     </a>
                     <div class="space-y-2 mt-1 xl:mt-0">
@@ -39,20 +39,21 @@
                         <h2 class="text-2xl font-black text-[#0F172A]">Formulir Pendaftaran</h2>
                     </div>
 
-                    <form action="{{ route('extracurriculars.registration.success') }}" class="space-y-8">
+                    <form action="{{ route('extracurriculars.registration.store') }}" method="POST" class="space-y-8">
+                        @csrf
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="space-y-3">
                                 <label class="text-sm font-black text-gray-700 uppercase tracking-wider">Nama Lengkap</label>
-                                <input type="text" placeholder="Masukkan nama sesuai raport" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
+                                <input type="text" name="name" required placeholder="Masukkan nama sesuai raport" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
                             </div>
                             <div class="space-y-3">
                                 <label class="text-sm font-black text-gray-700 uppercase tracking-wider">Kelas</label>
                                 <div class="relative">
-                                    <select class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-400 appearance-none">
-                                        <option>Pilih Kelas</option>
-                                        <option>X PPLG 1</option>
-                                        <option>X PPLG 2</option>
-                                        <option>X DKV 1</option>
+                                    <select name="class" required class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 appearance-none">
+                                        <option value="">Pilih Kelas</option>
+                                        <option value="X PPLG 1">X PPLG 1</option>
+                                        <option value="X PPLG 2">X PPLG 2</option>
+                                        <option value="X DKV 1">X DKV 1</option>
                                     </select>
                                     <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
                                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -64,18 +65,24 @@
                         <div class="space-y-3">
                             <label class="text-sm font-black text-gray-700 uppercase tracking-wider">Pilih Ekstrakurikuler</label>
                             <div class="relative">
-                                <div class="w-full p-5 bg-gray-50 rounded-2xl border-none flex flex-wrap gap-2 items-center">
-                                    <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-xs font-bold flex items-center gap-2">Pramuka <svg class="w-3 h-3 hover:text-blue-800 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></span>
-                                    <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-xs font-bold flex items-center gap-2">Futsal <svg class="w-3 h-3 hover:text-blue-800 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></span>
-                                    <input type="text" placeholder="Cari Eskul (e.g. Futsal, Pramuka...)" class="flex-1 bg-transparent border-none focus:ring-0 p-0 text-sm min-w-[200px]">
-                                    <svg class="w-5 h-5 text-gray-300 absolute left-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                <select name="extracurricular" required class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 appearance-none">
+                                    <option value="">Pilih Ekstrakurikuler...</option>
+                                    <option value="Pramuka">Pramuka</option>
+                                    <option value="Futsal">Futsal</option>
+                                    <option value="Paskibra">Paskibra</option>
+                                    <option value="Panahan">Panahan</option>
+                                    <option value="Rohis">Rohis</option>
+                                    <option value="Pencak Silat">Pencak Silat</option>
+                                </select>
+                                <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                                 </div>
                             </div>
                         </div>
 
                         <div class="space-y-3">
                             <label class="text-sm font-black text-gray-700 uppercase tracking-wider">Motivasi Bergabung</label>
-                            <textarea placeholder="Ceritakan alasan Anda ingin bergabung dengan kegiatan ini..." class="w-full p-5 bg-gray-50 rounded-3xl border-none focus:ring-2 focus:ring-blue-100 text-sm h-40 leading-relaxed"></textarea>
+                            <textarea name="motivation" required placeholder="Ceritakan alasan Anda ingin bergabung dengan kegiatan ini..." class="w-full p-5 bg-gray-50 rounded-3xl border-none focus:ring-2 focus:ring-blue-100 text-sm h-40 leading-relaxed"></textarea>
                         </div>
 
                         <div class="pt-6">

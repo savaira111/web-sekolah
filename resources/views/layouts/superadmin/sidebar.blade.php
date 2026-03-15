@@ -124,10 +124,11 @@
         </a>
 
         <!-- Eskul -->
-        <a href="#"
-        class="flex items-center gap-3 px-4 py-3 rounded-full sidebar-item font-medium text-sm transition-colors">
+        <a href="{{ route('superadmin.extracurricular-registrations.index') }}"
+        class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors mt-2
+        {{ request()->routeIs('superadmin.extracurricular-registrations.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
 
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 {{ request()->routeIs('superadmin.extracurricular-registrations.*') ? 'text-white' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M13.828 10.172a4 4 0 
@@ -137,7 +138,7 @@
                 4 0 00-5.656-5.656l-1.1 1.1"/>
             </svg>
 
-            Eskul Management
+            Pendaftaran Eskul
         </a>
 
     </div>

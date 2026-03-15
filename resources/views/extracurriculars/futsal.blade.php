@@ -13,7 +13,7 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div class="mb-8">
-            <a href="{{ route('extracurriculars') }}" class="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white/30 transition-all shadow-lg" title="Kembali">
+            <a href="{{ route('extracurriculars.index') }}" class="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white/30 transition-all shadow-lg" title="Kembali">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
             </a>
         </div>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="flex flex-wrap gap-4 pt-4">
-                <a href="{{ route('registration') }}" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all uppercase">
+                <a href="{{ route('extracurriculars.registration') }}" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all uppercase">
                     Gabung Sekarang
                 </a>
             </div>
@@ -99,15 +99,15 @@
                         <div class="flex gap-8 group">
                             <div class="w-14 h-14 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-center text-xl font-black text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">1</div>
                             <div class="space-y-2">
-                                <h4 class="text-xl font-bold text-[#0F172A]">Kriteria Fisik Utama</h4>
-                                <p class="text-gray-500">Tinggi minimal 170cm (Putra) dan 165cm (Putri) dengan berat badan proporsional. Tidak berkacamata tebal dan memiliki postur tubuh yang tegak.</p>
+                                <h4 class="text-xl font-bold text-[#0F172A]">Minat & Bakat</h4>
+                                <p class="text-gray-500">Memiliki ketertarikan pada olahraga futsal dan komitmen untuk berlatih secara rutin.</p>
                             </div>
                         </div>
                         <div class="flex gap-8 group">
                             <div class="w-14 h-14 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-center text-xl font-black text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">2</div>
                             <div class="space-y-2">
-                                <h4 class="text-xl font-bold text-[#0F172A]">Kesehatan & Stamina</h4>
-                                <p class="text-gray-500">Lulus tes kesehatan fisik, tidak memiliki riwayat penyakit asma atau jantung kronis, serta memiliki stamina untuk latihan fisik intensif.</p>
+                                <h4 class="text-xl font-bold text-[#0F172A]">Kesehatan Tubuh</h4>
+                                <p class="text-gray-500">Sehat secara jasmani dan rohani, serta tidak memiliki riwayat cedera berat yang mengganggu aktivitas olahraga.</p>
                             </div>
                         </div>
                         <div class="flex gap-8 group">
@@ -229,7 +229,7 @@
                     </div>
 
                     <div class="relative z-10 p-6 bg-white/10 backdrop-blur-md rounded-[2rem] border border-white/20">
-                        <a href="{{ route('registration') }}" class="block w-full py-5 bg-white text-blue-600 rounded-2xl font-black text-lg uppercase shadow-xl transition-all">
+                        <a href="{{ route('extracurriculars.registration') }}" class="block w-full py-5 bg-white text-blue-600 rounded-2xl font-black text-lg uppercase shadow-xl transition-all">
                             Daftar Sekarang
                         </a>
                         <p class="text-[10px] text-blue-100 font-bold mt-4 uppercase tracking-widest">Berlaku Sejak 12-03-2024</p>
@@ -242,7 +242,7 @@
                     <div class="space-y-6">
                         <div class="flex items-center gap-6 group">
                             <div class="relative">
-                                <img src="https://static.republika.co.id/uploads/images/inpicture_slide/pemanah-anak-ilustrasi-_181023155823-145.jpg" class="w-16 h-16 rounded-2xl object-cover shadow-lg transition-transform duration-500">
+                                <img src="{{ asset('images/Sample_User_Icon.png') }}" class="w-16 h-16 rounded-2xl object-cover shadow-lg transition-transform duration-500">
                                 <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
                             </div>
                             <div class="space-y-1">
@@ -252,7 +252,7 @@
                         </div>
                         <div class="flex items-center gap-6 group">
                             <div class="relative">
-                                <img src="https://static.republika.co.id/uploads/images/inpicture_slide/pemanah-anak-ilustrasi-_181023155823-145.jpg" class="w-16 h-16 rounded-2xl object-cover shadow-lg transition-transform duration-500">
+                                <img src="{{ asset('images/Sample_User_Icon.png') }}" class="w-16 h-16 rounded-2xl object-cover shadow-lg transition-transform duration-500">
                                 <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
                             </div>
                             <div class="space-y-1">
@@ -305,7 +305,7 @@
                     Bergabunglah dengan organisasi yang akan merubah masa depanmu menjadi lebih disiplin dan kompeten.
                 </p>
                 <div class="flex justify-center pt-8">
-                     <a href="{{ route('registration') }}" class="px-16 py-6 bg-blue-600 text-white rounded-2xl font-black text-2xl uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
+                     <a href="{{ route('extracurriculars.registration') }}" class="px-16 py-6 bg-blue-600 text-white rounded-2xl font-black text-2xl uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
                         Daftar Futsal
                     </a>
                 </div>

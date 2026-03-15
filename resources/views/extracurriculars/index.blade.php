@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="{{ route('registration') }}" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all uppercase tracking-wide">Daftar sekarang</a>
+                    <a href="{{ route('extracurriculars.registration') }}" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all uppercase tracking-wide">Daftar sekarang</a>
                     <a href="{{ route('profile') }}" class="px-10 py-5 bg-gray-100 text-[#0F172A] rounded-2xl font-black hover:bg-gray-200 transition-all uppercase tracking-wide">Profil Sekolah</a>
                 </div>
             </div>
@@ -193,7 +193,7 @@
                 </div>
                 <div class="space-y-2 pl-2">
                     <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Pramuka</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">Membangun jiwa kepemimpinan dan patriotisme melalui pelatihan baris-berbaris dan upacara bendera.</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">Membangun karakter tangguh, mandiri, dan peduli lingkungan melalui petualangan serta keterampilan bertahan hidup.</p>
                     <div class="flex items-center justify-between pt-4">
                         <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Senin, 15:30 - 17:00</span>
                         <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>

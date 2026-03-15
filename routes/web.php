@@ -36,6 +36,8 @@ Route::get('/kontak', [PageController::class, 'contact'])->name('contact');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 
 
+use App\Http\Controllers\ExtracurricularRegistrationController;
+
 /*
 |--------------------------------------------------------------------------
 | EXTRACURRICULAR
@@ -54,6 +56,7 @@ Route::prefix('ekstrakurikuler')->name('extracurriculars.')->group(function () {
     Route::get('/pramuka', [PageController::class, 'pramuka'])->name('pramuka');
 
     Route::get('/pendaftaran', [PageController::class, 'extracurricularRegistration'])->name('registration');
+    Route::post('/pendaftaran', [ExtracurricularRegistrationController::class, 'store'])->name('registration.store');
     Route::get('/berhasil', [PageController::class, 'extracurricularRegistrationSuccess'])->name('registration.success');
 
 });
@@ -112,5 +115,9 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
     Route::get('/profile', function () {
         return view('superadmin.profile');
     })->name('profile');
+
+    // Extracurricular Registrations
+    Route::get('/extracurricular-registrations', [ExtracurricularRegistrationController::class, 'index'])->name('extracurricular-registrations.index');
+    Route::patch('/extracurricular-registrations/{id}/status', [ExtracurricularRegistrationController::class, 'updateStatus'])->name('extracurricular-registrations.status');
 
 });
