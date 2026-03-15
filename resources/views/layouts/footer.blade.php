@@ -38,6 +38,7 @@
                 <ul class="space-y-4">
                     <li><a href="{{ route('profile') }}" class="text-gray-500 hover:text-blue-600 transition-colors">Profil Sekolah</a></li>
                     <li><a href="{{ route('facilities') }}" class="text-gray-500 hover:text-blue-600 transition-colors">Fasilitas Kampus</a></li>
+                    <li><a href="{{ route('album') }}" class="text-gray-500 hover:text-blue-600 transition-colors">Galeri & Dokumentasi</a></li>
                     <li><a href="{{ route('news') }}" class="text-gray-500 hover:text-blue-600 transition-colors">Berita & Artikel</a></li>
                     <li><a href="{{ route('enrollment.guide') }}" class="text-gray-500 hover:text-blue-600 transition-colors">Pendaftaran Online</a></li>
                 </ul>

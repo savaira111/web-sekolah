@@ -29,7 +29,7 @@
             </div>
 
             <div class="flex flex-wrap gap-4 pt-4">
-                <a href="{{ route('registration') }}" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all uppercase">
+                <a href="{{ route('extracurriculars.registration') }}" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all uppercase">
                     Gabung Sekarang
                 </a>
             </div>
@@ -264,7 +264,7 @@
                     </div>
 
                     <div class="relative z-10 p-6 bg-white/10 backdrop-blur-md rounded-[2rem] border border-white/20">
-                        <a href="{{ route('registration') }}" class="block w-full py-5 bg-white text-blue-600 rounded-2xl font-black text-lg uppercase shadow-xl transition-all">
+                        <a href="{{ route('extracurriculars.registration') }}" class="block w-full py-5 bg-white text-blue-600 rounded-2xl font-black text-lg uppercase shadow-xl transition-all">
                             Daftar Sekarang
                         </a>
                         <p class="text-[10px] text-blue-100 font-bold mt-4 uppercase tracking-widest">Ayo Bergabung</p>
@@ -340,7 +340,7 @@
                     Bergabunglah dengan organisasi yang akan merubah masa depanmu menjadi lebih baik, disiplin dan kompeten.
                 </p>
                 <div class="flex justify-center pt-8">
-                     <a href="{{ route('registration') }}" class="px-16 py-6 bg-blue-600 text-white rounded-2xl font-black text-2xl uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
+                     <a href="{{ route('extracurriculars.registration') }}" class="px-16 py-6 bg-blue-600 text-white rounded-2xl font-black text-2xl uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
                         Daftar Ekstrakurikuler
                     </a>
                 </div>

@@ -24,6 +24,7 @@ class ApplicantController extends Controller
     {
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
+            'major' => 'required|in:PPLG,DKV',
             'nisn' => 'required|string|unique:applicants,nisn',
             'birth_place' => 'required|string',
             'birth_date' => 'required|date',
@@ -45,6 +46,17 @@ class ApplicantController extends Controller
             'doc_akta' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'doc_ijazah' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'doc_raport' => 'nullable|file|mimes:pdf|max:2048',
+            'doc_shun' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_pernyataan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_ijazah_sd' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_domisili' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_ktp_ortu' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_sehat_badan' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_sehat_mata' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_prestasi' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_form' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_skl' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'doc_kip_pkh' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'profile_image' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
         ], [
             'required' => ':attribute wajib diisi.',
@@ -64,7 +76,7 @@ class ApplicantController extends Controller
         $regNumber = 'PPDB-' . date('Y') . '-' . strtoupper(bin2hex(random_bytes(3)));
 
         // Handle file uploads
-        $fileFields = ['doc_kk', 'doc_akta', 'doc_ijazah', 'doc_raport', 'profile_image'];
+        $fileFields = ['doc_kk', 'doc_akta', 'doc_ijazah', 'doc_raport', 'doc_shun', 'doc_pernyataan', 'doc_ijazah_sd', 'doc_domisili', 'doc_ktp_ortu', 'doc_sehat_badan', 'doc_sehat_mata', 'doc_prestasi', 'doc_form', 'doc_skl', 'doc_kip_pkh', 'profile_image'];
         $filePaths = [];
         foreach ($fileFields as $field) {
             if ($request->hasFile($field)) {

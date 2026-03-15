@@ -1,5 +1,5 @@
 @extends('layouts.superadmin.app')
-@section('title', 'Artikel & Berita - EduAdmin Pro')
+@section('title', 'Artikel & Berita - Admin Mahput')
 
 @section('content')
         <!-- Page Content -->
@@ -260,3 +260,5 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 @endsection
+
+

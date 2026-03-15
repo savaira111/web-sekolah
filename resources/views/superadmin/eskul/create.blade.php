@@ -1,6 +1,6 @@
 @extends('layouts.superadmin.app')
 
-@section('title', 'Buat Eskul Baru - EduAdmin Pro')
+@section('title', 'Buat Eskul Baru - Admin Mahput')
 
 @section('content')
 <div class="p-8 flex-1 w-full overflow-x-auto transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]' : 'bg-[#F3F4F6]'" x-data="eskulForm()">
@@ -72,6 +72,13 @@
                                     class="w-full px-6 py-4 rounded-2xl border font-bold text-[15px] transition-all duration-300 opacity-60"
                                     :class="darkMode ? 'bg-[#0F172A] border-gray-800 text-white' : 'bg-gray-50 border-gray-100 text-[#111827]'">
                             </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Jadwal Kegiatan</label>
+                            <input type="text" name="schedule_info" placeholder="Contoh: Sabtu, 08:00 - 11:00" 
+                                class="w-full px-6 py-4 rounded-2xl border font-bold text-[15px] transition-all duration-300 outline-none focus:ring-4 focus:ring-blue-500/10"
+                                :class="darkMode ? 'bg-[#0F172A] border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'">
                         </div>
 
                         <div>
@@ -195,3 +202,5 @@
     }
 </script>
 @endpush
+
+

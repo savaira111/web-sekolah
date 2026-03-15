@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login - SMKS Mahaputra Cerdas Utama</title>
+    <title>Login - Admin Mahput</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/logo-mahaputra.jpg') }}">
     
     <!-- Fonts -->
@@ -41,7 +41,7 @@
                     <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
                     </div>
-                    <h2 class="text-white text-2xl font-bold tracking-tight">SMKS Mahaputra</h2>
+                    <h2 class="text-white text-2xl font-bold tracking-tight">Admin Mahput</h2>
                 </div>
                 <p class="text-blue-50 text-sm leading-relaxed max-w-sm">
                     Mencetak generasi cerdas, berkarakter, dan siap menghadapi tantangan industri masa depan.
@@ -60,7 +60,7 @@
                 
                 <!-- Header -->
                 <div class="space-y-2">
-                    <h1 class="text-3xl font-bold text-[#0F172A] tracking-tight">Login Akun Mahaputra</h1>
+                    <h1 class="text-3xl font-bold text-[#0F172A] tracking-tight">Login Admin Mahput</h1>
                     <p class="text-gray-500 text-sm">Silakan masukkan kredensial Anda untuk mengakses portal siswa dan staf.</p>
                 </div>
 

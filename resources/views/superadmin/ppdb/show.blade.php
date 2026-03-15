@@ -129,13 +129,25 @@
                         <p class="text-[15px] font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $applicant->citizenship == 'Indonesian' ? 'WNI' : $applicant->citizenship }}</p>
                     </div>
                     <div class="md:col-span-2">
+                        <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Pilihan Jurusan</p>
+                        <div class="flex items-center gap-3">
+                            <span class="px-4 py-1.5 bg-blue-600 text-white rounded-xl text-xs font-black shadow-lg shadow-blue-500/20">{{ $applicant->major ?? '-' }}</span>
+                            <span class="text-[11px] font-bold text-gray-400 italic">
+                                @if($applicant->major == 'PPLG')
+                                    Pengembangan Perangkat Lunak & Gim
+                                @elseif($applicant->major == 'DKV')
+                                    Desain Komunikasi Visual
+                                @endif
+                            </span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
                         <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Alamat Lengkap</p>
                         <p class="text-[15px] font-bold leading-relaxed transition-colors duration-300" :class="darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $applicant->address }}</p>
                     </div>
                 </div>
             </div>
 
-            <!-- School Origin & Academic -->
             <!-- School Origin & Academic -->
             <div class="rounded-[2.5rem] p-10 border shadow-sm transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
                 <div class="flex items-center gap-3 mb-10">
@@ -238,71 +250,52 @@
                     </div>
                 </div>
 
-                <div class="space-y-4">
-                    <!-- Doc Item -->
-                    <div class="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-2xl group hover:bg-white hover:border-blue-200 transition-all">
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center {{ $applicant->doc_akta ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-200 text-gray-400' }}">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                            </div>
-                            <span class="text-[13px] font-bold text-gray-700">Akta Kelahiran</span>
-                        </div>
-                        @if($applicant->doc_akta)
-                            <a href="{{ asset('storage/' . $applicant->doc_akta) }}" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                            </a>
-                        @else
-                            <span class="text-[10px] font-bold text-gray-400">Belum Ada</span>
-                        @endif
-                    </div>
+                <div class="space-y-3">
+                    @php
+                        $docs = [
+                            ['label' => 'Formulir Pendaftaran', 'field' => 'doc_form'],
+                            ['label' => 'Surat Pernyataan', 'field' => 'doc_pernyataan'],
+                            ['label' => 'SKL SMP/MTs', 'field' => 'doc_skl'],
+                            ['label' => 'SHUN / Hasil Ujian', 'field' => 'doc_shun'],
+                            ['label' => 'Ijazah SMP/MTs', 'field' => 'doc_ijazah'],
+                            ['label' => 'Ijazah SD/MI', 'field' => 'doc_ijazah_sd'],
+                            ['label' => 'Akta Kelahiran', 'field' => 'doc_akta'],
+                            ['label' => 'Kartu Keluarga', 'field' => 'doc_kk'],
+                            ['label' => 'Ket. Domisili', 'field' => 'doc_domisili'],
+                            ['label' => 'KTP Orang Tua', 'field' => 'doc_ktp_ortu'],
+                            ['label' => 'Kesehatan Badan', 'field' => 'doc_sehat_badan'],
+                            ['label' => 'Kesehatan Mata', 'field' => 'doc_sehat_mata'],
+                            ['label' => 'Pas Foto 3x4', 'field' => 'profile_image'],
+                            ['label' => 'PIP / KIP / Ket. Kematian', 'field' => 'doc_kip_pkh'],
+                            ['label' => 'Sertifikat / Piagam', 'field' => 'doc_prestasi'],
+                        ];
+                    @endphp
 
-                    <div class="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-2xl group hover:bg-white hover:border-blue-200 transition-all">
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center {{ $applicant->doc_kk ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-200 text-gray-400' }}">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    @foreach($docs as $doc)
+                        <div class="flex items-center justify-between p-3 rounded-2xl border transition-all" 
+                             :class="darkMode ? 'bg-gray-800/50 border-gray-700 hover:border-blue-500/50' : 'bg-gray-50 border-gray-100 hover:border-blue-200 hover:bg-white'">
+                            <div class="flex items-center gap-3 overflow-hidden">
+                                <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 {{ $applicant->{$doc['field']} ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-200 text-gray-400' }}">
+                                    @if($applicant->{$doc['field']})
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    @else
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                                    @endif
+                                </div>
+                                <span class="text-[11px] font-bold transition-colors duration-300 truncate" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">{{ $doc['label'] }}</span>
                             </div>
-                            <span class="text-[13px] font-bold text-gray-700">Kartu Keluarga (KK)</span>
+                            @if($applicant->{$doc['field']})
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <a href="{{ asset('storage/' . $applicant->{$doc['field']}) }}" target="_blank" 
+                                       class="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 transition-colors" title="Lihat Dokumen">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    </a>
+                                </div>
+                            @else
+                                <span class="text-[9px] font-bold text-gray-400 shrink-0 italic">Kosong</span>
+                            @endif
                         </div>
-                        @if($applicant->doc_kk)
-                            <a href="{{ asset('storage/' . $applicant->doc_kk) }}" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                            </a>
-                        @else
-                            <span class="text-[10px] font-bold text-gray-400">Belum Ada</span>
-                        @endif
-                    </div>
-
-                    <div class="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-2xl group hover:bg-white hover:border-blue-200 transition-all">
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center {{ $applicant->doc_raport ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-200 text-gray-400' }}">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                            </div>
-                            <span class="text-[13px] font-bold text-gray-700">Rapor</span>
-                        </div>
-                        @if($applicant->doc_raport)
-                            <a href="{{ asset('storage/' . $applicant->doc_raport) }}" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                            </a>
-                        @else
-                            <span class="text-[10px] font-bold text-gray-400">Belum Ada</span>
-                        @endif
-                    </div>
-
-                    <div class="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-2xl group hover:bg-white hover:border-blue-200 transition-all">
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-8 rounded-full flex items-center justify-center {{ $applicant->doc_ijazah ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-200 text-gray-400' }}">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                            </div>
-                            <span class="text-[13px] font-bold text-gray-700">Ijazah / SKL</span>
-                        </div>
-                        @if($applicant->doc_ijazah)
-                            <a href="{{ asset('storage/' . $applicant->doc_ijazah) }}" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                            </a>
-                        @else
-                            <span class="text-[10px] font-bold text-gray-400">Belum Ada</span>
-                        @endif
-                    </div>
+                    @endforeach
                 </div>
             </div>
 

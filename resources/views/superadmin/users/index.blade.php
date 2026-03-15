@@ -1,5 +1,5 @@
 @extends('layouts.superadmin.app')
-@section('title', 'User Management - EduAdmin Pro')
+@section('title', 'User Management - Admin Mahput')
 
 @section('content')
 <div x-data="{ 
@@ -486,3 +486,4 @@
 @push('scripts')
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endpush
+

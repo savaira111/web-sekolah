@@ -26,11 +26,8 @@ class ExtracurricularController extends Controller
     public function create()
     {
         $categories = [
-            'Sports & Athletics' => 'Sports & Athletics',
-            'Arts & Culture' => 'Arts & Culture',
-            'Academic & Science' => 'Academic & Science',
-            'Technology & Digital' => 'Technology & Digital',
-            'Social & Leadership' => 'Social & Leadership',
+            'Olahraga' => 'Olahraga',
+            'Umum' => 'Umum',
         ];
 
         return view('superadmin.eskul.create', compact('categories'));
@@ -54,6 +51,7 @@ class ExtracurricularController extends Controller
             $validated['image'] = $path;
         }
 
+        $validated['is_active'] = true;
         Extracurricular::create($validated);
 
         if ($request->ajax()) {
@@ -81,11 +79,8 @@ class ExtracurricularController extends Controller
     public function edit(Extracurricular $eskul)
     {
         $categories = [
-            'Sports & Athletics' => 'Sports & Athletics',
-            'Arts & Culture' => 'Arts & Culture',
-            'Academic & Science' => 'Academic & Science',
-            'Technology & Digital' => 'Technology & Digital',
-            'Social & Leadership' => 'Social & Leadership',
+            'Olahraga' => 'Olahraga',
+            'Umum' => 'Umum',
         ];
 
         return view('superadmin.eskul.edit', compact('eskul', 'categories'));

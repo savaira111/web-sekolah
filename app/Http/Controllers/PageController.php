@@ -72,6 +72,11 @@ class PageController extends Controller
         return view('seragam');
     }
 
+    public function album()
+    {
+        return view('album');
+    }
+
     public function enrollmentGuide()
     {
         return view('enrollment_guide');

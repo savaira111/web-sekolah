@@ -26,6 +26,7 @@ Route::get('/fasilitas', [PageController::class, 'facilities'])->name('facilitie
 Route::get('/staff', [PageController::class, 'staff'])->name('staff');
 Route::get('/profil', [PageController::class, 'profile'])->name('profile');
 Route::get('/seragam', [PageController::class, 'seragam'])->name('seragam');
+Route::get('/album', [PageController::class, 'album'])->name('album');
 
 Route::get('/pendaftaran/panduan', [PageController::class, 'enrollmentGuide'])->name('enrollment.guide');
 Route::get('/pendaftaran/formulir', [PageController::class, 'registration'])->name('registration');
@@ -126,5 +127,13 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
     Route::get('/eskul/registrations', [\App\Http\Controllers\ExtracurricularController::class, 'registrations'])->name('eskul.registrations');
     Route::resource('eskul', \App\Http\Controllers\ExtracurricularController::class);
     Route::post('/eskul/{eskul}/toggle', [\App\Http\Controllers\ExtracurricularController::class, 'toggleStatus'])->name('eskul.toggle');
+    
+    // Gallery/Album
+    Route::get('/albums', function () {
+        return view('superadmin.albums.index');
+    })->name('albums.index');
+    Route::get('/albums/create', function () {
+        return view('superadmin.albums.create');
+    })->name('albums.create');
 
 });

@@ -1,5 +1,5 @@
 @extends('layouts.superadmin.app')
-@section('title', ($article->title ?? 'Detail Artikel') . ' - EduAdmin Pro')
+@section('title', ($article->title ?? 'Detail Artikel') . ' - Admin Mahput')
 
 @section('content')
 <div class="px-8 pb-16 flex-1 w-full transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]' : 'bg-[#F3F4F6]'">
@@ -147,3 +147,5 @@
     </div>
 </div>
 @endsection
+
+

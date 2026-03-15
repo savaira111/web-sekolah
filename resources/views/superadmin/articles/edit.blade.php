@@ -1,6 +1,6 @@
 @extends('layouts.superadmin.app')
 
-@section('title', 'Edit Artikel - EduAdmin Pro')
+@section('title', 'Edit Artikel - Admin Mahput')
 
 @section('content')
 <div class="p-6 lg:p-10 min-h-screen" :class="darkMode ? '' : 'bg-gray-50'">
@@ -378,3 +378,4 @@
 </script>
 @endpush
 @endsection
+

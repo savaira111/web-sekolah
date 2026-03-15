@@ -52,8 +52,10 @@
                                     <select name="class" required class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 appearance-none">
                                         <option value="">Pilih Kelas</option>
                                         <option value="X PPLG 1">X PPLG 1</option>
-                                        <option value="X PPLG 2">X PPLG 2</option>
                                         <option value="X DKV 1">X DKV 1</option>
+                                        <option value="XI PPLG 1">XI PPLG 1</option>
+                                        <option value="XI DKV 1">XI DKV 1</option>
+                                        <option value="XI DKV 2">XI DKV 2</option>
                                     </select>
                                     <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
                                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>

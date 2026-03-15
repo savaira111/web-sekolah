@@ -9,6 +9,7 @@ class Applicant extends Model
     protected $fillable = [
         'registration_number',
         'full_name',
+        'major',
         'nisn',
         'birth_place',
         'birth_date',
@@ -31,6 +32,17 @@ class Applicant extends Model
         'doc_kk',
         'doc_akta',
         'doc_ijazah',
-        'doc_raport'
+        'doc_raport',
+        'doc_pernyataan',
+        'doc_shun',
+        'doc_ijazah_sd',
+        'doc_domisili',
+        'doc_ktp_ortu',
+        'doc_sehat_badan',
+        'doc_sehat_mata',
+        'doc_prestasi',
+        'doc_form',
+        'doc_skl',
+        'doc_kip_pkh'
     ];
 }

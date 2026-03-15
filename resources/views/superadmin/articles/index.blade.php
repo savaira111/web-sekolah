@@ -1,5 +1,5 @@
 @extends('layouts.superadmin.app')
-@section('title', 'Artikel & Berita - EduAdmin Pro')
+@section('title', 'Artikel & Berita - Admin Mahput')
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -396,3 +396,4 @@ async function togglePublish(articleId, currentStatus, publishUrl, csrfToken) {
     </div>
 </div>
 @endsection
+

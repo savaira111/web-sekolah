@@ -17,7 +17,7 @@
                 
                 <!-- Dropdown Profil -->
                 <div class="relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') || request()->routeIs('staff') || request()->routeIs('seragam') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600' }} font-medium transition-colors flex items-center gap-1 py-4">
+                    <a href="{{ route('profile') }}" class="{{ request()->routeIs('profile') || request()->routeIs('staff') || request()->routeIs('seragam') || request()->routeIs('album') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600' }} font-medium transition-colors flex items-center gap-1 py-4">
                         Profil
                         <svg class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </a>
@@ -33,6 +33,7 @@
                          style="display: none;">
                         <a href="{{ route('staff') }}" class="block px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">Guru & Staff</a>
                         <a href="{{ route('seragam') }}" class="block px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">Seragam</a>
+                        <a href="{{ route('album') }}" class="block px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">Album</a>
                     </div>
                 </div>
                 <a href="{{ route('facilities') }}" class="{{ request()->routeIs('facilities') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600' }} font-medium transition-colors">Fasilitas</a>

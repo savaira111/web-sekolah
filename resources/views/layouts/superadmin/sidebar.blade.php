@@ -2,19 +2,13 @@
     
     <!-- Logo -->
     <div class="h-20 flex items-center px-6">
-        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 
-                12.083 0 01.665 6.479A11.952 11.952 0 0012 
-                20.055a11.952 11.952 0 00-6.824-2.998 
-                12.078 12.078 0 01.665-6.479L12 14z"/>
-            </svg>
+        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0 overflow-hidden border border-gray-700">
+            <img src="{{ asset('images/logo-mahaputra.jpg') }}" alt="Logo" class="w-full h-full object-cover">
         </div>
 
         <div class="ml-3">
             <h1 class="text-white font-bold text-lg tracking-wide">
-                EduAdmin <span class="font-medium">Pro</span>
+                Admin <span class="text-blue-500">Mahput</span>
             </h1>
         </div>
     </div>
@@ -48,29 +42,41 @@
 
             Dashboard
         </a>
+        
+        <!-- Album Management -->
+        <a href="{{ route('superadmin.albums.index') }}"
+        class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors
+        {{ request()->routeIs('superadmin.albums.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
 
-        <!-- Users -->
+            <svg class="w-5 h-5 {{ request()->routeIs('superadmin.albums.*') ? 'text-white' : '' }}"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+
+            Manajemen Album
+        </a>
+
+        <!-- User Management -->
         <a href="/superadmin/users"
         class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors
         {{ request()->routeIs('superadmin.users.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
 
             <svg class="w-5 h-5 {{ request()->routeIs('superadmin.users.*') ? 'text-white' : '' }}"
             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 4.354a4 4 0 110 5.292M15 
-                21H3v-1a6 6 0 0112 0v1zm0 
-                0h6v-1a6 6 0 00-9-5.197M13 
-                7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
 
             User Management
         </a>
 
+
+
         <!-- Articles -->
         <a href="/superadmin/articles"
         class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors
         {{ request()->routeIs('superadmin.articles.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
+
 
             <svg class="w-5 h-5 {{ request()->routeIs('superadmin.articles.*') ? 'text-white' : '' }}"
             fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,14 +136,9 @@
             {{ request()->routeIs('superadmin.extracurricular-registrations.*') || request()->routeIs('superadmin.eskul.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
                 <div class="flex items-center gap-3">
                     <svg class="w-5 h-5 {{ request()->routeIs('superadmin.extracurricular-registrations.*') || request()->routeIs('superadmin.eskul.*') ? 'text-white' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13.828 10.172a4 4 0 
-                        00-5.656 0l-4 4a4 4 
-                        0 105.656 5.656l1.102-1.101m-.758-4.899a4 
-                        4 0 005.656 0l4-4a4 
-                        4 0 00-5.656-5.656l-1.1 1.1"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    Eskul Control
+                    Ekstrakurikuler
                 </div>
                 <svg class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -152,42 +153,52 @@
                  class="mt-2 ml-6 space-y-1 pl-4 border-l border-gray-800">
                 <a href="{{ route('superadmin.eskul.index') }}" 
                    class="block py-2 text-sm transition-colors {{ request()->routeIs('superadmin.eskul.index') ? 'text-blue-500 font-bold' : 'text-gray-500 hover:text-white' }}">
-                    Eskul Management
+                    Manajemen Eskul
                 </a>
                 <a href="{{ route('superadmin.extracurricular-registrations.index') }}" 
                    class="block py-2 text-sm transition-colors {{ request()->routeIs('superadmin.extracurricular-registrations.index') ? 'text-blue-500 font-bold' : 'text-gray-500 hover:text-white' }}">
-                    Pendaftaran Eskul
+                    Pendaftaran
                 </a>
             </div>
         </div>
-
     </div>
 
-    <!-- Logout -->
-    <div class="p-4 mt-auto mb-4">
-
-        <form method="POST" action="{{ route('logout') }}">
+    <!-- Keluar Link -->
+    <div class="px-4 pt-2 pb-6 border-t border-white/5">
+        <form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
             @csrf
-
-            <button type="submit"
-            class="flex items-center gap-3 px-4 py-3 rounded-full text-red-400 hover:text-white hover:bg-red-500/10 font-medium text-sm transition-colors w-full">
-
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17 16l4-4m0 0l-4-4m4 
-                    4H7m6 4v1a3 3 0 
-                    01-3 3H6a3 3 0 
-                    01-3-3V7a3 3 0 
-                    013-3h4a3 3 0 
-                    013 3v1"/>
-                </svg>
-
-                Logout
-            </button>
-
         </form>
-
+        <button type="button" 
+            onclick="confirmLogout()"
+            class="flex items-center gap-3 px-4 py-2 text-gray-500 hover:text-red-400 font-bold text-xs transition-colors w-full group">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+            Keluar
+        </button>
     </div>
+
+    <script>
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan keluar dari sesi admin ini.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3B82F6',
+                cancelButtonColor: '#6B7280',
+                confirmButtonText: 'Ya, Keluar!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                borderRadius: '20px',
+                background: document.documentElement.classList.contains('dark') ? '#1E293B' : '#FFFFFF',
+                color: document.documentElement.classList.contains('dark') ? '#FFFFFF' : '#000000',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('logout-form').submit();
+                }
+            })
+        }
+    </script>
 
 </aside>

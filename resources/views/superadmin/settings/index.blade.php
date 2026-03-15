@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pengaturan Super Admin - EduAdmin Pro</title>
+    <title>Pengaturan Super Admin - Mahaputra</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -262,3 +262,4 @@
     </div>
 </body>
 </html>
+

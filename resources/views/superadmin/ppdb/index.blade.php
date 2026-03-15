@@ -1,5 +1,5 @@
 @extends('layouts.superadmin.app')
-@section('title', 'Manajemen PPDB - EduAdmin Pro')
+@section('title', 'Manajemen PPDB - Admin Mahput')
 
 @section('content')
 <div x-data="{ 
@@ -9,6 +9,7 @@
         'id' => $a->registration_number,
         'db_id' => $a->id,
         'name' => $a->full_name,
+        'major' => $a->major,
         'nisn' => $a->nisn,
         'school' => $a->school_origin ?? '-',
         'date' => $a->created_at->format('M d, Y'),
@@ -141,6 +142,7 @@
                 <thead>
                     <tr class="border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
                         <th class="pb-4 text-[11px] font-bold uppercase tracking-wider pl-2 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">ID & Nama Pendaftar</th>
+                        <th class="pb-4 text-[11px] font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Jurusan</th>
                         <th class="pb-4 text-[11px] font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">NISN</th>
                         <th class="pb-4 text-[11px] font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Asal Sekolah</th>
                         <th class="pb-4 text-[11px] font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Tanggal Masuk</th>
@@ -161,6 +163,9 @@
                                         <div class="text-[11px] font-bold px-1.5 py-0.5 rounded inline-block mt-0.5 transition-colors duration-300" :class="darkMode ? 'text-blue-400 bg-blue-500/10' : 'text-blue-600 bg-blue-50'" x-text="app.id"></div>
                                     </div>
                                 </div>
+                            </td>
+                            <td class="py-5 font-bold transition-colors duration-300" :class="darkMode ? 'text-blue-400' : 'text-blue-600'">
+                                <span class="px-2 py-1 rounded-lg" :class="darkMode ? 'bg-blue-500/10' : 'bg-blue-50'" x-text="app.major"></span>
                             </td>
                             <td class="py-5 font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'" x-text="app.nisn"></td>
                             <td class="py-5 font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-800'" x-text="app.school"></td>
@@ -218,3 +223,5 @@
 @push('scripts')
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endpush
+
+
