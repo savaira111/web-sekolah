@@ -69,130 +69,6 @@
                     <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">{{ $eskul->name }}</h3>
                     <p class="text-sm text-gray-400 leading-relaxed line-clamp-2">{{ $eskul->description }}</p>
                     <div class="flex items-center justify-between pt-4">
-<<<<<<< HEAD
-                        <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Sabtu, 08:00 - 11:00</span>
-                        <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 2: Rohis -->
-            <a href="{{ route('extracurriculars.rohis') }}" 
-                 x-show="active === 'semua' || active === 'umum'"
-                 x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 scale-95"
-                 x-transition:enter-end="opacity-100 scale-100"
-                 x-transition:leave="transition ease-in duration-200"
-                 x-transition:leave-start="opacity-100 scale-100"
-                 x-transition:leave-end="opacity-0 scale-95"
-                 class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/rohis.png') }}" alt="Rohis" class="w-full h-full object-cover transition-transform duration-700 font-medium">
-                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Umum</div>
-                </div>
-                <div class="space-y-2 pl-2">
-                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Rohis</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">Mengembangkan karakter spiritual dan wawasan keagamaan melalui berbagai kegiatan komunitas.</p>
-                    <div class="flex items-center justify-between pt-4">
-                        <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Jumat, 13:00 - 15:00</span>
-                        <span class="text-xs font-bold text-blue-600 flex items-center gap-2">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 3: Pencak Silat -->
-            <a href="{{ route('extracurriculars.silat') }}" 
-               x-show="active === 'semua' || active === 'olahraga'"
-               x-transition:enter="transition ease-out duration-300"
-               x-transition:enter-start="opacity-0 scale-95"
-               x-transition:enter-end="opacity-100 scale-100"
-               x-transition:leave="transition ease-in duration-200"
-               x-transition:leave-start="opacity-100 scale-100"
-               x-transition:leave-end="opacity-0 scale-95"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/silat.png') }}" alt="Silat" class="w-full h-full object-cover transition-transform duration-700 font-medium">
-                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Olahraga</div>
-                </div>
-                <div class="space-y-2 pl-2">
-                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Pencak Silat</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">Seni bela diri tradisional Indonesia untuk pertahanan diri, kebugaran fisik, dan kedisiplinan mental.</p>
-                    <div class="flex items-center justify-between pt-4">
-                        <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Rabu, 15:30 - 17:30</span>
-                        <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 4: Futsal -->
-            <a href="{{ route('extracurriculars.futsal') }}" 
-               x-show="active === 'semua' || active === 'olahraga'"
-               x-transition:enter="transition ease-out duration-300"
-               x-transition:enter-start="opacity-0 scale-95"
-               x-transition:enter-end="opacity-100 scale-100"
-               x-transition:leave="transition ease-in duration-200"
-               x-transition:leave-start="opacity-100 scale-100"
-               x-transition:leave-end="opacity-0 scale-95"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/futsal.png') }}" alt="Futsal" class="w-full h-full object-cover transition-transform duration-700 font-medium">
-                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Olahraga</div>
-                </div>
-                <div class="space-y-2 pl-2">
-                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Futsal</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">Kerjasama tim dan ketangkasan fisik melalui latihan rutin dan kompetisi antar sekolah.</p>
-                    <div class="flex items-center justify-between pt-4">
-                        <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Kamis, 16.00 - 18.00</span>
-                        <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 5: Paskibra -->
-            <a href="{{ route('extracurriculars.paskibra') }}" 
-               x-show="active === 'semua' || active === 'umum'"
-               x-transition:enter="transition ease-out duration-300"
-               x-transition:enter-start="opacity-0 scale-95"
-               x-transition:enter-end="opacity-100 scale-100"
-               x-transition:leave="transition ease-in duration-200"
-               x-transition:leave-start="opacity-100 scale-100"
-               x-transition:leave-end="opacity-0 scale-95"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/paskibra.png') }}" alt="Paskibra" class="w-full h-full object-cover transition-transform duration-700 font-medium">
-                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Umum</div>
-                </div>
-                <div class="space-y-2 pl-2">
-                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Paskibra</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">Membangun jiwa kepemimpinan dan patriotisme melalui pelatihan baris-berbaris dan upacara bendera.</p>
-                    <div class="flex items-center justify-between pt-4">
-                        <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Senin, 15:30 - 17:00</span>
-                        <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Card 6: Pramuka -->
-            <a href="{{ route('extracurriculars.pramuka') }}" 
-               x-show="active === 'semua' || active === 'umum'"
-               x-transition:enter="transition ease-out duration-300"
-               x-transition:enter-start="opacity-0 scale-95"
-               x-transition:enter-end="opacity-100 scale-100"
-               x-transition:leave="transition ease-in duration-200"
-               x-transition:leave-start="opacity-100 scale-100"
-               x-transition:leave-end="opacity-0 scale-95"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/pramuka.png') }}" alt="Pramuka" class="w-full h-full object-cover transition-transform duration-700 font-medium">
-                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Umum</div>
-                </div>
-                <div class="space-y-2 pl-2">
-                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Pramuka</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">Membangun karakter tangguh, mandiri, dan peduli lingkungan melalui petualangan serta keterampilan bertahan hidup.</p>
-                    <div class="flex items-center justify-between pt-4">
-                        <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Senin, 15:30 - 17:00</span>
-                        <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
-=======
                         <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 
                             {{ $eskul->schedule_info }}
@@ -201,7 +77,6 @@
                             Lihat Detail 
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                         </span>
->>>>>>> d2f4522 (p)
                     </div>
                 </div>
             </a>

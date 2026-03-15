@@ -118,15 +118,13 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
         return view('superadmin.profile');
     })->name('profile');
 
-<<<<<<< HEAD
     // Extracurricular Registrations
     Route::get('/extracurricular-registrations', [ExtracurricularRegistrationController::class, 'index'])->name('extracurricular-registrations.index');
     Route::patch('/extracurricular-registrations/{id}/status', [ExtracurricularRegistrationController::class, 'updateStatus'])->name('extracurricular-registrations.status');
-=======
+
     // Eskul (Custom Layout Design)
     Route::get('/eskul/registrations', [\App\Http\Controllers\ExtracurricularController::class, 'registrations'])->name('eskul.registrations');
     Route::resource('eskul', \App\Http\Controllers\ExtracurricularController::class);
     Route::post('/eskul/{eskul}/toggle', [\App\Http\Controllers\ExtracurricularController::class, 'toggleStatus'])->name('eskul.toggle');
->>>>>>> d2f4522 (p)
 
 });
