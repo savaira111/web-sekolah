@@ -57,24 +57,19 @@
 
         <!-- Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <!-- Card 1: Archery -->
-            <a href="{{ route('extracurriculars.panahan') }}" 
-               x-show="active === 'semua' || active === 'olahraga'"
-               x-transition:enter="transition ease-out duration-300"
-               x-transition:enter-start="opacity-0 scale-95"
-               x-transition:enter-end="opacity-100 scale-100"
-               x-transition:leave="transition ease-in duration-200"
-               x-transition:leave-start="opacity-100 scale-100"
-               x-transition:leave-end="opacity-0 scale-95"
+            @foreach($extracurriculars as $eskul)
+            <a href="{{ route('extracurriculars.show', $eskul->id) }}" 
+               x-show="active === 'semua' || active === '{{ strtolower(explode(' ', $eskul->category)[0] == 'Sports' ? 'olahraga' : 'umum') }}'"
                class="group space-y-6">
                 <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/archery.png') }}" alt="Archery" class="w-full h-full object-cover transition-transform duration-700 font-medium">
-                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Olahraga</div>
+                    <img src="{{ $eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png') }}" alt="{{ $eskul->name }}" class="w-full h-full object-cover transition-transform duration-700 font-medium group-hover:scale-105">
+                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">{{ $eskul->category }}</div>
                 </div>
                 <div class="space-y-2 pl-2">
-                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">Panahan (Archery)</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed">Melatih fokus dan presisi melalui teknik memanah tradisional maupun modern bagi seluruh siswa.</p>
+                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">{{ $eskul->name }}</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed line-clamp-2">{{ $eskul->description }}</p>
                     <div class="flex items-center justify-between pt-4">
+<<<<<<< HEAD
                         <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Sabtu, 08:00 - 11:00</span>
                         <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
                     </div>
@@ -197,10 +192,22 @@
                     <div class="flex items-center justify-between pt-4">
                         <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Senin, 15:30 - 17:00</span>
                         <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">Lihat Detail <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg></span>
+=======
+                        <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 
+                            {{ $eskul->schedule_info }}
+                        </span>
+                        <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">
+                            Lihat Detail 
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                        </span>
+>>>>>>> d2f4522 (p)
                     </div>
                 </div>
             </a>
+            @endforeach
         </div>
+
     </div>
 </section>
 

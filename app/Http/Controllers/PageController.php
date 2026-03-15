@@ -13,7 +13,9 @@ class PageController extends Controller
             ->take(3)
             ->get();
             
-        return view('index', compact('articles'));
+        $activeEskulCount = \App\Models\Extracurricular::where('is_active', true)->count();
+            
+        return view('index', compact('articles', 'activeEskulCount'));
     }
 
     public function jurusan()
@@ -102,7 +104,14 @@ class PageController extends Controller
 
     public function extracurriculars()
     {
-        return view('extracurriculars.index');
+        $extracurriculars = \App\Models\Extracurricular::where('is_active', true)->get();
+        return view('extracurriculars.index', compact('extracurriculars'));
+    }
+
+    public function extracurricularDetail($id)
+    {
+        $eskul = \App\Models\Extracurricular::findOrFail($id);
+        return view('extracurriculars.show', compact('eskul'));
     }
 
     public function panahan()

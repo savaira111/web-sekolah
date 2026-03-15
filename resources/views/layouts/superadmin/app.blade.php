@@ -24,6 +24,17 @@
         .sidebar-active { background-color: #3B82F6; color: white; }
         .sidebar-item { color: #9CA3AF; }
         .sidebar-item:hover { background-color: #1E293B; color: white; }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        * {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
     <script>
         if (localStorage.getItem('darkMode') === 'true' || !('darkMode' in localStorage)) {

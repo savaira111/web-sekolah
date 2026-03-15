@@ -106,7 +106,6 @@
                     {{ $articles->links() }}
                 </div>
             </div>
-        </div>
 
         <!-- Sidebar -->
         <div class="space-y-12">

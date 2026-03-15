@@ -1,191 +1,386 @@
 @extends('layouts.superadmin.app')
 
-@section('title', 'Buat Artikel - EduAdmin Pro')
-
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    function articleForm() {
-        return {
-            title: '',
-            slug: '',
-            imagePreview: null,
-            highlightArticle: true,
-            autoComments: false,
-            
-            generateSlug() {
-                this.slug = this.title
-                    .toLowerCase()
-                    .trim()
-                    .replace(/[^\w\s-]/g, '')
-                    .replace(/[\s_-]+/g, '-')
-                    .replace(/^-+|-+$/g, '');
-            },
-
-            handleImage(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        this.imagePreview = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            },
-
-            async submitForm() {
-                if (!this.title.trim()) {
-                    Swal.fire({ icon: 'error', title: 'Oops...', text: 'Judul artikel wajib diisi.' });
-                    return;
-                }
-
-                Swal.fire({
-                    title: 'Menyimpan Artikel...',
-                    text: 'Mohon tunggu sebentar',
-                    allowOutsideClick: false,
-                    didOpen: () => { Swal.showLoading() }
-                });
-
-                const formData = new FormData(this.$refs.mainForm);
-                // Based on UI text, it saves as Draft
-                formData.set('is_published', '0');
-
-                try {
-                    const response = await fetch("{{ route('superadmin.articles.store') }}", {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'Accept': 'application/json',
-                        }
-                    });
-
-                    const data = await response.json();
-
-                    if (response.ok) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil!',
-                            text: data.message || 'Artikel disimpan sebagai draf.',
-                            confirmButtonColor: '#3B82F6',
-                        }).then(() => {
-                            window.location.href = data.redirect || "{{ route('superadmin.articles.index') }}";
-                        });
-                    } else {
-                        let msg = data.errors ? Object.values(data.errors).flat().join('<br>') : (data.message || 'Gagal menyimpan.');
-                        Swal.fire({ icon: 'error', title: 'Oops...', html: msg });
-                    }
-                } catch (error) {
-                    Swal.fire({ icon: 'error', title: 'Error', text: 'Koneksi bermasalah.' });
-                }
-            }
-        }
-    }
-</script>
-@endpush
+@section('title', 'Buat Artikel Baru - EduAdmin Pro')
 
 @section('content')
-<div class="p-8 flex-1 w-full max-w-7xl mx-auto" x-data="articleForm()">
+<div class="p-6 lg:p-10 min-h-screen" :class="darkMode ? '' : 'bg-gray-50'">
+    <!-- Breadcrumbs -->
+    <nav class="flex mb-6 text-sm" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+            <li>
+                <a href="{{ route('superadmin.dashboard') }}" class="text-gray-500 hover:text-blue-600 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="flex items-center space-x-2">
+                <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <a href="{{ route('superadmin.articles.index') }}" class="text-gray-500 hover:text-blue-600">Artikel / Berita</a>
+            </li>
+            <li class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                <span class="font-medium">Buat Artikel Baru</span>
+            </li>
+        </ol>
+    </nav>
 
-    {{-- Header --}}
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-6 border-b border-gray-200 gap-4">
-        <div>
-            <h2 class="text-3xl font-extrabold text-gray-900">Buat Artikel Baru</h2>
-            <p class="text-gray-500">Publikasikan berita atau pengumuman terbaru sekolah.</p>
+    <!-- Header Section -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+        <div class="flex items-start space-x-5">
+            <a href="{{ route('superadmin.articles.index') }}" 
+               class="p-3 rounded-2xl bg-white shadow-xl shadow-gray-200/50 text-gray-400 hover:text-blue-600 transition-all duration-300 group"
+               :class="darkMode ? 'bg-slate-800 shadow-none border border-slate-700 hover:bg-slate-700' : ''">
+                <svg class="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+            </a>
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight" :class="darkMode ? 'text-white' : 'text-slate-900'">
+                    Create New Article
+                </h1>
+                <p class="mt-1 text-gray-500 max-w-2xl">
+                    Publikasikan berita atau pengumuman terbaru sekolah dengan editor profesional.
+                </p>
+            </div>
         </div>
-        <button type="button" @click="submitForm()" class="px-8 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-600/30">
-            Simpan sebagai Draft
-        </button>
+        
+        <!-- Action Buttons -->
+        <div class="mt-6 lg:mt-0 flex items-center space-x-3">
+            <button type="button" onclick="submitForm(0)" class="px-8 py-3 rounded-xl font-bold text-sm bg-blue-600 text-white hover:bg-blue-700 shadow-xl shadow-blue-500/20 active:scale-95 transition-all whitespace-nowrap">
+                Create Artikel
+            </button>
+        </div>
     </div>
 
-    <form x-ref="mainForm" enctype="multipart/form-data" class="flex flex-col lg:flex-row gap-8">
+    <form id="articleForm" action="{{ route('superadmin.articles.store') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         @csrf
+        <input type="hidden" name="is_published" id="is_published" value="0">
         
-        {{-- Kolom Kiri --}}
-        <div class="flex-1 space-y-6">
-            <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-gray-100">
-                <div class="mb-6">
-                    <label class="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">JUDUL ARTIKEL</label>
-                    <input x-model="title" @input="generateSlug()" name="title" type="text" placeholder="Masukkan judul..."
-                        class="w-full px-5 py-4 rounded-2xl border border-gray-200 text-xl font-bold focus:ring-4 focus:ring-blue-500/10 outline-none focus:border-blue-500 transition-all">
+        <!-- Left Sidebar: Main Form Content -->
+        <div class="lg:col-span-8 space-y-8">
+            <div class="rounded-3xl p-8 shadow-xl transition-all duration-200" :class="darkMode ? 'bg-slate-800/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
+                
+                <!-- Title Input -->
+                <div class="mb-8 group">
+                    <label for="title" class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 group-focus-within:text-blue-500 transition-colors">JUDUL ARTIKEL</label>
+                    <input type="text" name="title" id="title" required
+                           class="w-full text-2xl lg:text-3xl font-bold bg-transparent border-none focus:ring-0 placeholder:text-gray-300 p-0"
+                           placeholder="Masukkan judul artikel yang menarik..."
+                           oninput="updateSlug(this.value)">
+                    @error('title')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold tracking-widest text-gray-400 uppercase mb-3">KONTEN ARTIKEL</label>
-                    <textarea name="content" placeholder="Mulai menulis..."
-                        class="w-full px-5 py-6 rounded-2xl border border-gray-200 min-h-[400px] focus:outline-none focus:border-blue-500 transition-all"></textarea>
+                <!-- Rich Text Editor Container -->
+                <div class="space-y-3">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">KONTEN ARTIKEL</label>
+                    
+                    <div class="rounded-2xl overflow-hidden border transition-all duration-200 shadow-inner" 
+                         :class="darkMode ? 'bg-slate-900/50 border-slate-700 focus-within:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus-within:border-blue-400/50'">
+                        
+                        <!-- Quill Editor -->
+                        <div id="editor-container" class="bg-transparent">
+                            <div id="editor" class="min-h-[600px] text-lg"></div>
+                        </div>
+                        <textarea name="content" id="content_textarea" class="hidden"></textarea>
+                    </div>
+                    @error('content')
+                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
         </div>
 
-        {{-- Kolom Kanan --}}
-        <div class="w-full lg:w-80 space-y-6">
-            {{-- Image Upload --}}
-            <div class="bg-white rounded-[1.5rem] p-6 shadow-sm border border-gray-100">
-                <h3 class="text-xs font-bold text-gray-400 uppercase mb-4">GAMBAR UNGGULAN</h3>
-                <div class="w-full aspect-[16/9] rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center cursor-pointer overflow-hidden relative group"
-                    @click="$refs.imageInput.click()">
-                    
-                    <template x-if="imagePreview">
-                        <img :src="imagePreview" class="absolute inset-0 w-full h-full object-cover">
-                    </template>
-                    
-                    <div x-show="!imagePreview" class="text-center">
-                        <p class="text-gray-500 text-sm font-bold">Pilih Gambar</p>
+        <!-- Right Sidebar: Settings and Metadata -->
+        <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-8 self-start">
+            
+
+            <!-- Featured Image Card -->
+            <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
+                 :class="darkMode ? 'bg-slate-800/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
+                <div class="flex items-center space-x-2 mb-6">
+                    <div class="p-2 rounded-lg bg-blue-500/10 text-blue-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-gray-500">FEATURED IMAGE</h3>
+                </div>
+
+                <div class="relative group">
+                    <input type="file" name="featured_image" id="featured_image" class="hidden" accept="image/*" onchange="previewImage(this)">
+                    <label for="featured_image" 
+                           class="flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed transition-all cursor-pointer group-hover:border-blue-500/50"
+                           :class="darkMode ? 'border-slate-700 bg-slate-900/40' : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50'">
+                        
+                        <div id="image-preview-container" class="hidden w-full mb-4 rounded-xl overflow-hidden aspect-video">
+                            <img id="image-preview" src="#" alt="Preview" class="w-full h-full object-cover">
+                        </div>
+
+                        <div id="upload-placeholder" class="text-center">
+                            <div class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4 text-blue-500 group-hover:scale-110 transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                            </div>
+                            <p class="text-sm font-bold text-gray-500 mb-1">Upload Thumbnail</p>
+                            <p class="text-[10px] text-gray-400 font-medium tracking-tighter">Rasio 16:9, Maksimal 2MB</p>
+                        </div>
+                    </label>
+                </div>
+                @error('featured_image')
+                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Settings & SEO Card -->
+            <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
+                 :class="darkMode ? 'bg-slate-800/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
+                <div class="flex items-center space-x-2 mb-6 text-emerald-500">
+                    <div class="p-2 rounded-lg bg-emerald-500/10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-gray-500">SETTINGS & SEO</h3>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">KATEGORI</label>
+                        <div class="relative group">
+                            <select name="category" id="category" class="w-full appearance-none px-4 py-3 rounded-xl border font-medium focus:ring-0 transition-all duration-200"
+                                    :class="darkMode ? 'bg-slate-900/50 border-slate-700 text-white focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus:border-blue-400/50'">
+                                @foreach($categories as $key => $value)
+                                    <option value="{{ $key }}" {{ old('category') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                @endforeach
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
 
-                    <div x-show="imagePreview" class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                        <span class="text-white text-xs font-bold">Ganti Gambar</span>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">SLUG URL</label>
+                        <div class="flex items-center rounded-xl border transition-all duration-200 overflow-hidden"
+                             :class="darkMode ? 'bg-slate-900/50 border-slate-700 focus-within:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus-within:border-blue-400/50'">
+                            <span class="px-3 py-3 text-xs font-semibold text-gray-400 bg-gray-100/5" :class="darkMode ? 'bg-slate-800' : 'bg-gray-100'">edu.com/</span>
+                            <input type="text" id="slug_preview" disabled
+                                   class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium text-gray-500 py-3 px-2"
+                                   placeholder="judul-artikel-baru">
+                        </div>
+                        <p class="mt-2 text-[10px] text-gray-400 italic">* Slug akan dibuat otomatis dari judul.</p>
                     </div>
-
-                    <input type="file" name="featured_image" x-ref="imageInput" class="hidden" accept="image/*" @change="handleImage">
                 </div>
             </div>
 
-            {{-- Settings --}}
-            <div class="bg-white rounded-[1.5rem] p-6 shadow-sm border border-gray-100">
-                <h3 class="text-xs font-bold text-gray-400 uppercase mb-5">SETTINGS & SEO</h3>
-                <div class="mb-4">
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2">KATEGORI</label>
-                    <select name="category" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm outline-none">
-                        @foreach($categories as $id => $name)
-                            <option value="{{ $id }}">{{ $name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2">SLUG URL</label>
-                    <input x-model="slug" name="slug" readonly class="w-full px-4 py-3 rounded-xl border border-gray-100 bg-gray-50 text-gray-500 text-sm outline-none cursor-not-allowed">
-                </div>
-            </div>
-
-            {{-- Visibilitas --}}
-            <div class="bg-white rounded-[1.5rem] p-6 shadow-sm border border-gray-100">
-                <h3 class="text-xs font-bold text-gray-400 uppercase mb-5">VISIBILITAS</h3>
-                
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-sm font-bold text-gray-700">Highlight</span>
-                    <button type="button" @click="highlightArticle = !highlightArticle" 
-                        class="w-11 h-6 rounded-full transition-colors relative"
-                        :class="highlightArticle ? 'bg-blue-600' : 'bg-gray-300'">
-                        <span class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform" :class="highlightArticle ? 'translate-x-5' : ''"></span>
-                    </button>
-                    {{-- Hidden inputs to mirror the UI state since these fields are not in DB and might be used in the future --}}
-                    <input type="hidden" name="highlight_article" :value="highlightArticle ? '1' : '0'">
+            <!-- Visibilitas Card -->
+            <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
+                 :class="darkMode ? 'bg-slate-800/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
+                <div class="flex items-center space-x-2 mb-6 text-orange-500">
+                    <div class="p-2 rounded-lg bg-orange-500/10">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-gray-500">VISIBILITAS</h3>
                 </div>
 
-                <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold text-gray-700">Komentar</span>
-                    <button type="button" @click="autoComments = !autoComments" 
-                        class="w-11 h-6 rounded-full transition-colors relative"
-                        :class="autoComments ? 'bg-blue-600' : 'bg-gray-300'">
-                        <span class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform" :class="autoComments ? 'translate-x-5' : ''"></span>
-                    </button>
-                    <input type="hidden" name="allow_comments" :value="autoComments ? '1' : '0'">
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold" :class="darkMode ? 'text-white' : 'text-slate-900'">Highlight Artikel</p>
+                            <p class="text-[10px] text-gray-400 mt-1">Tampilkan di slider utama</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" name="is_highlighted" value="1" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-bold" :class="darkMode ? 'text-white' : 'text-slate-900'">Aktifkan Komentar</p>
+                            <p class="text-[10px] text-gray-400 mt-1">Izinkan interaksi publik</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" name="allow_comments" value="1" checked class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
+
+@push('scripts')
+<!-- Quill.js Editor -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<style>
+    /* Quill Editor Theme Overrides */
+    .ql-toolbar.ql-snow {
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: 2px solid rgba(226, 232, 240, 0.5) !important;
+        padding: 1rem !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-radius: 1rem 1rem 0 0;
+    }
+    .dark .ql-toolbar.ql-snow {
+        border-bottom-color: rgba(51, 65, 85, 0.5) !important;
+    }
+    .ql-container.ql-snow {
+        border: none !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+    .ql-editor {
+        padding: 2.5rem !important;
+        min-height: 600px !important;
+        font-size: 1.125rem;
+        line-height: 1.75;
+    }
+    .ql-editor.ql-blank::before {
+        color: #94a3b8 !important;
+        font-style: normal !important;
+        left: 2.5rem !important;
+        right: 2.5rem !important;
+    }
+    
+    /* Dark Mode Icons and Text in Toolbar */
+    .dark .ql-snow .ql-stroke {
+        stroke: #94a3b8 !important;
+    }
+    .dark .ql-snow .ql-fill {
+        fill: #94a3b8 !important;
+    }
+    .dark .ql-snow .ql-picker {
+        color: #94a3b8 !important;
+    }
+    .dark .ql-snow .ql-picker-options {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+    }
+    .dark .ql-snow .ql-picker-item:hover {
+        color: #3b82f6 !important;
+    }
+    .dark .ql-snow .ql-active .ql-stroke {
+        stroke: #3b82f6 !important;
+    }
+    
+    /* Full Toolbar Styling */
+    .ql-snow .ql-tooltip {
+        background-color: #1e293b !important;
+        color: #fff !important;
+        border: 1px solid #334155 !important;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.75rem !important;
+        z-index: 100 !important;
+    }
+    .ql-snow .ql-tooltip input[type=text] {
+        background: #0f172a !important;
+        border: 1px solid #334155 !important;
+        color: #fff !important;
+        padding: 5px 10px !important;
+        border-radius: 0.5rem !important;
+    }
+    .ql-snow .ql-tooltip .ql-action {
+        color: #3b82f6 !important;
+        font-weight: bold !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Full Professional Quill
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Mulai menulis konten artikel profesional Anda di sini...',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ 'font': [] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'script': 'sub'}, { 'script': 'super' }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'indent': '-1'}, { 'indent': '+1' }],
+                    [{ 'align': [] }],
+                    ['blockquote', 'code-block'],
+                    ['link', 'image', 'video'],
+                    ['clean']
+                ]
+            }
+        });
+
+        // Handle form submission
+        window.submitForm = function(status) {
+            document.getElementById('is_published').value = status;
+            
+            // Get content from Quill
+            var content = document.querySelector('#editor .ql-editor').innerHTML;
+            if (content === '<p><br></p>') {
+                content = ''; // Treat empty editor as empty string
+            }
+            document.getElementById('content_textarea').value = content;
+            
+            // Basic validation
+            if (!document.getElementById('title').value) {
+                alert('Judul artikel wajib diisi.');
+                document.getElementById('title').focus();
+                return;
+            }
+            
+            if (!content) {
+                alert('Konten artikel wajib diisi.');
+                quill.focus();
+                return;
+            }
+
+            document.getElementById('articleForm').submit();
+        };
+
+        // Slug updater
+        window.updateSlug = function(value) {
+            const slug = value.toLowerCase()
+                .trim()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+            document.getElementById('slug_preview').value = slug;
+        };
+
+        // Image preview
+        window.previewImage = function(input) {
+            const container = document.getElementById('image-preview-container');
+            const preview = document.getElementById('image-preview');
+            const placeholder = document.getElementById('upload-placeholder');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    container.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+    });
+</script>
+@endpush
 @endsection

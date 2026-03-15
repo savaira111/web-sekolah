@@ -123,6 +123,7 @@
             PPDB Management
         </a>
 
+<<<<<<< HEAD
         <!-- Eskul -->
         <a href="{{ route('superadmin.extracurricular-registrations.index') }}"
         class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors mt-2
@@ -140,6 +141,45 @@
 
             Pendaftaran Eskul
         </a>
+=======
+        <!-- Eskul Dropdown -->
+        <div x-data="{ open: {{ request()->routeIs('superadmin.eskul.*') ? 'true' : 'false' }} }">
+            <button @click="open = !open"
+            class="flex items-center justify-between w-full px-4 py-3 rounded-full font-medium text-sm transition-colors
+            {{ request()->routeIs('superadmin.eskul.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
+                <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 {{ request()->routeIs('superadmin.eskul.*') ? 'text-white' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13.828 10.172a4 4 0 
+                        00-5.656 0l-4 4a4 4 
+                        0 105.656 5.656l1.102-1.101m-.758-4.899a4 
+                        4 0 005.656 0l4-4a4 
+                        4 0 00-5.656-5.656l-1.1 1.1"/>
+                    </svg>
+                    Eskul Control
+                </div>
+                <svg class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+
+            <!-- Submenu -->
+            <div x-show="open" 
+                 x-transition:enter="transition ease-out duration-100"
+                 x-transition:enter-start="opacity-0 -translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 class="mt-2 ml-6 space-y-1 pl-4 border-l border-gray-800">
+                <a href="{{ route('superadmin.eskul.index') }}" 
+                   class="block py-2 text-sm transition-colors {{ request()->routeIs('superadmin.eskul.index') ? 'text-blue-500 font-bold' : 'text-gray-500 hover:text-white' }}">
+                    Eskul Management
+                </a>
+                <a href="{{ route('superadmin.eskul.registrations') }}" 
+                   class="block py-2 text-sm transition-colors {{ request()->routeIs('superadmin.eskul.registrations') ? 'text-blue-500 font-bold' : 'text-gray-500 hover:text-white' }}">
+                    Pendaftaran Eskul
+                </a>
+            </div>
+        </div>
+>>>>>>> d2f4522 (p)
 
     </div>
 

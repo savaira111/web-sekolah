@@ -192,16 +192,16 @@ async function togglePublish(articleId, currentStatus, publishUrl, csrfToken) {
                         <td class="py-5 transition-colors duration-300 pl-2">
                             <div class="flex items-center gap-4">
                                 @if($article->featured_image)
-                                <div class="w-14 h-14 rounded-full overflow-hidden shrink-0 border-[3px]" :class="darkMode ? 'border-[#1E293B]' : 'border-gray-100'">
+                                <div class="w-14 h-14 rounded-full overflow-hidden shrink-0 border-[3px]" :class="darkMode ? 'border-slate-700/50' : 'border-gray-100'">
                                     <img src="{{ asset('storage/' . $article->featured_image) }}" class="w-full h-full object-cover opacity-90" alt="{{ $article->title }}">
                                 </div>
                                 @else
-                                <div class="w-14 h-14 rounded-full overflow-hidden shrink-0 flex items-center justify-center border-[3px]" :class="darkMode ? 'border-[#1E293B] bg-[#0F172A] text-blue-400' : 'border-gray-100 bg-[#EBF1FF] text-[#2563EB]'">
+                                <div class="w-14 h-14 rounded-full overflow-hidden shrink-0 flex items-center justify-center border-[3px]" :class="darkMode ? 'border-slate-700/50 bg-[#0F172A] text-blue-400' : 'border-gray-100 bg-[#EBF1FF] text-[#2563EB]'">
                                     <svg class="w-6 h-6 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                                 </div>
                                 @endif
                                 <div>
-                                    <a href="{{ route('superadmin.articles.show', $article->id) }}" class="font-bold text-[15.5px] hover:text-blue-600 transition-colors duration-300 block mb-0.5 truncate max-w-[350px]" :class="darkMode ? 'text-white' : 'text-[#111827]'" title="{{ $article->title }}">{{ $article->title }}</a>
+                                    <a href="{{ route('news.detail', $article->slug) }}" target="_blank" class="font-bold text-[15.5px] hover:text-blue-600 transition-colors duration-300 block mb-0.5 truncate max-w-[350px]" :class="darkMode ? 'text-white' : 'text-[#111827]'" title="{{ $article->title }}">{{ $article->title }}</a>
                                     <p class="text-[13px] transition-colors duration-300 font-medium" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Diperbarui {{ $article->updated_at->diffForHumans() }} • {{ number_format($article->views_count ?? 0) }} kali dilihat</p>
                                 </div>
                             </div>
@@ -264,7 +264,7 @@ async function togglePublish(articleId, currentStatus, publishUrl, csrfToken) {
                                     :class="darkMode ? '{{ $article->is_published ? 'border-amber-600/40 text-amber-400 bg-amber-400/10 hover:bg-amber-400/20' : 'border-emerald-600/40 text-emerald-400 bg-emerald-400/10 hover:bg-emerald-400/20' }}' : '{{ $article->is_published ? 'border-amber-200 text-amber-600 bg-amber-50 hover:bg-amber-100' : 'border-emerald-200 text-emerald-600 bg-emerald-50 hover:bg-emerald-100' }}'">
                                     @if($article->is_published)
                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
-                                    Draft
+                                    Unpublish
                                     @else
                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     Publish
@@ -273,11 +273,11 @@ async function togglePublish(articleId, currentStatus, publishUrl, csrfToken) {
 
                                 {{-- Detail (only if published) --}}
                                 @if($article->is_published)
-                                <a href="{{ route('superadmin.articles.show', $article->id) }}"
+                                <a href="{{ route('news.detail', $article->slug) }}"
+                                    target="_blank"
                                     title="Lihat Detail"
-                                    class="w-8 h-8 rounded-xl flex items-center justify-center border transition-all duration-200 hover:-translate-y-0.5"
-                                    :class="darkMode ? 'border-gray-700 text-purple-400 hover:bg-purple-500/10 hover:border-purple-700/50' : 'border-gray-200 text-purple-500 hover:bg-purple-50 hover:border-purple-200'">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    class="w-8 h-8 rounded-full border flex items-center justify-center transition-colors" :class="darkMode ? 'border-gray-700 text-purple-400 hover:bg-gray-800' : 'border-gray-200 text-purple-600 hover:bg-purple-50'">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                 </a>
                                 @endif
 
