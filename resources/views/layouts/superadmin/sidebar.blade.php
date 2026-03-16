@@ -43,6 +43,7 @@
             Dashboard
         </a>
         
+        @if(auth()->user()->role === 'Superadmin')
         <!-- Album Management -->
         <a href="{{ route('superadmin.albums.index') }}"
         class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors
@@ -69,9 +70,11 @@
 
             User Management
         </a>
+        @endif
 
 
 
+        @if(auth()->user()->role === 'Superadmin' || auth()->user()->role === 'operator artikel/berita')
         <!-- Articles -->
         <a href="/superadmin/articles"
         class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors
@@ -92,7 +95,9 @@
 
             Artikel / Berita
         </a>
+        @endif
 
+        @if(auth()->user()->role === 'Superadmin')
         <!-- Messages -->
         <a href="/superadmin/messages"
         class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors
@@ -111,7 +116,9 @@
 
             Pesan Masuk
         </a>
+        @endif
 
+        @if(auth()->user()->role === 'Superadmin' || auth()->user()->role === 'admin PPDB management')
         <!-- PPDB -->
         <a href="{{ route('superadmin.ppdb.index') }}"
         class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors mt-2
@@ -128,7 +135,9 @@
 
             PPDB Management
         </a>
+        @endif
 
+        @if(auth()->user()->role === 'Superadmin' || auth()->user()->role === 'admin EXTRAKULIKULLER management')
         <!-- Eskul Dropdown -->
         <div x-data="{ open: {{ request()->routeIs('superadmin.extracurricular-registrations.*') || request()->routeIs('superadmin.eskul.*') ? 'true' : 'false' }} }">
             <button @click="open = !open"
@@ -161,6 +170,7 @@
                 </a>
             </div>
         </div>
+        @endif
     </div>
 
     <!-- Keluar Link -->

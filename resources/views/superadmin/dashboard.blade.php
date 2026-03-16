@@ -7,6 +7,7 @@
             
             <!-- Cards Row -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                @if(auth()->user()->role === 'Superadmin')
                 <!-- Card 1 -->
                 <a href="/superadmin/users" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-blue-200'">
                     <div class="flex items-center justify-between mb-4">
@@ -30,7 +31,9 @@
                     <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Total Editor</p>
                     <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">128</h3>
                 </a>
+                @endif
 
+                @if(auth()->user()->role === 'Superadmin' || auth()->user()->role === 'admin PPDB management')
                 <!-- Card 3 -->
                 <a href="#" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-orange-200'">
                     <div class="flex items-center justify-between mb-4">
@@ -42,7 +45,9 @@
                     <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Pendaftar PPDB</p>
                     <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">432</h3>
                 </a>
+                @endif
 
+                @if(auth()->user()->role === 'Superadmin' || auth()->user()->role === 'operator artikel/berita')
                 <!-- Card 4 -->
                 <a href="/superadmin/articles" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-emerald-200'">
                     <div class="flex items-center justify-between mb-4">
@@ -54,6 +59,7 @@
                     <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Artikel Aktif</p>
                     <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">54</h3>
                 </a>
+                @endif
             </div>
 
             <!-- Charts Row -->
