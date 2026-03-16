@@ -59,6 +59,10 @@
         </div>
 
         <div class="flex items-center gap-3">
+            <a href="{{ route('superadmin.ppdb.print', $applicant->id) }}" target="_blank" class="flex items-center gap-2 px-6 py-3 border font-bold rounded-2xl transition-all shadow-sm transition-transform hover:-translate-y-1" :class="$store.theme.darkMode ? 'bg-amber-500/10 border-amber-500/20 text-amber-500 hover:bg-amber-500/20' : 'bg-amber-50 border-amber-100 text-amber-600 hover:bg-amber-100'">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Unduh Data
+            </a>
             <button class="flex items-center gap-2 px-6 py-3 border font-bold rounded-2xl transition-all shadow-sm" :class="$store.theme.darkMode ? 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                 Edit
@@ -241,12 +245,25 @@
             <!-- Documents -->
             <!-- Documents -->
             <div class="rounded-[2.5rem] p-8 border shadow-sm transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
-                <div class="flex items-center justify-between mb-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                     <div class="flex items-center gap-3">
-                        <div class="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <div class="p-2 bg-indigo-50 text-indigo-600 rounded-xl transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-600'">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         </div>
-                        <h3 class="font-extrabold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Dokumen</h3>
+                        <div>
+                            <h3 class="font-extrabold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Dokumen</h3>
+                            <span id="selectedCount" class="hidden text-[10px] font-bold text-blue-500 uppercase tracking-tight">0 Terpilih</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer group">
+                            <input type="checkbox" id="selectAllDocs" class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 group-hover:text-blue-500 transition-colors">Pilih Semua</span>
+                        </label>
+                        <button id="downloadSelected" class="hidden flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-sm transform hover:scale-105 active:scale-95" title="Unduh Terpilih">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            <span class="text-[10px] font-bold uppercase tracking-widest">Unduh</span>
+                        </button>
                     </div>
                 </div>
 
@@ -275,6 +292,11 @@
                         <div class="flex items-center justify-between p-3 rounded-2xl border transition-all" 
                              :class="$store.theme.darkMode ? 'bg-gray-800/50 border-gray-700 hover:border-blue-500/50' : 'bg-gray-50 border-gray-100 hover:border-blue-200 hover:bg-white'">
                             <div class="flex items-center gap-3 overflow-hidden">
+                                @if($applicant->{$doc['field']})
+                                    <input type="checkbox" class="doc-checkbox w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer shrink-0" 
+                                           data-url="{{ asset('storage/' . $applicant->{$doc['field']}) }}" 
+                                           data-filename="{{ str_replace(' ', '_', $doc['label']) }}_{{ str_replace(' ', '_', $applicant->full_name) }}.{{ pathinfo($applicant->{$doc['field']}, PATHINFO_EXTENSION) }}">
+                                @endif
                                 <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 {{ $applicant->{$doc['field']} ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-200 text-gray-400' }}">
                                     @if($applicant->{$doc['field']})
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -285,10 +307,15 @@
                                 <span class="text-[11px] font-bold transition-colors duration-300 truncate" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">{{ $doc['label'] }}</span>
                             </div>
                             @if($applicant->{$doc['field']})
-                                <div class="flex items-center gap-2 shrink-0">
+                                <div class="flex items-center gap-1 shrink-0">
                                     <a href="{{ asset('storage/' . $applicant->{$doc['field']}) }}" target="_blank" 
                                        class="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 transition-colors" title="Lihat Dokumen">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    </a>
+                                    <a href="{{ asset('storage/' . $applicant->{$doc['field']}) }}" 
+                                       download="{{ str_replace(' ', '_', $doc['label']) }}_{{ str_replace(' ', '_', $applicant->full_name) }}.{{ pathinfo($applicant->{$doc['field']}, PATHINFO_EXTENSION) }}"
+                                       class="p-1.5 rounded-lg text-emerald-500 hover:bg-emerald-50 transition-colors" title="Unduh Dokumen">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                                     </a>
                                 </div>
                             @else
@@ -333,3 +360,79 @@
 
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectAll = document.getElementById('selectAllDocs');
+        const checkboxes = document.querySelectorAll('.doc-checkbox');
+        const downloadBtn = document.getElementById('downloadSelected');
+        const selectedCount = document.getElementById('selectedCount');
+
+        function updateUI() {
+            const checkedCount = document.querySelectorAll('.doc-checkbox:checked').length;
+            if (checkedCount > 0) {
+                downloadBtn.classList.remove('hidden');
+                selectedCount.classList.remove('hidden');
+                selectedCount.textContent = `${checkedCount} Terpilih`;
+            } else {
+                downloadBtn.classList.add('hidden');
+                selectedCount.classList.add('hidden');
+            }
+            selectAll.checked = checkboxes.length > 0 && checkedCount === checkboxes.length;
+        }
+
+        if (selectAll) {
+            selectAll.addEventListener('change', function() {
+                checkboxes.forEach(cb => cb.checked = selectAll.checked);
+                updateUI();
+            });
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateUI);
+        });
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', function() {
+                const checkedBoxes = document.querySelectorAll('.doc-checkbox:checked');
+                
+                Swal.fire({
+                    title: 'Mulai Mengunduh?',
+                    text: `Anda akan mengunduh ${checkedBoxes.length} dokumen sekaligus.`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Unduh Semua',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        checkedBoxes.forEach((cb, index) => {
+                            setTimeout(() => {
+                                const link = document.createElement('a');
+                                link.href = cb.dataset.url;
+                                link.download = cb.dataset.filename;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            }, index * 500);
+                        });
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Unduhan Dimulai',
+                            text: 'Dokumen sedang diunduh satu per satu.',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true
+                        });
+                    }
+                });
+            });
+        }
+    });
+</script>
+@endpush

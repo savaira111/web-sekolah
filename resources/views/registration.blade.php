@@ -4,7 +4,7 @@
 
 @section('content')
 <div x-data="{ 
-    step: 1, 
+    step: {{ $errors->any() ? 1 : 1 }}, 
     maxStep: 3,
     showToast: false,
     toastMsg: '',
@@ -68,9 +68,6 @@
     profile_image: ''
 }" class="bg-gray-50 min-h-screen">
 
-    <!-- Page Header -->
-    <section class="pt-12 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Hero Section -->
     <section class="relative pt-12 pb-20 overflow-hidden bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
@@ -209,64 +206,64 @@
                             <div class="grid md:grid-cols-2 gap-8">
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Nama Lengkap (Sesuai Ijazah)</label>
-                                    <input type="text" name="full_name" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Muhammad Arkan" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="full_name" value="{{ old('full_name') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Muhammad Arkan" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Pilihan Jurusan</label>
-                                    <select name="major" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all">
+                                    <select name="major" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer">
                                         <option value="">Pilih Jurusan</option>
-                                        <option value="PPLG">PPLG (Pengembangan Perangkat Lunak & Gim)</option>
-                                        <option value="DKV">DKV (Desain Komunikasi Visual)</option>
+                                        <option value="PPLG" {{ old('major') == 'PPLG' ? 'selected' : '' }}>PPLG (Pengembangan Perangkat Lunak & Gim)</option>
+                                        <option value="DKV" {{ old('major') == 'DKV' ? 'selected' : '' }}>DKV (Desain Komunikasi Visual)</option>
                                     </select>
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">NISN</label>
-                                    <input type="text" name="nisn" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="nisn" value="{{ old('nisn') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tempat Lahir</label>
-                                    <input type="text" name="birth_place" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="birth_place" value="{{ old('birth_place') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tanggal Lahir</label>
-                                    <input type="date" name="birth_date" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-400 transition-all">
+                                    <input type="date" name="birth_date" value="{{ old('birth_date') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Asal Sekolah</label>
-                                    <input type="text" name="school_origin" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: SMPN 1 Jakarta" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="school_origin" value="{{ old('school_origin') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: SMPN 1 Jakarta" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tahun Lulus</label>
-                                    <input type="number" name="graduation_year" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 2024" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="number" name="graduation_year" value="{{ old('graduation_year') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 2024" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Rata-rata Nilai Ijazah/Raport</label>
-                                    <input type="number" step="0.01" name="average_grade" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 85.50" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="number" step="0.01" name="average_grade" value="{{ old('average_grade') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 85.50" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Jenis Kelamin</label>
-                                    <select name="gender" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-400 transition-all">
-                                        <option value="Male">Laki-laki</option>
-                                        <option value="Female">Perempuan</option>
+                                    <select name="gender" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer">
+                                        <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Laki-laki</option>
+                                        <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Agama</label>
-                                    <select name="religion" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all">
+                                    <select name="religion" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer">
                                         <option value="">Pilih Agama</option>
-                                        <option value="Islam">Islam</option>
-                                        <option value="Kristen">Kristen (Protestan)</option>
-                                        <option value="Katolik">Katolik</option>
-                                        <option value="Hindu">Hindu</option>
-                                        <option value="Buddha">Buddha</option>
-                                        <option value="Khonghucu">Khonghucu</option>
+                                        <option value="Islam" {{ old('religion') == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                        <option value="Kristen" {{ old('religion') == 'Kristen' ? 'selected' : '' }}>Kristen (Protestan)</option>
+                                        <option value="Katolik" {{ old('religion') == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                        <option value="Hindu" {{ old('religion') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                        <option value="Buddha" {{ old('religion') == 'Buddha' ? 'selected' : '' }}>Buddha</option>
+                                        <option value="Khonghucu" {{ old('religion') == 'Khonghucu' ? 'selected' : '' }}>Khonghucu</option>
                                     </select>
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Kewarganegaraan</label>
-                                    <select name="citizenship" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all">
-                                        <option value="WNI">WNI (Warga Negara Indonesia)</option>
-                                        <option value="WNA">WNA (Warga Negara Asing)</option>
+                                    <select name="citizenship" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer">
+                                        <option value="WNI" {{ old('citizenship') == 'WNI' ? 'selected' : '' }}>WNI (Warga Negara Indonesia)</option>
+                                        <option value="WNA" {{ old('citizenship') == 'WNA' ? 'selected' : '' }}>WNA (Warga Negara Asing)</option>
                                     </select>
                                 </div>
                             </div>
@@ -301,26 +298,26 @@
                                     <div class="grid md:grid-cols-2 gap-8">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Nama Lengkap Ayah</label>
-                                            <input type="text" name="father_name" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Ahmad Subarja" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="father_name" value="{{ old('father_name') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Ahmad Subarja" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ayah</label>
-                                            <select name="father_job" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100">
+                                            <select name="father_job" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
                                                 <option value="">Pilih Pekerjaan</option>
-                                                <option value="PNS">PNS / ASN</option>
-                                                <option value="TNI/POLRI">TNI / POLRI</option>
-                                                <option value="Karyawan Swasta">Karyawan Swasta</option>
-                                                <option value="Wiraswasta">Wiraswasta / Pengusaha</option>
-                                                <option value="Buruh">Buruh / Pekerja Lepas</option>
-                                                <option value="Petani/Nelayan">Petani / Nelayan</option>
-                                                <option value="Pedagang">Pedagang</option>
-                                                <option value="Pensiunan">Pensiunan</option>
-                                                <option value="Lainnya">Lainnya</option>
+                                                <option value="PNS" {{ old('father_job') == 'PNS' ? 'selected' : '' }}>PNS / ASN</option>
+                                                <option value="TNI/POLRI" {{ old('father_job') == 'TNI/POLRI' ? 'selected' : '' }}>TNI / POLRI</option>
+                                                <option value="Karyawan Swasta" {{ old('father_job') == 'Karyawan Swasta' ? 'selected' : '' }}>Karyawan Swasta</option>
+                                                <option value="Wiraswasta" {{ old('father_job') == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta / Pengusaha</option>
+                                                <option value="Buruh" {{ old('father_job') == 'Buruh' ? 'selected' : '' }}>Buruh / Pekerja Lepas</option>
+                                                <option value="Petani/Nelayan" {{ old('father_job') == 'Petani/Nelayan' ? 'selected' : '' }}>Petani / Nelayan</option>
+                                                <option value="Pedagang" {{ old('father_job') == 'Pedagang' ? 'selected' : '' }}>Pedagang</option>
+                                                <option value="Pensiunan" {{ old('father_job') == 'Pensiunan' ? 'selected' : '' }}>Pensiunan</option>
+                                                <option value="Lainnya" {{ old('father_job') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                                             </select>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ayah (WhatsApp)</label>
-                                            <input type="text" name="father_phone" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="father_phone" value="{{ old('father_phone') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                     </div>
                                 </div>
@@ -334,25 +331,25 @@
                                     <div class="grid md:grid-cols-2 gap-8">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Nama Lengkap Ibu</label>
-                                            <input type="text" name="mother_name" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Siti Aminah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="mother_name" value="{{ old('mother_name') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Siti Aminah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ibu</label>
-                                            <select name="mother_job" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100">
+                                            <select name="mother_job" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
                                                 <option value="">Pilih Pekerjaan</option>
-                                                <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
-                                                <option value="PNS">PNS / ASN</option>
-                                                <option value="Karyawan Swasta">Karyawan Swasta</option>
-                                                <option value="Wiraswasta">Wiraswasta / Pengusaha</option>
-                                                <option value="Pedagang">Pedagang</option>
-                                                <option value="Petani/Nelayan">Petani / Nelayan</option>
-                                                <option value="Buruh">Buruh</option>
-                                                <option value="Lainnya">Lainnya</option>
+                                                <option value="Ibu Rumah Tangga" {{ old('mother_job') == 'Ibu Rumah Tangga' ? 'selected' : '' }}>Ibu Rumah Tangga</option>
+                                                <option value="PNS" {{ old('mother_job') == 'PNS' ? 'selected' : '' }}>PNS / ASN</option>
+                                                <option value="Karyawan Swasta" {{ old('mother_job') == 'Karyawan Swasta' ? 'selected' : '' }}>Karyawan Swasta</option>
+                                                <option value="Wiraswasta" {{ old('mother_job') == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta / Pengusaha</option>
+                                                <option value="Pedagang" {{ old('mother_job') == 'Pedagang' ? 'selected' : '' }}>Pedagang</option>
+                                                <option value="Petani/Nelayan" {{ old('mother_job') == 'Petani/Nelayan' ? 'selected' : '' }}>Petani / Nelayan</option>
+                                                <option value="Buruh" {{ old('mother_job') == 'Buruh' ? 'selected' : '' }}>Buruh</option>
+                                                <option value="Lainnya" {{ old('mother_job') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                                             </select>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ibu (WhatsApp)</label>
-                                            <input type="text" name="mother_phone" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="mother_phone" value="{{ old('mother_phone') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                     </div>
                                 </div>
@@ -366,15 +363,15 @@
                                     <div class="space-y-6">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Alamat Lengkap Orang Tua</label>
-                                            <textarea name="address" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Jl. Raya No. 123, Kel. Merdeka, Kec. Maju Jaya, Kota Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm h-32 transition-all focus:ring-2 focus:ring-blue-100"></textarea>
+                                            <textarea name="address" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Jl. Raya No. 123, Kel. Merdeka, Kec. Maju Jaya, Kota Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm h-32 transition-all focus:ring-2 focus:ring-blue-100">{{ old('address') }}</textarea>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Penghasilan Gabungan Per Bulan</label>
-                                            <select name="parent_income" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm text-gray-400 transition-all focus:ring-2 focus:ring-blue-100">
+                                            <select name="parent_income" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
                                                 <option value="">Pilih Rentang Penghasilan</option>
-                                                <option value="< 2.000.000">< Rp 2.000.000</option>
-                                                <option value="2.000.000 - 5.000.000">Rp 2.000.000 - Rp 5.000.000</option>
-                                                <option value="> 5.000.000">> Rp 5.000.000</option>
+                                                <option value="< 2.000.000" {{ old('parent_income') == '< 2.000.000' ? 'selected' : '' }}>< Rp 2.000.000</option>
+                                                <option value="2.000.000 - 5.000.000" {{ old('parent_income') == '2.000.000 - 5.000.000' ? 'selected' : '' }}>Rp 2.000.000 - Rp 5.000.000</option>
+                                                <option value="> 5.000.000" {{ old('parent_income') == '> 5.000.000' ? 'selected' : '' }}>> Rp 5.000.000</option>
                                             </select>
                                         </div>
                                     </div>
@@ -819,5 +816,4 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 @endsection

@@ -114,6 +114,7 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
         return redirect()->route('superadmin.ppdb.show', $id);
     });
     Route::patch('/ppdb/{id}/status', [ApplicantController::class, 'updateStatus'])->name('ppdb.status');
+    Route::get('/ppdb/{id}/print', [ApplicantController::class, 'print'])->name('ppdb.print');
     Route::resource('ppdb', ApplicantController::class);
 
     // Profile

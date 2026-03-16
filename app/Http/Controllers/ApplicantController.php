@@ -104,4 +104,10 @@ class ApplicantController extends Controller
 
         return redirect()->back()->with('success', 'Status pendaftar berhasil diperbarui!');
     }
+
+    public function print($id)
+    {
+        $applicant = Applicant::findOrFail($id);
+        return view('superadmin.ppdb.print', compact('applicant'));
+    }
 }
