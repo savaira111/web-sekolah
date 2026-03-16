@@ -1,5 +1,5 @@
 @extends('layouts.superadmin.app')
-@section('title', 'Artikel & Berita - Admin Mahput')
+@section('title', 'Dashboard - Admin Mahput')
 
 @section('content')
         <!-- Page Content -->
@@ -8,77 +8,77 @@
             <!-- Cards Row -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Card 1 -->
-                <a href="/superadmin/users" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="darkMode ? 'bg-[#1E293B] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-blue-200'">
+                <a href="/superadmin/users" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-blue-200'">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-blue-500/20' : 'bg-blue-50'">
-                            <svg class="w-5 h-5 transition-colors duration-300" :class="darkMode ? 'text-blue-400' : 'text-blue-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-blue-500/20' : 'bg-blue-50'">
+                            <svg class="w-5 h-5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-blue-400' : 'text-blue-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
                         </div>
-                        <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+12.5%</span>
+                        <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+12.5%</span>
                     </div>
-                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Siswa</p>
-                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">2,450</h3>
+                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Total Siswa</p>
+                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">2,450</h3>
                 </a>
 
                 <!-- Card 2 -->
-                <a href="/superadmin/users" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="darkMode ? 'bg-[#1E293B] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-purple-200'">
+                <a href="/superadmin/users" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-purple-200'">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-purple-500/20' : 'bg-purple-50'">
-                            <svg class="w-5 h-5 transition-colors duration-300" :class="darkMode ? 'text-purple-400' : 'text-purple-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-purple-500/20' : 'bg-purple-50'">
+                            <svg class="w-5 h-5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-purple-400' : 'text-purple-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                         </div>
-                        <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+2.4%</span>
+                        <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+2.4%</span>
                     </div>
-                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Total Editor</p>
-                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">128</h3>
+                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Total Editor</p>
+                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">128</h3>
                 </a>
 
                 <!-- Card 3 -->
-                <a href="#" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="darkMode ? 'bg-[#1E293B] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-orange-200'">
+                <a href="#" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-orange-200'">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-orange-500/20' : 'bg-orange-50'">
-                            <svg class="w-5 h-5 transition-colors duration-300" :class="darkMode ? 'text-orange-400' : 'text-orange-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-orange-500/20' : 'bg-orange-50'">
+                            <svg class="w-5 h-5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-orange-400' : 'text-orange-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
                         </div>
-                        <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+18%</span>
+                        <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+18%</span>
                     </div>
-                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Pendaftar PPDB</p>
-                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">432</h3>
+                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Pendaftar PPDB</p>
+                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">432</h3>
                 </a>
 
                 <!-- Card 4 -->
-                <a href="/superadmin/articles" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="darkMode ? 'bg-[#1E293B] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-emerald-200'">
+                <a href="/superadmin/articles" class="block rounded-[1.5rem] p-6 shadow-sm border transition-all duration-300 hover:translate-y-[-2px]" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800 hover:border-gray-600' : 'bg-white border-gray-100/50 hover:shadow-md hover:border-emerald-200'">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300" :class="darkMode ? 'bg-emerald-500/20' : 'bg-emerald-50'">
-                            <svg class="w-5 h-5 transition-colors duration-300" :class="darkMode ? 'text-emerald-400' : 'text-emerald-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-emerald-500/20' : 'bg-emerald-50'">
+                            <svg class="w-5 h-5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-emerald-400' : 'text-emerald-600'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                         </div>
-                        <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">Terbaru</span>
+                        <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">Terbaru</span>
                     </div>
-                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Artikel Aktif</p>
-                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">54</h3>
+                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Artikel Aktif</p>
+                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">54</h3>
                 </a>
             </div>
 
             <!-- Charts Row -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <!-- Line Chart Mock -->
-                <div class="lg:col-span-2 rounded-[2rem] p-8 shadow-sm border relative overflow-hidden transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
+                <div class="lg:col-span-2 rounded-[2rem] p-8 shadow-sm border relative overflow-hidden transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
                     <div class="flex flex-wrap items-end justify-between mb-8 z-10 relative">
                         <div>
-                            <h3 class="text-xl font-bold mb-1 transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">TREN PENDAFTARAN PPDB</h3>
-                            <p class="text-sm font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Ringkasan volume pendaftar mingguan</p>
+                            <h3 class="text-xl font-bold mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">TREN PENDAFTARAN PPDB</h3>
+                            <p class="text-sm font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Ringkasan volume pendaftar mingguan</p>
                         </div>
                         <div class="flex items-center gap-4 mt-4 sm:mt-0">
                             <div class="flex items-center gap-2">
                                 <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-                                <span class="text-xs font-bold uppercase transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-600'">Pendaftar</span>
+                                <span class="text-xs font-bold uppercase transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Pendaftar</span>
                             </div>
-                            <div class="px-4 py-2 border rounded-full flex items-center gap-2 cursor-pointer transition-colors duration-300" :class="darkMode ? 'border-gray-700 bg-gray-800/50 hover:bg-gray-700' : 'border-gray-200 bg-gray-50/50 hover:bg-gray-100'">
-                                <span class="text-xs font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">7 Hari Terakhir</span>
-                                <svg class="w-3.5 h-3.5 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div class="px-4 py-2 border rounded-full flex items-center gap-2 cursor-pointer transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-700 bg-gray-800/50 hover:bg-gray-700' : 'border-gray-200 bg-gray-50/50 hover:bg-gray-100'">
+                                <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">7 Hari Terakhir</span>
+                                <svg class="w-3.5 h-3.5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                         </div>
                     </div>
 
                     <!-- CSS-Based Line Graph Mockup -->
-                    <div class="h-64 mt-4 relative w-full border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
+                    <div class="h-64 mt-4 relative w-full border-b transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
                         <svg class="w-full h-full" viewBox="0 0 800 200" preserveAspectRatio="none">
                             <defs>
                                 <linearGradient id="blueGradient" x1="0" x2="0" y1="0" y2="1">
@@ -99,15 +99,15 @@
 
                         <!-- Y-axis guide lines mock -->
                         <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
-                            <div class="border-t border-dashed w-full h-0 transition-colors duration-300" :class="darkMode ? 'border-gray-700' : 'border-gray-100'"></div>
-                            <div class="border-t border-dashed w-full h-0 transition-colors duration-300" :class="darkMode ? 'border-gray-700' : 'border-gray-100'"></div>
-                            <div class="border-t border-dashed w-full h-0 transition-colors duration-300" :class="darkMode ? 'border-gray-700' : 'border-gray-100'"></div>
-                            <div class="border-t border-dashed w-full h-0 transition-colors duration-300" :class="darkMode ? 'border-gray-700' : 'border-gray-100'"></div>
+                            <div class="border-t border-dashed w-full h-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-700' : 'border-gray-100'"></div>
+                            <div class="border-t border-dashed w-full h-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-700' : 'border-gray-100'"></div>
+                            <div class="border-t border-dashed w-full h-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-700' : 'border-gray-100'"></div>
+                            <div class="border-t border-dashed w-full h-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-700' : 'border-gray-100'"></div>
                         </div>
                     </div>
                     
                     <!-- X-axis labels -->
-                    <div class="flex justify-between mt-4 text-[10px] font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">
+                    <div class="flex justify-between mt-4 text-[10px] font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">
                         <span>MON</span>
                         <span>TUE</span>
                         <span>WED</span>
@@ -119,16 +119,16 @@
                 </div>
 
                 <!-- Donut Chart Mock -->
-                <div class="rounded-[2rem] p-8 shadow-sm border flex flex-col object-cover transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
-                    <h3 class="text-xl font-bold mb-1 transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">DISTRIBUSI JURUSAN</h3>
-                    <p class="text-sm font-medium mb-8 transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Persentase Pendaftar</p>
+                <div class="rounded-[2rem] p-8 shadow-sm border flex flex-col object-cover transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
+                    <h3 class="text-xl font-bold mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">DISTRIBUSI JURUSAN</h3>
+                    <p class="text-sm font-medium mb-8 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Persentase Pendaftar</p>
                     
                     <div class="flex-1 flex flex-col items-center justify-center relative">
                         <!-- SVG Donut Chart Mockup -->
                         <div class="relative w-48 h-48">
                             <svg viewBox="0 0 36 36" class="w-full h-full transform -rotate-90">
                                 <!-- Track -->
-                                <circle cx="18" cy="18" r="14" fill="none" stroke-width="4" :stroke="darkMode ? '#334155' : '#F1F5F9'"></circle>
+                                <circle cx="18" cy="18" r="14" fill="none" stroke-width="4" :stroke="$store.theme.darkMode ? '#334155' : '#F1F5F9'"></circle>
                                 
                                 <!-- Segments (CSS styled with stroke-dasharray) -->
                                 <circle cx="18" cy="18" r="14" fill="none" stroke="#3B82F6" stroke-width="4" stroke-dasharray="40 100" stroke-dashoffset="0"></circle>
@@ -138,8 +138,8 @@
                             </svg>
                             <!-- Inner Text -->
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span class="text-3xl font-bold leading-none transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">432</span>
-                                <span class="text-[9px] font-bold mt-1 uppercase tracking-widest transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Total</span>
+                                <span class="text-3xl font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">432</span>
+                                <span class="text-[9px] font-bold mt-1 uppercase tracking-widest transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Total</span>
                             </div>
                         </div>
                     </div>
@@ -147,32 +147,32 @@
                     <div class="grid grid-cols-2 gap-y-3 mt-8">
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-                            <span class="text-xs font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">IT: 40%</span>
+                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">IT: 40%</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full transition-colors duration-300" :class="darkMode ? 'bg-gray-400' : 'bg-gray-900'"></span>
-                            <span class="text-xs font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Science: 30%</span>
+                            <span class="w-2.5 h-2.5 rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-400' : 'bg-gray-900'"></span>
+                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Science: 30%</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
-                            <span class="text-xs font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Arts: 20%</span>
+                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Arts: 20%</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                            <span class="text-xs font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Other: 10%</span>
+                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Other: 10%</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Activity Log Table -->
-            <div class="rounded-[2rem] p-8 shadow-sm border mb-10 overflow-hidden transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50'">
+            <div class="rounded-[2rem] p-8 shadow-sm border mb-10 overflow-hidden transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
                 <div class="flex items-center justify-between mb-8">
                     <div>
-                        <h3 class="text-xl font-bold mb-1 transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-900'">LOG AKTIVITAS TERBARU</h3>
-                        <p class="text-sm font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Pembaruan sistem antar departemen</p>
+                        <h3 class="text-xl font-bold mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">LOG AKTIVITAS TERBARU</h3>
+                        <p class="text-sm font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Pembaruan sistem antar departemen</p>
                     </div>
-                    <a href="#" class="text-sm font-bold flex items-center gap-1 transition-colors duration-300" :class="darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'">
+                    <a href="#" class="text-sm font-bold flex items-center gap-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'">
                         Lihat Semua <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </a>
                 </div>
@@ -180,85 +180,80 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
-                                <th class="pb-4 text-xs font-bold uppercase tracking-wider w-1/4 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Pengguna</th>
-                                <th class="pb-4 text-xs font-bold uppercase tracking-wider w-1/3 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Detail Aksi</th>
-                                <th class="pb-4 text-xs font-bold uppercase tracking-wider text-center transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Modul</th>
-                                <th class="pb-4 text-xs font-bold uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Status</th>
-                                <th class="pb-4 text-xs font-bold uppercase tracking-wider text-right transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Waktu</th>
+                            <tr class="border-b transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
+                                <th class="pb-4 text-xs font-bold uppercase tracking-wider w-1/4 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Pengguna</th>
+                                <th class="pb-4 text-xs font-bold uppercase tracking-wider w-1/3 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Detail Aksi</th>
+                                <th class="pb-4 text-xs font-bold uppercase tracking-wider text-center transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Modul</th>
+                                <th class="pb-4 text-xs font-bold uppercase tracking-wider transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Status</th>
+                                <th class="pb-4 text-xs font-bold uppercase tracking-wider text-right transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Waktu</th>
                             </tr>
                         </thead>
                         <tbody class="text-sm">
-                            <tr class="border-b last:border-0 transition-colors group" :class="darkMode ? 'border-gray-800 hover:bg-[#0F172A]/50' : 'border-gray-50 hover:bg-gray-50/50'">
-                                <td class="py-5 font-semibold transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-800'">
+                            <tr class="border-b last:border-0 transition-colors group" :class="$store.theme.darkMode ? 'border-gray-800 hover:bg-black/20' : 'border-gray-50 hover:bg-gray-50/50'">
+                                <td class="py-5 font-semibold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-800'">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="darkMode ? 'bg-gray-800' : 'bg-blue-100'">
+                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-800' : 'bg-blue-100'">
                                             <img src="{{ asset('images/guru-1.jpg') }}" alt="Avatar" class="w-full h-full object-cover">
                                         </div>
                                         Sarah Connor
                                     </div>
                                 </td>
-                                <td class="py-5 font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-600'">Approved PPDB application #A-422</td>
+                                <td class="py-5 font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Approved PPDB application #A-422</td>
                                 <td class="py-5 text-center">
-                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-50 text-blue-600'">PPDB</span>
+                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-50 text-blue-600'">PPDB</span>
                                 </td>
                                 <td class="py-5">
                                     <span class="inline-flex items-center gap-1.5 font-bold text-green-500 text-xs">
                                         <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Success
                                     </span>
                                 </td>
-                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">2 mins ago</td>
+                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">2 mins ago</td>
                             </tr>
-                            <tr class="border-b last:border-0 transition-colors group" :class="darkMode ? 'border-gray-800 hover:bg-[#0F172A]/50' : 'border-gray-50 hover:bg-gray-50/50'">
-                                <td class="py-5 font-semibold transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-800'">
+                            <tr class="border-b last:border-0 transition-colors group" :class="$store.theme.darkMode ? 'border-gray-800 hover:bg-black/20' : 'border-gray-50 hover:bg-gray-50/50'">
+                                <td class="py-5 font-semibold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-800'">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="darkMode ? 'bg-gray-800' : 'bg-gray-100'">
+                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-800' : 'bg-gray-100'">
                                             <img src="{{ asset('images/guru-2.jpg') }}" alt="Avatar" class="w-full h-full object-cover">
                                         </div>
                                         Marcus Wright
                                     </div>
                                 </td>
-                                <td class="py-5 font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-600'">Updated teacher schedule for Grade 12</td>
+                                <td class="py-5 font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Updated teacher schedule for Grade 12</td>
                                 <td class="py-5 text-center">
-                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'bg-purple-500/20 text-purple-400' : 'bg-purple-50 text-purple-600'">Hr Err</span>
+                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-purple-500/20 text-purple-400' : 'bg-purple-50 text-purple-600'">Hr Err</span>
                                 </td>
                                 <td class="py-5">
                                     <span class="inline-flex items-center gap-1.5 font-bold text-green-500 text-xs">
                                         <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Success
                                     </span>
                                 </td>
-                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">15 mins ago</td>
+                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">15 mins ago</td>
                             </tr>
-                            <tr class="border-b last:border-0 transition-colors group" :class="darkMode ? 'border-gray-800 hover:bg-[#0F172A]/50' : 'border-gray-50 hover:bg-gray-50/50'">
-                                <td class="py-5 font-semibold transition-colors duration-300" :class="darkMode ? 'text-white' : 'text-gray-800'">
+                            <tr class="border-b last:border-0 transition-colors group" :class="$store.theme.darkMode ? 'border-gray-800 hover:bg-black/20' : 'border-gray-50 hover:bg-gray-50/50'">
+                                <td class="py-5 font-semibold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-800'">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="darkMode ? 'bg-gray-800' : 'bg-orange-100'">
+                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-800' : 'bg-orange-100'">
                                             <img src="{{ asset('images/guru-3.jpg') }}" alt="Avatar" class="w-full h-full object-cover">
                                         </div>
                                         Kyle Reese
                                     </div>
                                 </td>
-                                <td class="py-5 font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-600'">Published article: "Summer Camps 2024"</td>
+                                <td class="py-5 font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Published article: "Summer Camps 2024"</td>
                                 <td class="py-5 text-center">
-                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="darkMode ? 'bg-orange-500/20 text-orange-400' : 'bg-orange-50 text-orange-600'">Artikel</span>
+                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-orange-500/20 text-orange-400' : 'bg-orange-50 text-orange-600'">Artikel</span>
                                 </td>
                                 <td class="py-5">
                                     <span class="inline-flex items-center gap-1.5 font-bold text-orange-500 text-xs">
                                         <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Pending
                                     </span>
                                 </td>
-                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">1 hour ago</td>
+                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">1 hour ago</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </div>
-    </main>
-
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</body>
 @endsection
 
 

@@ -14,6 +14,7 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <style>
         [x-cloak] { display: none !important; }
@@ -22,10 +23,10 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
         
-        .sidebar { background-color: #0B1121; }
+        .sidebar { background-color: #111827; border-color: #1F2937; }
         .sidebar-active { background-color: #3B82F6; color: white; }
-        .sidebar-item { color: #9CA3AF; }
-        .sidebar-item:hover { background-color: #1E293B; color: white; }
+        .sidebar-item { color: #9CA3AF; transition: all 0.3s; }
+        .sidebar-item:hover { background-color: #1F2937; color: white; }
 
         /* Hide scrollbar for Chrome, Safari and Opera */
         *::-webkit-scrollbar {
@@ -39,10 +40,14 @@
         }
     </style>
     <script>
-        if (localStorage.getItem('darkMode') === 'true' || !('darkMode' in localStorage)) {
-            document.documentElement.style.backgroundColor = '#0F172A';
+        // Set initial state to prevent flash
+        const isDark = localStorage.getItem('darkMode') === 'true' || !('darkMode' in localStorage);
+        if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.backgroundColor = '#000000';
         } else {
-            document.documentElement.style.backgroundColor = '#F3F4F6';
+            document.documentElement.classList.remove('dark');
+            document.documentElement.style.backgroundColor = '#FFFFFF';
         }
         document.write('<style id="no-trans">*, *::before, *::after { transition: none !important; }</style>');
         document.addEventListener('alpine:initialized', () => {
@@ -54,15 +59,30 @@
     </script>
 </head>
 <body class="antialiased flex h-screen overflow-hidden transition-colors duration-300" 
-      x-data="{ sidebarOpen: true, darkMode: localStorage.getItem('darkMode') ? localStorage.getItem('darkMode') === 'true' : true, showNotifications: false, isDeleteModalOpen: false, isSuccessModalOpen: false, articleToDelete: null }" 
-      x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
-      :class="darkMode ? 'bg-[#0F172A] text-[#F8FAFC]' : 'bg-[#F3F4F6] text-[#0F172A]'">
+      x-data 
+      x-init="
+        Alpine.store('theme', {
+            darkMode: localStorage.getItem('darkMode') === 'true' || !('darkMode' in localStorage),
+            sidebarOpen: true,
+            init() {
+                document.documentElement.classList.toggle('dark', this.darkMode);
+                document.documentElement.style.backgroundColor = this.darkMode ? '#000000' : '#FFFFFF';
+            },
+            toggle() {
+                this.darkMode = !this.darkMode;
+                localStorage.setItem('darkMode', this.darkMode);
+                document.documentElement.classList.toggle('dark', this.darkMode);
+                document.documentElement.style.backgroundColor = this.darkMode ? '#000000' : '#FFFFFF';
+            }
+        });
+      "
+      :class="$store.theme.darkMode ? 'bg-black text-white' : 'bg-white text-black'">
 
     <!-- Sidebar Layout -->
     @include('layouts.superadmin.sidebar')
 
     <!-- Main Content Wrapper -->
-    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]' : 'bg-[#F3F4F6]'">
+    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#000000]' : 'bg-[#FFFFFF]'">
         
         <!-- Navbar Layout -->
         @include('layouts.superadmin.navbar')

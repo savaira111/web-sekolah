@@ -3,10 +3,10 @@
 @section('title', 'Buat Eskul Baru - Admin Mahput')
 
 @section('content')
-<div class="p-8 flex-1 w-full overflow-x-auto transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]' : 'bg-[#F3F4F6]'" x-data="eskulForm()">
+<div class="px-8 pb-8 flex-1 w-full overflow-x-auto" x-data="eskulForm()">
     
     <!-- Top Breadcrumbs -->
-    <div class="flex items-center gap-2 mb-4 text-[11px] font-extrabold uppercase tracking-widest transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">
+    <div class="flex items-center gap-2 mb-4 text-[11px] font-extrabold uppercase tracking-widest transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">
         <a href="{{ route('superadmin.eskul.index') }}" class="hover:text-blue-600 transition-colors">Manajemen Eskul</a>
         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         <span class="text-blue-600">Tambah Baru</span>
@@ -15,8 +15,8 @@
     <!-- Header Section -->
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
         <div>
-            <h1 class="text-[28px] font-extrabold tracking-tight transition-colors duration-300 mb-1" :class="darkMode ? 'text-white' : 'text-[#111827]'">Buat Ekstrakurikuler Baru</h1>
-            <p class="text-[14px] font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Siapkan program kegiatan baru untuk semester akademik mendatang.</p>
+            <h1 class="text-[28px] font-extrabold tracking-tight transition-colors duration-300 mb-1" :class="$store.theme.darkMode ? 'text-white' : 'text-[#111827]'">Buat Ekstrakurikuler Baru</h1>
+            <p class="text-[14px] font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Siapkan program kegiatan baru untuk semester akademik mendatang.</p>
         </div>
         
         <div class="flex items-center gap-3">
@@ -33,12 +33,12 @@
             {{-- Left column --}}
             <div class="lg:col-span-8 space-y-8">
                 <!-- Basic Info Card -->
-                <div class="rounded-[2.5rem] p-8 lg:p-10 shadow-sm border transition-all duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
+                <div class="rounded-[2.5rem] p-8 lg:p-10 shadow-sm border transition-all duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
                     <div class="flex items-center gap-4 mb-10">
                         <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-blue-50 text-blue-600">
                              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                         </div>
-                        <h2 class="text-xl font-black transition-colors" :class="darkMode ? 'text-white' : 'text-[#111827]'">Informasi Dasar</h2>
+                        <h2 class="text-xl font-black transition-colors" :class="$store.theme.darkMode ? 'text-white' : 'text-[#111827]'">Informasi Dasar</h2>
                     </div>
 
                     <div class="space-y-8">
@@ -46,7 +46,7 @@
                             <label class="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Nama Ekstrakurikuler</label>
                             <input type="text" name="name" required placeholder="Contoh: Club Fotografi" 
                                 class="w-full px-6 py-4 rounded-2xl border font-bold text-[15px] transition-all duration-300 outline-none focus:ring-4 focus:ring-blue-500/10"
-                                :class="darkMode ? 'bg-[#0F172A] border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'">
+                                :class="$store.theme.darkMode ? 'bg-black/20 border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'">
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-8">
@@ -55,7 +55,7 @@
                                 <div class="relative">
                                     <select name="category" required 
                                         class="w-full px-6 py-4 rounded-2xl border font-bold text-[15px] transition-all duration-300 outline-none appearance-none focus:ring-4 focus:ring-blue-500/10"
-                                        :class="darkMode ? 'bg-[#0F172A] border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'">
+                                        :class="$store.theme.darkMode ? 'bg-black/20 border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'">
                                         <option value="" disabled selected>Pilih Kategori</option>
                                         @foreach($categories as $id => $name)
                                             <option value="{{ $id }}">{{ $name }}</option>
@@ -70,7 +70,7 @@
                                 <label class="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Target Siswa</label>
                                 <input type="text" value="Semua Jenjang" readonly
                                     class="w-full px-6 py-4 rounded-2xl border font-bold text-[15px] transition-all duration-300 opacity-60"
-                                    :class="darkMode ? 'bg-[#0F172A] border-gray-800 text-white' : 'bg-gray-50 border-gray-100 text-[#111827]'">
+                                    :class="$store.theme.darkMode ? 'bg-black/20 border-gray-800 text-white' : 'bg-gray-50 border-gray-100 text-[#111827]'">
                             </div>
                         </div>
 
@@ -78,14 +78,14 @@
                             <label class="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Jadwal Kegiatan</label>
                             <input type="text" name="schedule_info" placeholder="Contoh: Sabtu, 08:00 - 11:00" 
                                 class="w-full px-6 py-4 rounded-2xl border font-bold text-[15px] transition-all duration-300 outline-none focus:ring-4 focus:ring-blue-500/10"
-                                :class="darkMode ? 'bg-[#0F172A] border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'">
+                                :class="$store.theme.darkMode ? 'bg-black/20 border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'">
                         </div>
 
                         <div>
                             <label class="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Deskripsi Kegiatan</label>
                             <textarea name="description" rows="6" required placeholder="Jelaskan mengenai kegiatan ini, tujuan, dan apa yang akan dipelajari siswa..." 
                                 class="w-full px-6 py-4 rounded-3xl border font-semibold text-[15px] leading-relaxed transition-all duration-300 outline-none focus:ring-4 focus:ring-blue-500/10"
-                                :class="darkMode ? 'bg-[#0F172A] border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'"></textarea>
+                                :class="$store.theme.darkMode ? 'bg-black/20 border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'"></textarea>
                         </div>
                     </div>
                 </div>
@@ -94,15 +94,15 @@
             {{-- Right column --}}
             <div class="lg:col-span-4 space-y-8">
                 <!-- Status & Image Card -->
-                <div class="rounded-[2.5rem] p-8 shadow-sm border transition-all duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
+                <div class="rounded-[2.5rem] p-8 shadow-sm border transition-all duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-6">Foto Utama</label>
-                    <div class="relative group aspect-[4/3] rounded-[2rem] overflow-hidden border-2 border-dashed transition-all" :class="darkMode ? 'border-gray-800 bg-[#0F172A]' : 'border-gray-100 bg-gray-50'">
+                    <div class="relative group aspect-[4/3] rounded-[2rem] overflow-hidden border-2 border-dashed transition-all" :class="$store.theme.darkMode ? 'border-gray-800 bg-black/20' : 'border-gray-100 bg-gray-50'">
                         <template x-if="!imagePreview">
                             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
                                 <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-500 flex items-center justify-center mb-4">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                                 </div>
-                                <p class="text-xs font-bold transition-colors" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Klik untuk unggah foto eskul</p>
+                                <p class="text-xs font-bold transition-colors" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Klik untuk unggah foto eskul</p>
                             </div>
                         </template>
                         <template x-if="imagePreview">
@@ -112,12 +112,12 @@
                     </div>
                 </div>
 
-                <div class="rounded-[2.5rem] p-8 shadow-sm border transition-all duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
+                <div class="rounded-[2.5rem] p-8 shadow-sm border transition-all duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
                     <label class="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-6">Visibilitas</label>
-                    <div class="flex items-center justify-between p-4 rounded-2xl transition-colors" :class="darkMode ? 'bg-[#0F172A]' : 'bg-gray-50'">
+                    <div class="flex items-center justify-between p-4 rounded-2xl transition-colors" :class="$store.theme.darkMode ? 'bg-black/20' : 'bg-gray-50'">
                         <div class="flex items-center gap-3">
                             <div class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-                            <span class="text-sm font-bold" :class="darkMode ? 'text-white' : 'text-[#111827]'">Langsung Aktif</span>
+                            <span class="text-sm font-bold" :class="$store.theme.darkMode ? 'text-white' : 'text-[#111827]'">Langsung Aktif</span>
                         </div>
                         <div class="w-12 h-6 bg-blue-600 rounded-full relative">
                             <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>

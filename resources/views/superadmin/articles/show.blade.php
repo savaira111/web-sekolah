@@ -2,19 +2,19 @@
 @section('title', ($article->title ?? 'Detail Artikel') . ' - Admin Mahput')
 
 @section('content')
-<div class="px-8 pb-16 flex-1 w-full transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]' : 'bg-[#F3F4F6]'">
+<div class="px-8 pb-16 flex-1 w-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#0F172A]' : 'bg-[#F3F4F6]'">
 
     {{-- BREADCRUMB --}}
-    <div class="flex items-center gap-2 py-6 text-[12.5px] font-semibold transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">
+    <div class="flex items-center gap-2 py-6 text-[12.5px] font-semibold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">
         <a href="{{ route('superadmin.articles.index') }}" class="hover:text-blue-500 transition-colors">Artikel & Berita</a>
         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-        <span :class="darkMode ? 'text-blue-400' : 'text-blue-600'" class="truncate max-w-xs">{{ $article->title }}</span>
+        <span :class="$store.theme.darkMode ? 'text-blue-400' : 'text-blue-600'" class="truncate max-w-xs">{{ $article->title }}</span>
     </div>
 
     <div class="max-w-4xl mx-auto">
 
         {{-- HEADER CARD --}}
-        <div class="rounded-3xl overflow-hidden mb-8 shadow-sm" :class="darkMode ? 'bg-[#1E293B]' : 'bg-white'">
+        <div class="rounded-3xl overflow-hidden mb-8 shadow-sm" :class="$store.theme.darkMode ? 'bg-[#111827]' : 'bg-white'">
 
             {{-- Hero: Featured Image or Gradient --}}
             @if($article->featured_image)
@@ -25,9 +25,9 @@
             </div>
             @else
             <div class="w-full aspect-[21/8] flex items-center justify-center"
-                 :class="darkMode ? 'bg-gradient-to-br from-blue-900/40 to-purple-900/30' : 'bg-gradient-to-br from-blue-50 to-indigo-100'">
+                 :class="$store.theme.darkMode ? 'bg-gradient-to-br from-blue-900/40 to-purple-900/30' : 'bg-gradient-to-br from-blue-50 to-indigo-100'">
                 <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                     :class="darkMode ? 'text-blue-400/40' : 'text-blue-300'">
+                     :class="$store.theme.darkMode ? 'text-blue-400/40' : 'text-blue-300'">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                           d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
@@ -39,17 +39,17 @@
                 {{-- Category + Status badges --}}
                 <div class="flex flex-wrap items-center gap-2.5 mb-5">
                     <span class="inline-flex items-center px-3 py-1.5 rounded-xl text-[11px] font-black tracking-wider uppercase"
-                          :class="darkMode ? 'bg-blue-500/10 text-blue-400' : 'bg-blue-50 text-blue-600'">
+                          :class="$store.theme.darkMode ? 'bg-blue-500/10 text-blue-400' : 'bg-blue-50 text-blue-600'">
                         {{ $article->category }}
                     </span>
                     @if($article->is_published)
                     <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-black tracking-wider uppercase"
-                          :class="darkMode ? 'bg-emerald-500/10 text-emerald-400' : 'bg-emerald-50 text-emerald-600'">
+                          :class="$store.theme.darkMode ? 'bg-emerald-500/10 text-emerald-400' : 'bg-emerald-50 text-emerald-600'">
                         <span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse"></span> Terbit
                     </span>
                     @else
                     <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-black tracking-wider uppercase"
-                          :class="darkMode ? 'bg-gray-700/60 text-gray-400' : 'bg-gray-100 text-gray-500'">
+                          :class="$store.theme.darkMode ? 'bg-gray-700/60 text-gray-400' : 'bg-gray-100 text-gray-500'">
                         <span class="w-1.5 h-1.5 rounded-full bg-current"></span> Draft
                     </span>
                     @endif
@@ -57,31 +57,31 @@
 
                 {{-- Title --}}
                 <h1 class="text-[28px] lg:text-[34px] font-black leading-tight tracking-tight mb-6 transition-colors duration-300"
-                    :class="darkMode ? 'text-white' : 'text-gray-900'">
+                    :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">
                     {{ $article->title }}
                 </h1>
 
                 {{-- Author + Timestamps Row --}}
                 <div class="flex flex-wrap items-center justify-between gap-5 pb-6 border-b transition-colors duration-300"
-                     :class="darkMode ? 'border-gray-700/60' : 'border-gray-100'">
+                     :class="$store.theme.darkMode ? 'border-gray-700/60' : 'border-gray-100'">
 
                     {{-- Author --}}
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl overflow-hidden shrink-0" :class="darkMode ? 'bg-gray-700' : 'bg-gray-100'">
+                        <div class="w-10 h-10 rounded-xl overflow-hidden shrink-0" :class="$store.theme.darkMode ? 'bg-gray-700' : 'bg-gray-100'">
                             <img src="https://ui-avatars.com/api/?name={{ urlencode($article->author->name ?? 'User') }}&background=DBEAFE&color=1d4ed8&size=80"
                                  alt="Avatar" class="w-full h-full object-cover">
                         </div>
                         <div>
-                            <p class="text-[13.5px] font-bold transition-colors duration-300" :class="darkMode ? 'text-gray-100' : 'text-gray-800'">
+                            <p class="text-[13.5px] font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-100' : 'text-gray-800'">
                                 {{ $article->author->name ?? 'Admin' }}
                             </p>
-                            <p class="text-[11px] font-medium" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">Penulis Artikel</p>
+                            <p class="text-[11px] font-medium" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Penulis Artikel</p>
                         </div>
                     </div>
 
                     {{-- Timestamps --}}
                     <div class="flex flex-wrap items-center gap-6 text-[12.5px] font-semibold"
-                         :class="darkMode ? 'text-gray-400' : 'text-gray-500'">
+                         :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">
                         <div class="flex items-center gap-2">
                             <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -112,9 +112,9 @@
         </div>
 
         {{-- ARTICLE CONTENT CARD --}}
-        <div class="rounded-3xl p-8 mb-8 shadow-sm transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B]' : 'bg-white'">
+        <div class="rounded-3xl p-8 mb-8 shadow-sm transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827]' : 'bg-white'">
             <div class="prose prose-lg max-w-none transition-colors duration-300"
-                 :class="darkMode ? 'prose-invert text-gray-300' : 'text-gray-700'">
+                 :class="$store.theme.darkMode ? 'prose-invert text-gray-300' : 'text-gray-700'">
                 <div class="leading-relaxed text-[15.5px]" style="word-break: break-word; white-space: pre-wrap;">{{ $article->content }}</div>
             </div>
         </div>
@@ -123,7 +123,7 @@
         <div class="flex flex-wrap items-center gap-3">
             <a href="{{ route('superadmin.articles.index') }}"
                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border text-[13px] font-bold transition-all duration-200 hover:-translate-y-0.5"
-               :class="darkMode ? 'border-gray-700 text-gray-300 hover:bg-gray-700/50' : 'border-gray-200 text-gray-700 hover:bg-gray-50'">
+               :class="$store.theme.darkMode ? 'border-gray-700 text-gray-300 hover:bg-gray-700/50' : 'border-gray-200 text-gray-700 hover:bg-gray-50'">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali ke Daftar
             </a>

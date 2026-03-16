@@ -74,7 +74,14 @@ class PageController extends Controller
 
     public function album()
     {
-        return view('album');
+        $albums = \App\Models\Album::with('photos')->where('is_visible', true)->latest()->get();
+        return view('album', compact('albums'));
+    }
+
+    public function albumDetail($id)
+    {
+        $album = \App\Models\Album::with('photos')->where('is_visible', true)->findOrFail($id);
+        return view('album_detail', compact('album'));
     }
 
     public function enrollmentGuide()

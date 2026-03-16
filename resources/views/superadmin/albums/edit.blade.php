@@ -1,27 +1,18 @@
 @extends('layouts.superadmin.app')
-@section('title', 'Tambah Album - Admin Mahput')
+@section('title', 'Edit Album - Admin Mahput')
 
 @section('content')
 <div x-data="albumForm()" class="px-8 pb-8 flex-1 w-full max-w-[1400px]">
     <form x-ref="form" @submit.prevent="submitForm()" action="#" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
     <!-- Breadcrumbs & Header -->
     <div class="flex items-center justify-between mt-6 mb-4">
         <div class="flex items-center gap-2 text-xs font-medium text-gray-400">
             <a href="{{ route('superadmin.albums.index') }}" class="hover:text-blue-500 transition-colors">Manajemen Album</a>
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            <span class="text-gray-900" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Tambah Album</span>
-        </div>
-        
-        <div class="flex items-center gap-4">
-            <button class="p-2 text-gray-400 hover:text-blue-500 transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            </button>
-            <button class="p-2 text-gray-400 hover:text-blue-500 transition-colors relative">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white" :class="$store.theme.darkMode ? 'border-[#0F172A]' : 'border-white'"></span>
-            </button>
+            <span class="text-gray-900" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Edit Album</span>
         </div>
     </div>
 
@@ -33,13 +24,12 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/>
             </svg>
         </a>
-        <h2 class="text-2xl font-extrabold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Tambah Album Baru</h2>
+        <h2 class="text-2xl font-extrabold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Edit Album: {{ $album->title }}</h2>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-8">
         <!-- Left Column: Form -->
         <div class="flex-1 space-y-8">
-            <!-- Information Card -->
             <div class="rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
                 <div class="flex items-center gap-3 mb-8">
                     <div class="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center" :class="$store.theme.darkMode ? 'bg-orange-500/10' : 'bg-orange-50'">
@@ -51,7 +41,7 @@
                 <div class="space-y-6">
                     <div>
                         <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Nama Album</label>
-                        <input type="text" name="title" required placeholder="Masukkan nama album..." class="w-full px-5 py-3.5 rounded-xl border outline-none transition-all duration-300" :class="$store.theme.darkMode ? 'bg-black border-gray-700 text-white focus:border-blue-500' : 'bg-white border-gray-200 text-gray-900 focus:border-blue-500'">
+                        <input type="text" name="title" value="{{ $album->title }}" required class="w-full px-5 py-3.5 rounded-xl border outline-none transition-all duration-300" :class="$store.theme.darkMode ? 'bg-black border-gray-700 text-white focus:border-blue-500' : 'bg-white border-gray-200 text-gray-900 focus:border-blue-500'">
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -59,11 +49,10 @@
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Kategori</label>
                             <div class="relative">
                                 <select name="category" required class="w-full px-5 py-3.5 rounded-xl border outline-none appearance-none transition-all duration-300" :class="$store.theme.darkMode ? 'bg-black border-gray-700 text-white focus:border-blue-500' : 'bg-white border-gray-200 text-gray-900 focus:border-blue-500'">
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="Akademik">Akademik</option>
-                                    <option value="Kesiswaan">Kesiswaan</option>
-                                    <option value="Prestasi">Prestasi</option>
-                                    <option value="Fasilitas">Fasilitas</option>
+                                    <option value="Akademik" {{ $album->category == 'Akademik' ? 'selected' : '' }}>Akademik</option>
+                                    <option value="Kesiswaan" {{ $album->category == 'Kesiswaan' ? 'selected' : '' }}>Kesiswaan</option>
+                                    <option value="Prestasi" {{ $album->category == 'Prestasi' ? 'selected' : '' }}>Prestasi</option>
+                                    <option value="Fasilitas" {{ $album->category == 'Fasilitas' ? 'selected' : '' }}>Fasilitas</option>
                                 </select>
                                 <svg class="w-4 h-4 absolute right-5 top-4.5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </div>
@@ -71,34 +60,22 @@
                         <div>
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Tanggal Acara</label>
                             <div class="relative">
-                                <input type="date" name="event_date" required x-ref="dateInput" class="w-full px-5 py-3.5 rounded-xl border outline-none transition-all duration-300 custom-date-input" :class="$store.theme.darkMode ? 'bg-black border-gray-700 text-white focus:border-blue-500' : 'bg-white border-gray-200 text-gray-900 focus:border-blue-500'">
+                                <input type="date" name="event_date" value="{{ $album->event_date }}" required x-ref="dateInput" class="w-full px-5 py-3.5 rounded-xl border outline-none transition-all duration-300 custom-date-input" :class="$store.theme.darkMode ? 'bg-black border-gray-700 text-white focus:border-blue-500' : 'bg-white border-gray-200 text-gray-900 focus:border-blue-500'">
                                 <svg @click="$refs.dateInput.showPicker()" class="w-4 h-4 absolute right-5 top-4.5 text-gray-400 cursor-pointer hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
-                                <style>
-                                    .custom-date-input::-webkit-calendar-picker-indicator {
-                                        opacity: 0;
-                                        width: 100%;
-                                        height: 100%;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;
-                                        cursor: pointer;
-                                    }
-                                </style>
                             </div>
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Deskripsi Album</label>
-                        <textarea name="description" required rows="4" placeholder="Tuliskan deskripsi lengkap album kegiatan di sini..." class="w-full px-5 py-3.5 rounded-xl border outline-none transition-all duration-300 resize-none" :class="$store.theme.darkMode ? 'bg-black border-gray-700 text-white focus:border-blue-500' : 'bg-white border-gray-200 text-gray-900 focus:border-blue-500'"></textarea>
+                        <textarea name="description" required rows="4" class="w-full px-5 py-3.5 rounded-xl border outline-none transition-all duration-300 resize-none" :class="$store.theme.darkMode ? 'bg-black border-gray-700 text-white focus:border-blue-500' : 'bg-white border-gray-200 text-gray-900 focus:border-blue-500'">{{ $album->description }}</textarea>
                     </div>
 
                     <div class="flex items-center justify-between p-4 rounded-2xl transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-black border border-gray-700' : 'bg-gray-50/50'">
                         <div>
                             <p class="text-sm font-extrabold" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Tampilkan di Landing Page</p>
-                            <p class="text-xs font-bold text-gray-400 mt-1">Album akan terlihat secara publik di halaman Galeri</p>
                         </div>
                         <input type="hidden" name="is_visible" :value="isToggled ? 1 : 0">
                         <button type="button" @click="isToggled = !isToggled" 
@@ -116,7 +93,7 @@
                     <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center" :class="$store.theme.darkMode ? 'bg-blue-500/10' : 'bg-blue-50'">
                         <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                     </div>
-                    <h3 class="text-lg font-extrabold" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Unggah Foto Baru</h3>
+                    <h3 class="text-lg font-extrabold" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Tambah Foto Baru</h3>
                 </div>
 
                 <div class="border-2 border-dashed rounded-[2rem] p-12 flex flex-col items-center justify-center transition-colors duration-300 relative group" :class="$store.theme.darkMode ? 'border-gray-800 bg-black/20' : 'border-gray-200 bg-gray-50/30'">
@@ -124,8 +101,7 @@
                     <div class="w-16 h-16 rounded-3xl bg-orange-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform" :class="$store.theme.darkMode ? 'bg-orange-500/10' : 'bg-orange-50'">
                         <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
                     </div>
-                    <p class="text-base font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Tarik dan lepas foto di sini</p>
-                    <p class="text-xs font-bold text-gray-400 mb-8 uppercase tracking-widest">Format JPG, PNG atau WEBP (Maks. 5MB per file)</p>
+                    <p class="text-base font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Klik atau tarik foto baru di sini</p>
                     <button class="px-8 py-3 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-700 hover:bg-gray-50 transition-all shadow-sm relative z-10" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-700 text-gray-300 hover:bg-gray-800' : ''">Pilih File</button>
                 </div>
             </div>
@@ -135,40 +111,26 @@
         <div class="w-full lg:w-[380px]">
             <div class="rounded-[2rem] p-8 shadow-sm border sticky top-28 transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
                 <div class="flex items-center justify-between mb-8">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center" :class="$store.theme.darkMode ? 'bg-orange-500/10' : 'bg-orange-50'">
-                            <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h14a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        </div>
-                        <h3 class="text-lg font-extrabold" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Foto Terunggah</h3>
-                    </div>
+                    <h3 class="text-lg font-extrabold" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Review Foto</h3>
                     <span class="px-3 py-1 rounded-full text-[10px] font-black" :class="$store.theme.darkMode ? 'bg-gray-800 text-gray-400' : 'bg-gray-100 text-gray-500'" x-text="uploadedPhotos.length + ' Foto'"></span>
                 </div>
 
-                <div class="min-h-[200px] flex flex-col items-center justify-center text-center p-6 border-2 border-dashed rounded-2xl mb-8" x-show="uploadedPhotos.length === 0" :class="$store.theme.darkMode ? 'border-gray-800 bg-black/10' : 'border-gray-50 bg-gray-50/30'">
-                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-4 transition-colors" :class="$store.theme.darkMode ? 'bg-gray-800' : 'bg-gray-100'">
-                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h14a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    </div>
-                    <p class="text-xs font-bold text-gray-400">Belum ada foto yang terpilih</p>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 mb-8" x-show="uploadedPhotos.length > 0">
+                <div class="grid grid-cols-2 gap-4">
                     <template x-for="photo in uploadedPhotos" :key="photo.id">
                         <div class="aspect-square rounded-2xl overflow-hidden border shadow-sm transition-all hover:scale-[1.03] group relative" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
                             <img :src="photo.src" class="w-full h-full object-cover">
-                            <button @click="removePhoto(photo.id)" class="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                            <button type="button" @click="removePhoto(photo.id)" class="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>
                             </button>
                         </div>
                     </template>
                 </div>
-
-                <button x-show="uploadedPhotos.length > 0" class="w-full py-4 rounded-xl bg-blue-50 text-blue-600 text-sm font-bold hover:bg-blue-100 transition-all font-inter" :class="$store.theme.darkMode ? 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20' : 'bg-blue-50 text-blue-600'">Lihat Semua Foto</button>
             </div>
         </div>
     </div>
     
     <div class="mt-12 pt-8 border-t flex items-center justify-end gap-4" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
-        <button type="submit" class="px-12 py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl hover:bg-blue-700 transition-all">Simpan Album</button>
+        <button type="submit" class="px-12 py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl hover:bg-blue-700 transition-all">Update Album</button>
     </div>
     </form>
 </div>
@@ -179,8 +141,12 @@
 <script>
     function albumForm() {
         return {
-            isToggled: true,
-            uploadedPhotos: [],
+            isToggled: {{ $album->is_visible ? 'true' : 'false' }},
+            uploadedPhotos: [
+                @foreach($album->photos as $photo)
+                { id: {{ $photo->id }}, src: '{{ asset('storage/' . $photo->path) }}', isOld: true },
+                @endforeach
+            ],
             handlePhotos(e) {
                 const files = Array.from(e.target.files);
                 files.forEach(file => {
@@ -189,7 +155,8 @@
                         this.uploadedPhotos.push({
                             id: Date.now() + Math.random(),
                             src: event.target.result,
-                            file: file
+                            file: file,
+                            isOld: false
                         });
                     };
                     reader.readAsDataURL(file);
@@ -197,31 +164,23 @@
             },
             removePhoto(id) {
                 this.uploadedPhotos = this.uploadedPhotos.filter(p => p.id !== id);
+                // In a real app, you'd also track deleted old photos to delete them from server
             },
             async submitForm() {
                 const form = this.$refs.form;
-                if (!form.title.value || !form.category.value || !form.event_date.value || !form.description.value) {
-                    Swal.fire({ icon: 'warning', title: 'Data Belum Lengkap', text: 'Harap isi semua informasi album yang wajib.', confirmButtonColor: '#3B82F6' });
-                    return;
-                }
-
-                if (this.uploadedPhotos.length === 0) {
-                    Swal.fire({ icon: 'warning', title: 'Foto Belum Diunggah', text: 'Harap unggah minimal satu foto untuk album ini.', confirmButtonColor: '#3B82F6' });
-                    return;
-                }
-
-                Swal.fire({ title: 'Menyimpan Album...', text: 'Mohon tunggu sebentar', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+                Swal.fire({ title: 'Memperbarui Album...', text: 'Mohon tunggu sebentar', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
 
                 const formData = new FormData(form);
-                // Clear the original 'photos[]' file input in formData and append actual files from uploadedPhotos array
                 formData.delete('photos[]');
                 this.uploadedPhotos.forEach(photo => {
-                    formData.append('photos[]', photo.file);
+                    if (!photo.isOld) {
+                        formData.append('photos[]', photo.file);
+                    }
                 });
 
                 try {
-                    const response = await fetch("{{ route('superadmin.albums.store') }}", {
-                        method: 'POST',
+                    const response = await fetch("{{ route('superadmin.albums.update', $album) }}", {
+                        method: 'POST', // Laravel using method override for PUT
                         body: formData,
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
@@ -230,28 +189,14 @@
                     });
 
                     const data = await response.json();
-
                     if (response.ok) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil!',
-                            text: data.message,
-                            confirmButtonColor: '#3B82F6',
-                            timer: 2000,
-                            showConfirmButton: false
-                        }).then(() => {
+                        Swal.fire({ icon: 'success', title: 'Berhasil!', text: data.message, confirmButtonColor: '#3B82F6', timer: 2000, showConfirmButton: false }).then(() => {
                             window.location.href = data.redirect;
                         });
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal Menyimpan',
-                            text: data.message || 'Terjadi kesalahan saat menyimpan data.',
-                            confirmButtonColor: '#3B82F6'
-                        });
+                        Swal.fire({ icon: 'error', title: 'Gagal', text: data.message, confirmButtonColor: '#3B82F6' });
                     }
                 } catch (error) {
-                    console.error('Error:', error);
                     Swal.fire({ icon: 'error', title: 'System Error', text: 'Gagal menghubungkan ke server.' });
                 }
             }

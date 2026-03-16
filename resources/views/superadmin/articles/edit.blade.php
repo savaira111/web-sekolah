@@ -3,7 +3,7 @@
 @section('title', 'Edit Artikel - Admin Mahput')
 
 @section('content')
-<div class="p-6 lg:p-10 min-h-screen" :class="darkMode ? '' : 'bg-gray-50'">
+<div class="p-6 lg:p-10 min-h-screen" :class="$store.theme.darkMode ? '' : 'bg-gray-50'">
     <!-- Breadcrumbs -->
     <nav class="flex mb-6 text-sm" aria-label="Breadcrumb">
         <ol class="flex items-center space-x-2">
@@ -34,13 +34,13 @@
         <div class="flex items-start space-x-5">
             <a href="{{ route('superadmin.articles.index') }}" 
                class="p-3 rounded-2xl bg-white shadow-xl shadow-gray-200/50 text-gray-400 hover:text-blue-600 transition-all duration-300 group"
-               :class="darkMode ? 'bg-slate-800 shadow-none border border-slate-700 hover:bg-slate-700' : ''">
+               :class="$store.theme.darkMode ? 'bg-[#111827] shadow-none border border-gray-800 hover:bg-slate-700' : ''">
                 <svg class="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
             </a>
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tight" :class="darkMode ? 'text-white' : 'text-slate-900'">
+                <h1 class="text-3xl font-extrabold tracking-tight" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">
                     Update Article
                 </h1>
                 <p class="mt-1 text-gray-500 max-w-2xl">
@@ -64,7 +64,7 @@
         
         <!-- Left Sidebar: Main Form Content -->
         <div class="lg:col-span-8 space-y-8">
-            <div class="rounded-3xl p-8 shadow-xl transition-all duration-200" :class="darkMode ? 'bg-slate-800/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
+            <div class="rounded-3xl p-8 shadow-xl transition-all duration-200" :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
                 
                 <!-- Title Input -->
                 <div class="mb-8 group">
@@ -72,7 +72,7 @@
                     <input type="text" name="title" id="title" required
                            value="{{ old('title', $article->title) }}"
                            class="w-full text-2xl lg:text-3xl font-bold bg-transparent border-none focus:ring-0 placeholder:text-gray-300 p-0"
-                           :class="darkMode ? 'text-white' : 'text-slate-900'"
+                           :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'"
                            placeholder="Masukkan judul artikel yang menarik..."
                            oninput="updateSlug(this.value)">
                     @error('title')
@@ -85,7 +85,7 @@
                     <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">KONTEN ARTIKEL</label>
                     
                     <div class="rounded-2xl overflow-hidden border transition-all duration-200 shadow-inner" 
-                         :class="darkMode ? 'bg-slate-900/50 border-slate-700 focus-within:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus-within:border-blue-400/50'">
+                         :class="$store.theme.darkMode ? 'bg-[#111827]/50 border-gray-800 focus-within:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus-within:border-blue-400/50'">
                         
                         <!-- Quill Editor -->
                         <div id="editor-container" class="bg-transparent">
@@ -106,7 +106,7 @@
 
             <!-- Featured Image Card -->
             <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
-                 :class="darkMode ? 'bg-slate-800/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
+                 :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
                 <div class="flex items-center space-x-2 mb-6">
                     <div class="p-2 rounded-lg bg-blue-500/10 text-blue-500">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,7 +120,7 @@
                     <input type="file" name="featured_image" id="featured_image" class="hidden" accept="image/*" onchange="previewImage(this)">
                     <label for="featured_image" 
                            class="flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed transition-all cursor-pointer group-hover:border-blue-500/50"
-                           :class="darkMode ? 'border-slate-700 bg-slate-900/40' : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50'">
+                           :class="$store.theme.darkMode ? 'border-gray-800 bg-[#111827]/40' : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50'">
                         
                         <div id="image-preview-container" class="{{ $article->featured_image ? '' : 'hidden' }} w-full mb-4 rounded-xl overflow-hidden aspect-video">
                             <img id="image-preview" src="{{ $article->featured_image ? asset('storage/' . $article->featured_image) : '#' }}" alt="Preview" class="w-full h-full object-cover">
@@ -144,7 +144,7 @@
 
             <!-- Settings & SEO Card -->
             <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
-                 :class="darkMode ? 'bg-slate-800/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
+                 :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
                 <div class="flex items-center space-x-2 mb-6 text-emerald-500">
                     <div class="p-2 rounded-lg bg-emerald-500/10">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,7 +160,7 @@
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">KATEGORI</label>
                         <div class="relative group">
                             <select name="category" id="category" class="w-full appearance-none px-4 py-3 rounded-xl border font-medium focus:ring-0 transition-all duration-200"
-                                    :class="darkMode ? 'bg-slate-900/50 border-slate-700 text-white focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus:border-blue-400/50'">
+                                    :class="$store.theme.darkMode ? 'bg-[#111827]/50 border-gray-800 text-white focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus:border-blue-400/50'">
                                 @foreach($categories as $key => $value)
                                     <option value="{{ $key }}" {{ old('category', $article->category) == $key ? 'selected' : '' }}>{{ $value }}</option>
                                 @endforeach
@@ -176,11 +176,11 @@
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">SLUG URL</label>
                         <div class="flex items-center rounded-xl border transition-all duration-200 overflow-hidden"
-                             :class="darkMode ? 'bg-slate-900/50 border-slate-700 focus-within:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus-within:border-blue-400/50'">
-                            <span class="px-3 py-3 text-xs font-semibold text-gray-400 bg-gray-100/5" :class="darkMode ? 'bg-slate-800' : 'bg-gray-100'">edu.com/</span>
+                             :class="$store.theme.darkMode ? 'bg-[#111827]/50 border-gray-800 focus-within:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus-within:border-blue-400/50'">
+                            <span class="px-3 py-3 text-xs font-semibold text-gray-400 bg-gray-100/5" :class="$store.theme.darkMode ? 'bg-[#111827]' : 'bg-gray-100'">edu.com/</span>
                             <input type="text" name="slug" id="slug"
                                    class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium py-3 px-2"
-                                   :class="darkMode ? 'text-gray-300' : 'text-gray-500'"
+                                   :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-500'"
                                    value="{{ old('slug', $article->slug) }}">
                         </div>
                         <p class="mt-2 text-[10px] text-gray-400 italic">* Edit slug hati-hati, dapat merusak link lama.</p>
@@ -190,7 +190,7 @@
 
             <!-- Visibilitas Card -->
             <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
-                 :class="darkMode ? 'bg-slate-800/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
+                 :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
                 <div class="flex items-center space-x-2 mb-6 text-orange-500">
                     <div class="p-2 rounded-lg bg-orange-500/10">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,7 +204,7 @@
                 <div class="space-y-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-bold" :class="darkMode ? 'text-white' : 'text-slate-900'">Publikasikan</p>
+                            <p class="text-xs font-bold" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">Publikasikan</p>
                             <p class="text-[10px] text-gray-400 mt-1">Terbitkan artikel ke publik</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
@@ -216,7 +216,7 @@
 
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-bold" :class="darkMode ? 'text-white' : 'text-slate-900'">Highlight Artikel</p>
+                            <p class="text-xs font-bold" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">Highlight Artikel</p>
                             <p class="text-[10px] text-gray-400 mt-1">Tampilkan di slider utama</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
@@ -227,7 +227,7 @@
 
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-bold" :class="darkMode ? 'text-white' : 'text-slate-900'">Aktifkan Komentar</p>
+                            <p class="text-xs font-bold" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">Aktifkan Komentar</p>
                             <p class="text-[10px] text-gray-400 mt-1">Izinkan interaksi publik</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">

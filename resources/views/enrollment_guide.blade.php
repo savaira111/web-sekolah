@@ -203,16 +203,26 @@
                         </div>
                      </div>
                 </div>
-
-                <!-- Final CTA -->
-                <div class="bg-blue-600 rounded-[3rem] p-12 text-center space-y-8 shadow-2xl shadow-blue-200 mt-12">
-                     <h3 class="text-3xl font-bold text-white">Sudah Paham Alurnya?</h3>
-                     <p class="text-blue-100">Mulai pendaftaran Anda sekarang juga secara online.</p>
-                     <div class="pt-4">
-                        <a href="{{ route('registration') }}" class="inline-flex py-5 px-12 bg-white text-blue-600 rounded-[2rem] font-bold text-xl hover:bg-gray-100 transition-all">Daftar Online Sekarang</a>
-                     </div>
-                </div>
             </div>
+        </div>
+
+        <!-- Final CTA - Expanded and Full Width -->
+        <div class="bg-blue-600 rounded-[3rem] p-12 lg:p-20 text-center space-y-10 shadow-2xl shadow-blue-200 mt-20 relative overflow-hidden">
+             <!-- Decorative elements -->
+             <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+             <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-400 opacity-20 rounded-full -ml-40 -mb-40 blur-3xl"></div>
+             
+             <div class="relative z-10 space-y-6">
+                <h3 class="text-4xl lg:text-6xl font-bold text-white leading-tight">Sudah Paham Alurnya?</h3>
+                <p class="text-blue-100 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
+                    Mulai pendaftaran Anda sekarang juga secara online dan raih masa depan digital Anda bersama kami di SMKS Mahaputra Cerdas Utama.
+                </p>
+                <div class="pt-8">
+                    <a href="{{ route('registration') }}" class="inline-flex py-6 px-16 bg-white text-blue-600 rounded-[2.5rem] font-bold text-2xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-blue-900/20">
+                        Daftar Online Sekarang
+                    </a>
+                </div>
+             </div>
         </div>
     </div>
 </section>

@@ -2,7 +2,7 @@
 @section('title', 'Edit Ekstrakurikuler - Admin Mahput')
 
 @section('content')
-<div x-data="editEskulForm()" class="flex-1 flex flex-col min-h-screen transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]' : 'bg-[#F8FAFC]'">
+<div x-data="editEskulForm()" class="flex-1 flex flex-col min-h-screen transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-black/20' : 'bg-[#F8FAFC]'">
     
     <div class="px-8 pb-12">
         <!-- Breadcrumbs -->
@@ -11,11 +11,11 @@
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             <a href="{{ route('superadmin.eskul.index') }}">Ekstrakurikuler</a>
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            <span :class="darkMode ? 'text-white' : 'text-gray-900'">Edit {{ $eskul->name ?? 'Pramuka' }}</span>
+            <span :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Edit {{ $eskul->name ?? 'Pramuka' }}</span>
         </div>
 
         <div class="mb-10">
-            <h1 class="text-3xl font-black mb-2 tracking-tight" :class="darkMode ? 'text-white' : 'text-gray-900'">Edit Ekstrakurikuler</h1>
+            <h1 class="text-3xl font-black mb-2 tracking-tight" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Edit Ekstrakurikuler</h1>
             <p class="text-sm font-bold text-gray-400">Perbarui informasi kegiatan ekstrakurikuler sekolah untuk tahun ajaran 2023/2024.</p>
         </div>
 
@@ -27,25 +27,25 @@
                 <!-- Left Column -->
                 <div class="flex-1 space-y-8">
                     <!-- Card: Informasi Utama -->
-                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
                         <div class="flex items-center gap-3 mb-8">
-                            <div class="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center" :class="darkMode ? 'bg-orange-500/10' : 'bg-orange-50'">
+                            <div class="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center" :class="$store.theme.darkMode ? 'bg-orange-500/10' : 'bg-orange-50'">
                                 <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
-                            <h3 class="text-lg font-extrabold" :class="darkMode ? 'text-white' : 'text-gray-900'">Informasi Utama</h3>
+                            <h3 class="text-lg font-extrabold" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Informasi Utama</h3>
                         </div>
 
                         <div class="space-y-6">
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Nama Ekstrakurikuler</label>
-                                <input type="text" name="name" value="{{ $eskul->name }}" required class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none" :class="darkMode ? 'bg-[#0F172A] text-white' : 'bg-gray-50/80 text-gray-700'">
+                                <input type="text" name="name" value="{{ $eskul->name }}" required class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none" :class="$store.theme.darkMode ? 'bg-black/20 text-white' : 'bg-gray-50/80 text-gray-700'">
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Kategori</label>
                                     <div class="relative">
-                                        <select name="category" required class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none appearance-none" :class="darkMode ? 'bg-[#0F172A] text-white' : 'bg-gray-50/80 text-gray-700'">
+                                        <select name="category" required class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none appearance-none" :class="$store.theme.darkMode ? 'bg-black/20 text-white' : 'bg-gray-50/80 text-gray-700'">
                                             @foreach($categories as $id => $name)
                                                 <option value="{{ $id }}" {{ $eskul->category == $id ? 'selected' : '' }}>{{ $name }}</option>
                                             @endforeach
@@ -56,7 +56,7 @@
                                 <div>
                                     <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Target Siswa</label>
                                     <div class="relative">
-                                        <select name="target_students" class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none appearance-none" :class="darkMode ? 'bg-[#0F172A] text-white' : 'bg-gray-50/80 text-gray-700'">
+                                        <select name="target_students" class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none appearance-none" :class="$store.theme.darkMode ? 'bg-black/20 text-white' : 'bg-gray-50/80 text-gray-700'">
                                             <option value="Kelas 10 & 11" selected>Kelas 10 & 11</option>
                                             <option value="Semua Kelas">Semua Kelas</option>
                                             <option value="Khusus Kelas 12">Khusus Kelas 12</option>
@@ -68,28 +68,28 @@
 
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Deskripsi Kegiatan</label>
-                                <textarea name="description" rows="5" required class="w-full px-5 py-4 rounded-2xl border-none font-bold text-gray-700 transition-all outline-none leading-relaxed" :class="darkMode ? 'bg-[#0F172A] text-white' : 'bg-gray-50/80 text-gray-700'">{{ $eskul->description }}</textarea>
+                                <textarea name="description" rows="5" required class="w-full px-5 py-4 rounded-2xl border-none font-bold text-gray-700 transition-all outline-none leading-relaxed" :class="$store.theme.darkMode ? 'bg-black/20 text-white' : 'bg-gray-50/80 text-gray-700'">{{ $eskul->description }}</textarea>
                             </div>
                         </div>
                     </div>
 
                     <!-- Card: Jadwal & Pembina -->
-                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
                         <div class="flex items-center gap-3 mb-8">
-                            <div class="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center" :class="darkMode ? 'bg-orange-500/10' : 'bg-orange-50'">
+                            <div class="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center" :class="$store.theme.darkMode ? 'bg-orange-500/10' : 'bg-orange-50'">
                                 <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
-                            <h3 class="text-lg font-extrabold" :class="darkMode ? 'text-white' : 'text-gray-900'">Jadwal & Pembina</h3>
+                            <h3 class="text-lg font-extrabold" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Jadwal & Pembina</h3>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Hari Pelaksanaan</label>
-                                <input type="text" name="schedule_info" value="{{ $eskul->schedule_info }}" placeholder="Contoh: Jumat" class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none" :class="darkMode ? 'bg-[#0F172A] text-white' : 'bg-gray-50/80 text-gray-700'">
+                                <input type="text" name="schedule_info" value="{{ $eskul->schedule_info }}" placeholder="Contoh: Jumat" class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none" :class="$store.theme.darkMode ? 'bg-black/20 text-white' : 'bg-gray-50/80 text-gray-700'">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Nama Pembina</label>
-                                <input type="text" name="coach_name" value="Kak Ahmad Sudirman" class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none" :class="darkMode ? 'bg-[#0F172A] text-white' : 'bg-gray-50/80 text-gray-700'">
+                                <input type="text" name="coach_name" value="Kak Ahmad Sudirman" class="w-full px-5 py-4 rounded-xl border-none font-bold text-gray-700 transition-all outline-none" :class="$store.theme.darkMode ? 'bg-black/20 text-white' : 'bg-gray-50/80 text-gray-700'">
                             </div>
                         </div>
                     </div>
@@ -98,32 +98,32 @@
                 <!-- Right Column -->
                 <div class="w-full lg:w-[380px] space-y-8">
                     <!-- Foto Utama -->
-                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
-                        <h3 class="text-xs font-black text-gray-900 uppercase tracking-widest mb-6" :class="darkMode ? 'text-white' : 'text-gray-900'">Foto Utama</h3>
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
+                        <h3 class="text-xs font-black text-gray-900 uppercase tracking-widest mb-6" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Foto Utama</h3>
                         
-                        <div class="relative aspect-video rounded-2xl overflow-hidden border-2 border-dashed transition-all" :class="darkMode ? 'border-gray-800 bg-[#0F172A]' : 'border-gray-100 bg-gray-50/50'">
+                        <div class="relative aspect-video rounded-2xl overflow-hidden border-2 border-dashed transition-all" :class="$store.theme.darkMode ? 'border-gray-800 bg-black/20' : 'border-gray-100 bg-gray-50/50'">
                             <img :src="imagePreview || '{{ $eskul->image ? asset('storage/' . $eskul->image) : asset('images/gedung-sekolah.jpg') }}'" class="w-full h-full object-cover">
                             <input type="file" name="image" class="hidden" x-ref="imageInput" @change="handleImage($event)">
                         </div>
 
-                        <button type="button" @click="$refs.imageInput.click()" class="w-full mt-4 py-4 rounded-xl bg-orange-50 text-orange-600 font-bold text-sm flex items-center justify-center gap-2 hover:bg-orange-100 transition-all" :class="darkMode ? 'bg-orange-500/10 text-orange-500 hover:bg-orange-500/20' : ''">
+                        <button type="button" @click="$refs.imageInput.click()" class="w-full mt-4 py-4 rounded-xl bg-orange-50 text-orange-600 font-bold text-sm flex items-center justify-center gap-2 hover:bg-orange-100 transition-all" :class="$store.theme.darkMode ? 'bg-orange-500/10 text-orange-500 hover:bg-orange-500/20' : ''">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h14a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             Ganti Foto
                         </button>
                     </div>
 
                     <!-- Visibilitas -->
-                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
                         <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-xs font-black text-gray-900 uppercase tracking-widest" :class="darkMode ? 'text-white' : 'text-gray-900'">Visibilitas</h3>
+                            <h3 class="text-xs font-black text-gray-900 uppercase tracking-widest" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Visibilitas</h3>
                             <span class="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-widest" :class="isActive ? 'bg-emerald-50 text-emerald-500' : 'bg-gray-100 text-gray-400'" x-text="isActive ? 'Aktif' : 'Draft'"></span>
                         </div>
 
-                        <div class="p-4 rounded-2xl transition-colors mb-4" :class="darkMode ? 'bg-[#0F172A]' : 'bg-gray-50/50'">
+                        <div class="p-4 rounded-2xl transition-colors mb-4" :class="$store.theme.darkMode ? 'bg-black/20' : 'bg-gray-50/50'">
                              <p class="text-[11px] font-bold text-gray-400 mb-6 leading-relaxed">Tentukan apakah kegiatan ini muncul di dashboard siswa.</p>
                              
                              <div class="flex items-center justify-between">
-                                 <span class="text-xs font-black" :class="darkMode ? 'text-white' : 'text-gray-900'">Tampilkan ke Siswa</span>
+                                 <span class="text-xs font-black" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Tampilkan ke Siswa</span>
                                  <button type="button" @click="isActive = !isActive" 
                                         class="w-12 h-6 rounded-full relative transition-all duration-300"
                                         :class="isActive ? 'bg-[#F15A24]' : 'bg-gray-300'">
@@ -141,7 +141,7 @@
                              Simpan Perubahan
                         </button>
 
-                        <a href="{{ route('superadmin.eskul.index') }}" class="w-full py-5 bg-[#E2E8F0] text-gray-600 font-black rounded-2xl flex items-center justify-center gap-3 hover:bg-gray-300 transition-all" :class="darkMode ? 'bg-gray-800 text-gray-400 hover:bg-gray-700' : ''">
+                        <a href="{{ route('superadmin.eskul.index') }}" class="w-full py-5 bg-[#E2E8F0] text-gray-600 font-black rounded-2xl flex items-center justify-center gap-3 hover:bg-gray-300 transition-all" :class="$store.theme.darkMode ? 'bg-gray-800 text-gray-400 hover:bg-gray-700' : ''">
                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                              Batalkan
                         </a>

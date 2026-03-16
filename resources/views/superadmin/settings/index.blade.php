@@ -26,10 +26,12 @@
         .sidebar-item:hover { background-color: #1F2937; color: white; }
     </style>
     <script>
-        if (localStorage.getItem('darkMode') === 'true' || !('darkMode' in localStorage)) {
-            document.documentElement.style.backgroundColor = '#0F172A';
+        if (localStorage.getItem('.theme.darkMode') === 'true' || !('.theme.darkMode' in localStorage)) {
+            document.documentElement.style.backgroundColor = '#000000';
+            document.documentElement.classList.add('dark');
         } else {
-            document.documentElement.style.backgroundColor = '#F8FAFC';
+            document.documentElement.style.backgroundColor = '#FFFFFF';
+            document.documentElement.classList.remove('dark');
         }
         document.write('<style id="no-trans">*, *::before, *::after { transition: none !important; }</style>');
         document.addEventListener('alpine:initialized', () => {
@@ -41,9 +43,13 @@
     </script>
 </head>
 <body class="antialiased flex h-screen overflow-hidden transition-colors duration-300" 
-      x-data="{ sidebarOpen: true, darkMode: localStorage.getItem('darkMode') ? localStorage.getItem('darkMode') === 'true' : true, showNotifications: false, saveSuccess: false, passwordSuccess: false }" 
-      x-init="$watch('darkMode', val => localStorage.setItem('darkMode', val))"
-      :class="darkMode ? 'bg-[#0F172A] text-[#F8FAFC]' : 'bg-[#F8FAFC] text-[#0F172A]'">
+      x-data="{ sidebarOpen: true, .theme.darkMode: localStorage.getItem('.theme.darkMode') ? localStorage.getItem('.theme.darkMode') === 'true' : true, showNotifications: false, saveSuccess: false, passwordSuccess: false }" 
+      x-init="$watch('.theme.darkMode', val => {
+          localStorage.setItem('.theme.darkMode', val);
+          document.documentElement.classList.toggle('dark', val);
+          document.documentElement.style.backgroundColor = val ? '#000000' : '#FFFFFF';
+      })"
+      :class=".theme.darkMode ? 'bg-black text-white' : 'bg-white text-black'">
 
     <!-- Sidebar -->
     <aside class="w-64 sidebar h-full flex flex-col transition-all duration-300 z-20 shrink-0" :class="{'hidden': !sidebarOpen}">
@@ -90,35 +96,35 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]' : 'bg-[#f8fafc]'">
-        <header class="h-24 px-8 flex items-center justify-between shrink-0 backdrop-blur-md sticky top-0 z-10 w-full mb-2 transition-colors duration-300" :class="darkMode ? 'bg-[#0F172A]/80 border-b border-gray-800' : 'bg-[#f8fafc]/80 border-b border-gray-200'">
+    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full transition-colors duration-300" :class=".theme.darkMode ? 'bg-black' : 'bg-white'">
+        <header class="h-24 px-8 flex items-center justify-between shrink-0 backdrop-blur-md sticky top-0 z-10 w-full mb-2 transition-colors duration-300" :class=".theme.darkMode ? 'bg-black/80 border-b border-gray-800' : 'bg-white/80 border-b border-gray-200'">
             <div class="relative hidden lg:block w-96">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg class="h-4 w-4 transition-colors duration-300" :class="darkMode ? 'text-gray-500' : 'text-gray-400'" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.591 5.409l4.409 4.41a.75.75 0 11-1.061 1.061l-4.41-4.409A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"></path></svg>
+                    <svg class="h-4 w-4 transition-colors duration-300" :class=".theme.darkMode ? 'text-gray-500' : 'text-gray-400'" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.591 5.409l4.409 4.41a.75.75 0 11-1.061 1.061l-4.41-4.409A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"></path></svg>
                 </div>
-                <input type="text" class="block w-full pl-10 pr-4 py-2.5 border-0 rounded-full text-sm focus:ring-2 focus:ring-blue-500/20 transition-all shadow-sm" :class="darkMode ? 'bg-[#1E293B] text-white placeholder-gray-500' : 'bg-white text-gray-900 placeholder-gray-400'" placeholder="Cari pengaturan...">
+                <input type="text" class="block w-full pl-10 pr-4 py-2.5 border-0 rounded-full text-sm focus:ring-2 focus:ring-blue-500/20 transition-all shadow-sm" :class=".theme.darkMode ? 'bg-[#1E293B] text-white placeholder-gray-500' : 'bg-white text-gray-900 placeholder-gray-400'" placeholder="Cari pengaturan...">
             </div>
             
             <div class="flex items-center gap-5 ml-auto">
-                <button @click="darkMode = !darkMode" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] text-yellow-500 hover:bg-gray-800' : 'bg-white text-gray-600 hover:bg-gray-50'">
-                    <svg x-show="darkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M17.347 2.247A.75.75 0 00.945 5.77l2.798 7.152a6.75 6.75 0 1111.452 6.396.75.75 0 10-1.06 1.061 8.25 8.25 0 11-14.063-7.846l2.798-7.15a.75.75 0 00-.253-.916z" clip-rule="evenodd"></path></svg>
-                    <svg x-cloak x-show="!darkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zm6-9a.75.75 0 00-1.5 0v2.25a.75.75 0 001.5 0V3zM12 20.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V21a.75.75 0 01.75-.75zM3 12a.75.75 0 00-.75.75v2.25a.75.75 0 001.5 0V12.75A.75.75 0 003 12zm17.25 0a.75.75 0 00-.75.75v2.25a.75.75 0 001.5 0V12.75a.75.75 0 00-.75-.75z" clip-rule="evenodd"></path></svg>
+                <button @click=".theme.darkMode = !.theme.darkMode" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors duration-300" :class=".theme.darkMode ? 'bg-[#1E293B] text-yellow-500 hover:bg-gray-800' : 'bg-white text-gray-600 hover:bg-gray-50'">
+                    <svg x-show=".theme.darkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M17.347 2.247A.75.75 0 00.945 5.77l2.798 7.152a6.75 6.75 0 1111.452 6.396.75.75 0 10-1.06 1.061 8.25 8.25 0 11-14.063-7.846l2.798-7.15a.75.75 0 00-.253-.916z" clip-rule="evenodd"></path></svg>
+                    <svg x-cloak x-show="!.theme.darkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zm6-9a.75.75 0 00-1.5 0v2.25a.75.75 0 001.5 0V3zM12 20.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V21a.75.75 0 01.75-.75zM3 12a.75.75 0 00-.75.75v2.25a.75.75 0 001.5 0V12.75A.75.75 0 003 12zm17.25 0a.75.75 0 00-.75.75v2.25a.75.75 0 001.5 0V12.75a.75.75 0 00-.75-.75z" clip-rule="evenodd"></path></svg>
                 </button>
                 
                 <div class="relative">
-                    <button @click="showNotifications = !showNotifications" @click.away="showNotifications = false" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors duration-300 relative" :class="darkMode ? 'bg-[#1E293B] text-gray-300 hover:bg-gray-800' : 'bg-white text-gray-600 hover:bg-gray-50'">
-                        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 transition-colors duration-300" :class="darkMode ? 'border-[#1E293B]' : 'border-white'"></span>
+                    <button @click="showNotifications = !showNotifications" @click.away="showNotifications = false" class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors duration-300 relative" :class=".theme.darkMode ? 'bg-[#1E293B] text-gray-300 hover:bg-gray-800' : 'bg-white text-gray-600 hover:bg-gray-50'">
+                        <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 transition-colors duration-300" :class=".theme.darkMode ? 'border-[#1E293B]' : 'border-white'"></span>
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M5.85 3.5a.75.75 0 00-1.117-1A9.719 9.719 0 0018.75 20.25H4.5a3 3 0 01-3-3V8.604c0-.396.07-.782.202-1.15L2.5 4.5m16.632 7.148a.75.75 0 00-1.061-1.06M5.72 6.72a.75.75 0 00-1.06 1.061\" clip-rule=\"evenodd\"></path><path d=\"M17.25 9a.75.75 0 100-1.5.75.75 0 000 1.5z\"></path></svg>
                     </button>
                     <!-- Notification Dropdown -->
-                    <div x-cloak x-show="showNotifications" x-transition class="absolute right-0 mt-2 w-80 rounded-2xl shadow-lg border overflow-hidden z-50 transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
-                        <div class="px-4 py-3 border-b transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
-                            <h3 class="font-bold text-sm" :class="darkMode ? 'text-white' : 'text-gray-900'">Notifikasi</h3>
+                    <div x-cloak x-show="showNotifications" x-transition class="absolute right-0 mt-2 w-80 rounded-2xl shadow-lg border overflow-hidden z-50 transition-colors duration-300" :class=".theme.darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100'">
+                        <div class="px-4 py-3 border-b transition-colors duration-300" :class=".theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
+                            <h3 class="font-bold text-sm" :class=".theme.darkMode ? 'text-white' : 'text-gray-900'">Notifikasi</h3>
                         </div>
                         <div class="max-h-64 overflow-y-auto">
-                            <div class="px-4 py-3 border-b last:border-0 hover:bg-gray-50 dark:hover:bg-[#0F172A] cursor-pointer transition-colors duration-300" :class="darkMode ? 'border-gray-800' : 'border-gray-100'">
-                                <p class="text-xs font-semibold" :class="darkMode ? 'text-gray-200' : 'text-gray-800'">Login dari perangkat baru</p>
-                                <p class="text-[10px]" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Chrome di Jakarta, Indonesia</p>
+                            <div class="px-4 py-3 border-b last:border-0 hover:bg-gray-50 dark:hover:bg-[#0F172A] cursor-pointer transition-colors duration-300" :class=".theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
+                                <p class="text-xs font-semibold" :class=".theme.darkMode ? 'text-gray-200' : 'text-gray-800'">Login dari perangkat baru</p>
+                                <p class="text-[10px]" :class=".theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Chrome di Jakarta, Indonesia</p>
                                 <span class="text-[9px] text-blue-500 mt-1 block">Baru saja</span>
                             </div>
                         </div>
@@ -129,8 +135,8 @@
                 
                 <a href="/superadmin/settings" class="flex items-center gap-3 group">
                     <div class="text-right hidden sm:block">
-                        <p class="text-[13px] font-bold leading-none transition-colors duration-300 group-hover:text-blue-500" :class="darkMode ? 'text-white' : 'text-gray-900'">Superadmin</p>
-                        <p class="text-[10px] font-bold tracking-wider uppercase transition-colors duration-300 mt-1" :class="darkMode ? 'text-gray-500' : 'text-gray-400'">SUPER ADMIN</p>
+                        <p class="text-[13px] font-bold leading-none transition-colors duration-300 group-hover:text-blue-500" :class=".theme.darkMode ? 'text-white' : 'text-gray-900'">Superadmin</p>
+                        <p class="text-[10px] font-bold tracking-wider uppercase transition-colors duration-300 mt-1" :class=".theme.darkMode ? 'text-gray-500' : 'text-gray-400'">SUPER ADMIN</p>
                     </div>
                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold overflow-hidden border-2 border-transparent group-hover:border-blue-500 transition-all">
                         <img src="{{ asset('images/guru-1.jpg') }}" alt="Avatar" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=AD&background=bfdbfe&color=1e3a8a'">
@@ -143,21 +149,21 @@
         <div class="p-8 flex-1 w-full overflow-x-auto">
             <!-- Profile Header -->
             <div class="mb-8">
-                <div class="rounded-2xl p-8 transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white border border-gray-200'">
+                <div class="rounded-2xl p-8 transition-colors duration-300" :class=".theme.darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white border border-gray-200'">
                     <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                         <div class="relative">
-                            <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold text-2xl overflow-hidden border-4 transition-colors duration-300" :class="darkMode ? 'border-gray-700' : 'border-gray-200'">
+                            <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold text-2xl overflow-hidden border-4 transition-colors duration-300" :class=".theme.darkMode ? 'border-gray-700' : 'border-gray-200'">
                                 <img src="https://ui-avatars.com/api/?name=Superadmin&background=bfdbfe&color=1e3a8a&size=80" alt="Avatar" class="w-full h-full object-cover">
                             </div>
-                            <div class="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-emerald-500 border-4 transition-colors duration-300" :class="darkMode ? 'border-[#1E293B]' : 'border-white'"></div>
+                            <div class="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-emerald-500 border-4 transition-colors duration-300" :class=".theme.darkMode ? 'border-[#1E293B]' : 'border-white'"></div>
                         </div>
                         <div class="flex-1">
-                            <h1 class="text-2xl font-extrabold transition-colors duration-300 mb-1" :class="darkMode ? 'text-white' : 'text-gray-900'">Superadmin</h1>
+                            <h1 class="text-2xl font-extrabold transition-colors duration-300 mb-1" :class=".theme.darkMode ? 'text-white' : 'text-gray-900'">Superadmin</h1>
                             <div class="flex items-center gap-3 mb-3">
-                                <span class="text-sm font-semibold transition-colors duration-300" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Super Admin Role</span>
+                                <span class="text-sm font-semibold transition-colors duration-300" :class=".theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Super Admin Role</span>
                                 <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-xs font-bold rounded-full uppercase tracking-wider">ACTIVE</span>
                             </div>
-                            <p class="text-sm transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Akun administratur terdaftar dan aktif</p>
+                            <p class="text-sm transition-colors duration-300" :class=".theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Akun administratur terdaftar dan aktif</p>
                         </div>
                     </div>
                 </div>
@@ -167,23 +173,23 @@
                 <!-- Left Column - Forms -->
                 <div class="lg:col-span-2 space-y-8">
                     <!-- Section 1: Informasi Dasar -->
-                    <div class="rounded-2xl p-8 transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white border border-gray-200'">
-                        <h2 class="text-xl font-extrabold transition-colors duration-300 mb-6" :class="darkMode ? 'text-white' : 'text-gray-900'">Informasi Dasar</h2>
+                    <div class="rounded-2xl p-8 transition-colors duration-300" :class=".theme.darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white border border-gray-200'">
+                        <h2 class="text-xl font-extrabold transition-colors duration-300 mb-6" :class=".theme.darkMode ? 'text-white' : 'text-gray-900'">Informasi Dasar</h2>
                         
                         <form @submit.prevent="saveSuccess = true; setTimeout(() => saveSuccess = false, 3000)" class="space-y-5">
                             <div>
-                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Nama Lengkap</label>
-                                <input type="text" value="Superadmin" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
+                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class=".theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Nama Lengkap</label>
+                                <input type="text" value="Superadmin" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class=".theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Email</label>
-                                <input type="email" value="admin@platform.com" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
+                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class=".theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Email</label>
+                                <input type="email" value="admin@platform.com" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class=".theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Nomor Telepon</label>
-                                <input type="tel" value="+62 812 3456 7890" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
+                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class=".theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Nomor Telepon</label>
+                                <input type="tel" value="+62 812 3456 7890" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class=".theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
                             </div>
                             
                             <div class="pt-4">
@@ -196,23 +202,23 @@
                     </div>
 
                     <!-- Section 2: Keamanan & Password -->
-                    <div class="rounded-2xl p-8 transition-colors duration-300" :class="darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white border border-gray-200'">
-                        <h2 class="text-xl font-extrabold transition-colors duration-300 mb-6" :class="darkMode ? 'text-white' : 'text-gray-900'">Keamanan & Password</h2>
+                    <div class="rounded-2xl p-8 transition-colors duration-300" :class=".theme.darkMode ? 'bg-[#1E293B] border border-gray-800' : 'bg-white border border-gray-200'">
+                        <h2 class="text-xl font-extrabold transition-colors duration-300 mb-6" :class=".theme.darkMode ? 'text-white' : 'text-gray-900'">Keamanan & Password</h2>
                         
                         <form @submit.prevent="passwordSuccess = true; setTimeout(() => passwordSuccess = false, 3000)" class="space-y-5">
                             <div>
-                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Password Saat Ini</label>
-                                <input type="password" placeholder="Masukkan password saat ini" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
+                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class=".theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Password Saat Ini</label>
+                                <input type="password" placeholder="Masukkan password saat ini" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class=".theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Password Baru</label>
-                                <input type="password" placeholder="Masukkan password baru" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
+                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class=".theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Password Baru</label>
+                                <input type="password" placeholder="Masukkan password baru" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class=".theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class="darkMode ? 'text-gray-300' : 'text-gray-700'">Konfirmasi Password</label>
-                                <input type="password" placeholder="Konfirmasi password baru" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class="darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
+                                <label class="block text-sm font-bold transition-colors duration-300 mb-2" :class=".theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Konfirmasi Password</label>
+                                <input type="password" placeholder="Konfirmasi password baru" class="w-full px-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" :class=".theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'">
                             </div>
                             
                             <div class="pt-4">
@@ -227,13 +233,13 @@
 
                 <!-- Right Column - Support Card -->
                 <div>
-                    <div class="rounded-2xl p-8 transition-colors duration-300 sticky top-32" :class="darkMode ? 'bg-gradient-to-br from-blue-900/20 to-blue-900/10 border border-blue-800/30' : 'bg-gradient-to-br from-blue-50 to-blue-50/50 border border-blue-200/30'">
+                    <div class="rounded-2xl p-8 transition-colors duration-300 sticky top-32" :class=".theme.darkMode ? 'bg-gradient-to-br from-blue-900/20 to-blue-900/10 border border-blue-800/30' : 'bg-gradient-to-br from-blue-50 to-blue-50/50 border border-blue-200/30'">
                         <div class="flex flex-col items-center text-center">
-                            <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-colors duration-300" :class="darkMode ? 'bg-blue-900/30' : 'bg-blue-100'">
+                            <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-colors duration-300" :class=".theme.darkMode ? 'bg-blue-900/30' : 'bg-blue-100'">
                                 <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 021.5 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75c0 2.6-.87 4.99-2.336 6.935.18.15.297.298.382.454l1.823-1.823a.75.75 0 101.06-1.06l-2.868-2.868a1.5 1.5 0 00-2.122 0l-2.868 2.868a.75.75 0 001.06 1.06l1.823-1.823c-.085.156-.203.303-.382.454A9.722 9.722 0 0118.685 19.097zM12 15a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"></path></svg>
                             </div>
-                            <h3 class="text-lg font-extrabold transition-colors duration-300 mb-2" :class="darkMode ? 'text-white' : 'text-gray-900'">Butuh bantuan?</h3>
-                            <p class="text-sm transition-colors duration-300 mb-6" :class="darkMode ? 'text-gray-400' : 'text-gray-600'">Pusat bantuan kami tersedia 24/7 untuk menjawab pertanyaan Anda</p>
+                            <h3 class="text-lg font-extrabold transition-colors duration-300 mb-2" :class=".theme.darkMode ? 'text-white' : 'text-gray-900'">Butuh bantuan?</h3>
+                            <p class="text-sm transition-colors duration-300 mb-6" :class=".theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Pusat bantuan kami tersedia 24/7 untuk menjawab pertanyaan Anda</p>
                             <button class="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-colors duration-300 shadow-md shadow-blue-600/20 flex items-center justify-center gap-2">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.42a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.42 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3H4.5a3 3 0 01-3-3V4.5z" clip-rule="evenodd"></path></svg>
                                 Hubungi Support
@@ -245,18 +251,18 @@
         </div>
 
         <!-- Footer -->
-        <footer class="shrink-0 py-4 px-8 border-t transition-colors duration-300 text-center text-sm" :class="darkMode ? 'border-gray-800 text-gray-500' : 'border-gray-200 text-gray-500'">
+        <footer class="shrink-0 py-4 px-8 border-t transition-colors duration-300 text-center text-sm" :class=".theme.darkMode ? 'border-gray-800 text-gray-500' : 'border-gray-200 text-gray-500'">
             © 2024 Admin Panel Platform - Semua hak cipta dilindungi
         </footer>
     </main>
 
     <!-- Success Toast Notifications -->
-    <div x-show="saveSuccess" x-transition class="fixed bottom-6 right-6 px-6 py-4 rounded-full shadow-lg flex items-center gap-3 z-50 transition-all duration-300" :class="darkMode ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-emerald-100 border border-emerald-200'">
+    <div x-show="saveSuccess" x-transition class="fixed bottom-6 right-6 px-6 py-4 rounded-full shadow-lg flex items-center gap-3 z-50 transition-all duration-300" :class=".theme.darkMode ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-emerald-100 border border-emerald-200'">
         <svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
         <span class="font-semibold text-emerald-500">Perubahan berhasil disimpan!</span>
     </div>
 
-    <div x-show="passwordSuccess" x-transition class="fixed bottom-6 right-6 px-6 py-4 rounded-full shadow-lg flex items-center gap-3 z-50 transition-all duration-300" :class="darkMode ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-emerald-100 border border-emerald-200'">
+    <div x-show="passwordSuccess" x-transition class="fixed bottom-6 right-6 px-6 py-4 rounded-full shadow-lg flex items-center gap-3 z-50 transition-all duration-300" :class=".theme.darkMode ? 'bg-emerald-900/20 border border-emerald-800' : 'bg-emerald-100 border border-emerald-200'">
         <svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
         <span class="font-semibold text-emerald-500">Password berhasil diperbarui!</span>
     </div>

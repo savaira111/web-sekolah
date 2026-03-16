@@ -32,17 +32,17 @@
             return matchesSearch && matchesCategory;
         });
     }
-}" class="p-8 flex-1 w-full bg-gray-50/50">
+}" class="px-8 pb-8 flex-1 w-full">
     
     <!-- Header Section -->
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 mt-2">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 mt-8">
         <div>
-            <h1 class="text-3xl font-bold tracking-tight transition-colors duration-300 mb-1.5" :class="darkMode ? 'text-white' : 'text-[#0F172A]'">Manajemen Ekskul</h1>
-            <p class="text-[15px] font-medium transition-colors duration-300" :class="darkMode ? 'text-gray-400' : 'text-gray-500'">Kelola dan monitor program kegiatan ekstrakurikuler sekolah.</p>
+            <h2 class="text-[32px] font-extrabold tracking-tight transition-colors duration-300 mb-1.5" :class="$store.theme.darkMode ? 'text-white' : 'text-[#111827]'">Manajemen Ekskul</h2>
+            <p class="text-[15px] font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Kelola dan monitor program kegiatan ekstrakurikuler sekolah.</p>
         </div>
         
         <div class="flex items-center gap-3">
-            <a href="{{ route('superadmin.eskul.create') }}" class="flex items-center gap-2 px-6 py-2.5 bg-[#0F172A] text-white rounded-xl text-sm font-semibold hover:bg-gray-800 shadow-sm transition-all focus:ring-4 focus:ring-gray-200">
+            <a href="{{ route('superadmin.eskul.create') }}" class="flex items-center gap-2 px-6 py-2.5 bg-[#3B82F6] text-white rounded-xl text-sm font-semibold hover:bg-blue-700 shadow-sm transition-all focus:ring-4 focus:ring-blue-500/10">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                 Tambah Eskul Baru
             </a>
@@ -54,17 +54,17 @@
         <div class="flex flex-wrap items-center gap-3">
             <button @click="currentFilter = 'Semua'" 
                 class="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider transition-all"
-                :class="currentFilter === 'Semua' ? 'bg-[#0F172A] text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
+                :class="currentFilter === 'Semua' ? 'bg-black/20 text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
                 SEMUA
             </button>
             <button @click="currentFilter = 'Olahraga'" 
                 class="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider transition-all"
-                :class="currentFilter === 'Olahraga' ? 'bg-[#0F172A] text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
+                :class="currentFilter === 'Olahraga' ? 'bg-black/20 text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
                 OLAHRAGA
             </button>
             <button @click="currentFilter = 'Umum'" 
                 class="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider transition-all"
-                :class="currentFilter === 'Umum' ? 'bg-[#0F172A] text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
+                :class="currentFilter === 'Umum' ? 'bg-black/20 text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
                 UMUM
             </button>
         </div>
@@ -72,17 +72,17 @@
         <div class="relative w-full md:w-80">
             <input type="text" x-model="searchQuery" placeholder="Cari nama eskul..." 
                 class="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm border bg-white focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
-                :class="darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'border-gray-100 text-gray-700'">
+                :class="$store.theme.darkMode ? 'bg-gray-800 border-gray-700 text-white' : 'border-gray-100 text-gray-700'">
             <svg class="w-4 h-4 absolute left-3.5 top-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
     </div>
 
     <!-- Table Card -->
-    <div class="rounded-[2.5rem] overflow-hidden border transition-all" :class="darkMode ? 'bg-[#1E293B] border-gray-800' : 'bg-white border-gray-100/50 shadow-sm'">
+    <div class="rounded-[2.5rem] overflow-hidden border transition-all" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50 shadow-sm'">
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="border-b transition-colors" :class="darkMode ? 'border-gray-800 bg-gray-900/50' : 'border-gray-50 bg-gray-50/30 text-gray-400'">
+                    <tr class="border-b transition-colors" :class="$store.theme.darkMode ? 'border-gray-800 bg-gray-900/50' : 'border-gray-50 bg-gray-50/30 text-gray-400'">
                         <th class="px-8 py-5 text-[11px] font-black uppercase tracking-[0.2em]">Program Ekskul</th>
                         <th class="px-6 py-5 text-[11px] font-black uppercase tracking-[0.2em]">Kategori</th>
                         <th class="px-6 py-5 text-[11px] font-black uppercase tracking-[0.2em]">Deskripsi</th>
@@ -90,15 +90,15 @@
                         <th class="px-8 py-5 text-[11px] font-black uppercase tracking-[0.2em] text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y" :class="darkMode ? 'divide-gray-800' : 'divide-gray-50'">
+                <tbody class="divide-y" :class="$store.theme.darkMode ? 'divide-gray-800' : 'divide-gray-50'">
                     <template x-for="e in filteredEskuls" :key="e.id">
-                        <tr class="transition-all hover:bg-gray-50/50" :class="darkMode ? 'hover:bg-gray-800/30' : ''">
+                        <tr class="transition-all hover:bg-gray-50/50" :class="$store.theme.darkMode ? 'hover:bg-gray-800/30' : ''">
                             <td class="px-8 py-5">
                                 <div class="flex items-center gap-4">
                                     <div class="w-14 h-14 rounded-2xl overflow-hidden shrink-0 border border-gray-100">
                                         <img :src="e.image" class="w-full h-full object-cover">
                                     </div>
-                                    <span class="text-sm font-bold text-[#0F172A]" :class="darkMode ? 'text-white' : ''" x-text="e.name"></span>
+                                    <span class="text-sm font-bold text-[#0F172A]" :class="$store.theme.darkMode ? 'text-white' : ''" x-text="e.name"></span>
                                 </div>
                             </td>
                             <td class="px-6 py-5">

@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\AlbumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::get('/staff', [PageController::class, 'staff'])->name('staff');
 Route::get('/profil', [PageController::class, 'profile'])->name('profile');
 Route::get('/seragam', [PageController::class, 'seragam'])->name('seragam');
 Route::get('/album', [PageController::class, 'album'])->name('album');
+Route::get('/album/{album}', [PageController::class, 'albumDetail'])->name('album.show');
 
 Route::get('/pendaftaran/panduan', [PageController::class, 'enrollmentGuide'])->name('enrollment.guide');
 Route::get('/pendaftaran/formulir', [PageController::class, 'registration'])->name('registration');
@@ -129,11 +131,7 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
     Route::post('/eskul/{eskul}/toggle', [\App\Http\Controllers\ExtracurricularController::class, 'toggleStatus'])->name('eskul.toggle');
     
     // Gallery/Album
-    Route::get('/albums', function () {
-        return view('superadmin.albums.index');
-    })->name('albums.index');
-    Route::get('/albums/create', function () {
-        return view('superadmin.albums.create');
-    })->name('albums.create');
+    Route::post('/albums/{album}/toggle', [AlbumController::class, 'toggleVisibility'])->name('albums.toggle');
+    Route::resource('albums', AlbumController::class);
 
 });

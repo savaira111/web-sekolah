@@ -27,7 +27,7 @@
         }
         body.page-loaded {
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
         }
         body.page-exit {
             opacity: 0;
@@ -36,6 +36,7 @@
     </style>
 </head>
 <body class="antialiased bg-gray-50 text-gray-900 overflow-x-hidden page-transition">
+    @include('layouts.chatbot')
     @include('layouts.navbar')
 
     <main>

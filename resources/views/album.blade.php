@@ -6,54 +6,17 @@
 <div x-data="{ 
     activeFilter: 'Semua',
     albums: [
+        @foreach($albums as $album)
         {
-            title: 'Wisuda Angkatan 2023',
-            category: 'Akademik',
-            date: '25 MEI 2023',
-            photos: 120,
-            image: '{{ asset('images/gedung-sekolah.jpg') }}',
-            desc: 'Perayaan kelulusan siswa-siswi kelas XII di gedung utama dengan penuh khidmat dan kegembiraan.'
+            id: '{{ $album->id }}',
+            title: '{{ $album->title }}',
+            category: '{{ $album->category }}',
+            date: '{{ \Carbon\Carbon::parse($album->event_date)->translatedFormat('d F Y') }}',
+            photos: {{ $album->photos->count() }},
+            image: '{{ $album->photos->isNotEmpty() ? asset('storage/' . $album->photos->first()->path) : asset('images/gedung-sekolah.jpg') }}',
+            desc: '{{ str($album->description)->limit(100) }}'
         },
-        {
-            title: 'Turnamen Futsal Cup',
-            category: 'Kesiswaan',
-            date: '10 MARET 2023',
-            photos: 85,
-            image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000',
-            desc: 'Kompetisi olahraga antar kelas tahunan untuk menjunjung tinggi sportivitas dan kerjasama tim.'
-        },
-        {
-            title: 'Praktikum Kimia',
-            category: 'Akademik',
-            date: '15 FEBRUARI 2023',
-            photos: 45,
-            image: 'https://images.unsplash.com/photo-1532187875605-1ef6c237f142?q=80&w=1000',
-            desc: 'Kegiatan belajar mengajar di laboratorium untuk menguji teori kimia secara langsung.'
-        },
-        {
-            title: 'Bakti Sosial Masyarakat',
-            category: 'Kesiswaan',
-            date: '20 JANUARI 2023',
-            photos: 62,
-            image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1000',
-            desc: 'Kepedulian siswa SMKS Mahaputra terhadap lingkungan sekitar melalui bantuan sembako.'
-        },
-        {
-            title: 'Workshop Robotik',
-            category: 'Fasilitas',
-            date: '12 DESEMBER 2022',
-            photos: 38,
-            image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1000',
-            desc: 'Pelatihan teknologi masa depan untuk mengasah kreativitas dan inovasi digital siswa.'
-        },
-        {
-            title: 'Lomba Debat Nasional',
-            category: 'Prestasi',
-            date: '05 NOVEMBER 2022',
-            photos: 54,
-            image: 'https://images.unsplash.com/photo-1475721027187-402ad2989a3b?q=80&w=1000',
-            desc: 'Perwakilan tim debat sekolah yang berhasil meraih juara dalam kompetisi tingkat nasional.'
-        }
+        @endforeach
     ],
     get filteredAlbums() {
         if (this.activeFilter === 'Semua') return this.albums;
@@ -123,7 +86,7 @@
 
                             <!-- Button -->
                             <div class="mt-auto">
-                                <a href="#" class="inline-flex items-center justify-center gap-2 w-full py-3 px-6 border-2 border-blue-600 rounded-xl text-blue-600 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all duration-300">
+                                <a :href="'/album/' + album.id" class="inline-flex items-center justify-center gap-2 w-full py-3 px-6 border-2 border-blue-600 rounded-xl text-blue-600 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all duration-300">
                                     Lihat Semua Foto
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
