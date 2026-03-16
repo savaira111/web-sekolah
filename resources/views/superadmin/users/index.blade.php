@@ -306,8 +306,8 @@
         </div>
     </div>
 
-    <div x-show="isAddUserModalOpen" x-cloak x-transition class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
-        <div class="relative w-full max-w-[700px] p-8 bg-white rounded-[2rem] shadow-2xl max-h-[90vh] overflow-y-auto" :class="$store.theme.darkMode ? 'bg-[#111827] border border-gray-800' : 'bg-white'">
+    <div x-show="isAddUserModalOpen" x-cloak x-transition class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-[700px] p-8 rounded-[2rem] shadow-2xl max-h-[90vh] overflow-y-auto transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-900 border border-gray-800 text-white' : 'bg-white text-gray-900'">
              <div class="flex items-start justify-between mb-8">
                 <div>
                     <h3 class="text-xl font-extrabold mb-1" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Tambah Pengguna Baru</h3>
@@ -353,10 +353,10 @@
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Konfirmasi Password</label>
+                        <label class="block text-xs font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-700'">Konfirmasi Password</label>
                         <input type="password" x-model="newUser.confirm_password" required 
                                class="w-full px-5 py-3 rounded-2xl border text-sm outline-none transition-colors duration-300" 
-                               :class="newUser.confirm_password.length > 0 ? (newUser.password === newUser.confirm_password ? 'border-emerald-500 bg-emerald-50/10' : 'border-red-500 bg-red-50/10') : ($store.theme.darkMode ? 'border-gray-700 bg-black/20 text-white' : 'border-gray-200')">
+                               :class="newUser.confirm_password.length > 0 ? (newUser.password === newUser.confirm_password ? 'border-emerald-500 bg-emerald-50/10' : 'border-red-500 bg-red-50/10') : ($store.theme.darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-200 bg-white')">
                         <p x-show="newUser.confirm_password.length > 0" class="text-[10px] mt-1 font-bold" :class="newUser.password === newUser.confirm_password ? 'text-emerald-500' : 'text-red-500'">
                             <span x-text="newUser.password === newUser.confirm_password ? 'Password Cocok' : 'Password Tidak Cocok'"></span>
                         </p>
@@ -373,16 +373,16 @@
                 </div>
 
                 <div class="flex items-center justify-end gap-4 mt-8 pt-4">
-                    <button type="button" @click="isAddUserModalOpen = false" class="px-6 py-3 text-[13px] font-bold" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Batal</button>
+                    <button type="button" @click="isAddUserModalOpen = false" class="px-6 py-3 text-[13px] font-bold transition-colors" :class="$store.theme.darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'">Batal</button>
                     <button type="submit" :disabled="!isPasswordStrong(newUser.password) || newUser.password !== newUser.confirm_password" 
-                            class="px-8 py-3 rounded-full text-white text-[13px] font-bold bg-black/20 shadow-lg disabled:opacity-30 disabled:cursor-not-allowed">Buat Akun</button>
+                            class="px-8 py-3 rounded-full text-white text-[13px] font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all disabled:opacity-30 disabled:cursor-not-allowed">Buat Akun</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div x-show="isEditUserModalOpen" x-cloak x-transition class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
-        <div class="relative w-full max-w-[700px] p-8 bg-white rounded-[2rem] shadow-2xl max-h-[90vh] overflow-y-auto" :class="$store.theme.darkMode ? 'bg-[#111827] border border-gray-800' : 'bg-white'">
+    <div x-show="isEditUserModalOpen" x-cloak x-transition class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-[700px] p-8 rounded-[2rem] shadow-2xl max-h-[90vh] overflow-y-auto transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-900 border border-gray-800 text-white' : 'bg-white text-gray-900'">
             <div class="flex items-start justify-between mb-8">
                 <div>
                     <h3 class="text-xl font-extrabold mb-1" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Edit Pengguna</h3>
@@ -419,64 +419,64 @@
                 </div>
 
                 <div class="flex items-center justify-end gap-4 mt-8 pt-4">
-                    <button type="button" @click="isEditUserModalOpen = false" class="px-6 py-3 text-[13px] font-bold" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Batal</button>
-                    <button type="submit" class="px-8 py-3 rounded-full text-white text-[13px] font-bold bg-black/20 shadow-lg">Simpan Perubahan</button>
+                    <button type="button" @click="isEditUserModalOpen = false" class="px-6 py-3 text-[13px] font-bold transition-colors" :class="$store.theme.darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'">Batal</button>
+                    <button type="submit" class="px-8 py-3 rounded-full text-white text-[13px] font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div x-show="isDeleteModalOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
-        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="$store.theme.darkMode ? 'bg-[#111827] border border-gray-800' : 'bg-white'">
+    <div x-show="isDeleteModalOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 rounded-[2rem] text-center shadow-2xl transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-900 border border-gray-800 text-white' : 'bg-white text-gray-900'">
             <div class="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6" :class="$store.theme.darkMode ? 'bg-red-500/10' : 'bg-red-50'"><svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <h3 class="text-2xl font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Pindahkan ke Trash?</h3>
-            <p class="text-[15px] mb-8 text-gray-500">Data dapat dipulihkan kembali dari tempat sampah.</p>
+            <p class="text-[15px] mb-8 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Data dapat dipulihkan kembali dari tempat sampah.</p>
             <div class="flex gap-4">
-                <button @click="isDeleteModalOpen = false" class="flex-1 font-bold text-gray-600">Batal</button>
-                <button @click="softDelete()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-red-500 hover:bg-red-600 transition-colors">Ya, Pindahkan</button>
+                <button type="button" @click="isDeleteModalOpen = false" class="flex-1 font-bold transition-colors" :class="$store.theme.darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'">Batal</button>
+                <button type="button" @click="softDelete()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-red-500 hover:bg-red-600 shadow-lg shadow-red-500/20 transition-all">Ya, Pindahkan</button>
             </div>
         </div>
     </div>
 
-    <div x-show="isRestoreConfirmOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
-        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="$store.theme.darkMode ? 'bg-[#111827] border border-gray-800' : 'bg-white'">
+    <div x-show="isRestoreConfirmOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 rounded-[2rem] text-center shadow-2xl transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-900 border border-gray-800 text-white' : 'bg-white text-gray-900'">
             <div class="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <h3 class="text-2xl font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Pulihkan Data?</h3>
-            <p class="text-[15px] mb-8 text-gray-500">Pengguna akan kembali aktif di daftar manajemen.</p>
+            <p class="text-[15px] mb-8 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Pengguna akan kembali aktif di daftar manajemen.</p>
             <div class="flex gap-4">
-                <button @click="isRestoreConfirmOpen = false" class="flex-1 font-bold text-gray-600">Batal</button>
-                <button @click="restoreUser()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-emerald-500 hover:bg-emerald-600">Ya, Pulihkan!</button>
+                <button type="button" @click="isRestoreConfirmOpen = false" class="flex-1 font-bold transition-colors" :class="$store.theme.darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'">Batal</button>
+                <button type="button" @click="restoreUser()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-emerald-500 hover:bg-emerald-600 shadow-lg shadow-emerald-500/20 transition-all">Ya, Pulihkan!</button>
             </div>
         </div>
     </div>
 
-    <div x-show="isPermanentDeleteConfirmOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
-        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="$store.theme.darkMode ? 'bg-[#111827] border border-gray-800' : 'bg-white'">
+    <div x-show="isPermanentDeleteConfirmOpen" x-cloak x-transition class="fixed inset-0 z-[120] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 rounded-[2rem] text-center shadow-2xl transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-900 border border-gray-800 text-white' : 'bg-white text-gray-900'">
             <div class="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <h3 class="text-2xl font-extrabold mb-2 text-red-600">Hapus Permanen?</h3>
-            <p class="text-[15px] mb-8 text-gray-500">Tindakan ini tidak dapat dibatalkan. Data akan hilang selamanya.</p>
+            <p class="text-[15px] mb-8 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Tindakan ini tidak dapat dibatalkan. Data akan hilang selamanya.</p>
             <div class="flex gap-4">
-                <button @click="isPermanentDeleteConfirmOpen = false" class="flex-1 font-bold text-gray-600">Batal</button>
-                <button @click="destroyPermanently()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-gray-900 hover:bg-black">Hapus Selamanya</button>
+                <button type="button" @click="isPermanentDeleteConfirmOpen = false" class="flex-1 font-bold transition-colors" :class="$store.theme.darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'">Batal</button>
+                <button type="button" @click="destroyPermanently()" class="flex-1 py-3.5 rounded-full text-white font-bold bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/20 transition-all">Hapus Selamanya</button>
             </div>
         </div>
     </div>
 
-    <div x-show="isCreatedSuccessModalOpen" x-cloak x-transition class="fixed inset-0 z-[200] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
-        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="$store.theme.darkMode ? 'bg-[#111827] border border-gray-800' : 'bg-white'">
+    <div x-show="isCreatedSuccessModalOpen" x-cloak x-transition class="fixed inset-0 z-[200] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 rounded-[2rem] text-center shadow-2xl transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-900 border border-gray-800 text-white' : 'bg-white text-gray-900'">
             <div class="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <h3 class="text-2xl font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Berhasil!</h3>
-            <p class="text-[15px] mb-8 text-gray-500">Data baru berhasil ditambahkan.</p>
-            <button @click="isCreatedSuccessModalOpen = false" class="w-full px-8 py-3.5 rounded-full text-white font-bold bg-black/20">Mantap!</button>
+            <p class="text-[15px] mb-8 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Data baru berhasil ditambahkan.</p>
+            <button @click="isCreatedSuccessModalOpen = false" class="w-full px-8 py-3.5 rounded-full text-white font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all">Mantap!</button>
         </div>
     </div>
 
-    <div x-show="isSuccessModalOpen" x-cloak x-transition class="fixed inset-0 z-[200] flex items-center justify-center bg-gray-900/60 backdrop-blur-sm p-4">
-        <div class="relative w-full max-w-sm p-8 bg-white rounded-[2rem] text-center shadow-2xl" :class="$store.theme.darkMode ? 'bg-[#111827] border border-gray-800' : 'bg-white'">
+    <div x-show="isSuccessModalOpen" x-cloak x-transition class="fixed inset-0 z-[200] flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4">
+        <div class="relative w-full max-w-sm p-8 rounded-[2rem] text-center shadow-2xl transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-900 border border-gray-800 text-white' : 'bg-white text-gray-900'">
             <div class="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <h3 class="text-2xl font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Terhapus!</h3>
-            <p class="text-[15px] mb-8 text-gray-500">User telah dipindahkan ke folder Trash.</p>
-            <button @click="isSuccessModalOpen = false" class="w-full px-8 py-3.5 rounded-full text-white font-bold bg-black/20">Oke</button>
+            <p class="text-[15px] mb-8 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">User telah dipindahkan ke folder Trash.</p>
+            <button @click="isSuccessModalOpen = false" class="w-full px-8 py-3.5 rounded-full text-white font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-600/20 transition-all">Oke</button>
         </div>
     </div>
 </div>

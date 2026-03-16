@@ -15,8 +15,8 @@
         </div>
 
         <div class="mb-10">
-            <h1 class="text-3xl font-black mb-2 tracking-tight" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Edit Ekstrakurikuler</h1>
-            <p class="text-sm font-bold text-gray-400">Perbarui informasi kegiatan ekstrakurikuler sekolah untuk tahun ajaran 2023/2024.</p>
+            <h1 class="text-3xl font-black mb-2 tracking-tight transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Edit Ekstrakurikuler</h1>
+            <p class="text-sm font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Perbarui informasi kegiatan ekstrakurikuler sekolah untuk tahun ajaran 2023/2024.</p>
         </div>
 
         <form x-ref="form" action="{{ route('superadmin.eskul.update', $eskul) }}" method="POST" enctype="multipart/form-data">
@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="p-4 rounded-2xl transition-colors mb-4" :class="$store.theme.darkMode ? 'bg-black/20' : 'bg-gray-50/50'">
-                             <p class="text-[11px] font-bold text-gray-400 mb-6 leading-relaxed">Tentukan apakah kegiatan ini muncul di dashboard siswa.</p>
+                             <p class="text-[11px] font-bold mb-6 leading-relaxed transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Tentukan apakah kegiatan ini muncul di dashboard siswa.</p>
                              
                              <div class="flex items-center justify-between">
                                  <span class="text-xs font-black" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Tampilkan ke Siswa</span>

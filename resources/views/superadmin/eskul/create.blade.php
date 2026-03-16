@@ -14,9 +14,18 @@
 
     <!-- Header Section -->
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
-        <div>
-            <h1 class="text-[28px] font-extrabold tracking-tight transition-colors duration-300 mb-1" :class="$store.theme.darkMode ? 'text-white' : 'text-[#111827]'">Buat Ekstrakurikuler Baru</h1>
-            <p class="text-[14px] font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Siapkan program kegiatan baru untuk semester akademik mendatang.</p>
+        <div class="flex items-center gap-4">
+            <a href="{{ route('superadmin.eskul.index') }}" 
+               class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 border"
+               :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800 text-gray-400 hover:text-white hover:border-gray-600' : 'bg-white border-gray-200 text-gray-400 hover:text-blue-500 hover:border-blue-500 shadow-sm'">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div>
+                <h1 class="text-[28px] font-extrabold tracking-tight transition-colors duration-300 mb-1" :class="$store.theme.darkMode ? 'text-white' : 'text-[#111827]'">Buat Ekstrakurikuler Baru</h1>
+                <p class="text-[14px] font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Siapkan program kegiatan baru untuk semester akademik mendatang.</p>
+            </div>
         </div>
         
         <div class="flex items-center gap-3">
@@ -123,7 +132,7 @@
                             <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
                         </div>
                     </div>
-                    <p class="text-[11px] font-medium text-gray-500 mt-4 leading-relaxed italic text-center px-2">Eskul akan langsung muncul di halaman depan setelah disimpan.</p>
+                    <p class="text-[11px] font-medium mt-4 leading-relaxed italic text-center px-2 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Eskul akan langsung muncul di halaman depan setelah disimpan.</p>
                 </div>
             </div>
         </div>

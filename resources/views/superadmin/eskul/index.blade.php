@@ -54,17 +54,17 @@
         <div class="flex flex-wrap items-center gap-3">
             <button @click="currentFilter = 'Semua'" 
                 class="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider transition-all"
-                :class="currentFilter === 'Semua' ? 'bg-black/20 text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
+                :class="currentFilter === 'Semua' ? 'bg-blue-600 text-white shadow-md' : ($store.theme.darkMode ? 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700' : 'bg-white border text-gray-600 hover:bg-gray-50')">
                 SEMUA
             </button>
             <button @click="currentFilter = 'Olahraga'" 
                 class="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider transition-all"
-                :class="currentFilter === 'Olahraga' ? 'bg-black/20 text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
+                :class="currentFilter === 'Olahraga' ? 'bg-blue-600 text-white shadow-md' : ($store.theme.darkMode ? 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700' : 'bg-white border text-gray-600 hover:bg-gray-50')">
                 OLAHRAGA
             </button>
             <button @click="currentFilter = 'Umum'" 
                 class="px-5 py-2.5 rounded-full text-xs font-bold tracking-wider transition-all"
-                :class="currentFilter === 'Umum' ? 'bg-black/20 text-white shadow-md' : 'bg-white border text-gray-600 hover:bg-gray-50'">
+                :class="currentFilter === 'Umum' ? 'bg-blue-600 text-white shadow-md' : ($store.theme.darkMode ? 'bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700' : 'bg-white border text-gray-600 hover:bg-gray-50')">
                 UMUM
             </button>
         </div>
@@ -82,7 +82,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="border-b transition-colors" :class="$store.theme.darkMode ? 'border-gray-800 bg-gray-900/50' : 'border-gray-50 bg-gray-50/30 text-gray-400'">
+                    <tr class="border-b transition-colors" :class="$store.theme.darkMode ? 'border-gray-800 bg-gray-900/50 text-gray-500' : 'border-gray-50 bg-gray-50/30 text-gray-400'">
                         <th class="px-8 py-5 text-[11px] font-black uppercase tracking-[0.2em]">Program Ekskul</th>
                         <th class="px-6 py-5 text-[11px] font-black uppercase tracking-[0.2em]">Kategori</th>
                         <th class="px-6 py-5 text-[11px] font-black uppercase tracking-[0.2em]">Deskripsi</th>
@@ -107,7 +107,7 @@
                                       x-text="e.category"></span>
                             </td>
                             <td class="px-6 py-5">
-                                <p class="text-[13px] font-medium text-gray-500 line-clamp-1 max-w-[300px]" x-text="e.description"></p>
+                                <p class="text-[13px] font-medium line-clamp-1 max-w-[300px]" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'" x-text="e.description"></p>
                             </td>
                             <td class="px-6 py-5">
                                 <button type="button" 
@@ -147,7 +147,7 @@
                                     <div class="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center text-gray-300">
                                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 002 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4a2 2 0 002-2m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
                                     </div>
-                                    <p class="text-gray-400 font-bold">Tidak ada data eskul ditemukan.</p>
+                                    <p class="font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-400'">Tidak ada data eskul ditemukan.</p>
                                 </div>
                             </td>
                         </tr>
