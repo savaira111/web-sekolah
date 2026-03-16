@@ -59,6 +59,7 @@
         </div>
 
         <div class="flex items-center gap-3">
+            @if($applicant->status === 'Menunggu Review')
             <button class="flex items-center gap-2 px-6 py-3 border font-bold rounded-2xl transition-all shadow-sm" :class="$store.theme.darkMode ? 'bg-gray-800 border-gray-700 text-gray-300 hover:bg-gray-700' : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                 Edit
@@ -81,6 +82,14 @@
                     Terima Pendaftar
                 </button>
             </form>
+            @endif
+
+            @if($applicant->status === 'Diterima')
+            <a href="{{ route('superadmin.ppdb.download_pdf', $applicant->id) }}" class="flex items-center gap-2 px-8 py-3 bg-red-600 text-white font-bold rounded-2xl hover:bg-red-700 transition-all shadow-lg shadow-red-500/25">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                Unduh PDF
+            </a>
+            @endif
         </div>
     </div>
 
@@ -240,7 +249,7 @@
             
             <!-- Documents -->
             <!-- Documents -->
-            <div class="rounded-[2.5rem] p-8 border shadow-sm transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
+            <div x-data="{ showDocModal: false, docUrl: '', isDocPdf: false }" class="rounded-[2.5rem] p-8 border shadow-sm transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
                 <div class="flex items-center justify-between mb-8">
                     <div class="flex items-center gap-3">
                         <div class="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
@@ -286,16 +295,36 @@
                             </div>
                             @if($applicant->{$doc['field']})
                                 <div class="flex items-center gap-2 shrink-0">
-                                    <a href="{{ asset('storage/' . $applicant->{$doc['field']}) }}" target="_blank" 
-                                       class="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 transition-colors" title="Lihat Dokumen">
+                                    @php
+                                        $ext = pathinfo($applicant->{$doc['field']}, PATHINFO_EXTENSION);
+                                        $isPdf = strtolower($ext) === 'pdf';
+                                    @endphp
+                                    <button type="button" @click.prevent="docUrl = '{{ asset('storage/' . $applicant->{$doc['field']}) }}'; isDocPdf = {{ $isPdf ? 'true' : 'false' }}; showDocModal = true" 
+                                       class="p-1.5 rounded-lg text-blue-500 transition-colors" :class="$store.theme.darkMode ? 'hover:bg-blue-500/20' : 'hover:bg-blue-50'" title="Lihat Dokumen">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                    </a>
+                                    </button>
                                 </div>
                             @else
                                 <span class="text-[9px] font-bold text-gray-400 shrink-0 italic">Kosong</span>
                             @endif
                         </div>
                     @endforeach
+                </div>
+
+                <!-- Modal Document Viewer -->
+                <div x-show="showDocModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm" x-transition.opacity style="display: none;">
+                    <div class="relative w-full max-w-4xl max-h-[90vh] flex flex-col items-center justify-center p-4" @click.away="showDocModal = false">
+                        <button @click="showDocModal = false" class="absolute -top-12 right-0 p-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors shadow-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                        
+                        <template x-if="isDocPdf">
+                            <iframe :src="docUrl" class="w-full h-[80vh] rounded-2xl bg-white shadow-2xl"></iframe>
+                        </template>
+                        <template x-if="!isDocPdf">
+                            <img :src="docUrl" class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl" alt="Preview Dokumen">
+                        </template>
+                    </div>
                 </div>
             </div>
 
