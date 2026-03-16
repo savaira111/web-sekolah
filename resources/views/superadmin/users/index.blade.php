@@ -22,8 +22,9 @@
     showConfirmPw: false,
     
     users: [
-        { id: 1, name: 'Johnathan Doe', email: 'john.doe@eduadmin.com', role: 'Admin', image: '{{ asset('images/guru-1.jpg') }}' },
-        { id: 2, name: 'Jane Smith', email: 'jane.smith@eduadmin.com', role: 'Editor', image: '{{ asset('images/guru-2.jpg') }}' }
+        { id: 2, name: 'Admin PPDB', email: 'ppdb@eduadmin.com', role: 'admin PPDB management', image: 'https://ui-avatars.com/api/?name=Admin+PPDB&background=random' },
+        { id: 3, name: 'Admin Ekskul', email: 'ekskul@eduadmin.com', role: 'admin EXTRAKULIKULLER management', image: 'https://ui-avatars.com/api/?name=Admin+Ekskul&background=random' },
+        { id: 4, name: 'Operator Berita', email: 'berita@eduadmin.com', role: 'operator artikel/berita', image: 'https://ui-avatars.com/api/?name=Operator+Berita&background=random' }
     ],
 
     trash: [],
@@ -31,7 +32,7 @@
     itemToRestore: null,
     itemToPermanentDelete: null,
     
-    newUser: { name: '', email: '', role: 'Admin', password: '', confirm_password: '' },
+    newUser: { name: '', email: '', role: 'admin PPDB management', password: '', confirm_password: '' },
     editingUser: { id: null, name: '', email: '', role: '', password: '', confirm_password: '' },
 
     // Password Validation Logic
@@ -61,7 +62,7 @@
             };
             this.users.unshift(userToAdd);
             this.isAddUserModalOpen = false;
-            this.newUser = { name: '', email: '', role: 'Admin', password: '', confirm_password: '' };
+            this.newUser = { name: '', email: '', role: 'admin PPDB management', password: '', confirm_password: '' };
             this.isCreatedSuccessModalOpen = true;
         }
     },
@@ -141,7 +142,8 @@
             const matchesSearch = user.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
                                  user.email.toLowerCase().includes(this.searchQuery.toLowerCase());
             const matchesRole = this.currentFilter === 'Semua' || user.role === this.currentFilter;
-            return matchesSearch && matchesRole;
+            const isNotSuperadmin = user.role !== 'Superadmin';
+            return matchesSearch && matchesRole && isNotSuperadmin;
         });
     }
 }" class="px-8 pb-8 flex-1 w-full max-w-[1400px]">
@@ -203,8 +205,9 @@
     <div x-show="!showTrash" x-transition.opacity class="rounded-[2.5rem] p-8 shadow-sm border mb-4 transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
         <div class="flex items-center gap-8 mb-8 pb-4 border-b transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
             <button @click="currentFilter = 'Semua'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Semua' ? ($store.theme.darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Semua Pengguna</button>
-            <button @click="currentFilter = 'Admin'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Admin' ? ($store.theme.darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Admin</button>
-            <button @click="currentFilter = 'Editor'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'Editor' ? ($store.theme.darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Editor</button>
+            <button @click="currentFilter = 'admin PPDB management'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'admin PPDB management' ? ($store.theme.darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">PPDB</button>
+            <button @click="currentFilter = 'admin EXTRAKULIKULLER management'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'admin EXTRAKULIKULLER management' ? ($store.theme.darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Ekskul</button>
+            <button @click="currentFilter = 'operator artikel/berita'" class="text-[13px] font-bold whitespace-nowrap pb-4 border-b-2 -mb-4.5 transition-all duration-300" :class="currentFilter === 'operator artikel/berita' ? ($store.theme.darkMode ? 'text-white border-white' : 'text-gray-900 border-gray-900') : 'text-gray-500 border-transparent'">Berita</button>
         </div>
 
         <div class="overflow-x-auto">
@@ -229,8 +232,8 @@
                                 </div>
                             </td>
                             <td class="py-5 font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'" x-text="user.email"></td>
-                            <td class="py-5">
-                                <span class="px-3 py-1 font-bold text-[10px] rounded-full uppercase border" :class="user.role === 'Admin' ? ($store.theme.darkMode ? 'bg-black/20 text-white border-gray-700' : 'bg-gray-900 text-white border-transparent') : ($store.theme.darkMode ? 'bg-gray-800 text-gray-300 border-gray-700' : 'bg-gray-100 text-gray-600 border-transparent')" x-text="user.role"></span>
+                             <td class="py-5">
+                                <span class="px-3 py-1 font-bold text-[10px] rounded-full uppercase border" :class="user.role === 'Superadmin' ? ($store.theme.darkMode ? 'bg-black/20 text-white border-gray-700' : 'bg-gray-900 text-white border-transparent') : ($store.theme.darkMode ? 'bg-gray-800 text-gray-300 border-gray-700' : 'bg-gray-100 text-gray-600 border-transparent')" x-text="user.role"></span>
                             </td>
                             <td class="py-5 text-right pr-2">
                                 <div class="flex items-center justify-end gap-1">
@@ -367,8 +370,9 @@
                 <div>
                     <label class="block text-xs font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Peran</label>
                     <select x-model="newUser.role" class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="$store.theme.darkMode ? 'bg-black/20 border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
-                        <option value="Admin">Admin</option>
-                        <option value="Editor">Editor</option>
+                        <option value="admin PPDB management">admin PPDB management</option>
+                        <option value="admin EXTRAKULIKULLER management">admin EXTRAKULIKULLER management</option>
+                        <option value="operator artikel/berita">operator artikel/berita</option>
                     </select>
                 </div>
 
@@ -412,8 +416,9 @@
                     <div>
                         <label class="block text-xs font-extrabold mb-2" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Peran</label>
                         <select x-model="editingUser.role" class="w-full px-5 py-3 rounded-2xl border text-sm outline-none" :class="$store.theme.darkMode ? 'bg-black/20 border-gray-700 text-white' : 'bg-white border-gray-200 text-gray-900'">
-                            <option value="Admin">Admin</option>
-                            <option value="Editor">Editor</option>
+                            <option value="admin PPDB management">admin PPDB management</option>
+                            <option value="admin EXTRAKULIKULLER management">admin EXTRAKULIKULLER management</option>
+                            <option value="operator artikel/berita">operator artikel/berita</option>
                         </select>
                     </div>
                 </div>

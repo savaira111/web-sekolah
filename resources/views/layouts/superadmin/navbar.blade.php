@@ -62,7 +62,7 @@
             <p class="text-[13.5px] font-extrabold leading-none transition-colors duration-300" 
                 :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">{{ auth()->user()->name ?? 'Superadmin' }}</p>
             <p class="text-[10px] font-black tracking-[0.05em] uppercase transition-colors duration-300 mt-1.5" 
-                :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">SUPER ADMIN</p>
+                :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">{{ auth()->user()->role ?? 'Superadmin' }}</p>
         </div>
         <div class="w-11 h-11 rounded-full flex items-center justify-center font-black text-[15px] transition-all shadow-sm relative overflow-hidden shrink-0 border-2" 
                 :class="$store.theme.darkMode ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 'bg-[#EBF1FF] text-[#3B82F6] border-white'">
