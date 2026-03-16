@@ -163,7 +163,21 @@ class PageController extends Controller
 
     public function extracurricularRegistration()
     {
-        return view('extracurriculars.registration');
+        $legacyEskuls = [
+            ['name' => 'Pramuka (Wajib)', 'category' => 'Wajib', 'schedule_info' => 'Lapangan Utama', 'weekly_schedule' => ['Jumat' => '13.00 - 15.00'], 'is_active' => true],
+            ['name' => 'Futsal Putra', 'category' => 'Olahraga', 'schedule_info' => 'Gor Olahraga', 'weekly_schedule' => ['Selasa' => '15.30 - 17.00'], 'is_active' => true],
+            ['name' => 'Paskibra', 'category' => 'Kepemimpinan', 'schedule_info' => 'Lapangan Utama', 'weekly_schedule' => ['Sabtu' => '08.00 - 10.00'], 'is_active' => true],
+            ['name' => 'Panahan', 'category' => 'Olahraga', 'schedule_info' => 'Lapangan Panahan', 'weekly_schedule' => ['Rabu' => '15.00 - 17.00'], 'is_active' => true],
+            ['name' => 'Rohis', 'category' => 'Keagamaan', 'schedule_info' => 'Mesjid Sekolah', 'weekly_schedule' => ['Kamis' => '15.30 - 17.00'], 'is_active' => true],
+            ['name' => 'Pencak Silat', 'category' => 'Seni Beladiri', 'schedule_info' => 'Aula Sekolah', 'weekly_schedule' => ['Senin' => '15.30 - 17.00'], 'is_active' => true],
+        ];
+
+        foreach ($legacyEskuls as $eskul) {
+            \App\Models\Extracurricular::firstOrCreate(['name' => $eskul['name']], $eskul);
+        }
+
+        $extracurriculars = \App\Models\Extracurricular::where('is_active', true)->get();
+        return view('extracurriculars.registration', compact('extracurriculars'));
     }
 
     public function extracurricularRegistrationSuccess()

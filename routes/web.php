@@ -114,7 +114,11 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
         return redirect()->route('superadmin.ppdb.show', $id);
     });
     Route::patch('/ppdb/{id}/status', [ApplicantController::class, 'updateStatus'])->name('ppdb.status');
+<<<<<<< HEAD
     Route::get('/ppdb/{id}/print', [ApplicantController::class, 'print'])->name('ppdb.print');
+=======
+    Route::get('/ppdb/{id}/download', [ApplicantController::class, 'downloadPdf'])->name('ppdb.download_pdf');
+>>>>>>> 6f33960c2cebf7a06b837301c16f107a45f5c579
     Route::resource('ppdb', ApplicantController::class);
 
     // Profile
@@ -124,6 +128,7 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
 
     // Extracurricular Registrations
     Route::get('/extracurricular-registrations', [ExtracurricularRegistrationController::class, 'index'])->name('extracurricular-registrations.index');
+    Route::get('/extracurricular-registrations/{id}/download', [ExtracurricularRegistrationController::class, 'downloadPdf'])->name('extracurricular-registrations.download');
     Route::patch('/extracurricular-registrations/{id}/status', [ExtracurricularRegistrationController::class, 'updateStatus'])->name('extracurricular-registrations.status');
 
     // Eskul (Custom Layout Design)

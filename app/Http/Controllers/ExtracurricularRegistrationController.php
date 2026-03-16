@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ExtracurricularRegistration;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ExtracurricularRegistrationController extends Controller
 {
@@ -39,5 +40,13 @@ class ExtracurricularRegistrationController extends Controller
         $registration->update(['status' => $request->status]);
 
         return redirect()->route('superadmin.extracurricular-registrations.index')->with('success', 'Status pendaftaran berhasil diperbarui!');
+    }
+
+    public function downloadPdf($id)
+    {
+        $registration = ExtracurricularRegistration::findOrFail($id);
+        $pdf = Pdf::loadView('superadmin.extracurricular_registrations.pdf', compact('registration'));
+        
+        return $pdf->download('Pendaftaran_Eskul_' . str_replace(' ', '_', $registration->name) . '.pdf');
     }
 }

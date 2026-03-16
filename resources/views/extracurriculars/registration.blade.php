@@ -69,12 +69,9 @@
                             <div class="relative">
                                 <select name="extracurricular" required class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 appearance-none">
                                     <option value="">Pilih Ekstrakurikuler...</option>
-                                    <option value="Pramuka">Pramuka</option>
-                                    <option value="Futsal">Futsal</option>
-                                    <option value="Paskibra">Paskibra</option>
-                                    <option value="Panahan">Panahan</option>
-                                    <option value="Rohis">Rohis</option>
-                                    <option value="Pencak Silat">Pencak Silat</option>
+                                    @foreach($extracurriculars as $eskul)
+                                        <option value="{{ $eskul->name }}">{{ $eskul->name }}</option>
+                                    @endforeach
                                 </select>
                                 <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
                                     <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -116,18 +113,28 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50">
-                                <tr class="group hover:bg-gray-50/30 transition-colors">
-                                    <td class="px-6 py-5 font-bold text-[#0F172A]">Pramuka (Wajib)</td>
-                                    <td class="px-6 py-5 text-gray-500">Jumat</td>
-                                    <td class="px-6 py-5 text-gray-500">13.00 - 15.00</td>
-                                    <td class="px-6 py-5 text-gray-500 font-bold">Lapangan Utama</td>
-                                </tr>
-                                <tr class="group hover:bg-gray-50/30 transition-colors">
-                                    <td class="px-6 py-5 font-bold text-[#0F172A]">Futsal Putra</td>
-                                    <td class="px-6 py-5 text-gray-500">Selasa</td>
-                                    <td class="px-6 py-5 text-gray-500">15.30 - 17.00</td>
-                                    <td class="px-6 py-5 text-gray-500 font-bold">Gor Olahraga</td>
-                                </tr>
+                                @foreach($extracurriculars as $eskul)
+                                    <tr class="group hover:bg-gray-50/30 transition-colors">
+                                        <td class="px-6 py-5 font-bold text-[#0F172A]">{{ $eskul->name }}</td>
+                                        <td class="px-6 py-5 text-gray-500">
+                                            @if($eskul->weekly_schedule)
+                                                {{ implode(', ', array_keys($eskul->weekly_schedule)) }}
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td class="px-6 py-5 text-gray-500">
+                                            @if($eskul->weekly_schedule)
+                                                @foreach($eskul->weekly_schedule as $day => $time)
+                                                    {{ $time }}{{ !$loop->last ? ', ' : '' }}
+                                                @endforeach
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td class="px-6 py-5 text-gray-500 font-bold">{{ $eskul->schedule_info ?? 'TBA' }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

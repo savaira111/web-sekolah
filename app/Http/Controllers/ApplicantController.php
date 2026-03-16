@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Applicant;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ApplicantController extends Controller
 {
@@ -105,9 +106,18 @@ class ApplicantController extends Controller
         return redirect()->back()->with('success', 'Status pendaftar berhasil diperbarui!');
     }
 
+<<<<<<< HEAD
     public function print($id)
     {
         $applicant = Applicant::findOrFail($id);
         return view('superadmin.ppdb.print', compact('applicant'));
+=======
+    public function downloadPdf($id)
+    {
+        $applicant = Applicant::findOrFail($id);
+        $pdf = Pdf::loadView('superadmin.ppdb.pdf', compact('applicant'));
+        
+        return $pdf->download('PPDB_' . str_replace(' ', '_', $applicant->full_name) . '.pdf');
+>>>>>>> 6f33960c2cebf7a06b837301c16f107a45f5c579
     }
 }
