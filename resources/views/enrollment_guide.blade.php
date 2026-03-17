@@ -7,7 +7,7 @@
 <section class="relative pt-12 pb-20 overflow-hidden bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
-            PPDB ONLINE 2024/2025
+            PPDB ONLINE 2026/2027
         </div>
         <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
             Panduan <span class="text-blue-600">Pendaftaran</span> <br>
@@ -59,7 +59,7 @@
                     <h3 class="text-2xl font-bold text-blue-600">BIAYA MASUK AWAL</h3>
                     <div class="bg-blue-600 rounded-[3rem] p-12 text-center text-white relative overflow-hidden shadow-2xl shadow-blue-200">
                         <div class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/5 to-transparent"></div>
-                        <p class="text-sm font-bold uppercase tracking-[0.2em] mb-4">Penerimaan Peserta Didik Baru 2025 - 2026</p>
+                        <p class="text-sm font-bold uppercase tracking-[0.2em] mb-4">Penerimaan Peserta Didik Baru 2026 - 2027</p>
                         <div class="flex items-baseline justify-center gap-2 mb-4">
                             <span class="text-2xl font-bold opacity-60">Rp</span>
                             <span class="text-7xl font-bold leading-none">3.500.000,-</span>
@@ -187,7 +187,7 @@
                      <div class="grid md:grid-cols-2 gap-12">
                         <div class="space-y-4">
                             <h6 class="font-bold text-blue-600">Kapan batas akhir pendaftaran Gelombang 1?</h6>
-                            <p class="text-xs text-gray-500">Batas akhir pendaftaran Gelombang 1 adalah tanggal 30 Mei 2025. Segera daftar sebelum kuota penuh.</p>
+                            <p class="text-xs text-gray-500">Batas akhir pendaftaran Gelombang 1 adalah tanggal 10 Juli 2027. Segera daftar sebelum kuota penuh.</p>
                         </div>
                         <div class="space-y-4">
                             <h6 class="font-bold text-blue-600">Apakah ada biaya pendaftaran?</h6>

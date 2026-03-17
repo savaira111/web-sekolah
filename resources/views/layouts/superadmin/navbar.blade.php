@@ -3,7 +3,25 @@
     
 
     
-    <div class="flex items-center gap-4 ml-auto" x-data="{ showNotifications: false }">
+    <style>
+        @keyframes soft-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+        .animate-soft-pulse {
+            animation: soft-pulse 2s infinite ease-in-out;
+        }
+    </style>
+    
+    <div class="flex items-center gap-4 ml-auto" 
+         x-data="{ 
+            showNotifications: false,
+            hasSeen: localStorage.getItem('last_notif_count') == '{{ $unreadNotificationsCount }}',
+            markAsSeen() {
+                this.hasSeen = true;
+                localStorage.setItem('last_notif_count', '{{ $unreadNotificationsCount }}');
+            }
+         }">
     <!-- Theme Toggle -->
     <button @click="$store.theme.toggle()" 
             class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300" 
@@ -20,12 +38,12 @@
 
     
     <div class="relative">
-        <button @click="showNotifications = !showNotifications" @click.away="showNotifications = false" 
+        <button @click="showNotifications = !showNotifications; if(showNotifications) markAsSeen()" @click.away="showNotifications = false" 
             class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-all duration-300 relative" 
             :class="$store.theme.darkMode ? 'bg-[#111827] text-gray-300 hover:bg-gray-800' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-100'">
             
             @if($unreadNotificationsCount > 0)
-            <span class="absolute top-2.5 right-2.5 w-4 h-4 bg-red-500 text-white text-[8px] font-black rounded-full border-2 flex items-center justify-center transition-colors duration-300" 
+            <span x-show="!hasSeen" class="absolute top-2.5 right-2.5 w-4 h-4 bg-red-500 text-white text-[8px] font-black rounded-full border-2 flex items-center justify-center transition-colors duration-300 animate-soft-pulse" 
                 :class="$store.theme.darkMode ? 'border-[#111827]' : 'border-white'">
                 {{ $unreadNotificationsCount > 9 ? '9+' : $unreadNotificationsCount }}
             </span>

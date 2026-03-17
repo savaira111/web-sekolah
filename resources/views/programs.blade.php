@@ -154,7 +154,7 @@
                 Siap Bergabung dengan <br> Keluarga SMKS Mahaputra Cerdas Utama?
             </h2>
             <p class="text-lg text-gray-400 max-w-2xl mx-auto">
-                Pendaftaran siswa baru tahun ajaran 2024/2025 telah dibuka. Segera amankan kursimu di jurusan impian dan mulai langkah besarmu hari ini.
+                Pendaftaran siswa baru tahun ajaran 2026/2027 telah dibuka. Segera amankan kursimu di jurusan impian dan mulai langkah besarmu hari ini.
             </p>
             <div class="flex flex-wrap justify-center gap-5 pt-4">
                 <a href="{{ route('registration') }}" class="px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-900 transition-all uppercase">Daftar Online Sekarang</a>

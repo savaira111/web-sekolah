@@ -53,10 +53,10 @@
         <!-- Document Title -->
         <div class="text-center mb-12 relative">
             <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] -z-10">
-                <h1 class="text-8xl font-black uppercase">PPDB 2024</h1>
+                <h1 class="text-8xl font-black uppercase">PPDB 2026</h1>
             </div>
             <h3 class="text-xl font-black text-gray-900 uppercase tracking-tight">BIODATA PENDAFTARAN SISWA BARU</h3>
-            <p class="text-sm text-blue-600 font-bold mt-1">Tahun Pelajaran 2024/2025</p>
+            <p class="text-sm text-blue-600 font-bold mt-1">Tahun Pelajaran 2026/2027</p>
         </div>
 
         <div class="grid grid-cols-1 gap-12">

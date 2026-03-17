@@ -17,8 +17,6 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <style>
-        [x-cloak] { display: none !important; }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
@@ -38,6 +36,26 @@
             -ms-overflow-style: none;  /* IE and Edge */
             scrollbar-width: none;  /* Firefox */
         }
+
+        /* Page Transitions Management */
+        .page-transition {
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Prevent content flash during navigation */
+        [x-cloak] { display: none !important; }
     </style>
     <script>
         // Set initial state to prevent flash
@@ -87,8 +105,10 @@
         <!-- Navbar Layout -->
         @include('layouts.superadmin.navbar')
 
-        <!-- Dynamic Page Content -->
-        @yield('content')
+        <!-- Dynamic Page Content with Transition Wrapper -->
+        <div class="page-transition flex-1 flex flex-col w-full">
+            @yield('content')
+        </div>
         
     </main>
 

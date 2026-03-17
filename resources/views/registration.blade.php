@@ -81,7 +81,7 @@
     <section class="relative pt-12 pb-20 overflow-hidden bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
-                PENDAFTARAN SISWA BARU 2024/2025
+                PENDAFTARAN SISWA BARU 2026/2027
             </div>
             <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
                 Mulai Perjalanan <br>
@@ -165,11 +165,10 @@
                         <div class="space-y-4">
                             <div class="p-4 bg-blue-50 border-l-4 border-blue-600 rounded-r-xl">
                                 <p class="text-[10px] font-bold text-blue-600 uppercase">Gelombang 1</p>
-                                <p class="font-bold text-sm">Januari - Maret 2024</p>
-                            </div>
+                                <p class="font-bold text-sm">Januari - Juni 2026</p>                     </div>
                             <div class="p-4 bg-gray-50 border-l-4 border-gray-200 rounded-r-xl opacity-50">
                                 <p class="text-[10px] font-bold text-gray-400 uppercase">Gelombang 2</p>
-                                <p class="font-bold text-sm">April - Juni 2024</p>
+                                <p class="font-bold text-sm">Juli - Desember 2026</p>
                             </div>
                         </div>
                     </div>

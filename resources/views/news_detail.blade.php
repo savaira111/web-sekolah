@@ -129,8 +129,8 @@
                 <div class="mt-20 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 shadow-sm" x-data="{
                     newComment: '',
                     comments: [
-                        { name: 'Ahmad Fauzi', date: '24 MEI 2024 - 14:20', body: 'Kegiatan yang sangat bermanfaat untuk menambah wawasan siswa tentang dunia kerja nyata!' },
-                        { name: 'Siswa Teladan', date: '25 MEI 2024 - 09:15', body: 'Terima kasih informasinya, sangat memotivasi kami para junior!' }
+                        { name: 'Ahmad Fauzi', date: '24 MEI 2026 - 14:20', body: 'Kegiatan yang sangat bermanfaat untuk menambah wawasan siswa tentang dunia kerja nyata!' },
+                        { name: 'Siswa Teladan', date: '25 MEI 2026 - 09:15', body: 'Terima kasih informasinya, sangat memotivasi kami para junior!' }
                     ],
                     addComment() {
                         if (this.newComment.trim() === '') return;
@@ -245,7 +245,7 @@
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-3xl transition-transform duration-700 group-hover:scale-150"></div>
                     <div class="relative z-10 space-y-4">
                         <h3 class="text-xl font-black leading-tight">Ingin Bergabung Bersama Kami?</h3>
-                        <p class="text-sm text-blue-100/80 leading-relaxed font-medium">Pendaftaran Peserta Didik Baru (PPDB) TA 2024/2025 telah dibuka secara resmi. Segera amankan kuota Anda!</p>
+                        <p class="text-sm text-blue-100/80 leading-relaxed font-medium">Pendaftaran Peserta Didik Baru (PPDB) TA 2026/2027 telah dibuka secara resmi. Segera amankan kuota Anda!</p>
                         <a href="{{ route('registration') }}" class="block w-full py-4 bg-white text-blue-600 text-center rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 hover:scale-[1.02] active:scale-[0.98] transition-all">
                             Daftar Sekarang
                         </a>

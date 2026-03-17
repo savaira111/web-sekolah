@@ -13,7 +13,7 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                     </span>
-                    Pendaftaran Siswa Baru T.A 2024/2025
+                    Pendaftaran Siswa Baru T.A 2026/2027
                 </div>
                 <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight leading-[1.1]">
                     Membangun Masa Depan <br>
@@ -29,7 +29,7 @@
                 
                 <div class="flex items-center gap-8 pt-4">
                     <div class="flex flex-col">
-                        <span class="text-xl font-bold text-[#0F172A]">1,200+</span>
+                        <span class="text-xl font-bold text-[#0F172A]">200+</span>
                         <span class="text-gray-500 text-xs">Siswa Aktif</span>
                     </div>
                     <div class="h-10 w-px bg-gray-200"></div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="h-10 w-px bg-gray-200"></div>
                     <div class="flex flex-col">
-                        <span class="text-xl font-bold text-[#0F172A]">50+</span>
+                        <span class="text-xl font-bold text-[#0F172A]">20+</span>
                         <span class="text-gray-500 text-xs">Mitra Industri</span>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
-                <h3 class="text-3xl font-bold text-[#0F172A] mb-2">1,200+</h3>
+                <h3 class="text-3xl font-bold text-[#0F172A] mb-2">200+</h3>
                 <p class="text-gray-500 font-medium">Siswa Aktif</p>
             </div>
             <div class="p-6 rounded-3xl bg-indigo-50 border border-indigo-100 text-center transition-all group">
@@ -86,7 +86,7 @@
                 <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 mx-auto mb-5 transition-transform">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </div>
-                <h3 class="text-3xl font-bold text-[#0F172A] mb-2">50+</h3>
+                <h3 class="text-3xl font-bold text-[#0F172A] mb-2">20+</h3>
                 <p class="text-gray-500 font-medium">Mitra Industri</p>
             </div>
             <div class="p-6 rounded-3xl bg-purple-50 border border-purple-100 text-center transition-all group">
@@ -341,7 +341,7 @@
                     Siap Bergabung Menjadi Bagian dari Masa Depan?
                 </h2>
                 <p class="text-lg text-gray-400 leading-relaxed">
-                    Pendaftaran siswa baru tahun ajaran 2024/2025 telah dibuka. Segera amankan kursimu di jurusan impian dan mulai langkah besarmu hari ini.
+                    Pendaftaran siswa baru tahun ajaran 2026/2027 telah dibuka. Segera amankan kursimu di jurusan impian dan mulai langkah besarmu hari ini.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4">
                     <a href="{{ route('registration') }}" class="px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-900 transition-all uppercase">Daftar Sekarang</a>
@@ -353,19 +353,19 @@
                     <div class="flex items-center gap-6 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all duration-500 group">
                         <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/50">1</div>
                         <div>
-                            <p class="text-white font-bold text-lg">Isi Formulir Online</p>
+                            <p class="text-white font-bold text-lg">Isi Formulir</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-6 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all duration-500 translate-x-4 group">
                         <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/50">2</div>
                         <div>
-                            <p class="text-white font-bold text-lg">Verifikasi Dokumen</p>
+                            <p class="text-white font-bold text-lg">Verifikasi</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-6 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all duration-500 translate-x-8 group">
                         <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/50">3</div>
                         <div>
-                            <p class="text-white font-bold text-lg">Seleksi & Wawancara</p>
+                            <p class="text-white font-bold text-lg">Psikotes</p>
                         </div>
                     </div>
                 </div>

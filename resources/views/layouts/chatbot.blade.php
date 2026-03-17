@@ -84,12 +84,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let isOpen = false;
 
     const botResponses = {
-        profil: "SMKS Mahaputra Cerdas Utama adalah sekolah kejuruan yang berfokus pada bidang Teknologi Informasi dan Industri Kreatif. Sekolah kami dipimpin oleh Ibu Siti Robiah Adawiyah, S.Pd. dan telah terakreditasi A.",
-        jurusan: "Tentu! Di SMKS Mahaputra Cerdas Utama, kami memiliki beberapa pilihan jurusan unggulan:\n1. **DKV (Desain Komunikasi Visual)**\n2. **PPLG (Pengembangan Perangkat Lunak & Gim)**\n\nSilakan klik salah satu untuk info lebih lanjut.",
-        fasilitas: "Fasilitas kami berstandar industri, meliputi Lab DKV yang lengkap, Lab PPLG dengan spesifikasi tinggi, Bale Mahaputra (Aula), dan area praktek kerja.",
-        ppdb: "Pendaftaran Siswa Baru untuk T.A 2025/2026 sudah dibuka! Anda bisa melihat alur pendaftaran melalui website kami atau langsung datang ke sekretariat pendaftaran di sekolah.",
-        biaya: "Untuk detail biaya sekolah tahun ajaran 2025/2026, kami menyarankan Anda menghubungi langsung tim administrasi kami melalui tombol WhatsApp yang tersedia di halaman Kontak.",
-        fallback: "Maaf, saya asisten virtual khusus SMKS Mahaputra. Bisa saya bantu jelaskan tentang profil sekolah, jurusan, fasilitas, atau info pendaftaran?"
+        profil: "SMKS Mahaputra Cerdas Utama berlokasi di Katapang, Kabupaten Bandung. Sekolah ini dipimpin oleh Ibu Siti Robiah Adawiyah, S.Pd. dan telah terakreditasi A (Unggul). Fokus utama kami adalah bidang IT dan Desain dengan pendekatan religius dan berakhlak mulia.",
+        sejarah: "Sejarah SMKS Mahaputra:\n- **2016**: Berdirinya Yayasan Mahaputra & SMKS Mahaputra Cerdas Utama mendapatkan izin operasional.\n- **2018**: Ekspansi kemitraan dengan 50+ perusahaan industri.\n- **2023**: Ditetapkan sebagai SMK Pusat Keunggulan (COE) oleh Kemendikbudristek RI.\n\nKami telah berbakti selama 10 tahun untuk mencetak generasi unggul.",
+        jurusan: "Pilihan Jurusan:\n1. **DKV (Desain Komunikasi Visual)**: Belajar Desain Grafis, Fotografi, Videografi, hingga 3D Modelling. Dibimbing oleh Bpk Refangga Agus Triono, S.Ds.\n2. **PPLG (Pengembangan Perangkat Lunak & Gim)**: Belajar Coding (C++, C#, Web, Mobile), Game Dev, dan Database. Dibimbing oleh Ibu Azhara Silmi Fathiyah.\n\nMasing-masing memiliki Lab berstandar industri!",
+        fasilitas: "Fasilitas Unggulan:\n- **Laboratorium**: Lab PPLG (i7 High-end), Lab DKV, Lab Multimedia (Editing Suite), Lab Interaktif (Smart Board).\n- **Umum**: Masjid (Full AC), Bale Mahaputra (Aula), BNB Cafe, Area Parkir Luas, dan Gedung Kelas yang bersih & modern.",
+        ppdb: "Panduan PPDB 2025/2026:\n1. Daftar Online di web ini.\n2. Verifikasi Dokumen (Scan Ijazah, Akta, KK, Rapor Semester 1-5, Pas Foto).\n3. Tes Seleksi (Akademik & Wawancara).\n4. Daftar Ulang.\n\nBiaya Masuk: **Rp 3.500.000,-**.\nBiaya Pendaftaran: **Rp 150.000,-**.",
+        biaya: "Biaya masuk awal hanya **Rp 3.500.000,-**.\n\n**Program Diskon & Beasiswa:**\n- **Hafidz Quran**: Diskon 25% (5 Juz), 50% (10 Juz), 75% (20 Juz), hingga GRATIS 100% (30 Juz).\n- **Sosial**: Diskon 50% untuk Yatim Piatu, dan 25% untuk Yatim/Piatu.",
+        eskul: "Ekstrakurikuler di SMK Mahaputra:\n- **Wajib**: Pramuka\n- **Pilihan**: Futsal Putra, Paskibra, Panahan, Rohis, dan Pencak Silat.\nSemua eskul aktif dan didukung fasilitas lapangan yang memadai.",
+        kontak: "Hubungi Kami:\n- **WhatsApp**: 022 589 1234 / [Link WA](https://wa.me/message/AKIGOHHXFZGWB1)\n- **Email**: smkmahaputracerdasutama@gmail.com\n- **Alamat**: Jl. Terusan Katapang Kulon No.24, Katapang, Kab. Bandung.\n- **Jam Kerja**: Sen-Jum: 08.00 - 16.00.",
+        fallback: "Maaf, saya belum memahami pesan Anda. Silakan tanya tentang: **Profil, Sejarah, Jurusan, Biaya, PPDB, Fasilitas, Eskul, atau Kontak.**"
     };
 
     window.sendQuickReply = function(text) {
@@ -162,18 +165,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         setTimeout(() => {
             thinkingDiv.remove();
-            const response = botResponses[text.toLowerCase()] || handleManualResponse(text);
+            const response = handleManualResponse(text);
             addMessage(response);
         }, 1200);
     }
 
     function handleManualResponse(input) {
         const lowerInput = input.toLowerCase();
-        if (lowerInput.includes('profil') || lowerInput.includes('sejarah')) return botResponses.profil;
-        if (lowerInput.includes('jurusan') || lowerInput.includes('dkv') || lowerInput.includes('pplg')) return botResponses.jurusan;
-        if (lowerInput.includes('fasilitas') || lowerInput.includes('lab')) return botResponses.fasilitas;
-        if (lowerInput.includes('daftar') || lowerInput.includes('ppdb') || lowerInput.includes('alur')) return botResponses.ppdb;
-        if (lowerInput.includes('biaya')) return botResponses.biaya;
+        if (lowerInput.includes('sejarah') || lowerInput.includes('milestone') || lowerInput.includes('berdiri') || lowerInput.includes('didirikan')) return botResponses.sejarah;
+        if (lowerInput.includes('profil') || lowerInput.includes('tentang')) return botResponses.profil;
+        if (lowerInput.includes('jurusan') || lowerInput.includes('dkv') || lowerInput.includes('pplg') || lowerInput.includes('program')) return botResponses.jurusan;
+        if (lowerInput.includes('fasilitas') || lowerInput.includes('lab') || lowerInput.includes('ruang') || lowerInput.includes('aula') || lowerInput.includes('kafe') || lowerInput.includes('masjid')) return botResponses.fasilitas;
+        if (lowerInput.includes('daftar') || lowerInput.includes('ppdb') || lowerInput.includes('alur') || lowerInput.includes('masuk')) return botResponses.ppdb;
+        if (lowerInput.includes('biaya') || lowerInput.includes('bayar') || lowerInput.includes('diskon') || lowerInput.includes('harga') || lowerInput.includes('gratis') || lowerInput.includes('yatim') || lowerInput.includes('hafidz')) return botResponses.biaya;
+        if (lowerInput.includes('eskul') || lowerInput.includes('ekskul') || lowerInput.includes('futsal') || lowerInput.includes('pramuka') || lowerInput.includes('paskibra') || lowerInput.includes('silat')) return botResponses.eskul;
+        if (lowerInput.includes('alamat') || lowerInput.includes('lokasi') || lowerInput.includes('kontak') || lowerInput.includes('wa') || lowerInput.includes('nomor') || lowerInput.includes('email') || lowerInput.includes('telepon')) return botResponses.kontak;
         return botResponses.fallback;
     }
 
