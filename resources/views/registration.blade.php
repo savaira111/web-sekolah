@@ -21,29 +21,38 @@
         }
     },
     validateStep() {
-        let currentStepEl = document.querySelector('[x-show=\'step === ' + this.step + '\']');
+        let currentStepEl = this.$refs['step' + this.step];
+        if (!currentStepEl) return true;
+        
         let inputs = Array.from(currentStepEl.querySelectorAll('input[required], select[required], textarea[required]'));
-        let isValid = true;
+        let firstInvalid = null;
         
         inputs.forEach(input => {
             if (!this.validateInput(input)) {
-                isValid = false;
+                if (!firstInvalid) firstInvalid = input;
             }
         });
 
-        if (!isValid) {
-            this.triggerToast('Mohon lengkapi semua bidang yang wajib diisi');
+        if (firstInvalid) {
+            let label = 'salah satu bidang';
+            // Try to find a label
+            let parent = firstInvalid.parentElement;
+            if (parent && parent.querySelector('label')) {
+                label = parent.querySelector('label').innerText.replace('(Sesuai Ijazah)', '').replace('(Sesuai KK)', '').trim();
+            }
+            this.triggerToast('Mohon isi: ' + label);
+            return false;
         }
-        return isValid;
+        return true;
     },
     validateInput(input) {
-        if (!input.value.trim()) {
+        if (!input) return true;
+        if (input.hasAttribute('required') && (!input.value || !input.value.trim())) {
             input.classList.add('ring-2', 'ring-red-100', 'border-red-300');
             return false;
-        } else {
-            input.classList.remove('ring-2', 'ring-red-100', 'border-red-300');
-            return true;
         }
+        input.classList.remove('ring-2', 'ring-red-100', 'border-red-300');
+        return true;
     },
     triggerToast(msg) {
         this.toastMsg = msg;
@@ -93,6 +102,18 @@
     <!-- Main Form Section -->
     <section class="pb-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Warning Message -->
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-12 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-orange-900 leading-tight">PENTING: Pengisian data PPDB hanya dapat dilakukan 1 kali</h4>
+                        <p class="text-orange-700 text-xs mt-1">Pastikan seluruh data yang Anda masukkan (Nama, NIK, NISN, dll) sudah benar dan valid sebelum dikirimkan.</p>
+                    </div>
+                </div>
+            </div>
             <div class="grid lg:grid-cols-4 gap-12">
                 
                 <!-- Left Sidebar: Progress & Info -->
@@ -193,7 +214,7 @@
                     @csrf
                     
                     <!-- Step 1: Data Diri -->
-                    <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
+                    <div x-show="step === 1" x-ref="step1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
                         <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
                             <div class="mb-12">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
@@ -217,6 +238,10 @@
                                     </select>
                                 </div>
                                 <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">NIK (Nomor Induk Kependudukan)</label>
+                                    <input type="text" name="nik" value="{{ old('nik') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="16 digit nomor NIK (Sesuai KK)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">NISN</label>
                                     <input type="text" name="nisn" value="{{ old('nisn') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
@@ -226,7 +251,7 @@
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tanggal Lahir</label>
-                                    <input type="date" name="birth_date" value="{{ old('birth_date') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all">
+                                    <input type="date" name="birth_date" value="{{ old('birth_date') }}" required @change="validateInput($event.target)" @blur="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Asal Sekolah</label>
@@ -278,7 +303,7 @@
                         </div>
 
                     <!-- Step 2: Data Orang Tua -->
-                    <div x-show="step === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
+                    <div x-show="step === 2" x-ref="step2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
                         <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
                             <div class="mb-12">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
@@ -302,7 +327,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ayah</label>
-                                            <select name="father_job" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
+                                            <select name="father_job" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
                                                 <option value="">Pilih Pekerjaan</option>
                                                 <option value="PNS" {{ old('father_job') == 'PNS' ? 'selected' : '' }}>PNS / ASN</option>
                                                 <option value="TNI/POLRI" {{ old('father_job') == 'TNI/POLRI' ? 'selected' : '' }}>TNI / POLRI</option>
@@ -335,7 +360,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ibu</label>
-                                            <select name="mother_job" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
+                                            <select name="mother_job" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
                                                 <option value="">Pilih Pekerjaan</option>
                                                 <option value="Ibu Rumah Tangga" {{ old('mother_job') == 'Ibu Rumah Tangga' ? 'selected' : '' }}>Ibu Rumah Tangga</option>
                                                 <option value="PNS" {{ old('mother_job') == 'PNS' ? 'selected' : '' }}>PNS / ASN</option>
@@ -367,7 +392,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Penghasilan Gabungan Per Bulan</label>
-                                            <select name="parent_income" @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
+                                            <select name="parent_income" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
                                                 <option value="">Pilih Rentang Penghasilan</option>
                                                 <option value="< 2.000.000" {{ old('parent_income') == '< 2.000.000' ? 'selected' : '' }}>< Rp 2.000.000</option>
                                                 <option value="2.000.000 - 5.000.000" {{ old('parent_income') == '2.000.000 - 5.000.000' ? 'selected' : '' }}>Rp 2.000.000 - Rp 5.000.000</option>
@@ -392,7 +417,7 @@
                         </div>
 
                     <!-- Step 3: Unggah Dokumen -->
-                    <div x-show="step === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
+                    <div x-show="step === 3" x-ref="step3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
                         <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
                             <div class="mb-12">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
@@ -573,7 +598,7 @@
 
                                 <!-- 14. PIP / KIP -->
                                 <div class="space-y-2">
-                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">14. PIP / KIP / Ket. Kematian</label>
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">14. PIP / KIP / Ket. Kematian (Opsional)</label>
                                     <div @click="$refs.kipInput.click()" class="relative group cursor-pointer">
                                         <input type="file" name="doc_kip_pkh" x-ref="kipInput" class="hidden" @change="doc_kip_pkh = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
@@ -587,7 +612,7 @@
 
                                 <!-- 15. Prestasi -->
                                 <div class="space-y-2">
-                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">15. Sertifikat / Penghargaan</label>
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">15. Sertifikat / Penghargaan (Opsional)</label>
                                     <div @click="$refs.prestasiInput.click()" class="relative group cursor-pointer">
                                         <input type="file" name="doc_prestasi" x-ref="prestasiInput" class="hidden" @change="doc_prestasi = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
@@ -620,12 +645,12 @@
                                     Selesaikan Pendaftaran
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                                 </button>
-                            </div>
-                        </div>
-                    </div>
+                            </div> <!-- closes footer (630) -->
+                        </div> <!-- closes bg-white (412) -->
+                    </div> <!-- closes step3 container (411) -->
                 </form>
-                </div> <!-- closing lg:col-span-3 (line 157) -->
-            </div> <!-- closing grid-cols-4 (line 88) -->
+            </div> <!-- closes lg:col-span-3 (177) -->
+        </div> <!-- closes grid (108) -->
 
             <!-- Bottom Document Checklist -->
             <div class="mt-12 bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
@@ -747,14 +772,14 @@
                         <div class="flex items-start gap-4">
                             <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">14</div>
                             <div>
-                                <p class="text-sm font-bold text-gray-800">PIP / KIP / Ket. Kematian</p>
+                                <p class="text-sm font-bold text-gray-800">PIP / KIP / Ket. Kematian (Opsional)</p>
                                 <p class="text-[10px] text-gray-400">(*) Jalur Khusus - 1 Lembar</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
                             <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">15</div>
                             <div>
-                                <p class="text-sm font-bold text-gray-800">Sertifikat / Piagam</p>
+                                <p class="text-sm font-bold text-gray-800">Sertifikat / Piagam (Opsional)</p>
                                 <p class="text-[10px] text-gray-400">Opsional (Prestasi)</p>
                             </div>
                         </div>

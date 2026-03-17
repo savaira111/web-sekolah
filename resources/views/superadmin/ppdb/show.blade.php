@@ -67,6 +67,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                 Edit
             </button>
+            @if($applicant->status === 'Menunggu Review')
             <form action="{{ route('superadmin.ppdb.status', $applicant->id) }}" method="POST">
                 @csrf
                 @method('PATCH')
@@ -252,13 +253,9 @@
             
             <!-- Documents -->
             <!-- Documents -->
-<<<<<<< HEAD
-            <div class="rounded-[2.5rem] p-8 border shadow-sm transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-=======
             <div x-data="{ showDocModal: false, docUrl: '', isDocPdf: false }" class="rounded-[2.5rem] p-8 border shadow-sm transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100/50'">
                 <div class="flex items-center justify-between mb-8">
->>>>>>> 6f33960c2cebf7a06b837301c16f107a45f5c579
+
                     <div class="flex items-center gap-3">
                         <div class="p-2 bg-indigo-50 text-indigo-600 rounded-xl transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-600'">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
@@ -320,18 +317,6 @@
                                 <span class="text-[11px] font-bold transition-colors duration-300 truncate" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">{{ $doc['label'] }}</span>
                             </div>
                             @if($applicant->{$doc['field']})
-<<<<<<< HEAD
-                                <div class="flex items-center gap-1 shrink-0">
-                                    <a href="{{ asset('storage/' . $applicant->{$doc['field']}) }}" target="_blank" 
-                                       class="p-1.5 rounded-lg text-blue-500 hover:bg-blue-50 transition-colors" title="Lihat Dokumen">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                    </a>
-                                    <a href="{{ asset('storage/' . $applicant->{$doc['field']}) }}" 
-                                       download="{{ str_replace(' ', '_', $doc['label']) }}_{{ str_replace(' ', '_', $applicant->full_name) }}.{{ pathinfo($applicant->{$doc['field']}, PATHINFO_EXTENSION) }}"
-                                       class="p-1.5 rounded-lg text-emerald-500 hover:bg-emerald-50 transition-colors" title="Unduh Dokumen">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                                    </a>
-=======
                                 <div class="flex items-center gap-2 shrink-0">
                                     @php
                                         $ext = pathinfo($applicant->{$doc['field']}, PATHINFO_EXTENSION);
@@ -341,7 +326,13 @@
                                        class="p-1.5 rounded-lg text-blue-500 transition-colors" :class="$store.theme.darkMode ? 'hover:bg-blue-500/20' : 'hover:bg-blue-50'" title="Lihat Dokumen">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                     </button>
->>>>>>> 6f33960c2cebf7a06b837301c16f107a45f5c579
+                                     <a href="{{ asset('storage/' . $applicant->{$doc['field']}) }}" 
+                                       download="{{ str_replace(' ', '_', $doc['label']) }}_{{ str_replace(' ', '_', $applicant->full_name) }}.{{ pathinfo($applicant->{$doc['field']}, PATHINFO_EXTENSION) }}"
+                                       class="p-1.5 rounded-lg text-emerald-500 hover:bg-emerald-50 transition-colors" title="Unduh Dokumen">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                    </a>
+                                </div>
+
                                 </div>
                             @else
                                 <span class="text-[9px] font-bold text-gray-400 shrink-0 italic">Kosong</span>

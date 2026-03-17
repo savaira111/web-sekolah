@@ -24,8 +24,12 @@
             class="w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-all duration-300 relative" 
             :class="$store.theme.darkMode ? 'bg-[#111827] text-gray-300 hover:bg-gray-800' : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-100'">
             
-            <span class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 transition-colors duration-300" 
-                :class="$store.theme.darkMode ? 'border-[#111827]' : 'border-white'"></span>
+            @if($unreadNotificationsCount > 0)
+            <span class="absolute top-2.5 right-2.5 w-4 h-4 bg-red-500 text-white text-[8px] font-black rounded-full border-2 flex items-center justify-center transition-colors duration-300" 
+                :class="$store.theme.darkMode ? 'border-[#111827]' : 'border-white'">
+                {{ $unreadNotificationsCount > 9 ? '9+' : $unreadNotificationsCount }}
+            </span>
+            @endif
             
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
@@ -39,17 +43,47 @@
             class="absolute right-0 mt-2 w-80 rounded-2xl shadow-lg border overflow-hidden z-50 transition-colors duration-300" 
             :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
             
-            <div class="px-4 py-3 border-b transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
+            <div class="px-4 py-3 border-b flex items-center justify-between transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
                 <h3 class="font-bold text-sm" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Notifikasi</h3>
+                @if($unreadNotificationsCount > 0)
+                    <span class="px-2 py-0.5 bg-blue-500 text-white text-[10px] font-bold rounded-full">{{ $unreadNotificationsCount }} Baru</span>
+                @endif
             </div>
             
-            <div class="max-h-64 overflow-y-auto">
-                <div class="px-4 py-3 border-b last:border-0 hover:bg-gray-50 dark:hover:bg-[#000000] cursor-pointer transition-colors duration-300" 
+            <div class="max-h-80 overflow-y-auto">
+                @forelse($adminNotifications as $notification)
+                <a href="{{ $notification['link'] }}" class="block px-4 py-3 border-b last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors duration-300" 
                     :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
-                    <p class="text-xs font-semibold" :class="$store.theme.darkMode ? 'text-gray-200' : 'text-gray-800'">Pendaftaran PPDB Baru</p>
-                    <p class="text-[10px]" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Budi mendaftar di jurusan RPL</p>
-                    <span class="text-[9px] text-blue-500 mt-1 block font-bold">5 menit yang lalu</span>
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 
+                            @if($notification['type'] === 'ppdb') bg-blue-50 text-blue-500 @elseif($notification['type'] === 'eskul') bg-purple-50 text-purple-500 @else bg-amber-50 text-amber-500 @endif">
+                            @if($notification['type'] === 'ppdb')
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            @elseif($notification['type'] === 'eskul')
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.382-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                            @else
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            @endif
+                        </div>
+                        <div class="overflow-hidden">
+                            <p class="text-xs font-semibold truncate" :class="$store.theme.darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $notification['title'] }}</p>
+                            <p class="text-[10px] line-clamp-2 mt-0.5" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">{{ $notification['description'] }}</p>
+                            <span class="text-[9px] text-blue-500 mt-1 block font-bold">{{ $notification['time'] }}</span>
+                        </div>
+                    </div>
+                </a>
+                @empty
+                <div class="px-4 py-8 text-center">
+                    <div class="w-12 h-12 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    </div>
+                    <p class="text-xs font-semibold" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Tidak ada notifikasi baru</p>
                 </div>
+                @endforelse
+            </div>
+            
+            <div class="px-4 py-2 border-t text-center transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
+                <a href="#" class="text-[10px] font-bold text-blue-500 hover:text-blue-600 uppercase tracking-widest">Tandai Semua Sudah Dibaca</a>
             </div>
         </div>
     </div>

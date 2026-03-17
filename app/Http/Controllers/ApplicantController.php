@@ -25,6 +25,7 @@ class ApplicantController extends Controller
     {
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
+            'nik' => 'required|string|unique:applicants,nik',
             'major' => 'required|in:PPLG,DKV',
             'nisn' => 'required|string|unique:applicants,nisn',
             'birth_place' => 'required|string',
@@ -106,18 +107,17 @@ class ApplicantController extends Controller
         return redirect()->back()->with('success', 'Status pendaftar berhasil diperbarui!');
     }
 
-<<<<<<< HEAD
     public function print($id)
     {
         $applicant = Applicant::findOrFail($id);
         return view('superadmin.ppdb.print', compact('applicant'));
-=======
+    }
+
     public function downloadPdf($id)
     {
         $applicant = Applicant::findOrFail($id);
         $pdf = Pdf::loadView('superadmin.ppdb.pdf', compact('applicant'));
         
         return $pdf->download('PPDB_' . str_replace(' ', '_', $applicant->full_name) . '.pdf');
->>>>>>> 6f33960c2cebf7a06b837301c16f107a45f5c579
     }
 }
