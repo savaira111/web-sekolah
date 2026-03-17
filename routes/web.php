@@ -108,6 +108,7 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
     Route::get('/messages', [ContactController::class, 'index'])->name('messages.index');
     Route::get('/messages/{message}', [ContactController::class, 'show'])->name('messages.show');
     Route::delete('/messages/{message}', [ContactController::class, 'destroy'])->name('messages.destroy');
+    Route::post('/messages/{message}/reply', [ContactController::class, 'reply'])->name('messages.reply');
 
     // PPDB (Applicants)
     Route::get('/ppdb/{id}/status', function ($id) {
@@ -122,6 +123,8 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
     Route::get('/profile', function () {
         return view('superadmin.profile');
     })->name('profile');
+    Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/password', [AuthController::class, 'updatePassword'])->name('profile.password');
 
     // Extracurricular Registrations
     Route::get('/extracurricular-registrations', [ExtracurricularRegistrationController::class, 'index'])->name('extracurricular-registrations.index');

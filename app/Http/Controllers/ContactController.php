@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactReply;
 
 class ContactController extends Controller
 {
@@ -39,5 +41,20 @@ class ContactController extends Controller
     {
         $message->delete();
         return redirect()->route('superadmin.messages.index')->with('success', 'Pesan berhasil dihapus.');
+    }
+
+    public function reply(Request $request, ContactMessage $message)
+    {
+        $request->validate([
+            'reply_message' => 'required|string',
+        ]);
+
+        try {
+            Mail::to($message->email)->send(new ContactReply($request->reply_message, $message));
+            
+            return redirect()->back()->with('success', 'Balasan berhasil dikirim ke ' . $message->email);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal mengirim email: ' . $e->getMessage());
+        }
     }
 }

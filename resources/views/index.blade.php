@@ -48,7 +48,7 @@
                 <div class="absolute -top-20 -right-20 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"></div>
                 <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-indigo-400/10 rounded-full blur-3xl"></div>
                 <div class="relative z-10 bg-white p-3 rounded-[2rem] shadow-2xl overflow-hidden group">
-                    <img src="{{ asset('images/logo-mahaputra.jpg') }}" alt="Logo SMK Mahaputra" class="rounded-[1.5rem] w-full h-[450px] object-contain transition-transform duration-1000 group-hover:scale-105 p-8">
+                    <img src="{{ asset('images/logo-mahaputra.jpg') }}" alt="Logo SMKS Mahaputra Cerdas Utama" class="rounded-[1.5rem] w-full h-[450px] object-contain transition-transform duration-1000 group-hover:scale-105 p-8">
                     <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4 max-w-[240px]">
                         <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -122,7 +122,7 @@
                 </div>
                 <div class="prose prose-lg text-gray-600 leading-relaxed">
                     <p>
-                        Selamat datang di SMK Mahaputra Cerdas Utama! Sekolah ini bukan sekadar tempat menuntut ilmu, tetapi ruang bagi setiap individu untuk tumbuh dan berkolaborasi dalam mencapai misi yang luar biasa. Kami mengajak Bapak/Ibu semua untuk menjadi inspirasi bagi sesama, menciptakan lingkungan belajar yang mendukung, inovatif, dan penuh semangat bagi seluruh siswa kita semua.
+                        Selamat datang di SMKS Mahaputra Cerdas Utama! Sekolah ini bukan sekadar tempat menuntut ilmu, tetapi ruang bagi setiap individu untuk tumbuh dan berkolaborasi dalam mencapai misi yang luar biasa. Kami mengajak Bapak/Ibu semua untuk menjadi inspirasi bagi sesama, menciptakan lingkungan belajar yang mendukung, inovatif, dan penuh semangat bagi seluruh siswa kita semua.
                     </p>
                 </div>
                 <div>

@@ -5,24 +5,44 @@
 @section('content')
 <div class="px-8 pb-8 flex-1 w-full max-w-7xl mx-auto mt-8">
     
+    @if(session('success'))
+    <div class="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-600 font-bold text-sm flex items-center gap-3">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="mb-6 p-4 rounded-2xl bg-red-50 border border-red-100 text-red-600 font-bold text-sm flex items-center gap-3">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        {{ session('error') }}
+    </div>
+    @endif
+    
     <!-- Breadcrumb & Header Box -->
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-6 border-b transition-colors duration-300 gap-4" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-200'">
-        <div>
-            <div class="flex items-center gap-2 text-xs font-medium mb-3 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">
-                <a href="/superadmin/dashboard" class="hover:text-blue-500 transition-colors">Dashboard</a>
-                <span>›</span>
-                <a href="/superadmin/messages" class="hover:text-blue-500 transition-colors">Pesan Masuk</a>
-                <span>›</span>
-                <span :class="$store.theme.darkMode ? 'text-blue-400' : 'text-blue-600'">Detail Pesan</span>
+        <div class="flex items-center gap-4">
+            <a href="{{ route('superadmin.messages.index') }}" 
+               class="inline-flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 shadow-sm border group" 
+               :class="$store.theme.darkMode ? 'bg-gray-800 border-gray-700 text-gray-400 hover:text-white' : 'bg-white border-gray-200 text-gray-500 hover:text-blue-600'"
+               title="Kembali">
+                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+            </a>
+            <div>
+                <div class="flex items-center gap-2 text-xs font-medium mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">
+                    <a href="/superadmin/dashboard" class="hover:text-blue-500 transition-colors">Dashboard</a>
+                    <span>›</span>
+                    <a href="/superadmin/messages" class="hover:text-blue-500 transition-colors">Pesan Masuk</a>
+                    <span>›</span>
+                    <span :class="$store.theme.darkMode ? 'text-blue-400' : 'text-blue-600'">Detail Pesan</span>
+                </div>
+                <h2 class="text-3xl font-extrabold tracking-tight leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Detail Pesan Masuk</h2>
             </div>
-            <h2 class="text-3xl font-extrabold tracking-tight leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Detail Pesan Masuk</h2>
         </div>
         
         <div class="flex items-center gap-4">
-            <a href="mailto:{{ $message->email }}" class="px-5 py-2.5 font-bold text-sm rounded-xl transition-all duration-300 shadow-sm flex items-center gap-2 hover:translate-y-[-2px] hover:shadow-md" :class="$store.theme.darkMode ? 'bg-[#111827] border border-gray-700 text-gray-300 hover:border-gray-600' : 'bg-white text-gray-700 border-gray-200 hover:text-blue-600'">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" /><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" /></svg>
-                Balas via Email
-            </a>
             <form action="{{ route('superadmin.messages.destroy', $message->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
@@ -66,6 +86,20 @@
                     <article class="prose prose-lg max-w-none transition-colors duration-300" :class="$store.theme.darkMode ? 'prose-invert text-gray-300 prose-p:text-gray-300 prose-headings:text-white' : 'text-gray-700'">
                         <p>{!! nl2br(e($message->message)) !!}</p>
                     </article>
+
+                    <div id="reply-form" class="mt-16 pt-12 border-t transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-200'">
+                        <h3 class="text-xl font-bold mb-6 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">Kirim Balasan</h3>
+                        <form action="{{ route('superadmin.messages.reply', $message->id) }}" method="POST" class="space-y-6">
+                            @csrf
+                            <div>
+                                <textarea name="reply_message" rows="6" class="w-full p-5 rounded-2xl border transition-all duration-300 outline-none focus:ring-4 focus:ring-blue-500/10" :class="$store.theme.darkMode ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 focus:border-blue-400'" placeholder="Tulis balasan Anda di sini..." required></textarea>
+                            </div>
+                            <button type="submit" class="px-8 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-blue-500/20 flex items-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                Kirim Balasan Ke {{ $message->email }}
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
