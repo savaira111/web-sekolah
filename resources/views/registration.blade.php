@@ -8,19 +8,33 @@
     maxStep: 3,
     showToast: false,
     toastMsg: '',
+    isLoading: false,
     showSuccessModal: @if(session('success_registration')) true @else false @endif,
-    nextStep() { 
-        if(this.validateStep()) {
-            if(this.step < this.maxStep) this.step++ 
+    async nextStep() { 
+        if(this.isLoading) return;
+        this.isLoading = true;
+        try {
+            if(await this.validateStep()) {
+                if(this.step < this.maxStep) this.step++ 
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        } finally {
+            this.isLoading = false;
         }
     },
     prevStep() { if(this.step > 1) this.step-- },
-    submitForm() { 
-        if(this.validateStep()) {
-            this.$refs.regForm.submit() 
+    async submitForm() { 
+        if(this.isLoading) return;
+        this.isLoading = true;
+        try {
+            if(await this.validateStep()) {
+                this.$refs.regForm.submit() 
+            }
+        } finally {
+            this.isLoading = false;
         }
     },
-    validateStep() {
+    async validateStep() {
         let currentStepEl = this.$refs['step' + this.step];
         if (!currentStepEl) return true;
         
@@ -43,6 +57,47 @@
             this.triggerToast('Mohon isi: ' + label);
             return false;
         }
+
+        // Real-time Check for Step 1 uniqueness and digits
+        if (this.step === 1) {
+            let nikEl = this.$refs.regForm.querySelector('input[name=\'nik\']');
+            let nisnEl = this.$refs.regForm.querySelector('input[name=\'nisn\']');
+            let nik = nikEl.value;
+            let nisn = nisnEl.value;
+
+            if (nik.length !== 16) {
+                this.triggerToast('NIK harus berjumlah 16 digit');
+                nikEl.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+                return false;
+            }
+
+            if (nisn.length !== 10) {
+                this.triggerToast('NISN harus berjumlah 10 digit');
+                nisnEl.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+                return false;
+            }
+            
+            try {
+                let response = await fetch('{{ route('registration.check-uniqueness') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ nik, nisn })
+                });
+                let data = await response.json();
+                if (data.status === 'exists') {
+                    this.triggerToast(data.message);
+                    if (data.message.includes('NIK')) nikEl.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+                    if (data.message.includes('NISN')) nisnEl.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+                    return false;
+                }
+            } catch (e) {
+                console.error('Validation error:', e);
+            }
+        }
+
         return true;
     },
     validateInput(input) {
@@ -100,7 +155,7 @@
     </section>
 
     <!-- Main Form Section -->
-    <section class="pb-24">
+    <section class="pb-24 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Warning Message -->
             <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-12 shadow-sm">
@@ -191,9 +246,9 @@
                          x-transition:leave="transition ease-in duration-200"
                          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                          x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                         class="fixed bottom-10 right-10 z-[110] bg-red-600 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        <span class="text-xs font-bold" x-text="toastMsg"></span>
+                         class="fixed top-24 left-1/2 -translate-x-1/2 z-[110] bg-red-600 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 w-[90%] md:w-auto min-w-[300px]">
+                        <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <span class="text-sm font-bold" x-text="toastMsg"></span>
                     </div>
 
                     <form action="{{ route('registration.store') }}" method="POST" enctype="multipart/form-data" x-ref="regForm" class="space-y-12">
@@ -213,7 +268,7 @@
                     @csrf
                     
                     <!-- Step 1: Data Diri -->
-                    <div x-show="step === 1" x-ref="step1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
+                    <div x-show="step === 1" x-ref="step1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
                         <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
                             <div class="mb-12">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
@@ -229,8 +284,12 @@
                                     <input type="text" name="full_name" value="{{ old('full_name') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Muhammad Arkan" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Email (Aktif)</label>
+                                    <input type="email" name="email" value="{{ old('email') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: arkan@gmail.com" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Pilihan Jurusan</label>
-                                    <select name="major" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer">
+                                    <select name="major" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
                                         <option value="">Pilih Jurusan</option>
                                         <option value="PPLG" {{ old('major') == 'PPLG' ? 'selected' : '' }}>PPLG (Pengembangan Perangkat Lunak & Gim)</option>
                                         <option value="DKV" {{ old('major') == 'DKV' ? 'selected' : '' }}>DKV (Desain Komunikasi Visual)</option>
@@ -238,11 +297,11 @@
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">NIK (Nomor Induk Kependudukan)</label>
-                                    <input type="text" name="nik" value="{{ old('nik') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="16 digit nomor NIK (Sesuai KK)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="nik" value="{{ old('nik') }}" required maxlength="16" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="16 digit nomor NIK (Sesuai KK)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">NISN</label>
-                                    <input type="text" name="nisn" value="{{ old('nisn') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="nisn" value="{{ old('nisn') }}" required maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tempat Lahir</label>
@@ -250,7 +309,7 @@
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tanggal Lahir</label>
-                                    <input type="date" name="birth_date" value="{{ old('birth_date') }}" required @change="validateInput($event.target)" @blur="validateInput($event.target)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all">
+                                    <input type="date" name="birth_date" value="{{ old('birth_date') }}" required @change="validateInput($event.target)" @blur="validateInput($event.target)" onclick="this.showPicker()" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Asal Sekolah</label>
@@ -258,22 +317,22 @@
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tahun Lulus</label>
-                                    <input type="number" name="graduation_year" value="{{ old('graduation_year') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 2024" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="graduation_year" value="{{ old('graduation_year') }}" required maxlength="4" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 2024" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Rata-rata Nilai Ijazah/Raport</label>
-                                    <input type="number" step="0.01" name="average_grade" value="{{ old('average_grade') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 85.50" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="average_grade" value="{{ old('average_grade') }}" required inputmode="decimal" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 85.50" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Jenis Kelamin</label>
-                                    <select name="gender" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer">
+                                    <select name="gender" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
                                         <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Laki-laki</option>
                                         <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Agama</label>
-                                    <select name="religion" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer">
+                                    <select name="religion" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
                                         <option value="">Pilih Agama</option>
                                         <option value="Islam" {{ old('religion') == 'Islam' ? 'selected' : '' }}>Islam</option>
                                         <option value="Kristen" {{ old('religion') == 'Kristen' ? 'selected' : '' }}>Kristen (Protestan)</option>
@@ -285,7 +344,7 @@
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Kewarganegaraan</label>
-                                    <select name="citizenship" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer">
+                                    <select name="citizenship" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
                                         <option value="WNI" {{ old('citizenship') == 'WNI' ? 'selected' : '' }}>WNI (Warga Negara Indonesia)</option>
                                         <option value="WNA" {{ old('citizenship') == 'WNA' ? 'selected' : '' }}>WNA (Warga Negara Asing)</option>
                                     </select>
@@ -293,16 +352,26 @@
                             </div>
 
                                 <div class="pt-12 border-t border-gray-50 flex justify-end">
-                                    <button @click="nextStep()" type="button" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3">
-                                        Langkah Berikutnya
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    <button @click="nextStep()" :disabled="isLoading" type="button" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3 cursor-pointer relative z-30 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        <template x-if="!isLoading">
+                                            <div class="flex items-center gap-3">
+                                                <span>Langkah Berikutnya</span>
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                            </div>
+                                        </template>
+                                        <template x-if="isLoading">
+                                            <div class="flex items-center gap-2">
+                                                <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                                <span>Memproses...</span>
+                                            </div>
+                                        </template>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
                     <!-- Step 2: Data Orang Tua -->
-                    <div x-show="step === 2" x-ref="step2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
+                    <div x-show="step === 2" x-ref="step2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
                         <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
                             <div class="mb-12">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
@@ -326,7 +395,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ayah</label>
-                                            <select name="father_job" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
+                                            <select name="father_job" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
                                                 <option value="">Pilih Pekerjaan</option>
                                                 <option value="PNS" {{ old('father_job') == 'PNS' ? 'selected' : '' }}>PNS / ASN</option>
                                                 <option value="TNI/POLRI" {{ old('father_job') == 'TNI/POLRI' ? 'selected' : '' }}>TNI / POLRI</option>
@@ -341,7 +410,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ayah (WhatsApp)</label>
-                                            <input type="text" name="father_phone" value="{{ old('father_phone') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="father_phone" value="{{ old('father_phone') }}" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                     </div>
                                 </div>
@@ -359,7 +428,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ibu</label>
-                                            <select name="mother_job" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
+                                            <select name="mother_job" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
                                                 <option value="">Pilih Pekerjaan</option>
                                                 <option value="Ibu Rumah Tangga" {{ old('mother_job') == 'Ibu Rumah Tangga' ? 'selected' : '' }}>Ibu Rumah Tangga</option>
                                                 <option value="PNS" {{ old('mother_job') == 'PNS' ? 'selected' : '' }}>PNS / ASN</option>
@@ -373,7 +442,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ibu (WhatsApp)</label>
-                                            <input type="text" name="mother_phone" value="{{ old('mother_phone') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="mother_phone" value="{{ old('mother_phone') }}" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                     </div>
                                 </div>
@@ -391,7 +460,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Penghasilan Gabungan Per Bulan</label>
-                                            <select name="parent_income" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer">
+                                            <select name="parent_income" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
                                                 <option value="">Pilih Rentang Penghasilan</option>
                                                 <option value="< 2.000.000" {{ old('parent_income') == '< 2.000.000' ? 'selected' : '' }}>< Rp 2.000.000</option>
                                                 <option value="2.000.000 - 5.000.000" {{ old('parent_income') == '2.000.000 - 5.000.000' ? 'selected' : '' }}>Rp 2.000.000 - Rp 5.000.000</option>
@@ -406,9 +475,19 @@
                                         <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                                         Kembali
                                     </button>
-                                    <button @click="nextStep()" type="button" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3">
-                                        Langkah Berikutnya
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    <button @click="nextStep()" :disabled="isLoading" type="button" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3 cursor-pointer relative z-30 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        <template x-if="!isLoading">
+                                            <div class="flex items-center gap-3">
+                                                <span>Langkah Berikutnya</span>
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                            </div>
+                                        </template>
+                                        <template x-if="isLoading">
+                                            <div class="flex items-center gap-2">
+                                                <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                                <span>Memproses...</span>
+                                            </div>
+                                        </template>
                                     </button>
                                 </div>
                                 </div>
@@ -416,7 +495,7 @@
                         </div>
 
                     <!-- Step 3: Unggah Dokumen -->
-                    <div x-show="step === 3" x-ref="step3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12">
+                    <div x-show="step === 3" x-ref="step3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
                         <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
                             <div class="mb-12">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
@@ -430,7 +509,7 @@
                                 <!-- 1. Formulir -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">1. Formulir Pendaftaran</label>
-                                    <div @click="$refs.formInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.formInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_form" x-ref="formInput" class="hidden" @change="doc_form = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -444,7 +523,7 @@
                                 <!-- 2. Surat Pernyataan -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">2. Surat Pernyataan</label>
-                                    <div @click="$refs.pernyataanInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.pernyataanInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_pernyataan" x-ref="pernyataanInput" class="hidden" @change="doc_pernyataan = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -458,7 +537,7 @@
                                 <!-- 3. SKL -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">3. SKL (dilegalisir)</label>
-                                    <div @click="$refs.sklInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.sklInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_skl" x-ref="sklInput" class="hidden" @change="doc_skl = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -472,7 +551,7 @@
                                 <!-- 4. SHUN -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">4. SHUN / Hasil Ujian</label>
-                                    <div @click="$refs.shunInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.shunInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_shun" x-ref="shunInput" class="hidden" @change="doc_shun = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -486,7 +565,7 @@
                                 <!-- 5. Ijazah SMP -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">5. Ijazah SMP/MTs</label>
-                                    <div @click="$refs.ijazahInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.ijazahInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_ijazah" x-ref="ijazahInput" class="hidden" @change="doc_ijazah = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -500,7 +579,7 @@
                                 <!-- 6. Ijazah SD -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">6. Ijazah SD/MI</label>
-                                    <div @click="$refs.ijazahSdInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.ijazahSdInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_ijazah_sd" x-ref="ijazahSdInput" class="hidden" @change="doc_ijazah_sd = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -514,7 +593,7 @@
                                 <!-- 7. Akta -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">7. Akta Kelahiran</label>
-                                    <div @click="$refs.aktaInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.aktaInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_akta" x-ref="aktaInput" class="hidden" @change="doc_akta = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -528,7 +607,7 @@
                                 <!-- 8. KK -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">8. Kartu Keluarga</label>
-                                    <div @click="$refs.kkInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.kkInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_kk" x-ref="kkInput" class="hidden" @change="doc_kk = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -542,7 +621,7 @@
                                 <!-- 9. Domisili -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">9. Keterangan Domisili</label>
-                                    <div @click="$refs.domisiliInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.domisiliInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_domisili" x-ref="domisiliInput" class="hidden" @change="doc_domisili = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -556,7 +635,7 @@
                                 <!-- 10. KTP Ortu -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">10. KTP Orang Tua</label>
-                                    <div @click="$refs.ktpInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.ktpInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_ktp_ortu" x-ref="ktpInput" class="hidden" @change="doc_ktp_ortu = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -570,7 +649,7 @@
                                 <!-- 11. Sehat Badan -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">11. Ket. Kesehatan Badan</label>
-                                    <div @click="$refs.sehatBadanInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.sehatBadanInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_sehat_badan" x-ref="sehatBadanInput" class="hidden" @change="doc_sehat_badan = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -584,7 +663,7 @@
                                 <!-- 12. Sehat Mata -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">12. Ket. Kesehatan Mata</label>
-                                    <div @click="$refs.sehatMataInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.sehatMataInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_sehat_mata" x-ref="sehatMataInput" class="hidden" @change="doc_sehat_mata = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -598,7 +677,7 @@
                                 <!-- 14. PIP / KIP -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">14. PIP / KIP / Ket. Kematian (Opsional)</label>
-                                    <div @click="$refs.kipInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.kipInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_kip_pkh" x-ref="kipInput" class="hidden" @change="doc_kip_pkh = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -612,7 +691,7 @@
                                 <!-- 15. Prestasi -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">15. Sertifikat / Penghargaan (Opsional)</label>
-                                    <div @click="$refs.prestasiInput.click()" class="relative group cursor-pointer">
+                                    <div @click="$refs.prestasiInput.click()" class="relative group cursor-pointer z-20">
                                         <input type="file" name="doc_prestasi" x-ref="prestasiInput" class="hidden" @change="doc_prestasi = $event.target.files[0].name">
                                         <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
@@ -628,7 +707,7 @@
                             <div class="space-y-4 mb-12">
                                 <label class="text-sm font-bold text-gray-700">13. Pas Foto 3x4 (Hitam Putih/Warna)</label>
                                 <input type="file" name="profile_image" x-ref="photoInput" class="hidden" @change="profile_image = $event.target.files[0].name" accept=".jpg,.jpeg,.png">
-                                <div @click="$refs.photoInput.click()" class="border-2 border-dashed border-gray-200 rounded-[2rem] p-12 text-center hover:border-blue-400 transition-colors cursor-pointer group bg-gray-50/30">
+                                <div @click="$refs.photoInput.click()" class="border-2 border-dashed border-gray-200 rounded-[2rem] p-12 text-center hover:border-blue-400 transition-colors cursor-pointer group bg-gray-50/30 relative z-20">
                                     <svg class="w-10 h-10 mx-auto text-blue-400 transition-transform mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                     <p class="font-bold text-gray-900 text-sm" x-text="profile_image ? profile_image : 'Klik untuk unggah Pas Foto'"></p>
                                     <p class="text-[10px] text-gray-400 mt-2 italic text-center">Format PNG/JPG, Maksimal 2MB. Kertas Dove lebih disarankan.</p>
@@ -640,9 +719,19 @@
                                     <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                                     Kembali
                                 </button>
-                                <button @click="submitForm()" type="button" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3">
-                                    Selesaikan Pendaftaran
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <button @click="submitForm()" :disabled="isLoading" type="button" class="px-10 py-5 bg-emerald-600 text-white rounded-2xl font-bold shadow-xl shadow-emerald-200 hover:bg-emerald-700 transition-all flex items-center gap-3 cursor-pointer relative z-30 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <template x-if="!isLoading">
+                                        <div class="flex items-center gap-3">
+                                            <span>Selesaikan Pendaftaran</span>
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        </div>
+                                    </template>
+                                    <template x-if="isLoading">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                            <span>Mengirim...</span>
+                                        </div>
+                                    </template>
                                 </button>
                             </div> <!-- closes footer (630) -->
                         </div> <!-- closes bg-white (412) -->

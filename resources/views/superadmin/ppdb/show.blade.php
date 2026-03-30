@@ -122,12 +122,20 @@
                         <p class="text-[15px] font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $applicant->full_name }}</p>
                     </div>
                     <div>
+                        <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Email</p>
+                        <p class="text-[15px] font-bold transition-colors duration-300 text-blue-500 underline underline-offset-4" :class="$store.theme.darkMode ? 'text-blue-400' : 'text-blue-600'">{{ $applicant->email ?? '-' }}</p>
+                    </div>
+                    <div>
                         <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Jenis Kelamin</p>
                         <p class="text-[15px] font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $applicant->gender == 'Male' ? 'Laki-laki' : 'Perempuan' }}</p>
                     </div>
                     <div>
                         <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Tempat, Tanggal Lahir</p>
                         <p class="text-[15px] font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $applicant->birth_place }}, {{ \Carbon\Carbon::parse($applicant->birth_date)->format('d F Y') }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">NIK</p>
+                        <p class="text-[15px] font-bold tracking-wider transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $applicant->nik }}</p>
                     </div>
                     <div>
                         <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">NISN</p>
@@ -139,7 +147,7 @@
                     </div>
                     <div>
                         <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Kewarganegaraan</p>
-                        <p class="text-[15px] font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $applicant->citizenship == 'Indonesian' ? 'WNI' : $applicant->citizenship }}</p>
+                        <p class="text-[15px] font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-200' : 'text-gray-800'">{{ $applicant->citizenship }}</p>
                     </div>
                     <div class="md:col-span-2">
                         <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Pilihan Jurusan</p>

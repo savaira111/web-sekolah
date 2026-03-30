@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Applicant;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class ApplicantController extends Controller
 {
@@ -25,6 +26,7 @@ class ApplicantController extends Controller
     {
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'nik' => 'required|string|unique:applicants,nik',
             'major' => 'required|in:PPLG,DKV',
             'nisn' => 'required|string|unique:applicants,nisn',
@@ -100,9 +102,29 @@ class ApplicantController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $applicant = Applicant::findOrFail($id);
+        $oldStatus = $applicant->status;
+        
         $applicant->update([
             'status' => $request->status
         ]);
+
+        if ($request->status === 'Diterima' && $oldStatus !== 'Diterima' && $applicant->email) {
+            try {
+                $data = [
+                    'name' => $applicant->full_name,
+                    'reg_number' => $applicant->registration_number,
+                    'major' => $applicant->major,
+                    'wa_link' => 'https://api.whatsapp.com/send/?phone=6282260337300&text=Halo+Admin+Mahaputra+Cerdas+Utama%2C+saya+mau+tanya+soal+pendaftaran+sekolah+sampai+dengan+detail+pembayarannya.+Mohon+infonya+ya%2C+terima+kasih.&type=phone_number&app_absent=0'
+                ];
+
+                Mail::send('emails.ppdb_accepted', $data, function($message) use ($applicant) {
+                    $message->to($applicant->email, $applicant->full_name)
+                            ->subject('Pendaftaran PPDB Diterima - ' . config('app.name'));
+                });
+            } catch (\Exception $e) {
+                Log::error('Gagal mengirim email penerimaan: ' . $e->getMessage());
+            }
+        }
 
         return redirect()->back()->with('success', 'Status pendaftar berhasil diperbarui!');
     }
@@ -119,5 +141,25 @@ class ApplicantController extends Controller
         $pdf = Pdf::loadView('superadmin.ppdb.pdf', compact('applicant'));
         
         return $pdf->download('PPDB_' . str_replace(' ', '_', $applicant->full_name) . '.pdf');
+    }
+
+    public function checkUniqueness(Request $request)
+    {
+        $nik_exists = Applicant::where('nik', $request->nik)->exists();
+        $nisn_exists = Applicant::where('nisn', $request->nisn)->exists();
+
+        if ($nik_exists && $nisn_exists) {
+            return response()->json(['status' => 'exists', 'message' => 'NIK dan NISN ini sudah terdaftar.'], 200);
+        }
+
+        if ($nik_exists) {
+            return response()->json(['status' => 'exists', 'message' => 'NIK ini sudah terdaftar.'], 200);
+        }
+
+        if ($nisn_exists) {
+            return response()->json(['status' => 'exists', 'message' => 'NISN ini sudah terdaftar.'], 200);
+        }
+
+        return response()->json(['status' => 'available'], 200);
     }
 }

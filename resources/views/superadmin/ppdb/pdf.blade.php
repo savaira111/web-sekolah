@@ -118,6 +118,10 @@
                     <td class="value">: {{ $applicant->full_name }}</td>
                 </tr>
                 <tr>
+                    <td class="label">Email</td>
+                    <td class="value">: {{ $applicant->email ?? '-' }}</td>
+                </tr>
+                <tr>
                     <td class="label">NISN</td>
                     <td class="value">: {{ $applicant->nisn }}</td>
                 </tr>

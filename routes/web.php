@@ -32,6 +32,7 @@ Route::get('/album/{album}', [PageController::class, 'albumDetail'])->name('albu
 
 Route::get('/pendaftaran/panduan', [PageController::class, 'enrollmentGuide'])->name('enrollment.guide');
 Route::get('/pendaftaran/formulir', [PageController::class, 'registration'])->name('registration');
+Route::post('/pendaftaran/check-uniqueness', [ApplicantController::class, 'checkUniqueness'])->name('registration.check-uniqueness');
 Route::post('/pendaftaran/formulir', [ApplicantController::class, 'store'])->name('registration.store');
 Route::get('/pendaftaran/berhasil', [PageController::class, 'registrationSuccess'])->name('registration.success');
 

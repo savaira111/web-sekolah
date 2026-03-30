@@ -10,6 +10,7 @@ class Applicant extends Model
         'registration_number',
         'nik',
         'full_name',
+        'email',
         'major',
         'nisn',
         'birth_place',

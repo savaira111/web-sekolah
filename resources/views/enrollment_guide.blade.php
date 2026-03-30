@@ -24,13 +24,7 @@
         <div class="grid lg:grid-cols-3 gap-12">
             <!-- Sidebar Navigation -->
             <div class="lg:col-span-1 space-y-8">
-                <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-6">
-                    <h4 class="font-bold text-gray-900">Navigasi</h4>
-                    <a href="#" class="flex items-center gap-3 text-blue-600 font-bold bg-blue-50 p-4 rounded-2xl">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                        Alur Pendaftaran
-                    </a>
-                </div>
+
 
                 <div class="bg-green-50 p-8 rounded-[2.5rem] border border-green-100 space-y-6">
                     <h4 class="font-bold text-green-900">Butuh Bantuan?</h4>
@@ -39,7 +33,7 @@
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         Chat Sekarang
                     </a>
-                    <button class="w-full py-4 bg-green-600 text-white rounded-2xl font-bold uppercase text-xs">Chat Sekarang</button>
+
                 </div>
 
                 <div class="bg-[#0F172A] p-8 rounded-[2.5rem] text-white space-y-6 shadow-xl shadow-blue-900/10">
@@ -152,12 +146,130 @@
                             </div>
                             <svg class="w-5 h-5 text-gray-400 transition-transform duration-300" :class="isOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-8 pb-8 text-sm text-gray-500 space-y-3">
-                            <p>• Scan Ijazah SMP/MTs Sederajat (Asli/Legalisir)</p>
-                            <p>• Scan Akta Kelahiran & Kartu Keluarga</p>
-                            <p>• Pas Foto Berwarna Terbaru (3x4)</p>
-                            <p>• Scan Rapor Semester 1-5</p>
-                            <p>• Sertifikat Prestasi (Jika ada)</p>
+                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-8 pb-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-8 mt-4">
+                                <!-- Column 1 -->
+                                <div class="space-y-6">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">01</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Formulir Pendaftaran</p>
+                                            <p class="text-[10px] text-gray-400">Sudah diisi secara online / offline</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">02</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Surat Pernyataan</p>
+                                            <p class="text-[10px] text-gray-400">Dibubuhi Materai Rp 10.000</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">03</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Copy SKL SMP/MTs</p>
+                                            <p class="text-[10px] text-gray-400">Dilegalisir - 2 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">04</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Copy SHUN / Hasil Ujian</p>
+                                            <p class="text-[10px] text-gray-400">Dilegalisir - 2 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">05</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Copy Ijazah SMP/MTs</p>
+                                            <p class="text-[10px] text-gray-400">Dilegalisir - 2 Lembar</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Column 2 -->
+                                <div class="space-y-6">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">06</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Copy Ijazah SD/MI</p>
+                                            <p class="text-[10px] text-gray-400">Arsip - 1 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">07</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Copy Akte Kelahiran</p>
+                                            <p class="text-[10px] text-gray-400">Arsip - 2 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">08</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Copy Kartu Keluarga</p>
+                                            <p class="text-[10px] text-gray-400">Arsip - 2 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">09</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Copy Keterangan Domisili</p>
+                                            <p class="text-[10px] text-gray-400">(★★) - 2 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">10</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Copy KTP Orang Tua</p>
+                                            <p class="text-[10px] text-gray-400">Ayah & Ibu - Total 4 Lembar</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Column 3 -->
+                                <div class="space-y-6">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">11</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Surat Kesehatan Badan</p>
+                                            <p class="text-[10px] text-gray-400">(★★★) - 1 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">12</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Surat Kesehatan Mata</p>
+                                            <p class="text-[10px] text-gray-400">(★★★) - 1 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">13</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Pas Foto 3x4</p>
+                                            <p class="text-[10px] text-gray-400">Kertas Dove - 3 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">14</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">PIP / KIP / Ket. Kematian</p>
+                                            <p class="text-[10px] text-gray-400">(*) Jalur Khusus - 1 Lembar</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">15</div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 leading-tight">Sertifikat / Piagam</p>
+                                            <p class="text-[10px] text-gray-400">Opsional (Prestasi)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-8 pt-6 border-t border-gray-50 flex flex-col gap-3">
+                                <p class="text-[10px] text-gray-400 leading-relaxed italic"><span class="text-blue-600 font-bold">(*)</span> Bagi pendaftar dari keluarga tidak mampu mendaftarkan melalui jalur afirmasi.</p>
+                                <p class="text-[10px] text-gray-400 leading-relaxed italic"><span class="text-blue-600 font-bold">(★★)</span> Apabila calon peserta didik baru bertempat tinggal tidak sesuai Kartu Keluarga.</p>
+                                <p class="text-[10px] text-gray-400 leading-relaxed italic"><span class="text-blue-600 font-bold">(★★★)</span> Surat Keterangan Sehat (Badan & Mata/Tidak Buta Warna) dapat diperoleh dari Puskesmas atau dokter praktik berizin.</p>
+                            </div>
                         </div>
                     </div>
                     
@@ -208,7 +320,7 @@
                         </div>
                     </div>
                 </div>
-   </div>
+
 
                 <!-- FAQ Footer -->
                 <div class="pt-12">

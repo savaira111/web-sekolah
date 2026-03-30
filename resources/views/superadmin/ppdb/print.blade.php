@@ -81,6 +81,10 @@
                         <span class="font-bold text-gray-900">: {{ $applicant->full_name }}</span>
                     </div>
                     <div class="flex border-b border-gray-50 pb-3">
+                        <span class="w-48 text-[11px] font-bold text-gray-400 uppercase">Email</span>
+                        <span class="font-bold text-blue-600">: {{ $applicant->email ?? '-' }}</span>
+                    </div>
+                    <div class="flex border-b border-gray-50 pb-3">
                         <span class="w-48 text-[11px] font-bold text-gray-400 uppercase">NISN</span>
                         <span class="font-bold text-gray-900">: {{ $applicant->nisn }}</span>
                     </div>
