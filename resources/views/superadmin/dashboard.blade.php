@@ -17,7 +17,7 @@
                         <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+12.5%</span>
                     </div>
                     <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Total Siswa</p>
-                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">2,450</h3>
+                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">{{ number_format($stats['total_students'] ?? 0) }}</h3>
                 </a>
 
                 <!-- Card 2 -->
@@ -28,8 +28,8 @@
                         </div>
                         <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+2.4%</span>
                     </div>
-                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Total Editor</p>
-                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">128</h3>
+                    <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Total Admin</p>
+                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">{{ number_format($stats['total_editors'] ?? 0) }}</h3>
                 </a>
                 @endif
 
@@ -43,7 +43,7 @@
                         <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">+18%</span>
                     </div>
                     <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Pendaftar PPDB</p>
-                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">432</h3>
+                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">{{ number_format($stats['total_ppdb'] ?? 0) }}</h3>
                 </a>
                 @endif
 
@@ -57,7 +57,7 @@
                         <span class="px-2.5 py-1 text-[11px] font-bold rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-600'">Terbaru</span>
                     </div>
                     <p class="text-xs font-bold tracking-wider uppercase mb-1 transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">Artikel Aktif</p>
-                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">54</h3>
+                    <h3 class="text-[28px] font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">{{ number_format($stats['total_articles'] ?? 0) }}</h3>
                 </a>
                 @endif
             </div>
@@ -144,29 +144,19 @@
                             </svg>
                             <!-- Inner Text -->
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span class="text-3xl font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">432</span>
+                                <span class="text-3xl font-bold leading-none transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'">{{ number_format($stats['total_ppdb'] ?? 0) }}</span>
                                 <span class="text-[9px] font-bold mt-1 uppercase tracking-widest transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Total</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-y-3 mt-8">
+                        @foreach($major_distribution as $m)
                         <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">IT: 40%</span>
+                            <span class="w-2.5 h-2.5 rounded-full {{ $m->major === 'PPLG' ? 'bg-blue-500' : 'bg-purple-500' }}"></span>
+                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">{{ $m->major }}: {{ $m->count }}</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-400' : 'bg-gray-900'"></span>
-                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Science: 30%</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
-                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Arts: 20%</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                            <span class="text-xs font-bold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-300' : 'text-gray-700'">Other: 10%</span>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -195,66 +185,34 @@
                             </tr>
                         </thead>
                         <tbody class="text-sm">
+                        @forelse($activities as $activity)
                             <tr class="border-b last:border-0 transition-colors group" :class="$store.theme.darkMode ? 'border-gray-800 hover:bg-black/20' : 'border-gray-50 hover:bg-gray-50/50'">
                                 <td class="py-5 font-semibold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-800'">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-800' : 'bg-blue-100'">
-                                            <img src="{{ asset('images/guru-1.jpg') }}" alt="Avatar" class="w-full h-full object-cover">
+                                        <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300 bg-blue-100 text-blue-600 font-bold text-[10px]">
+                                            {{ strtoupper(substr($activity['user'], 0, 1)) }}
                                         </div>
-                                        Sarah Connor
+                                        {{ $activity['user'] }}
                                     </div>
                                 </td>
-                                <td class="py-5 font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Approved PPDB application #A-422</td>
+                                <td class="py-5 font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">{{ $activity['action'] }}</td>
                                 <td class="py-5 text-center">
-                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-50 text-blue-600'">PPDB</span>
-                                </td>
-                                <td class="py-5">
-                                    <span class="inline-flex items-center gap-1.5 font-bold text-green-500 text-xs">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Success
+                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="$activity['module'] === 'PPDB' ? ($store.theme.darkMode ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-50 text-blue-600') : ($store.theme.darkMode ? 'bg-orange-500/20 text-orange-400' : 'bg-orange-50 text-orange-600')">
+                                        {{ $activity['module'] }}
                                     </span>
                                 </td>
-                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">2 mins ago</td>
-                            </tr>
-                            <tr class="border-b last:border-0 transition-colors group" :class="$store.theme.darkMode ? 'border-gray-800 hover:bg-black/20' : 'border-gray-50 hover:bg-gray-50/50'">
-                                <td class="py-5 font-semibold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-800'">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-800' : 'bg-gray-100'">
-                                            <img src="{{ asset('images/guru-2.jpg') }}" alt="Avatar" class="w-full h-full object-cover">
-                                        </div>
-                                        Marcus Wright
-                                    </div>
-                                </td>
-                                <td class="py-5 font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Updated teacher schedule for Grade 12</td>
-                                <td class="py-5 text-center">
-                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-purple-500/20 text-purple-400' : 'bg-purple-50 text-purple-600'">Hr Err</span>
-                                </td>
                                 <td class="py-5">
-                                    <span class="inline-flex items-center gap-1.5 font-bold text-green-500 text-xs">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Success
+                                    <span class="inline-flex items-center gap-1.5 font-bold {{ $activity['status'] === 'Success' ? 'text-green-500' : 'text-orange-500' }} text-xs">
+                                        <span class="w-1.5 h-1.5 rounded-full {{ $activity['status'] === 'Success' ? 'bg-green-500' : 'bg-orange-500' }}"></span> {{ $activity['status'] }}
                                     </span>
                                 </td>
-                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">15 mins ago</td>
+                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">{{ $activity['time'] }}</td>
                             </tr>
-                            <tr class="border-b last:border-0 transition-colors group" :class="$store.theme.darkMode ? 'border-gray-800 hover:bg-black/20' : 'border-gray-50 hover:bg-gray-50/50'">
-                                <td class="py-5 font-semibold transition-colors duration-300" :class="$store.theme.darkMode ? 'text-white' : 'text-gray-800'">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-gray-800' : 'bg-orange-100'">
-                                            <img src="{{ asset('images/guru-3.jpg') }}" alt="Avatar" class="w-full h-full object-cover">
-                                        </div>
-                                        Kyle Reese
-                                    </div>
-                                </td>
-                                <td class="py-5 font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-600'">Published article: "Summer Camps 2024"</td>
-                                <td class="py-5 text-center">
-                                    <span class="inline-block px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-orange-500/20 text-orange-400' : 'bg-orange-50 text-orange-600'">Artikel</span>
-                                </td>
-                                <td class="py-5">
-                                    <span class="inline-flex items-center gap-1.5 font-bold text-orange-500 text-xs">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Pending
-                                    </span>
-                                </td>
-                                <td class="py-5 font-medium text-right text-xs transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">1 hour ago</td>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="py-10 text-center text-gray-500">Belum ada aktivitas terbaru</td>
                             </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>

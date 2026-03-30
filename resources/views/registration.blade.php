@@ -10,6 +10,19 @@
     toastMsg: '',
     isLoading: false,
     showSuccessModal: @if(session('success_registration')) true @else false @endif,
+    @php
+        $fatherJobs = ['PNS', 'TNI/POLRI', 'Karyawan Swasta', 'Wiraswasta', 'Buruh', 'Petani/Nelayan', 'Pedagang', 'Pensiunan'];
+        $oldFatherJob = old('father_job');
+        $isFatherJobOther = $oldFatherJob && !in_array($oldFatherJob, $fatherJobs);
+        
+        $motherJobs = ['Ibu Rumah Tangga', 'PNS', 'Karyawan Swasta', 'Wiraswasta', 'Pedagang', 'Petani/Nelayan', 'Buruh'];
+        $oldMotherJob = old('mother_job');
+        $isMotherJobOther = $oldMotherJob && !in_array($oldMotherJob, $motherJobs);
+    @endphp
+    father_job_internal: '{{ $isFatherJobOther ? 'Lainnya' : $oldFatherJob }}',
+    father_job_custom: '{{ $isFatherJobOther ? $oldFatherJob : '' }}',
+    mother_job_internal: '{{ $isMotherJobOther ? 'Lainnya' : $oldMotherJob }}',
+    mother_job_custom: '{{ $isMotherJobOther ? $oldMotherJob : '' }}',
     async nextStep() { 
         if(this.isLoading) return;
         this.isLoading = true;
@@ -395,18 +408,22 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ayah</label>
-                                            <select name="father_job" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
+                                            <input type="hidden" name="father_job" :value="father_job_internal === 'Lainnya' ? father_job_custom : father_job_internal">
+                                            <select x-model="father_job_internal" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
                                                 <option value="">Pilih Pekerjaan</option>
-                                                <option value="PNS" {{ old('father_job') == 'PNS' ? 'selected' : '' }}>PNS / ASN</option>
-                                                <option value="TNI/POLRI" {{ old('father_job') == 'TNI/POLRI' ? 'selected' : '' }}>TNI / POLRI</option>
-                                                <option value="Karyawan Swasta" {{ old('father_job') == 'Karyawan Swasta' ? 'selected' : '' }}>Karyawan Swasta</option>
-                                                <option value="Wiraswasta" {{ old('father_job') == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta / Pengusaha</option>
-                                                <option value="Buruh" {{ old('father_job') == 'Buruh' ? 'selected' : '' }}>Buruh / Pekerja Lepas</option>
-                                                <option value="Petani/Nelayan" {{ old('father_job') == 'Petani/Nelayan' ? 'selected' : '' }}>Petani / Nelayan</option>
-                                                <option value="Pedagang" {{ old('father_job') == 'Pedagang' ? 'selected' : '' }}>Pedagang</option>
-                                                <option value="Pensiunan" {{ old('father_job') == 'Pensiunan' ? 'selected' : '' }}>Pensiunan</option>
-                                                <option value="Lainnya" {{ old('father_job') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                                <option value="PNS">PNS / ASN</option>
+                                                <option value="TNI/POLRI">TNI / POLRI</option>
+                                                <option value="Karyawan Swasta">Karyawan Swasta</option>
+                                                <option value="Wiraswasta">Wiraswasta / Pengusaha</option>
+                                                <option value="Buruh">Buruh / Pekerja Lepas</option>
+                                                <option value="Petani/Nelayan">Petani / Nelayan</option>
+                                                <option value="Pedagang">Pedagang</option>
+                                                <option value="Pensiunan">Pensiunan</option>
+                                                <option value="Lainnya">Lainnya</option>
                                             </select>
+                                            <div x-show="father_job_internal === 'Lainnya'" x-transition class="mt-2">
+                                                <input type="text" x-model="father_job_custom" placeholder="Sebutkan Pekerjaan Ayah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            </div>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ayah (WhatsApp)</label>
@@ -428,17 +445,21 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ibu</label>
-                                            <select name="mother_job" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
+                                            <input type="hidden" name="mother_job" :value="mother_job_internal === 'Lainnya' ? mother_job_custom : mother_job_internal">
+                                            <select x-model="mother_job_internal" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
                                                 <option value="">Pilih Pekerjaan</option>
-                                                <option value="Ibu Rumah Tangga" {{ old('mother_job') == 'Ibu Rumah Tangga' ? 'selected' : '' }}>Ibu Rumah Tangga</option>
-                                                <option value="PNS" {{ old('mother_job') == 'PNS' ? 'selected' : '' }}>PNS / ASN</option>
-                                                <option value="Karyawan Swasta" {{ old('mother_job') == 'Karyawan Swasta' ? 'selected' : '' }}>Karyawan Swasta</option>
-                                                <option value="Wiraswasta" {{ old('mother_job') == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta / Pengusaha</option>
-                                                <option value="Pedagang" {{ old('mother_job') == 'Pedagang' ? 'selected' : '' }}>Pedagang</option>
-                                                <option value="Petani/Nelayan" {{ old('mother_job') == 'Petani/Nelayan' ? 'selected' : '' }}>Petani / Nelayan</option>
-                                                <option value="Buruh" {{ old('mother_job') == 'Buruh' ? 'selected' : '' }}>Buruh</option>
-                                                <option value="Lainnya" {{ old('mother_job') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                                <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+                                                <option value="PNS">PNS / ASN</option>
+                                                <option value="Karyawan Swasta">Karyawan Swasta</option>
+                                                <option value="Wiraswasta">Wiraswasta / Pengusaha</option>
+                                                <option value="Pedagang">Pedagang</option>
+                                                <option value="Petani/Nelayan">Petani / Nelayan</option>
+                                                <option value="Buruh">Buruh</option>
+                                                <option value="Lainnya">Lainnya</option>
                                             </select>
+                                            <div x-show="mother_job_internal === 'Lainnya'" x-transition class="mt-2">
+                                                <input type="text" x-model="mother_job_custom" placeholder="Sebutkan Pekerjaan Ibu" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            </div>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ibu (WhatsApp)</label>

@@ -50,14 +50,33 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user->update([
+        $data = [
             'name' => $request->name,
             'email' => $request->email,
-        ]);
+        ];
 
-        return response()->json(['message' => 'Profil berhasil diperbarui', 'user' => $user]);
+        if ($request->hasFile('avatar')) {
+            // Delete old avatar if exists
+            if ($user->avatar && file_exists(public_path($user->avatar))) {
+                unlink(public_path($user->avatar));
+            }
+
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            $avatar->move(public_path('uploads/avatars'), $filename);
+            $data['avatar'] = 'uploads/avatars/' . $filename;
+        }
+
+        $user->update($data);
+
+        return response()->json([
+            'message' => 'Profil berhasil diperbarui', 
+            'user' => $user,
+            'avatar_url' => $user->avatar ? asset($user->avatar) : null
+        ]);
     }
 
     public function updatePassword(Request $request)

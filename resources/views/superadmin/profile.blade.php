@@ -7,8 +7,10 @@
     profile: {
         name: '{{ auth()->user()->name ?? 'Admin Utama' }}',
         email: '{{ auth()->user()->email ?? 'admin@mahaputra.sch.id' }}',
-        phone: '081234567890'
+        phone: '081234567890',
+        avatar_url: '{{ auth()->user()->avatar ? asset(auth()->user()->avatar) : '' }}'
     },
+    new_avatar: null,
     passwords: {
         current_password: '',
         new_password: '',
@@ -18,16 +20,19 @@
     async saveProfile() {
         this.isSaving = true;
         try {
+            const formData = new FormData();
+            formData.append('name', this.profile.name);
+            formData.append('email', this.profile.email);
+            if (this.new_avatar) {
+                formData.append('avatar', this.new_avatar);
+            }
+
             const response = await fetch('{{ route('superadmin.profile.update') }}', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                body: JSON.stringify({
-                    name: this.profile.name,
-                    email: this.profile.email
-                })
+                body: formData
             });
 
             const result = await response.json();
@@ -145,11 +150,20 @@
                     <div class="relative inline-block mb-6">
                         <div class="w-32 h-32 mx-auto rounded-full p-2 border-2 border-dashed transition-colors duration-300" 
                              :class="$store.theme.darkMode ? 'border-gray-700' : 'border-gray-200'">
-                            <div class="w-full h-full rounded-full overflow-hidden bg-gray-100 relative group cursor-pointer">
-                                <img src="{{ asset('images/guru-1.jpg') }}" alt="Admin Avatar" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Admin&background=bfdbfe&color=1e3a8a'">
-                                <div class="absolute inset-0 bg-black/50 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex">
+                            <div class="w-full h-full rounded-full overflow-hidden bg-gray-100 relative group cursor-pointer" @click="$refs.avatarInput.click()">
+                                <img :src="profile.avatar_url ? profile.avatar_url : 'https://ui-avatars.com/api/?name=' + profile.name + '&background=bfdbfe&color=1e3a8a'" alt="Admin Avatar" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 </div>
+                                <input type="file" x-ref="avatarInput" class="hidden" accept="image/*" @change="
+                                    const file = $event.target.files[0];
+                                    if (file) {
+                                        new_avatar = file;
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => profile.avatar_url = e.target.result;
+                                        reader.readAsDataURL(file);
+                                    }
+                                ">
                             </div>
                         </div>
                         <span class="absolute bottom-2 right-4 w-6 h-6 bg-emerald-500 border-4 rounded-full" 
