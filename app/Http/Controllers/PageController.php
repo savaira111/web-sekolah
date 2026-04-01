@@ -38,7 +38,11 @@ class PageController extends Controller
         $query = \App\Models\Article::published();
 
         if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $searchTerm = '%' . $request->search . '%';
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('title', 'like', $searchTerm)
+                  ->orWhere('content', 'like', $searchTerm);
+            });
         }
 
         $articles = $query->latest('published_at')->paginate(6);

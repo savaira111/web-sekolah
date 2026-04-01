@@ -190,6 +190,24 @@
             <!-- Sidebar Area (Right) -->
             <aside class="lg:col-span-4 space-y-10">
                 
+                <!-- Search Card -->
+                <div class="p-8 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                    <h3 class="text-xl font-bold text-[#0F172A] mb-8 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        Cari Artikel
+                    </h3>
+                    <form action="{{ route('news') }}" method="GET" class="relative group">
+                        <input type="text" name="search" placeholder="Ketik judul berita..." 
+                               class="w-full py-4 pl-6 pr-14 bg-gray-50 rounded-2xl border-2 border-transparent focus:border-blue-100 focus:bg-white focus:ring-0 transition-all text-sm font-medium">
+                        <button type="submit" title="Cari" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-100 hover:bg-blue-700 transition-all group-hover:scale-105 active:scale-95 z-20 cursor-pointer">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
 
                 <!-- Popular News Card -->
                 <div class="p-8 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">

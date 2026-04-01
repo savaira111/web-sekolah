@@ -25,12 +25,14 @@
         <!-- Chat Area -->
         <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-5 bg-white pointer-events-auto scroll-smooth">
             <!-- Bot Welcome Message -->
-            <div class="flex items-start gap-3">
-                <div class="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100 shadow-sm overflow-hidden">
-                    <img src="{{ asset('images/chatbot-mascot.png') }}" alt="MCU" class="w-full h-full rounded-full object-cover">
-                </div>
-                <div class="bg-[#1e88e5] text-white p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%]">
-                    <p class="text-sm leading-relaxed">Halo! Saya asisten virtual SMKS Mahaputra. Ada yang bisa saya bantu terkait pendaftaran, jurusan, atau fasilitas?</p>
+            <div class="flex justify-start animate-in fade-in slide-in-from-bottom-2 duration-400 font-sans">
+                <div class="flex items-start gap-3 w-full">
+                    <div class="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100 shadow-sm overflow-hidden">
+                        <img src="{{ asset('images/chatbot-mascot.png') }}" alt="MCU" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    <div class="bg-gradient-to-br from-[#1e88e5] to-[#1565c0] text-white p-4 rounded-3xl rounded-tl-none shadow-lg shadow-blue-100/50 max-w-[85%] break-words">
+                        <p class="text-sm leading-relaxed">Halo! Saya asisten virtual SMKS Mahaputra. Ada yang bisa saya bantu terkait pendaftaran, jurusan, atau fasilitas?</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,11 +90,12 @@ document.addEventListener('DOMContentLoaded', function() {
         sejarah: "Sejarah SMKS Mahaputra:\n- **2016**: Berdirinya Yayasan Mahaputra & SMKS Mahaputra Cerdas Utama mendapatkan izin operasional.\n- **2018**: Ekspansi kemitraan dengan 50+ perusahaan industri.\n- **2023**: Ditetapkan sebagai SMK Pusat Keunggulan (COE) oleh Kemendikbudristek RI.\n\nKami telah berbakti selama 10 tahun untuk mencetak generasi unggul.",
         jurusan: "Pilihan Jurusan:\n1. **DKV (Desain Komunikasi Visual)**: Belajar Desain Grafis, Fotografi, Videografi, hingga 3D Modelling. Dibimbing oleh Bpk Refangga Agus Triono, S.Ds.\n2. **PPLG (Pengembangan Perangkat Lunak & Gim)**: Belajar Coding (C++, C#, Web, Mobile), Game Dev, dan Database. Dibimbing oleh Ibu Azhara Silmi Fathiyah.\n\nMasing-masing memiliki Lab berstandar industri!",
         fasilitas: "Fasilitas Unggulan:\n- **Laboratorium**: Lab PPLG (i7 High-end), Lab DKV, Lab Multimedia (Editing Suite), Lab Interaktif (Smart Board).\n- **Umum**: Masjid (Full AC), Bale Mahaputra (Aula), BNB Cafe, Area Parkir Luas, dan Gedung Kelas yang bersih & modern.",
-        ppdb: "Panduan PPDB 2025/2026:\n1. Daftar Online di web ini.\n2. Verifikasi Dokumen (Scan Ijazah, Akta, KK, Rapor Semester 1-5, Pas Foto).\n3. Tes Seleksi (Akademik & Wawancara).\n4. Daftar Ulang.\n\nBiaya Masuk: **Rp 3.500.000,-**.\nBiaya Pendaftaran: **Rp 150.000,-**.",
-        biaya: "Biaya masuk awal hanya **Rp 3.500.000,-**.\n\n**Program Diskon & Beasiswa:**\n- **Hafidz Quran**: Diskon 25% (5 Juz), 50% (10 Juz), 75% (20 Juz), hingga GRATIS 100% (30 Juz).\n- **Sosial**: Diskon 50% untuk Yatim Piatu, dan 25% untuk Yatim/Piatu.",
+        ppdb: "Panduan PPDB 2026/2027:\n1. Daftar Online di web ini.\n2. Verifikasi Dokumen.\n3. Tes Seleksi (Akademik & Wawancara).\n4. Daftar Ulang.\n\n**Info Pembayaran**: Seluruh pembayaran pendaftaran hanya dilayani melalui **Admin WhatsApp (+62 822-6033-7300)** untuk keamanan data Anda.",
+        biaya: "**Biaya Pendaftaran**: Rp 150.000,-\n**Biaya Masuk**: Rp 3.500.000,-\n\n**Cara Pembayaran**:\nSeluruh pembayaran hanya melalui **Admin WhatsApp (+62 822-6033-7300)** untuk keamanan.\n\n[Klik Chat Admin](https://wa.me/6282260337300?text=Halo%20Admin%2C%20saya%20mau%20tanya%20soal%20pembayaran%20sekolah)\n\n**Program Beasiswa**: Hafidz Quran (25-100%), Yatim Piatu (25-50%).",
         eskul: "Ekstrakurikuler di SMK Mahaputra:\n- **Wajib**: Pramuka\n- **Pilihan**: Futsal Putra, Paskibra, Panahan, Rohis, dan Pencak Silat.\nSemua eskul aktif dan didukung fasilitas lapangan yang memadai.",
-        kontak: "Hubungi Kami:\n- **WhatsApp**: 022 589 1234 / [Link WA](https://wa.me/message/AKIGOHHXFZGWB1)\n- **Email**: smkmahaputracerdasutama@gmail.com\n- **Alamat**: Jl. Terusan Katapang Kulon No.24, Katapang, Kab. Bandung.\n- **Jam Kerja**: Sen-Jum: 08.00 - 16.00.",
-        fallback: "Maaf, saya belum memahami pesan Anda. Silakan tanya tentang: **Profil, Sejarah, Jurusan, Biaya, PPDB, Fasilitas, Eskul, atau Kontak.**"
+        kontak: "Hubungi Kami:\n- **WhatsApp Admin**: +62 822-6033-7300 [Klik Chat](https://wa.me/6282260337300)\n- **Jam Operasional**: Senin - Sabtu, 07.30 - 15.30 WIB (Sabtu s/d 13.00 WIB).\n- **Alamat**: Jl. Terusan Katapang Kulon No.24, Kab. Bandung.",
+        jadwal: "Jadwal Operasional Sekolah:\n- **Senin - Jumat**: 07.30 - 15.30 WIB\n- **Sabtu**: 07.30 - 13.00 WIB\n- **Minggu**: Tutup\n\nSilakan datang ke sekolah atau hubungi admin via WhatsApp pada jam kerja di atas.",
+        fallback: "Maaf, saya belum memahami pesan Anda. Silakan tanya tentang: **Profil, Sejarah, Jurusan, Biaya, Jadwal, PPDB, atau Kontak.**"
     };
 
     window.sendQuickReply = function(text) {
@@ -124,18 +127,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const messageDiv = document.createElement('div');
         messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-400 font-sans`;
         
-        let content = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        let content = text
+            .replace(/\n/g, '<br>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" class="text-white underline font-bold hover:text-blue-200 decoration-2 underline-offset-2 transition-all">$1</a>');
 
         messageDiv.innerHTML = isUser ? `
-            <div class="bg-[#f0f0f0] text-gray-700 p-4 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] border border-gray-100">
+            <div class="bg-gray-100 text-gray-800 p-4 rounded-3xl rounded-tr-none shadow-sm max-w-[85%] border border-gray-200/50">
                 <p class="text-sm leading-relaxed">${content}</p>
             </div>
         ` : `
-            <div class="flex items-start gap-3">
+            <div class="flex items-start gap-3 w-full">
                 <div class="w-9 h-9 rounded-full bg-blue-50 flex items-center justify-center shrink-0 border border-blue-100 shadow-sm overflow-hidden">
                     <img src="{{ asset('images/chatbot-mascot.png') }}" class="w-full h-full object-cover">
                 </div>
-                <div class="bg-[#1e88e5] text-white p-4 rounded-2xl rounded-tl-none shadow-md max-w-[85%]">
+                <div class="bg-gradient-to-br from-[#1e88e5] to-[#1565c0] text-white p-4 rounded-3xl rounded-tl-none shadow-lg shadow-blue-100/50 max-w-[85%] break-words">
                     <p class="text-sm leading-relaxed">${content}</p>
                 </div>
             </div>
@@ -177,8 +183,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (lowerInput.includes('jurusan') || lowerInput.includes('dkv') || lowerInput.includes('pplg') || lowerInput.includes('program')) return botResponses.jurusan;
         if (lowerInput.includes('fasilitas') || lowerInput.includes('lab') || lowerInput.includes('ruang') || lowerInput.includes('aula') || lowerInput.includes('kafe') || lowerInput.includes('masjid')) return botResponses.fasilitas;
         if (lowerInput.includes('daftar') || lowerInput.includes('ppdb') || lowerInput.includes('alur') || lowerInput.includes('masuk')) return botResponses.ppdb;
-        if (lowerInput.includes('biaya') || lowerInput.includes('bayar') || lowerInput.includes('diskon') || lowerInput.includes('harga') || lowerInput.includes('gratis') || lowerInput.includes('yatim') || lowerInput.includes('hafidz')) return botResponses.biaya;
+        if (lowerInput.includes('biaya') || lowerInput.includes('bayar') || lowerInput.includes('diskon') || lowerInput.includes('harga') || lowerInput.includes('gratis') || lowerInput.includes('yatim') || lowerInput.includes('hafidz') || lowerInput.includes('pembayaran')) return botResponses.biaya;
         if (lowerInput.includes('eskul') || lowerInput.includes('ekskul') || lowerInput.includes('futsal') || lowerInput.includes('pramuka') || lowerInput.includes('paskibra') || lowerInput.includes('silat')) return botResponses.eskul;
+        if (lowerInput.includes('jam') || lowerInput.includes('operasional') || lowerInput.includes('buka') || lowerInput.includes('tutup') || lowerInput.includes('jadwal') || lowerInput.includes('kerja')) return botResponses.jadwal;
         if (lowerInput.includes('alamat') || lowerInput.includes('lokasi') || lowerInput.includes('kontak') || lowerInput.includes('wa') || lowerInput.includes('nomor') || lowerInput.includes('email') || lowerInput.includes('telepon')) return botResponses.kontak;
         return botResponses.fallback;
     }
