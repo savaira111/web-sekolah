@@ -115,7 +115,7 @@
         <div class="rounded-3xl p-8 mb-8 shadow-sm transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#111827]' : 'bg-white'">
             <div class="prose prose-lg max-w-none transition-colors duration-300"
                  :class="$store.theme.darkMode ? 'prose-invert text-gray-300' : 'text-gray-700'">
-                <div class="leading-relaxed text-[15.5px]" style="word-break: break-word; white-space: pre-wrap;">{{ $article->content }}</div>
+                <div class="leading-relaxed text-[15.5px] article-content" style="word-break: break-word;">{!! $article->content !!}</div>
             </div>
         </div>
 

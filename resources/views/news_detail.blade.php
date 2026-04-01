@@ -125,6 +125,7 @@
                     </div>
                 </div>
 
+                @if($article->allow_comments)
                 <!-- Comments Section -->
                 <div class="mt-20 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 shadow-sm" x-data="{
                     newComment: '',
@@ -182,6 +183,7 @@
                         </button>
                     </div>
                 </div>
+                @endif
 
             </div>
 

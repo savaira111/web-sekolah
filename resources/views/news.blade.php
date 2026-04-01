@@ -26,6 +26,7 @@
             <!-- Category Filter -->
             <div class="flex flex-wrap gap-4" id="news-filters">
                 <button onclick="filterNews('all')" class="filter-btn px-6 py-3 bg-blue-600 text-white shadow-lg shadow-blue-200 rounded-xl font-bold transition-all active-filter" data-filter="all">Semua</button>
+                <button onclick="filterNews('Berita Sekolah')" class="filter-btn px-6 py-3 bg-gray-100 text-gray-500 hover:bg-gray-200 rounded-xl font-bold transition-all" data-filter="Berita Sekolah">Berita Sekolah</button>
                 <button onclick="filterNews('Kegiatan')" class="filter-btn px-6 py-3 bg-gray-100 text-gray-500 hover:bg-gray-200 rounded-xl font-bold transition-all" data-filter="Kegiatan">Kegiatan</button>
                 <button onclick="filterNews('Pengumuman')" class="filter-btn px-6 py-3 bg-gray-100 text-gray-500 hover:bg-gray-200 rounded-xl font-bold transition-all" data-filter="Pengumuman">Pengumuman</button>
                 <button onclick="filterNews('Prestasi')" class="filter-btn px-6 py-3 bg-gray-100 text-gray-500 hover:bg-gray-200 rounded-xl font-bold transition-all" data-filter="Prestasi">Prestasi</button>
@@ -51,12 +52,14 @@
             <div class="grid md:grid-cols-2 gap-10" id="news-grid">
                 @php
                     $categoryColors = [
+                        'Berita Sekolah' => 'bg-slate-600',
                         'Kegiatan' => 'bg-purple-600',
                         'Pengumuman' => 'bg-orange-600',
                         'Prestasi' => 'bg-blue-600',
                         'Akademik' => 'bg-green-600'
                     ];
                     $categoryBg = [
+                        'Berita Sekolah' => 'bg-slate-50',
                         'Kegiatan' => 'bg-purple-50',
                         'Pengumuman' => 'bg-orange-50',
                         'Prestasi' => 'bg-blue-50',
@@ -112,10 +115,13 @@
             <!-- Search -->
             <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
                 <h4 class="font-bold flex items-center gap-2 mb-6"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> Cari Artikel</h4>
-                <form action="{{ route('news') }}" method="GET" class="relative">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Masukkan kata kunci..." class="w-full py-4 px-6 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm">
-                    <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <form action="{{ route('news') }}" method="GET" class="relative group">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Ketik judul berita..." 
+                           class="w-full py-4 pl-6 pr-14 bg-gray-50 rounded-2xl border-2 border-transparent focus:border-blue-100 focus:bg-white focus:ring-0 transition-all text-sm font-medium">
+                    <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-100 hover:bg-blue-700 transition-all group-hover:scale-105 active:scale-95">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
                     </button>
                 </form>
             </div>

@@ -9,7 +9,7 @@ class PageController extends Controller
     public function index()
     {
         $articles = \App\Models\Article::published()
-            ->latest('published_at')
+            ->latest('created_at')
             ->take(3)
             ->get();
             
@@ -37,9 +37,8 @@ class PageController extends Controller
     {
         $query = \App\Models\Article::published();
 
-        if ($request->has('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%')
-                  ->orWhere('content', 'like', '%' . $request->search . '%');
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
         }
 
         $articles = $query->latest('published_at')->paginate(6);

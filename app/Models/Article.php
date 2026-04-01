@@ -19,10 +19,14 @@ class Article extends Model
         'published_at',
         'featured_image',
         'views_count',
+        'allow_comments',
+        'is_highlighted',
     ];
 
     protected $casts = [
         'is_published' => 'boolean',
+        'allow_comments' => 'boolean',
+        'is_highlighted' => 'boolean',
         'published_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -41,7 +45,7 @@ class Article extends Model
      */
     public function scopePublished($query)
     {
-        return $query->where('is_published', true)->whereNotNull('published_at');
+        return $query->where('is_published', true);
     }
 
     /**

@@ -70,6 +70,7 @@
                     <label for="title" class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 group-focus-within:text-blue-500 transition-colors">JUDUL ARTIKEL</label>
                     <input type="text" name="title" id="title" required
                            class="w-full text-2xl lg:text-3xl font-bold bg-transparent border-none focus:ring-0 placeholder:text-gray-300 p-0"
+                           :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'"
                            placeholder="Masukkan judul artikel yang menarik..."
                            oninput="updateSlug(this.value)">
                     @error('title')
@@ -200,17 +201,6 @@
                 <div class="space-y-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-bold" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">Highlight Artikel</p>
-                            <p class="text-[10px] text-gray-400 mt-1">Tampilkan di slider utama</p>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="is_highlighted" value="1" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                        </label>
-                    </div>
-
-                    <div class="flex items-center justify-between">
-                        <div>
                             <p class="text-xs font-bold" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">Aktifkan Komentar</p>
                             <p class="text-[10px] text-gray-400 mt-1">Izinkan interaksi publik</p>
                         </div>
@@ -301,6 +291,15 @@
     .ql-snow .ql-tooltip .ql-action {
         color: #3b82f6 !important;
         font-weight: bold !important;
+    }
+    
+    /* Dark Mode Content Text Styling */
+    .dark .ql-editor {
+        color: #f1f5f9 !important;
+    }
+    .dark .ql-editor.ql-blank::before {
+        color: #94a3b8 !important;
+        opacity: 0.5 !important;
     }
 </style>
 

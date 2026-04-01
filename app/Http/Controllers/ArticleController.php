@@ -20,6 +20,12 @@ class ArticleController extends Controller
 
         $query = Article::with('author');
 
+        // Search filter
+        $search = $request->get('search');
+        if ($search) {
+            $query->where('title', 'like', '%' . $search . '%');
+        }
+
         // Status filter
         $filter = $request->get('filter', 'all');
         if ($filter === 'published') {
@@ -49,7 +55,7 @@ class ArticleController extends Controller
 
         return view('superadmin.articles.index', compact(
             'articles', 'total', 'published', 'drafts', 'views',
-            'filter', 'category', 'sort', 'categories'
+            'filter', 'category', 'sort', 'categories', 'search'
         ));
     }
 
@@ -81,9 +87,13 @@ class ArticleController extends Controller
             'category' => 'required|string|max:50',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'nullable',
+            'allow_comments' => 'nullable',
+            'is_highlighted' => 'nullable',
         ]);
 
-        $validated['is_published'] = $request->has('is_published') && $request->is_published == '1';
+        $validated['is_published'] = $request->get('is_published') == '1';
+        $validated['allow_comments'] = $request->has('allow_comments');
+        $validated['is_highlighted'] = $request->has('is_highlighted');
         $validated['slug'] = Str::slug($request->title) . '-' . time();
         $validated['user_id'] = auth()->id();
 
@@ -146,10 +156,14 @@ class ArticleController extends Controller
             'category' => 'required|string|max:50',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'is_published' => 'nullable',
+            'allow_comments' => 'nullable',
+            'is_highlighted' => 'nullable',
             'slug' => 'required|string|max:255|unique:articles,slug,' . $article->id,
         ]);
 
-        $validated['is_published'] = $request->has('is_published') && $request->is_published == '1';
+        $validated['is_published'] = $request->has('is_published_toggle') ? ($request->get('is_published_toggle') == '1') : ($request->get('is_published') == '1');
+        $validated['allow_comments'] = $request->has('allow_comments');
+        $validated['is_highlighted'] = $request->has('is_highlighted');
 
         if ($request->hasFile('featured_image')) {
             if ($article->featured_image) {

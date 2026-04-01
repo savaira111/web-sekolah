@@ -216,17 +216,6 @@
 
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-bold" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">Highlight Artikel</p>
-                            <p class="text-[10px] text-gray-400 mt-1">Tampilkan di slider utama</p>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="is_highlighted" value="1" {{ $article->is_highlighted ? 'checked' : '' }} class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                        </label>
-                    </div>
-
-                    <div class="flex items-center justify-between">
-                        <div>
                             <p class="text-xs font-bold" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">Aktifkan Komentar</p>
                             <p class="text-[10px] text-gray-400 mt-1">Izinkan interaksi publik</p>
                         </div>
@@ -293,6 +282,15 @@
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
         border-radius: 0.75rem !important;
         z-index: 100 !important;
+    }
+    
+    /* Dark Mode Content Text Styling */
+    .dark .ql-editor {
+        color: #f1f5f9 !important;
+    }
+    .dark .ql-editor.ql-blank::before {
+        color: #94a3b8 !important;
+        opacity: 0.5 !important;
     }
 </style>
 
