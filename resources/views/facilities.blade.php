@@ -28,7 +28,7 @@
 </section>
 
 <!-- Category Tabs -->
-<section class="pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="pt-6 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Category Tabs -->
     <div class="flex flex-wrap gap-4 mb-12" id="facility-filters">
         <button onclick="filterFacilities('all')" class="filter-btn px-8 py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 transition-all active-filter" data-filter="all">Semua Fasilitas</button>

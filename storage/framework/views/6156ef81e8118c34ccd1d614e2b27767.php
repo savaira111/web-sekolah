@@ -17,7 +17,7 @@
 </section>
 
 <!-- Featured Article -->
-<section class="pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="pt-6 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid lg:grid-cols-3 gap-12">
         <!-- Main Content -->
         <div class="lg:col-span-2 space-y-12">

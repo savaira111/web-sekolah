@@ -49,7 +49,7 @@
                 <ul class="space-y-4">
                     <li><a href="<?php echo e(route('enrollment.guide')); ?>#faq" class="text-gray-500 hover:text-blue-600 transition-colors">FAQ</a></li>
                     <li><a href="<?php echo e(route('contact')); ?>" class="text-gray-500 hover:text-blue-600 transition-colors">Hubungi Kami</a></li>
-                    <li><a href="<?php echo e(route('contact')); ?>" class="text-gray-500 hover:text-blue-600 transition-colors">Peta Lokasi</a></li>
+                    <li><a href="<?php echo e(route('contact')); ?>#map" class="text-gray-500 hover:text-blue-600 transition-colors">Peta Lokasi</a></li>
                 </ul>
             </div>
         </div>

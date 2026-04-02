@@ -323,7 +323,7 @@
 
 
                 <!-- FAQ Footer -->
-                <div class="pt-12">
+                <div id="faq" class="pt-12">
                      <h3 class="text-2xl font-bold text-[#0F172A] mb-8">FAQ - Pertanyaan Umum</h3>
                      <div class="grid md:grid-cols-2 gap-12">
                         <div class="space-y-4">
