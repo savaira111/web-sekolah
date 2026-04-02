@@ -15,7 +15,13 @@ class PageController extends Controller
             
         $activeEskulCount = \App\Models\Extracurricular::where('is_active', true)->count();
             
-        return view('index', compact('articles', 'activeEskulCount'));
+        $albums = \App\Models\Album::with('photos')
+            ->where('is_visible', true)
+            ->latest()
+            ->take(3)
+            ->get();
+            
+        return view('index', compact('articles', 'activeEskulCount', 'albums'));
     }
 
     public function jurusan()

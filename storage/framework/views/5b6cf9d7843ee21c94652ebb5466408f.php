@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Beranda - SMKS Mahaputra Cerdas Utama'); ?>
 
-@section('title', 'Beranda - SMKS Mahaputra Cerdas Utama')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
 <section class="relative overflow-hidden pt-4 pb-24 lg:pt-6 lg:pb-32">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -23,8 +21,8 @@
                     SMKS Mahaputra Cerdas Utama menghadirkan kurikulum yang diselaraskan dengan kebutuhan industri masa kini. Pilih jurusan yang sesuai dengan minat bakatmu dan jadilah tenaga ahli profesional.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="{{ route('registration') }}" class="px-6 py-3.5 bg-blue-600 text-white rounded-xl font-bold text-base hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all">Daftar Sekarang</a>
-                    <a href="{{ route('profile') }}" class="px-6 py-3.5 bg-white text-gray-700 border border-gray-200 rounded-xl font-bold text-base hover:bg-gray-50 transition-all flex items-center gap-2">Profil Sekolah</a>
+                    <a href="<?php echo e(route('registration')); ?>" class="px-6 py-3.5 bg-blue-600 text-white rounded-xl font-bold text-base hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all">Daftar Sekarang</a>
+                    <a href="<?php echo e(route('profile')); ?>" class="px-6 py-3.5 bg-white text-gray-700 border border-gray-200 rounded-xl font-bold text-base hover:bg-gray-50 transition-all flex items-center gap-2">Profil Sekolah</a>
                 </div>
                 
                 <div class="flex items-center gap-8 pt-4">
@@ -48,7 +46,7 @@
                 <div class="absolute -top-20 -right-20 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"></div>
                 <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-indigo-400/10 rounded-full blur-3xl"></div>
                 <div class="relative z-10 bg-white p-3 rounded-[2rem] shadow-2xl overflow-hidden group">
-                    <img src="{{ asset('images/logo-mahaputra.jpg') }}" alt="Logo SMKS Mahaputra Cerdas Utama" class="rounded-[1.5rem] w-full h-[450px] object-contain transition-transform duration-1000 group-hover:scale-105 p-8">
+                    <img src="<?php echo e(asset('images/logo-mahaputra.jpg')); ?>" alt="Logo SMKS Mahaputra Cerdas Utama" class="rounded-[1.5rem] w-full h-[450px] object-contain transition-transform duration-1000 group-hover:scale-105 p-8">
                 </div>
                 
                 <div class="absolute -bottom-6 -right-6 z-20 bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4 max-w-[240px]">
@@ -101,7 +99,7 @@
         <div class="grid lg:grid-cols-2 gap-20 items-center">
             <div class="relative">
                 <div class="aspect-square rounded-[3rem] overflow-hidden shadow-2xl bg-white border-8 border-white p-4">
-                    <img src="{{ asset('images/kepala-sekolah.png') }}" alt="Kepala Sekolah" class="w-full h-full object-contain">
+                    <img src="<?php echo e(asset('images/kepala-sekolah.png')); ?>" alt="Kepala Sekolah" class="w-full h-full object-contain">
                 </div>
                 <div class="absolute -bottom-10 -right-10 bg-white p-8 rounded-3xl shadow-xl border border-gray-100 hidden md:block max-w-[320px]">
                     <p class="text-blue-600 font-bold mb-2">Atas penugasan jabatan</p>
@@ -155,7 +153,7 @@
                         Fokus pada pengembangan kreativitas dalam menyampaikan pesan visual melalui desain grafis, fotografi, videografi, dan ilustrasi digital.
                     </p>
                     <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
-                        <a href="{{ route('jurusan.dkv') }}" class="text-blue-600 font-bold text-lg hover:underline transition-all">Lihat Detail Program</a>
+                        <a href="<?php echo e(route('jurusan.dkv')); ?>" class="text-blue-600 font-bold text-lg hover:underline transition-all">Lihat Detail Program</a>
                         <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </div>
@@ -181,7 +179,7 @@
                         Ciri khas lulusan kami adalah cerdas secara logika dan memiliki kemampuan IT yang kuat dalam pengembangan perangkat lunak maupun pengembangan gim.
                     </p>
                     <div class="pt-4 border-t border-gray-100 flex items-center justify-between">
-                        <a href="{{ route('jurusan.pplg') }}" class="text-blue-600 font-bold text-lg hover:underline transition-all">Lihat Detail Program</a>
+                        <a href="<?php echo e(route('jurusan.pplg')); ?>" class="text-blue-600 font-bold text-lg hover:underline transition-all">Lihat Detail Program</a>
                         <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </div>
@@ -200,33 +198,33 @@
                 <h2 class="text-3xl lg:text-4xl font-bold text-[#0F172A]">Fasilitas Standar Industri</h2>
                 <p class="text-base text-gray-500 leading-relaxed">Kami menyediakan ekosistem pembelajaran yang dirancang khusus untuk mengasah kreativitas dan keterampilan teknis siswa sesuai kebutuhan dunia kerja masa kini.</p>
             </div>
-            <a href="{{ route('facilities') }}" class="px-8 py-4 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition-all">Lihat Semua Fasilitas</a>
+            <a href="<?php echo e(route('facilities')); ?>" class="px-8 py-4 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition-all">Lihat Semua Fasilitas</a>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="group relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-lg">
-                <img src="{{ asset('images/fasilitas/lab dkv.png') }}" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/fasilitas/lab dkv.png')); ?>" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Lab DKV</h4>
                 </div>
             </div>
             <div class="group relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-lg">
-                <img src="{{ asset('images/fasilitas/lab pplg.png') }}" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/fasilitas/lab pplg.png')); ?>" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Lab PPLG</h4>
                 </div>
             </div>
             <div class="group relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-lg">
-                <img src="{{ asset('images/fasilitas/parkiran.png') }}" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/fasilitas/parkiran.png')); ?>" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Parkiran</h4>
                 </div>
             </div>
             <div class="group relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-lg">
-                <img src="{{ asset('images/fasilitas/bale mahaputra.png') }}" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/fasilitas/bale mahaputra.png')); ?>" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Bale Mahaputra</h4>
@@ -244,27 +242,27 @@
                 <h2 class="text-3xl lg:text-4xl font-bold text-[#0F172A]">Galeri Kegiatan & Dokumentasi</h2>
                 <p class="text-base text-gray-500 leading-relaxed">Melihat kembali momen-momen berharga dan prestasi yang diukir oleh civitas akademika di SMKS Mahaputra Cerdas Utama.</p>
             </div>
-            <a href="{{ route('album') }}" class="px-8 py-4 bg-blue-50 text-blue-600 font-bold rounded-xl hover:bg-blue-100 transition-all flex items-center gap-2">
+            <a href="<?php echo e(route('album')); ?>" class="px-8 py-4 bg-blue-50 text-blue-600 font-bold rounded-xl hover:bg-blue-100 transition-all flex items-center gap-2">
                 Lihat Semua Galeri
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @forelse($albums as $album)
+            <?php $__empty_1 = true; $__currentLoopData = $albums; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $album): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
             <div class="group bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col">
                 <div class="aspect-[4/3] relative overflow-hidden">
-                    @php
+                    <?php
                         $firstPhoto = $album->photos->first();
                         $imagePath = $firstPhoto ? asset('storage/' . $firstPhoto->path) : asset('images/gedung-sekolah.jpg');
-                    @endphp
-                    <img src="{{ $imagePath }}" alt="{{ $album->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    ?>
+                    <img src="<?php echo e($imagePath); ?>" alt="<?php echo e($album->title); ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     <div class="absolute top-5 right-5">
                         <div class="px-3 py-1.5 bg-blue-600/90 backdrop-blur-sm rounded-lg flex items-center gap-2 text-white shadow-lg">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
-                            <span class="text-[10px] font-black tracking-wider uppercase">{{ $album->photos->count() }} Foto</span>
+                            <span class="text-[10px] font-black tracking-wider uppercase"><?php echo e($album->photos->count()); ?> Foto</span>
                         </div>
                     </div>
                 </div>
@@ -273,12 +271,12 @@
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path>
                         </svg>
-                        <span class="text-[11px] font-black uppercase tracking-widest text-[#94A3B8]">{{ \Carbon\Carbon::parse($album->event_date)->translatedFormat('d F Y') }}</span>
+                        <span class="text-[11px] font-black uppercase tracking-widest text-[#94A3B8]"><?php echo e(\Carbon\Carbon::parse($album->event_date)->translatedFormat('d F Y')); ?></span>
                     </div>
-                    <h3 class="text-xl font-bold text-[#0F172A] mb-3 px-1 leading-tight group-hover:text-blue-600 transition-colors">{{ $album->title }}</h3>
-                    <p class="text-gray-400 text-xs px-1 leading-relaxed mb-6">{{ Str::limit(strip_tags($album->description), 100) }}</p>
+                    <h3 class="text-xl font-bold text-[#0F172A] mb-3 px-1 leading-tight group-hover:text-blue-600 transition-colors"><?php echo e($album->title); ?></h3>
+                    <p class="text-gray-400 text-xs px-1 leading-relaxed mb-6"><?php echo e(Str::limit(strip_tags($album->description), 100)); ?></p>
                     <div class="mt-auto">
-                        <a href="{{ route('album.show', $album->id) }}" class="inline-flex items-center justify-center gap-2 w-full py-3 px-6 border-2 border-blue-600 rounded-xl text-blue-600 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all duration-300">
+                        <a href="<?php echo e(route('album.show', $album->id)); ?>" class="inline-flex items-center justify-center gap-2 w-full py-3 px-6 border-2 border-blue-600 rounded-xl text-blue-600 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all duration-300">
                             Lihat Semua Foto
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
@@ -287,14 +285,14 @@
                     </div>
                 </div>
             </div>
-            @empty
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
             <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
                 <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm mx-auto mb-4">
                     <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 </div>
                 <p class="text-gray-500 font-bold italic">Belum ada album kegiatan yang dipublikasikan.</p>
             </div>
-            @endforelse
+            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -308,33 +306,35 @@
         </div>
         
         <div class="grid md:grid-cols-3 gap-8">
-            @php
+            <?php
                 $categoryStyles = [
                     'Kegiatan' => ['bg' => 'bg-purple-50', 'text' => 'text-purple-600', 'btn' => 'bg-purple-50', 'icon' => '<svg class="w-12 h-12 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>'],
                     'Pengumuman' => ['bg' => 'bg-orange-50', 'text' => 'text-orange-600', 'btn' => 'bg-orange-50', 'icon' => '<svg class="w-12 h-12 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>'],
                     'Prestasi' => ['bg' => 'bg-blue-50', 'text' => 'text-blue-600', 'btn' => 'bg-blue-50', 'icon' => '<svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>'],
                     'Akademik' => ['bg' => 'bg-green-50', 'text' => 'text-green-600', 'btn' => 'bg-green-50', 'icon' => '<svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>'],
                 ];
-            @endphp
+            ?>
 
-            @forelse($articles as $article)
-            @php
+            <?php $__empty_1 = true; $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+            <?php
                 $style = $categoryStyles[$article->category] ?? $categoryStyles['Kegiatan'];
-            @endphp
+            ?>
             <div class="group bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
                 <div class="aspect-video relative overflow-hidden">
-                    @if($article->featured_image)
-                        <img src="{{ asset('storage/' . $article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    @else
-                        <div class="w-full h-full {{ $style['bg'] }} flex flex-col items-center justify-center p-10">
+                    <?php if($article->featured_image): ?>
+                        <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>" alt="<?php echo e($article->title); ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <?php else: ?>
+                        <div class="w-full h-full <?php echo e($style['bg']); ?> flex flex-col items-center justify-center p-10">
                             <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4 transition-transform duration-500 group-hover:rotate-12">
-                                {!! $style['icon'] !!}
+                                <?php echo $style['icon']; ?>
+
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
                     <div class="absolute top-6 left-6">
-                        <span class="px-4 py-2 {{ str_replace('text', 'bg', $style['text']) }} text-white text-[10px] font-bold rounded-full uppercase tracking-widest shadow-lg">
-                            {{ $article->category }}
+                        <span class="px-4 py-2 <?php echo e(str_replace('text', 'bg', $style['text'])); ?> text-white text-[10px] font-bold rounded-full uppercase tracking-widest shadow-lg">
+                            <?php echo e($article->category); ?>
+
                         </span>
                     </div>
                 </div>
@@ -342,7 +342,8 @@
                     <div class="flex items-center gap-4 text-xs text-gray-400 font-bold">
                         <span class="flex items-center gap-1.5">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg>
-                            {{ ($article->published_at ?? $article->created_at)->format('d M Y') }}
+                            <?php echo e(($article->published_at ?? $article->created_at)->format('d M Y')); ?>
+
                         </span>
                         <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
                         <span class="flex items-center gap-1.5">
@@ -351,31 +352,33 @@
                         </span>
                     </div>
                     <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight uppercase">
-                        {{ $article->title }}
+                        <?php echo e($article->title); ?>
+
                     </h3>
                     <p class="text-gray-500 text-sm line-clamp-2 leading-relaxed">
-                        {{ Str::limit(strip_tags($article->content), 100) }}
+                        <?php echo e(Str::limit(strip_tags($article->content), 100)); ?>
+
                     </p>
                     <div class="pt-6 border-t border-gray-50 flex items-center justify-between">
-                        <a href="{{ route('news.detail', ['slug' => $article->slug]) }}" class="inline-flex items-center gap-2 text-blue-600 font-bold text-sm tracking-wide group/link">
+                        <a href="<?php echo e(route('news.detail', ['slug' => $article->slug])); ?>" class="inline-flex items-center gap-2 text-blue-600 font-bold text-sm tracking-wide group/link">
                             BACA SELENGKAPNYA 
                             <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </a>
                     </div>
                 </div>
             </div>
-            @empty
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
             <div class="col-span-3 text-center py-20 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
                 <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-sm mx-auto mb-4">
                     <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 2v6h6"></path></svg>
                 </div>
                 <p class="text-gray-500 font-bold italic">Belum ada artikel yang diterbitkan.</p>
             </div>
-            @endforelse
+            <?php endif; ?>
         </div>
 
         <div class="mt-16 text-center">
-            <a href="{{ route('news') }}" class="inline-flex items-center gap-2 text-gray-600 font-bold hover:text-blue-600 transition-all underline">Lihat Semua Berita & Artikel</a>
+            <a href="<?php echo e(route('news')); ?>" class="inline-flex items-center gap-2 text-gray-600 font-bold hover:text-blue-600 transition-all underline">Lihat Semua Berita & Artikel</a>
         </div>
     </div>
 </section>
@@ -395,8 +398,8 @@
                     Pendaftaran siswa baru tahun ajaran 2026/2027 telah dibuka. Segera amankan kursimu di jurusan impian dan mulai langkah besarmu hari ini.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="{{ route('registration') }}" class="px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-900 transition-all uppercase">Daftar Sekarang</a>
-                    <a href="{{ route('contact') }}" class="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-2xl font-bold text-lg hover:bg-white/10 transition-all uppercase">Hubungi Kami</a>
+                    <a href="<?php echo e(route('registration')); ?>" class="px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-900 transition-all uppercase">Daftar Sekarang</a>
+                    <a href="<?php echo e(route('contact')); ?>" class="px-8 py-4 bg-white/5 border border-white/10 text-white rounded-2xl font-bold text-lg hover:bg-white/10 transition-all uppercase">Hubungi Kami</a>
                 </div>
             </div>
             <div class="lg:flex justify-end hidden">
@@ -424,4 +427,6 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/index.blade.php ENDPATH**/ ?>

@@ -1,0 +1,953 @@
+<?php $__env->startSection('title', 'Formulir Pendaftaran - SMKS Mahaputra'); ?>
+
+<?php $__env->startSection('content'); ?>
+<div x-data="{ 
+    step: <?php echo e($errors->any() ? 1 : 1); ?>, 
+    maxStep: 3,
+    showToast: false,
+    toastMsg: '',
+    isLoading: false,
+    showSuccessModal: <?php if(session('success_registration')): ?> true <?php else: ?> false <?php endif; ?>,
+    <?php
+        $fatherJobs = ['PNS', 'TNI/POLRI', 'Karyawan Swasta', 'Wiraswasta', 'Buruh', 'Petani/Nelayan', 'Pedagang', 'Pensiunan'];
+        $oldFatherJob = old('father_job');
+        $isFatherJobOther = $oldFatherJob && !in_array($oldFatherJob, $fatherJobs);
+        
+        $motherJobs = ['Ibu Rumah Tangga', 'PNS', 'Karyawan Swasta', 'Wiraswasta', 'Pedagang', 'Petani/Nelayan', 'Buruh'];
+        $oldMotherJob = old('mother_job');
+        $isMotherJobOther = $oldMotherJob && !in_array($oldMotherJob, $motherJobs);
+    ?>
+    father_job_internal: '<?php echo e($isFatherJobOther ? 'Lainnya' : $oldFatherJob); ?>',
+    father_job_custom: '<?php echo e($isFatherJobOther ? $oldFatherJob : ''); ?>',
+    mother_job_internal: '<?php echo e($isMotherJobOther ? 'Lainnya' : $oldMotherJob); ?>',
+    mother_job_custom: '<?php echo e($isMotherJobOther ? $oldMotherJob : ''); ?>',
+    async nextStep() { 
+        if(this.isLoading) return;
+        this.isLoading = true;
+        try {
+            if(await this.validateStep()) {
+                if(this.step < this.maxStep) this.step++ 
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        } finally {
+            this.isLoading = false;
+        }
+    },
+    prevStep() { if(this.step > 1) this.step-- },
+    async submitForm() { 
+        if(this.isLoading) return;
+        this.isLoading = true;
+        try {
+            if(await this.validateStep()) {
+                this.$refs.regForm.submit() 
+            }
+        } finally {
+            this.isLoading = false;
+        }
+    },
+    async validateStep() {
+        let currentStepEl = this.$refs['step' + this.step];
+        if (!currentStepEl) return true;
+        
+        let inputs = Array.from(currentStepEl.querySelectorAll('input[required], select[required], textarea[required]'));
+        let firstInvalid = null;
+        
+        inputs.forEach(input => {
+            if (!this.validateInput(input)) {
+                if (!firstInvalid) firstInvalid = input;
+            }
+        });
+
+        if (firstInvalid) {
+            let label = 'salah satu bidang';
+            // Try to find a label
+            let parent = firstInvalid.parentElement;
+            if (parent && parent.querySelector('label')) {
+                label = parent.querySelector('label').innerText.replace('(Sesuai Ijazah)', '').replace('(Sesuai KK)', '').trim();
+            }
+            this.triggerToast('Mohon isi: ' + label);
+            return false;
+        }
+
+        // Real-time Check for Step 1 uniqueness and digits
+        if (this.step === 1) {
+            let nikEl = this.$refs.regForm.querySelector('input[name=\'nik\']');
+            let nisnEl = this.$refs.regForm.querySelector('input[name=\'nisn\']');
+            let nik = nikEl.value;
+            let nisn = nisnEl.value;
+
+            if (nik.length !== 16) {
+                this.triggerToast('NIK harus berjumlah 16 digit');
+                nikEl.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+                return false;
+            }
+
+            if (nisn.length !== 10) {
+                this.triggerToast('NISN harus berjumlah 10 digit');
+                nisnEl.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+                return false;
+            }
+            
+            try {
+                let response = await fetch('<?php echo e(route('registration.check-uniqueness')); ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>'
+                    },
+                    body: JSON.stringify({ nik, nisn })
+                });
+                let data = await response.json();
+                if (data.status === 'exists') {
+                    this.triggerToast(data.message);
+                    if (data.message.includes('NIK')) nikEl.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+                    if (data.message.includes('NISN')) nisnEl.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+                    return false;
+                }
+            } catch (e) {
+                console.error('Validation error:', e);
+            }
+        }
+
+        return true;
+    },
+    validateInput(input) {
+        if (!input) return true;
+        if (input.hasAttribute('required') && (!input.value || !input.value.trim())) {
+            input.classList.add('ring-2', 'ring-red-100', 'border-red-300');
+            return false;
+        }
+        input.classList.remove('ring-2', 'ring-red-100', 'border-red-300');
+        return true;
+    },
+    triggerToast(msg) {
+        this.toastMsg = msg;
+        this.showToast = true;
+        setTimeout(() => { this.showToast = false }, 3000);
+    },
+    doc_kk: '',
+    doc_akta: '',
+    doc_ijazah: '',
+    doc_raport: '',
+    doc_form: '',
+    doc_pernyataan: '',
+    doc_skl: '',
+    doc_shun: '',
+    doc_ijazah_sd: '',
+    doc_domisili: '',
+    doc_ktp_ortu: '',
+    doc_sehat_badan: '',
+    doc_sehat_mata: '',
+    doc_kip_pkh: '',
+    doc_prestasi: '',
+    profile_image: ''
+}" class="bg-gray-50 min-h-screen">
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-20 overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
+                PENDAFTARAN SISWA BARU 2026/2027
+            </div>
+            <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
+                Mulai Perjalanan <br>
+                <span class="text-blue-600">Hebatmu</span> Hari Ini
+            </h1>
+            <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+                Hanya butuh 5 menit untuk mengisi data awal. Tim admin kami akan segera menghubungimu untuk proses selanjutnya.
+            </p>
+            <div class="flex justify-center pt-4">
+                <a href="<?php echo e(asset('images/brosur-sekolah.jpg')); ?>" download="Brosur_SPMB_SMKS_Mahaputra_2026.jpg" class="inline-flex items-center gap-2 px-8 py-4 bg-orange-500 text-white rounded-full font-bold shadow-lg shadow-orange-200 hover:bg-orange-600 hover:-translate-y-1 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Unduh Brosur SPMB
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Form Section -->
+    <section class="pb-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Warning Message -->
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-12 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-orange-900 leading-tight">PENTING: Pengisian data PPDB hanya dapat dilakukan 1 kali</h4>
+                        <p class="text-orange-700 text-xs mt-1">Pastikan seluruh data yang Anda masukkan (Nama, NIK, NISN, dll) sudah benar dan valid sebelum dikirimkan.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid lg:grid-cols-4 gap-12">
+                
+                <!-- Left Sidebar: Progress & Info -->
+                <div class="lg:col-span-1 space-y-8">
+                    <!-- Progress Card -->
+                    <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-8 sticky top-24">
+                        <h4 class="font-bold text-gray-400 text-xs uppercase tracking-widest">Progres Pendaftaran</h4>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4 group transition-all" :class="step >= 1 ? 'opacity-100' : 'opacity-30'">
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg" :class="step >= 1 ? 'bg-blue-600 text-white shadow-blue-200' : 'bg-gray-100 text-gray-400'">
+                                    <template x-if="step > 1">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </template>
+                                    <span x-show="step <= 1">1</span>
+                                </div>
+                                <span class="font-bold text-gray-900">Data Diri</span>
+                            </div>
+                            <div class="flex items-center gap-4 group transition-all" :class="step >= 2 ? 'opacity-100' : 'opacity-30'">
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold transition-all" :class="step >= 2 ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-gray-100 text-gray-400'">
+                                    <template x-if="step > 2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </template>
+                                    <span x-show="step <= 2">2</span>
+                                </div>
+                                <span class="font-bold" :class="step >= 2 ? 'text-gray-900' : 'text-gray-400'">Data Orang Tua</span>
+                            </div>
+                            <div class="flex items-center gap-4 group transition-all" :class="step >= 3 ? 'opacity-100' : 'opacity-30'">
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold transition-all" :class="step >= 3 ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-gray-100 text-gray-400'">3</div>
+                                <span class="font-bold" :class="step >= 3 ? 'text-gray-900' : 'text-gray-400'">Unggah Dokumen</span>
+                            </div>
+                        </div>
+                        <div class="pt-6 border-t border-gray-50">
+                            <div class="flex justify-between items-center text-[10px] font-bold text-gray-400 mb-2">
+                                <span>Selesai</span>
+                                <span x-text="step === 1 ? '33%' : (step === 2 ? '66%' : '100%')">33%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full transition-all duration-500" :style="'width: ' + (step === 1 ? '33%' : (step === 2 ? '66%' : '100%'))"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Schedule Card -->
+                    <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-6">
+                        <h4 class="font-bold flex items-center gap-2 text-gray-900">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg>
+                            Jadwal PPDB
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 border-l-4 border-blue-600 rounded-r-xl">
+                                <p class="text-[10px] font-bold text-blue-600 uppercase">Gelombang 1</p>
+                                <p class="font-bold text-sm">Januari - Juni 2026</p>                     </div>
+                            <div class="p-4 bg-gray-50 border-l-4 border-gray-200 rounded-r-xl opacity-50">
+                                <p class="text-[10px] font-bold text-gray-400 uppercase">Gelombang 2</p>
+                                <p class="font-bold text-sm">Juli - Desember 2026</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Help Card -->
+                    <div class="bg-blue-50 p-8 rounded-[2.5rem] border border-blue-100 space-y-4">
+                        <h4 class="font-bold text-blue-900">Butuh Bantuan?</h4>
+                        <p class="text-xs text-blue-700 leading-relaxed">Hubungi Admin kami jika Anda mengalami kesulitan dalam pendaftaran.</p>
+                        <a href="#" class="flex justify-center w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs uppercase shadow-lg shadow-blue-200">WhatsApp CS</a>
+                    </div>
+                </div>
+
+                <!-- Right Content: The Form Areas -->
+                <div class="lg:col-span-3">
+                    <!-- Validation Toast -->
+                    <div x-show="showToast" 
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                         x-transition:leave="transition ease-in duration-200"
+                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                         x-transition:leave-end="opacity-0 translate-y-2 scale-95"
+                         class="fixed top-24 left-1/2 -translate-x-1/2 z-[110] bg-red-600 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 w-[90%] md:w-auto min-w-[300px]">
+                        <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <span class="text-sm font-bold" x-text="toastMsg"></span>
+                    </div>
+
+                    <form action="<?php echo e(route('registration.store')); ?>" method="POST" enctype="multipart/form-data" x-ref="regForm" class="space-y-12">
+                    <?php if($errors->any()): ?>
+                        <div class="bg-red-50 border border-red-200 text-red-600 px-8 py-6 rounded-[2rem] mb-12 flex items-center gap-4">
+                            <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <div>
+                                <p class="font-bold text-sm">Ada kesalahan dalam pendaftaran:</p>
+                                <ul class="text-xs list-disc list-inside mt-1 opacity-80">
+                                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <li><?php echo e($error); ?></li>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </ul>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php echo csrf_field(); ?>
+                    
+                    <!-- Step 1: Data Diri -->
+                    <div x-show="step === 1" x-ref="step1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
+                        <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
+                            <div class="mb-12">
+                                <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
+                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                    Langkah 1: Data Diri Calon Siswa
+                                </h2>
+                                <p class="text-gray-400 text-sm mt-3">Lengkapi informasi biodata Anda sesuai dengan kartu identitas atau akta kelahiran.</p>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Nama Lengkap (Sesuai Ijazah)</label>
+                                    <input type="text" name="full_name" value="<?php echo e(old('full_name')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Muhammad Arkan" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Email (Aktif)</label>
+                                    <input type="email" name="email" value="<?php echo e(old('email')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: arkan@gmail.com" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Pilihan Jurusan</label>
+                                    <select name="major" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
+                                        <option value="">Pilih Jurusan</option>
+                                        <option value="PPLG" <?php echo e(old('major') == 'PPLG' ? 'selected' : ''); ?>>PPLG (Pengembangan Perangkat Lunak & Gim)</option>
+                                        <option value="DKV" <?php echo e(old('major') == 'DKV' ? 'selected' : ''); ?>>DKV (Desain Komunikasi Visual)</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">NIK (Nomor Induk Kependudukan)</label>
+                                    <input type="text" name="nik" value="<?php echo e(old('nik')); ?>" required maxlength="16" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="16 digit nomor NIK (Sesuai KK)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">NISN</label>
+                                    <input type="text" name="nisn" value="<?php echo e(old('nisn')); ?>" required maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Tempat Lahir</label>
+                                    <input type="text" name="birth_place" value="<?php echo e(old('birth_place')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Tanggal Lahir</label>
+                                    <input type="date" name="birth_date" value="<?php echo e(old('birth_date')); ?>" required @change="validateInput($event.target)" @blur="validateInput($event.target)" onclick="this.showPicker()" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Asal Sekolah</label>
+                                    <input type="text" name="school_origin" value="<?php echo e(old('school_origin')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: SMPN 1 Jakarta" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Tahun Lulus</label>
+                                    <input type="text" name="graduation_year" value="<?php echo e(old('graduation_year')); ?>" required maxlength="4" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 2024" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Rata-rata Nilai Ijazah/Raport</label>
+                                    <input type="text" name="average_grade" value="<?php echo e(old('average_grade')); ?>" required inputmode="decimal" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 85.50" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Jenis Kelamin</label>
+                                    <select name="gender" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
+                                        <option value="Male" <?php echo e(old('gender') == 'Male' ? 'selected' : ''); ?>>Laki-laki</option>
+                                        <option value="Female" <?php echo e(old('gender') == 'Female' ? 'selected' : ''); ?>>Perempuan</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Agama</label>
+                                    <select name="religion" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
+                                        <option value="">Pilih Agama</option>
+                                        <option value="Islam" <?php echo e(old('religion') == 'Islam' ? 'selected' : ''); ?>>Islam</option>
+                                        <option value="Kristen" <?php echo e(old('religion') == 'Kristen' ? 'selected' : ''); ?>>Kristen (Protestan)</option>
+                                        <option value="Katolik" <?php echo e(old('religion') == 'Katolik' ? 'selected' : ''); ?>>Katolik</option>
+                                        <option value="Hindu" <?php echo e(old('religion') == 'Hindu' ? 'selected' : ''); ?>>Hindu</option>
+                                        <option value="Buddha" <?php echo e(old('religion') == 'Buddha' ? 'selected' : ''); ?>>Buddha</option>
+                                        <option value="Khonghucu" <?php echo e(old('religion') == 'Khonghucu' ? 'selected' : ''); ?>>Khonghucu</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-3">
+                                    <label class="text-sm font-bold text-gray-700">Kewarganegaraan</label>
+                                    <select name="citizenship" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
+                                        <option value="WNI" <?php echo e(old('citizenship') == 'WNI' ? 'selected' : ''); ?>>WNI (Warga Negara Indonesia)</option>
+                                        <option value="WNA" <?php echo e(old('citizenship') == 'WNA' ? 'selected' : ''); ?>>WNA (Warga Negara Asing)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                                <div class="pt-12 border-t border-gray-50 flex justify-end">
+                                    <button @click="nextStep()" :disabled="isLoading" type="button" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3 cursor-pointer relative z-30 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        <template x-if="!isLoading">
+                                            <div class="flex items-center gap-3">
+                                                <span>Langkah Berikutnya</span>
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                            </div>
+                                        </template>
+                                        <template x-if="isLoading">
+                                            <div class="flex items-center gap-2">
+                                                <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                                <span>Memproses...</span>
+                                            </div>
+                                        </template>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- Step 2: Data Orang Tua -->
+                    <div x-show="step === 2" x-ref="step2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
+                        <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
+                            <div class="mb-12">
+                                <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
+                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                    Langkah 2: Data Orang Tua
+                                </h2>
+                                <p class="text-gray-400 text-sm mt-3">Lengkapi informasi data orang tua atau wali murid sesuai dengan dokumen resmi.</p>
+                            </div>
+
+                            <div class="space-y-10">
+                                <!-- Ayah Section -->
+                                <div class="space-y-6">
+                                    <h3 class="font-bold flex items-center gap-3 text-gray-900 border-l-4 border-blue-600 pl-4">
+                                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        Data Ayah Kandung
+                                    </h3>
+                                    <div class="grid md:grid-cols-2 gap-8">
+                                        <div class="space-y-3">
+                                            <label class="text-sm font-bold text-gray-700">Nama Lengkap Ayah</label>
+                                            <input type="text" name="father_name" value="<?php echo e(old('father_name')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Ahmad Subarja" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                        </div>
+                                        <div class="space-y-3">
+                                            <label class="text-sm font-bold text-gray-700">Pekerjaan Ayah</label>
+                                            <input type="hidden" name="father_job" :value="father_job_internal === 'Lainnya' ? father_job_custom : father_job_internal">
+                                            <select x-model="father_job_internal" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
+                                                <option value="">Pilih Pekerjaan</option>
+                                                <option value="PNS">PNS / ASN</option>
+                                                <option value="TNI/POLRI">TNI / POLRI</option>
+                                                <option value="Karyawan Swasta">Karyawan Swasta</option>
+                                                <option value="Wiraswasta">Wiraswasta / Pengusaha</option>
+                                                <option value="Buruh">Buruh / Pekerja Lepas</option>
+                                                <option value="Petani/Nelayan">Petani / Nelayan</option>
+                                                <option value="Pedagang">Pedagang</option>
+                                                <option value="Pensiunan">Pensiunan</option>
+                                                <option value="Lainnya">Lainnya</option>
+                                            </select>
+                                            <div x-show="father_job_internal === 'Lainnya'" x-transition class="mt-2">
+                                                <input type="text" x-model="father_job_custom" placeholder="Sebutkan Pekerjaan Ayah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            </div>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <label class="text-sm font-bold text-gray-700">No. HP Ayah (WhatsApp)</label>
+                                            <input type="text" name="father_phone" value="<?php echo e(old('father_phone')); ?>" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ibu Section -->
+                                <div class="space-y-6 pt-8">
+                                    <h3 class="font-bold flex items-center gap-3 text-gray-900 border-l-4 border-pink-500 pl-4">
+                                        <svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        Data Ibu Kandung
+                                    </h3>
+                                    <div class="grid md:grid-cols-2 gap-8">
+                                        <div class="space-y-3">
+                                            <label class="text-sm font-bold text-gray-700">Nama Lengkap Ibu</label>
+                                            <input type="text" name="mother_name" value="<?php echo e(old('mother_name')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Siti Aminah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                        </div>
+                                        <div class="space-y-3">
+                                            <label class="text-sm font-bold text-gray-700">Pekerjaan Ibu</label>
+                                            <input type="hidden" name="mother_job" :value="mother_job_internal === 'Lainnya' ? mother_job_custom : mother_job_internal">
+                                            <select x-model="mother_job_internal" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
+                                                <option value="">Pilih Pekerjaan</option>
+                                                <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+                                                <option value="PNS">PNS / ASN</option>
+                                                <option value="Karyawan Swasta">Karyawan Swasta</option>
+                                                <option value="Wiraswasta">Wiraswasta / Pengusaha</option>
+                                                <option value="Pedagang">Pedagang</option>
+                                                <option value="Petani/Nelayan">Petani / Nelayan</option>
+                                                <option value="Buruh">Buruh</option>
+                                                <option value="Lainnya">Lainnya</option>
+                                            </select>
+                                            <div x-show="mother_job_internal === 'Lainnya'" x-transition class="mt-2">
+                                                <input type="text" x-model="mother_job_custom" placeholder="Sebutkan Pekerjaan Ibu" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            </div>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <label class="text-sm font-bold text-gray-700">No. HP Ibu (WhatsApp)</label>
+                                            <input type="text" name="mother_phone" value="<?php echo e(old('mother_phone')); ?>" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Informasi Tambahan -->
+                                <div class="space-y-6 pt-8">
+                                    <h3 class="font-bold flex items-center gap-3 text-gray-900 border-l-4 border-orange-400 pl-4">
+                                        <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        Informasi Tambahan
+                                    </h3>
+                                    <div class="space-y-6">
+                                        <div class="space-y-3">
+                                            <label class="text-sm font-bold text-gray-700">Alamat Lengkap Orang Tua</label>
+                                            <textarea name="address" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Jl. Raya No. 123, Kel. Merdeka, Kec. Maju Jaya, Kota Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm h-32 transition-all focus:ring-2 focus:ring-blue-100"><?php echo e(old('address')); ?></textarea>
+                                        </div>
+                                        <div class="space-y-3">
+                                            <label class="text-sm font-bold text-gray-700">Penghasilan Gabungan Per Bulan</label>
+                                            <select name="parent_income" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
+                                                <option value="">Pilih Rentang Penghasilan</option>
+                                                <option value="< 2.000.000" <?php echo e(old('parent_income') == '< 2.000.000' ? 'selected' : ''); ?>>< Rp 2.000.000</option>
+                                                <option value="2.000.000 - 5.000.000" <?php echo e(old('parent_income') == '2.000.000 - 5.000.000' ? 'selected' : ''); ?>>Rp 2.000.000 - Rp 5.000.000</option>
+                                                <option value="> 5.000.000" <?php echo e(old('parent_income') == '> 5.000.000' ? 'selected' : ''); ?>>> Rp 5.000.000</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-12 border-t border-gray-50 flex justify-between items-center">
+                                    <button @click="prevStep()" type="button" class="flex items-center gap-2 text-gray-400 font-bold text-sm group">
+                                        <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                        Kembali
+                                    </button>
+                                    <button @click="nextStep()" :disabled="isLoading" type="button" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3 cursor-pointer relative z-30 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        <template x-if="!isLoading">
+                                            <div class="flex items-center gap-3">
+                                                <span>Langkah Berikutnya</span>
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                            </div>
+                                        </template>
+                                        <template x-if="isLoading">
+                                            <div class="flex items-center gap-2">
+                                                <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                                <span>Memproses...</span>
+                                            </div>
+                                        </template>
+                                    </button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- Step 3: Unggah Dokumen -->
+                    <div x-show="step === 3" x-ref="step3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
+                        <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
+                            <div class="mb-12">
+                                <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
+                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    Langkah 3: Unggah Berkas Pendaftaran
+                                </h2>
+                                <p class="text-gray-400 text-sm mt-3">Silakan unggah dokumen persyaratan dalam format Gambar (JPG/PNG) atau PDF. Maksimal ukuran file 2MB per dokumen.</p>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                                <!-- 1. Formulir -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">1. Formulir Pendaftaran</label>
+                                    <div @click="$refs.formInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_form" x-ref="formInput" class="hidden" @change="doc_form = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_form ? doc_form : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Surat Pernyataan -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">2. Surat Pernyataan</label>
+                                    <div @click="$refs.pernyataanInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_pernyataan" x-ref="pernyataanInput" class="hidden" @change="doc_pernyataan = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_pernyataan ? doc_pernyataan : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 3. SKL -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">3. SKL (dilegalisir)</label>
+                                    <div @click="$refs.sklInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_skl" x-ref="sklInput" class="hidden" @change="doc_skl = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_skl ? doc_skl : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 4. SHUN -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">4. SHUN / Hasil Ujian</label>
+                                    <div @click="$refs.shunInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_shun" x-ref="shunInput" class="hidden" @change="doc_shun = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_shun ? doc_shun : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 5. Ijazah SMP -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">5. Ijazah SMP/MTs</label>
+                                    <div @click="$refs.ijazahInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_ijazah" x-ref="ijazahInput" class="hidden" @change="doc_ijazah = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_ijazah ? doc_ijazah : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 6. Ijazah SD -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">6. Ijazah SD/MI</label>
+                                    <div @click="$refs.ijazahSdInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_ijazah_sd" x-ref="ijazahSdInput" class="hidden" @change="doc_ijazah_sd = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_ijazah_sd ? doc_ijazah_sd : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 7. Akta -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">7. Akta Kelahiran</label>
+                                    <div @click="$refs.aktaInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_akta" x-ref="aktaInput" class="hidden" @change="doc_akta = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_akta ? doc_akta : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 8. KK -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">8. Kartu Keluarga</label>
+                                    <div @click="$refs.kkInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_kk" x-ref="kkInput" class="hidden" @change="doc_kk = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_kk ? doc_kk : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 9. Domisili -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">9. Keterangan Domisili</label>
+                                    <div @click="$refs.domisiliInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_domisili" x-ref="domisiliInput" class="hidden" @change="doc_domisili = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_domisili ? doc_domisili : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 10. KTP Ortu -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">10. KTP Orang Tua</label>
+                                    <div @click="$refs.ktpInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_ktp_ortu" x-ref="ktpInput" class="hidden" @change="doc_ktp_ortu = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_ktp_ortu ? doc_ktp_ortu : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 11. Sehat Badan -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">11. Ket. Kesehatan Badan</label>
+                                    <div @click="$refs.sehatBadanInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_sehat_badan" x-ref="sehatBadanInput" class="hidden" @change="doc_sehat_badan = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_sehat_badan ? doc_sehat_badan : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 12. Sehat Mata -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">12. Ket. Kesehatan Mata</label>
+                                    <div @click="$refs.sehatMataInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_sehat_mata" x-ref="sehatMataInput" class="hidden" @change="doc_sehat_mata = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_sehat_mata ? doc_sehat_mata : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 14. PIP / KIP -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">14. PIP / KIP / Ket. Kematian (Opsional)</label>
+                                    <div @click="$refs.kipInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_kip_pkh" x-ref="kipInput" class="hidden" @change="doc_kip_pkh = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_kip_pkh ? doc_kip_pkh : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 15. Prestasi -->
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">15. Sertifikat / Penghargaan (Opsional)</label>
+                                    <div @click="$refs.prestasiInput.click()" class="relative group cursor-pointer z-20">
+                                        <input type="file" name="doc_prestasi" x-ref="prestasiInput" class="hidden" @change="doc_prestasi = $event.target.files[0].name">
+                                        <div class="p-4 bg-gray-50 rounded-xl border border-dashed border-gray-200 group-hover:border-blue-400 transition-all flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></div>
+                                            <div class="flex-1 overflow-hidden">
+                                                <p class="text-[10px] font-bold text-gray-600 truncate" x-text="doc_prestasi ? doc_prestasi : 'Pilih File'"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 13. Pas Foto (Pas Foto 3x4) -->
+                            <div class="space-y-4 mb-12">
+                                <label class="text-sm font-bold text-gray-700">13. Pas Foto 3x4 (Hitam Putih/Warna)</label>
+                                <input type="file" name="profile_image" x-ref="photoInput" class="hidden" @change="profile_image = $event.target.files[0].name" accept=".jpg,.jpeg,.png">
+                                <div @click="$refs.photoInput.click()" class="border-2 border-dashed border-gray-200 rounded-[2rem] p-12 text-center hover:border-blue-400 transition-colors cursor-pointer group bg-gray-50/30 relative z-20">
+                                    <svg class="w-10 h-10 mx-auto text-blue-400 transition-transform mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <p class="font-bold text-gray-900 text-sm" x-text="profile_image ? profile_image : 'Klik untuk unggah Pas Foto'"></p>
+                                    <p class="text-[10px] text-gray-400 mt-2 italic text-center">Format PNG/JPG, Maksimal 2MB. Kertas Dove lebih disarankan.</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-12 border-t border-gray-50 flex justify-between items-center">
+                                <button @click="prevStep()" type="button" class="flex items-center gap-2 text-gray-400 font-bold text-sm group">
+                                    <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                    Kembali
+                                </button>
+                                <button @click="submitForm()" :disabled="isLoading" type="button" class="px-10 py-5 bg-emerald-600 text-white rounded-2xl font-bold shadow-xl shadow-emerald-200 hover:bg-emerald-700 transition-all flex items-center gap-3 cursor-pointer relative z-30 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <template x-if="!isLoading">
+                                        <div class="flex items-center gap-3">
+                                            <span>Selesaikan Pendaftaran</span>
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        </div>
+                                    </template>
+                                    <template x-if="isLoading">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                            <span>Mengirim...</span>
+                                        </div>
+                                    </template>
+                                </button>
+                            </div> <!-- closes footer (630) -->
+                        </div> <!-- closes bg-white (412) -->
+                    </div> <!-- closes step3 container (411) -->
+                </form>
+            </div> <!-- closes lg:col-span-3 (177) -->
+        </div> <!-- closes grid (108) -->
+
+            <!-- Bottom Document Checklist -->
+            <div class="mt-12 bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
+                <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-[#0F172A] flex items-center gap-4">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Persyaratan Dokumen Pendaftaran
+                        </h3>
+                        <p class="text-gray-400 text-xs mt-2">Siapkan dokumen-dokumen berikut untuk proses verifikasi lanjutan.</p>
+                    </div>
+                    <div class="px-4 py-2 bg-blue-50 rounded-xl">
+                        <p class="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Penting Diperhatikan</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-8">
+                    <!-- Column 1 -->
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">01</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Formulir Pendaftaran</p>
+                                <p class="text-[10px] text-gray-400">Sudah diisi secara online / offline</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">02</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Surat Pernyataan</p>
+                                <p class="text-[10px] text-gray-400">Dibubuhi Materai Rp 10.000</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">03</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Copy SKL SMP/MTs</p>
+                                <p class="text-[10px] text-gray-400">Dilegalisir - 2 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">04</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Copy SHUN / Hasil Ujian</p>
+                                <p class="text-[10px] text-gray-400">Dilegalisir - 2 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">05</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Copy Ijazah SMP/MTs</p>
+                                <p class="text-[10px] text-gray-400">Dilegalisir - 2 Lembar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">06</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Copy Ijazah SD/MI</p>
+                                <p class="text-[10px] text-gray-400">Arsip - 1 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">07</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Copy Akte Kelahiran</p>
+                                <p class="text-[10px] text-gray-400">Arsip - 2 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">08</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Copy Kartu Keluarga</p>
+                                <p class="text-[10px] text-gray-400">Arsip - 2 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">09</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Copy Keterangan Domisili</p>
+                                <p class="text-[10px] text-gray-400">(★★) - 2 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">10</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Copy KTP Orang Tua</p>
+                                <p class="text-[10px] text-gray-400">Ayah & Ibu - Total 4 Lembar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">11</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Surat Kesehatan Badan</p>
+                                <p class="text-[10px] text-gray-400">(★★★) - 1 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">12</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Surat Kesehatan Mata</p>
+                                <p class="text-[10px] text-gray-400">(★★★) - 1 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">13</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Pas Foto 3x4</p>
+                                <p class="text-[10px] text-gray-400">Kertas Dove - 3 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">14</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">PIP / KIP / Ket. Kematian (Opsional)</p>
+                                <p class="text-[10px] text-gray-400">(*) Jalur Khusus - 1 Lembar</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">15</div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-800">Sertifikat / Piagam (Opsional)</p>
+                                <p class="text-[10px] text-gray-400">Opsional (Prestasi)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-gray-50 grid md:grid-cols-2 gap-8">
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-2xl">
+                        <span class="text-blue-600 font-bold">(*)</span>
+                        <p class="text-[10px] text-gray-500 leading-relaxed italic">Bagi pendaftar dari keluarga tidak mampu mendaftarkan melalui jalur afirmasi.</p>
+                    </div>
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-2xl">
+                        <span class="text-blue-600 font-bold">(★★)</span>
+                        <p class="text-[10px] text-gray-500 leading-relaxed italic">Apabila calon peserta didik baru bertempat tinggal tidak sesuai Kartu Keluarga.</p>
+                    </div>
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-2xl md:col-span-2">
+                        <span class="text-blue-600 font-bold">(★★★)</span>
+                        <p class="text-[10px] text-gray-500 leading-relaxed italic">Surat Keterangan Sehat (Badan & Mata/Tidak Buta Warna) dapat diperoleh dari Puskesmas atau dokter praktik berizin.</p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- closing max-w-7xl (line 87) -->
+    </section> <!-- closing Main Form Section (line 86) -->
+
+    <!-- Success Modal -->
+    <div x-show="showSuccessModal" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-[200] flex items-start justify-center p-8 bg-[#0F172A]/80 backdrop-blur-sm pt-20">
+        
+        <div @click.away="showSuccessModal = false" 
+             x-show="showSuccessModal"
+             x-transition:enter="transition ease-out duration-500"
+             x-transition:enter-start="opacity-0 scale-90 -translate-y-12"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             class="max-w-md w-full bg-white rounded-[3rem] p-12 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-green-50 rounded-full blur-3xl opacity-50"></div>
+            
+            <div class="relative z-10 space-y-8">
+                <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto shadow-xl shadow-green-100 animate-bounce">
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                
+                <div class="space-y-4">
+                    <h2 class="text-3xl font-bold text-gray-900">Pendaftaran Berhasil!</h2>
+                    <p class="text-gray-500 text-sm leading-relaxed"><?php echo e(session('success_registration')); ?></p>
+                </div>
+
+                <div class="pt-4">
+                    <button @click="showSuccessModal = false" class="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/registration.blade.php ENDPATH**/ ?>

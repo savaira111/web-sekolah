@@ -1,9 +1,7 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Galeri Kegiatan - SMKS Mahaputra Cerdas Utama'); ?>
 
-@section('title', 'Galeri Kegiatan - SMKS Mahaputra Cerdas Utama')
-
-@section('content')
-@php
+<?php $__env->startSection('content'); ?>
+<?php
     $formattedAlbums = $albums->map(function($album) {
         return [
             'id' => $album->id,
@@ -15,12 +13,12 @@
             'desc' => \Illuminate\Support\Str::limit(strip_tags($album->description), 100)
         ];
     })->values()->all();
-@endphp
+?>
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('albumGallery', () => ({
             activeFilter: 'Semua',
-            albums: @json($formattedAlbums),
+            albums: <?php echo json_encode($formattedAlbums, 15, 512) ?>,
             get filteredAlbums() {
                 if (this.activeFilter === 'Semua') return this.albums;
                 return this.albums.filter(album => album.category === this.activeFilter);
@@ -124,4 +122,6 @@
         </div>
     </section>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/album.blade.php ENDPATH**/ ?>

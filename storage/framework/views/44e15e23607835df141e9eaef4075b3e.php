@@ -1,15 +1,15 @@
-@extends('layouts.app')
 
-@section('title', 'Desain Komunikasi Visual (DKV) - SMKS Mahaputra')
 
-@section('content')
+<?php $__env->startSection('title', 'Desain Komunikasi Visual (DKV) - SMKS Mahaputra'); ?>
+
+<?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
 <section class="relative pt-12 pb-20 overflow-hidden bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
             <div class="space-y-8">
                 <div class="flex items-center gap-4">
-                    <a href="{{ route('jurusan') }}" class="w-10 h-10 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
+                    <a href="<?php echo e(route('jurusan')); ?>" class="w-10 h-10 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     </a>
                     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
@@ -23,7 +23,7 @@
                     Seni menyampaikan pesan secara visual. Menggabungkan kreativitas artistik dengan teknologi digital untuk menciptakan solusi visual yang inovatif dan berdampak.
                 </p>
                 <div class="flex gap-4">
-                    <a href="{{ route('registration') }}" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl transition-all">Daftar Sekarang</a>
+                    <a href="<?php echo e(route('registration')); ?>" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl transition-all">Daftar Sekarang</a>
                 </div>
             </div>
             <div class="relative">
@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="mt-8 space-y-4">
-                        <a href="{{ route('registration') }}" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan DKV</a>
+                        <a href="<?php echo e(route('registration')); ?>" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan DKV</a>
                         <p class="text-center text-[10px] text-gray-400">Pendaftaran Gelombang 1 berakhir dalam 14 hari lagi.</p>
                     </div>
                 </div>
@@ -188,37 +188,37 @@
         
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="{{ asset('images/dkv/card 1.png') }}" alt="card 1" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/dkv/card 1.png')); ?>" alt="card 1" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Digital Illustration</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="{{ asset('images/dkv/card 2.png') }}" alt="card 2" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/dkv/card 2.png')); ?>" alt="card 2" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Brand Identity Design</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="{{ asset('images/dkv/card 3.png') }}" alt="card 3" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/dkv/card 3.png')); ?>" alt="card 3" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Cinematic Photography</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="{{ asset('images/dkv/card 4.png') }}" alt="card 4" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/dkv/card 4.png')); ?>" alt="card 4" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Minimalist Logo Pack</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="{{ asset('images/dkv/card 5.png') }}" alt="card 5" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/dkv/card 5.png')); ?>" alt="card 5" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">3D Character Model</span>
                 </div>
             </div>
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
-                <img src="{{ asset('images/dkv/card 6.png') }}" alt="card 6" class="w-full h-full object-cover transition-transform duration-700">
+                <img src="<?php echo e(asset('images/dkv/card 6.png')); ?>" alt="card 6" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span class="text-white font-bold">Poster & Layout Design</span>
                 </div>
@@ -288,7 +288,7 @@
                 <h2 class="text-4xl lg:text-5xl font-bold text-white">Masih bingung tentang jurusan DKV?</h2>
                 <p class="text-gray-400 max-w-2xl mx-auto text-lg">Tim kami siap membantu menjawab pertanyaanmu seputar kurikulum, biaya, atau prospek kerja setelah lulus.</p>
                 <div class="pt-6">
-                    <a href="{{ route('contact') }}" class="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/20 transition-all group">
+                    <a href="<?php echo e(route('contact')); ?>" class="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/20 transition-all group">
                         Kunjungi Halaman FAQ & Kontak Kami
                         <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
@@ -297,4 +297,6 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/programs/dkv.blade.php ENDPATH**/ ?>

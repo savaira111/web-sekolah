@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', $article->title . ' - SMKS Mahaputra Cerdas Utama'); ?>
 
-@section('title', $article->title . ' - SMKS Mahaputra Cerdas Utama')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="bg-white min-h-screen pt-24 pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -10,11 +8,11 @@
         <nav class="flex mb-8 text-sm font-medium" aria-label="Breadcrumb">
             <ol class="flex items-center space-x-2">
                 <li>
-                    <a href="{{ route('home') }}" class="text-gray-400 hover:text-blue-600 transition-colors">Beranda</a>
+                    <a href="<?php echo e(route('home')); ?>" class="text-gray-400 hover:text-blue-600 transition-colors">Beranda</a>
                 </li>
                 <li class="flex items-center space-x-2">
                     <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    <a href="{{ route('news') }}" class="text-gray-400 hover:text-blue-600 transition-colors">Berita</a>
+                    <a href="<?php echo e(route('news')); ?>" class="text-gray-400 hover:text-blue-600 transition-colors">Berita</a>
                 </li>
                 <li class="flex items-center space-x-2">
                     <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
@@ -30,7 +28,7 @@
 
                 <!-- Back Button -->
                 <div class="mb-6">
-                    <a href="{{ route('news') }}" 
+                    <a href="<?php echo e(route('news')); ?>" 
                        class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white border border-gray-100 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-blue-500/20 group" 
                        title="Kembali ke Daftar Berita">
                         <svg class="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,36 +39,37 @@
                 
                 <!-- Featured Image -->
                 <div class="relative rounded-[2rem] overflow-hidden shadow-2xl mb-10 aspect-video group">
-                    @if($article->featured_image)
-                        <img src="{{ asset('storage/' . $article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                    @else
+                    <?php if($article->featured_image): ?>
+                        <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>" alt="<?php echo e($article->title); ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <?php else: ?>
                         <div class="w-full h-full bg-blue-50 flex items-center justify-center text-blue-200">
                             <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         </div>
-                    @endif
+                    <?php endif; ?>
                     <div class="absolute bottom-6 left-6">
-                        <span class="px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-lg uppercase tracking-widest shadow-lg">{{ $article->category }}</span>
+                        <span class="px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-lg uppercase tracking-widest shadow-lg"><?php echo e($article->category); ?></span>
                     </div>
                 </div>
 
                 <!-- Article Header -->
                 <div class="mb-10">
                     <h1 class="text-4xl lg:text-5xl font-extrabold text-[#0F172A] leading-[1.2] mb-6 tracking-tight">
-                        {{ $article->title }}
+                        <?php echo e($article->title); ?>
+
                     </h1>
                     
                     <div class="flex flex-wrap items-center gap-6 text-sm text-gray-400 font-medium">
                         <div class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                            <span>Oleh : <span class="text-gray-900 font-bold">{{ $article->author->name ?? 'Admin Mahaputra' }}</span></span>
+                            <span>Oleh : <span class="text-gray-900 font-bold"><?php echo e($article->author->name ?? 'Admin Mahaputra'); ?></span></span>
                         </div>
                         <div class="flex items-center gap-2 border-l border-gray-100 pl-6">
                             <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg>
-                            <span>{{ $article->published_at ? $article->published_at->format('d M Y') : $article->created_at->format('d M Y') }}</span>
+                            <span><?php echo e($article->published_at ? $article->published_at->format('d M Y') : $article->created_at->format('d M Y')); ?></span>
                         </div>
                         <div class="flex items-center gap-2 border-l border-gray-100 pl-6">
                             <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                            <span>{{ number_format($article->views_count ?? 0) }} Dilihat</span>
+                            <span><?php echo e(number_format($article->views_count ?? 0)); ?> Dilihat</span>
                         </div>
                     </div>
                 </div>
@@ -94,7 +93,8 @@
                         }
                     </style>
                     <div class="article-body">
-                        {!! $article->content !!}
+                        <?php echo $article->content; ?>
+
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                     <div class="flex flex-wrap items-center gap-4">
                         <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Tags:</span>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-4 py-1.5 bg-gray-50 text-gray-600 text-xs font-bold rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-default">{{ $article->category }}</span>
+                            <span class="px-4 py-1.5 bg-gray-50 text-gray-600 text-xs font-bold rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-default"><?php echo e($article->category); ?></span>
                             <span class="px-4 py-1.5 bg-gray-50 text-gray-600 text-xs font-bold rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-default">PPLG</span>
                             <span class="px-4 py-1.5 bg-gray-50 text-gray-600 text-xs font-bold rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-default">Industri</span>
                         </div>
@@ -125,7 +125,7 @@
                     </div>
                 </div>
 
-                @if($article->allow_comments)
+                <?php if($article->allow_comments): ?>
                 <!-- Comments Section -->
                 <div class="mt-20 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 shadow-sm" x-data="{
                     newComment: '',
@@ -183,7 +183,7 @@
                         </button>
                     </div>
                 </div>
-                @endif
+                <?php endif; ?>
 
             </div>
 
@@ -198,7 +198,7 @@
                         </svg>
                         Cari Artikel
                     </h3>
-                    <form action="{{ route('news') }}" method="GET" class="relative group pointer-events-auto z-20">
+                    <form action="<?php echo e(route('news')); ?>" method="GET" class="relative group pointer-events-auto z-20">
                         <input type="text" name="search" placeholder="Ketik judul berita..." 
                                class="w-full py-4 pl-6 pr-14 bg-gray-50 rounded-2xl border-2 border-transparent focus:border-blue-100 focus:bg-white focus:ring-0 transition-all text-sm font-medium relative z-10">
                         <button type="submit" title="Cari" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-100 hover:bg-blue-700 transition-all group-hover:scale-105 active:scale-95 z-50 cursor-pointer pointer-events-auto">
@@ -219,23 +219,23 @@
                     </div>
                     
                     <div class="space-y-8">
-                        @foreach($relatedArticles as $pop)
-                        <a href="{{ route('news.detail', $pop->slug) }}" class="flex gap-4 group/item">
+                        <?php $__currentLoopData = $relatedArticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pop): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <a href="<?php echo e(route('news.detail', $pop->slug)); ?>" class="flex gap-4 group/item">
                             <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-sm group-hover/item:scale-105 transition-all duration-500">
-                                @if($pop->featured_image)
-                                    <img src="{{ asset('storage/' . $pop->featured_image) }}" alt="{{ $pop->title }}" class="w-full h-full object-cover">
-                                @else
+                                <?php if($pop->featured_image): ?>
+                                    <img src="<?php echo e(asset('storage/' . $pop->featured_image)); ?>" alt="<?php echo e($pop->title); ?>" class="w-full h-full object-cover">
+                                <?php else: ?>
                                     <div class="w-full h-full bg-blue-50 flex items-center justify-center">
                                         <svg class="w-8 h-8 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     </div>
-                                @endif
+                                <?php endif; ?>
                             </div>
                             <div class="flex flex-col justify-center">
-                                <h4 class="text-sm font-bold text-[#0F172A] line-clamp-2 leading-snug mb-1 group-hover/item:text-blue-600 transition-colors">{{ $pop->title }}</h4>
-                                <span class="text-[10px] font-bold text-gray-400">{{ $pop->published_at ? $pop->published_at->format('d M Y') : $pop->created_at->format('d M Y') }}</span>
+                                <h4 class="text-sm font-bold text-[#0F172A] line-clamp-2 leading-snug mb-1 group-hover/item:text-blue-600 transition-colors"><?php echo e($pop->title); ?></h4>
+                                <span class="text-[10px] font-bold text-gray-400"><?php echo e($pop->published_at ? $pop->published_at->format('d M Y') : $pop->created_at->format('d M Y')); ?></span>
                             </div>
                         </a>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
 
@@ -243,20 +243,20 @@
                 <div class="p-8 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
                     <h3 class="text-xl font-bold text-[#0F172A] mb-8">Kategori</h3>
                     <div class="space-y-3">
-                        @php
+                        <?php
                             $catCounts = [
                                 'Kegiatan Sekolah' => 12,
                                 'Prestasi Siswa' => 8,
                                 'Info Pendaftaran' => 4,
                                 'Artikel Edukasi' => 15
                             ];
-                        @endphp
-                        @foreach($catCounts as $name => $count)
+                        ?>
+                        <?php $__currentLoopData = $catCounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $name => $count): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <a href="#" class="flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-blue-600 hover:text-white group/cat transition-all duration-300">
-                            <span class="text-sm font-bold text-gray-600 group-hover/cat:text-white transition-colors">{{ $name }}</span>
-                            <span class="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-[10px] font-black text-blue-600 shadow-sm">{{ $count }}</span>
+                            <span class="text-sm font-bold text-gray-600 group-hover/cat:text-white transition-colors"><?php echo e($name); ?></span>
+                            <span class="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-[10px] font-black text-blue-600 shadow-sm"><?php echo e($count); ?></span>
                         </a>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
 
@@ -266,7 +266,7 @@
                     <div class="relative z-10 space-y-4">
                         <h3 class="text-xl font-black leading-tight">Ingin Bergabung Bersama Kami?</h3>
                         <p class="text-sm text-blue-100/80 leading-relaxed font-medium">Pendaftaran Peserta Didik Baru (PPDB) TA 2026/2027 telah dibuka secara resmi. Segera amankan kuota Anda!</p>
-                        <a href="{{ route('registration') }}" class="block w-full py-4 bg-white text-blue-600 text-center rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                        <a href="<?php echo e(route('registration')); ?>" class="block w-full py-4 bg-white text-blue-600 text-center rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 hover:scale-[1.02] active:scale-[0.98] transition-all">
                             Daftar Sekarang
                         </a>
                     </div>
@@ -277,4 +277,6 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/news_detail.blade.php ENDPATH**/ ?>
