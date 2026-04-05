@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Fasilitas - SMKS Mahaputra'); ?>
 
 <?php $__env->startSection('content'); ?>

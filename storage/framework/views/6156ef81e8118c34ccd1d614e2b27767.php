@@ -3,11 +3,11 @@
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
 <section class="relative pt-12 pb-20 overflow-hidden bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
             KABAR MAHAPUTRA
         </div>
-        <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
+        <h1 class="text-2xl lg:text-2xl font-bold text-[#0F172A] leading-tight">
             Berita & <span class="text-blue-600">Artikel</span> Terbaru
         </h1>
         <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
@@ -18,7 +18,7 @@
 
 <!-- Featured Article -->
 <section class="pt-6 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-3 gap-12">
+    <div class="grid lg:grid-cols-3 gap-8">
         <!-- Main Content -->
         <div class="lg:col-span-2 space-y-12">
             <!-- Category Filter -->
@@ -47,7 +47,7 @@
             <?php endif; ?>
 
             <!-- News Grid -->
-            <div class="grid md:grid-cols-2 gap-10" id="news-grid">
+            <div class="grid md:grid-cols-2 gap-6" id="news-grid">
                 <?php
                     $categoryColors = [
                         'Berita Sekolah' => 'bg-slate-600',
@@ -66,12 +66,12 @@
                 ?>
 
                 <?php $__empty_1 = true; $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                <article class="news-card group space-y-6 transition-all duration-500" data-category="<?php echo e($article->category); ?>">
-                    <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden relative">
+                <article class="news-card group space-y-4 transition-all duration-500" data-category="<?php echo e($article->category); ?>">
+                    <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden relative">
                         <?php if($article->featured_image): ?>
                             <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>" alt="<?php echo e($article->title); ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         <?php else: ?>
-                            <div class="w-full h-full <?php echo e($categoryBg[$article->category] ?? 'bg-gray-50'); ?> flex flex-col items-center justify-center p-10">
+                            <div class="w-full h-full <?php echo e($categoryBg[$article->category] ?? 'bg-gray-50'); ?> flex flex-col items-center justify-center p-6">
                                 <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg mb-4">
                                     <svg class="w-12 h-12 <?php echo e(str_replace('bg', 'text', $categoryColors[$article->category] ?? 'text-gray-600')); ?>" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                 </div>
@@ -98,7 +98,7 @@
                     </div>
                 </article>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                <div class="col-span-2 text-center py-20 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-200">
+                <div class="col-span-2 text-center py-8 bg-gray-50 rounded-[1.5rem] border-2 border-dashed border-gray-200">
                     <p class="text-gray-500 font-bold italic">Belum ada artikel yang ditemukan.</p>
                 </div>
                 <?php endif; ?>
@@ -113,7 +113,7 @@
         <!-- Sidebar -->
         <div class="space-y-12">
             <!-- Search -->
-            <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm relative z-50">
+            <div class="bg-white p-6 rounded-[1.5rem] border border-gray-100 shadow-sm relative z-50">
                 <h4 class="font-bold flex items-center gap-2 mb-6"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> Cari Artikel</h4>
                 <form action="<?php echo e(route('news')); ?>" method="GET" class="relative group pointer-events-auto z-20">
                     <input type="text" name="search" value="<?php echo e(request('search')); ?>" placeholder="Ketik judul berita..." 
@@ -127,9 +127,9 @@
             </div>
 
             <!-- Trending -->
-            <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
+            <div class="bg-white p-6 rounded-[1.5rem] border border-gray-100 shadow-sm">
                 <h4 class="font-bold flex items-center gap-2 mb-8 text-blue-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg> Sedang Tren</h4>
-                <div class="space-y-8">
+                <div class="space-y-4">
                     <?php $__empty_1 = true; $__currentLoopData = $trendingArticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $trend): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <div class="space-y-2 group">
                         <a href="<?php echo e(route('news.detail', $trend->slug)); ?>">
@@ -144,7 +144,7 @@
             </div>
 
             <!-- Archive -->
-            <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
+            <div class="bg-white p-6 rounded-[1.5rem] border border-gray-100 shadow-sm">
                 <h4 class="font-bold flex items-center gap-2 mb-8"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2"></path></svg> Arsip Berita</h4>
                 <div class="space-y-4 font-bold">
                     <div class="flex justify-between items-center text-sm">
@@ -163,7 +163,7 @@
             </div>
 
             <!-- Hubungi Humas -->
-            <div class="bg-blue-600 p-8 rounded-[2.5rem] text-white space-y-8 shadow-xl shadow-blue-200">
+            <div class="bg-blue-600 p-6 rounded-[1.5rem] text-white space-y-4 shadow-xl shadow-blue-200">
                 <h4 class="text-xl font-bold">Hubungi Humas</h4>
                 <p class="text-blue-100 text-sm">Punya informasi menarik atau ingin liputan kegiatan sekolah?</p>
                 <a href="https://wa.me/message/AKIGOHHXFZGWB1?src=qr" class="flex items-center justify-center gap-2 w-full py-4 bg-white text-blue-600 rounded-2xl font-bold hover:bg-blue-50 transition-all uppercase text-sm">

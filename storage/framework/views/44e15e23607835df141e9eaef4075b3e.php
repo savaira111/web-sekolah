@@ -1,43 +1,41 @@
-
-
 <?php $__env->startSection('title', 'Desain Komunikasi Visual (DKV) - SMKS Mahaputra'); ?>
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative pt-12 pb-20 overflow-hidden bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <a href="<?php echo e(route('jurusan')); ?>" class="w-10 h-10 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+<section class="relative pt-8 pb-10 overflow-hidden bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+            <div class="space-y-1.5 pt-1">
+                <div class="flex items-center gap-3">
+                    <a href="<?php echo e(route('jurusan')); ?>" class="w-9 h-9 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     </a>
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
+                    <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-[9px] font-bold tracking-widest uppercase border border-blue-100">
                         PROGRAM KEAHLIAN
                     </div>
                 </div>
-                <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
+                <h1 class="text-3xl lg:text-5xl font-bold text-[#0F172A] leading-tight">
                     Desain Komunikasi Visual (DKV)
                 </h1>
-                <p class="text-base text-gray-500 max-w-xl leading-relaxed">
+                <p class="text-sm text-gray-400 max-w-xl leading-relaxed">
                     Seni menyampaikan pesan secara visual. Menggabungkan kreativitas artistik dengan teknologi digital untuk menciptakan solusi visual yang inovatif dan berdampak.
                 </p>
-                <div class="flex gap-4">
-                    <a href="<?php echo e(route('registration')); ?>" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl transition-all">Daftar Sekarang</a>
+                <div class="flex gap-4 pt-1.5">
+                    <a href="<?php echo e(route('registration')); ?>" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 hover:shadow-xl transition-all">Daftar Sekarang</a>
                 </div>
             </div>
             <div class="relative">
                 <div class="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl">
                     <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000" alt="DKV" class="w-full h-full object-cover">
                 </div>
-                <div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 max-w-[200px]">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
+                <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-gray-100 max-w-[180px]">
+                    <div class="flex items-center gap-2.5 mb-1.5">
+                        <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
                         </div>
-                        <span class="font-bold text-gray-900">400+ Siswa</span>
+                        <span class="font-bold text-gray-900 text-sm">400+ Siswa</span>
                     </div>
-                    <p class="text-xs text-gray-500">Bergabung di jurusan DKV setiap tahunnya.</p>
+                    <p class="text-[10px] text-gray-400">Bergabung di jurusan DKV setiap tahunnya.</p>
                 </div>
             </div>
         </div>
@@ -45,7 +43,7 @@
 </section>
 
 <!-- Focus Kompetensi -->
-<section class="py-16 bg-white">
+<section class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-3 gap-12">
             <div class="lg:col-span-2 space-y-12">
@@ -67,41 +65,41 @@
                 </div>
 
                 <!-- Kurikulum -->
-                <div class="space-y-8">
-                    <h2 class="text-3xl font-bold text-[#0F172A] flex items-center gap-4">
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3">
                         Kurikulum Pembelajaran
                         <div class="h-1 flex-1 bg-gray-100 rounded-full">
                             <div class="w-32 h-full bg-blue-600 rounded-full"></div>
                         </div>
                     </h2>
-                    <div class="grid sm:grid-cols-2 gap-6">
-                        <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
-                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 transition-transform">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
+                            <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4 transition-transform">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                             </div>
-                            <h4 class="text-xl font-bold text-gray-900 mb-4">Dasar Desain Grafis</h4>
-                            <p class="text-gray-500 text-sm">Mempelajari teori warna, tipografi, and komposisi dasar menggunakan software standar industri.</p>
+                            <h4 class="text-lg font-bold text-gray-900 mb-2">Dasar Desain Grafis</h4>
+                            <p class="text-gray-500 text-xs">Mempelajari teori warna, tipografi, and komposisi dasar menggunakan software standar industri.</p>
                         </div>
-                        <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
-                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 transition-transform">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812-1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
+                            <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812-1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
-                            <h4 class="text-xl font-bold text-gray-900 mb-4">Fotografi Digital</h4>
-                            <p class="text-gray-500 text-sm">Teknik pengambilan gambar, pencahayaan studio, dan pengolahan foto profesional.</p>
+                            <h4 class="text-lg font-bold text-gray-900 mb-2">Fotografi Digital</h4>
+                            <p class="text-gray-500 text-xs">Teknik pengambilan gambar, pencahayaan studio, dan pengolahan foto profesional.</p>
                         </div>
-                        <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
-                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 transition-transform">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 00-2 2z"></path></svg>
+                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
+                            <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 00-2 2z"></path></svg>
                             </div>
-                            <h4 class="text-xl font-bold text-gray-900 mb-4">Videografi & Editing</h4>
-                            <p class="text-gray-500 text-sm">Produksi konten video mulai dari storyboard hingga post-production cinematic.</p>
+                            <h4 class="text-lg font-bold text-gray-900 mb-2">Videografi & Editing</h4>
+                            <p class="text-gray-500 text-xs">Produksi konten video mulai dari storyboard hingga post-production cinematic.</p>
                         </div>
-                        <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
-                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6 transition-transform">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 019-9"></path></svg>
+                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
+                            <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 019-9"></path></svg>
                             </div>
-                            <h4 class="text-xl font-bold text-gray-900 mb-4">3D Modelling</h4>
-                            <p class="text-gray-500 text-sm">Merancang aset untuk aplikasi 3D yang modern, interaktif, dan berfokus pada pengalaman pengguna.</p>
+                            <h4 class="text-lg font-bold text-gray-900 mb-2">3D Modelling</h4>
+                            <p class="text-gray-500 text-xs">Merancang aset untuk aplikasi 3D yang modern, interaktif, dan berfokus pada pengalaman pengguna.</p>
                         </div>
                     </div>
                 </div>
@@ -111,7 +109,7 @@
             <!-- Sidebar Info -->
             <div class="space-y-6">
                 <!-- Enrollment Card -->
-                <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                <div class="bg-white p-6 lg:p-7 rounded-[2rem] border border-gray-100 shadow-sm transition-all group">
                     <h3 class="text-xl font-bold text-gray-900 mb-5 font-outfit">Mulai Perjalananmu</h3>
                     <p class="text-gray-500 text-xs mb-6 leading-relaxed">Jadi bagian dari generasi kreatif SMK Mahaputra. Pendaftaran TA 2025/2026 telah dibuka!</p>
                     
@@ -153,7 +151,7 @@
                 </div>
 
                 <!-- Mentor Card -->
-                <div class="bg-[#0F172A] p-8 lg:p-10 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+                <div class="bg-[#0F172A] p-6 lg:p-7 rounded-[2rem] text-white shadow-2xl relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
                     <h3 class="text-xl font-bold mb-8 relative z-10">Hubungi Pembimbing</h3>
                     <div class="flex items-center gap-5 mb-10 relative z-10">
@@ -177,16 +175,16 @@
 </section>
 
 <!-- Showcase Proyek -->
-<section class="py-16 bg-gray-50">
+<section class="py-10 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-[#0F172A] flex items-center gap-4 mb-16">
+        <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3 mb-10">
             Galeri Karya Siswa
             <div class="h-1 flex-1 bg-gray-100 rounded-full">
                 <div class="w-32 h-full bg-blue-600 rounded-full"></div>
             </div>
         </h2>
         
-        <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             <div class="group relative aspect-square rounded-[2rem] overflow-hidden shadow-sm transition-all text-center">
                 <img src="<?php echo e(asset('images/dkv/card 1.png')); ?>" alt="card 1" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -228,16 +226,16 @@
 </section>
 
 <!-- Career Prospects -->
-<section class="py-16 bg-white">
+<section class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-[#0F172A] flex items-center gap-4 mb-16">
+        <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3 mb-10">
             Prospek Karir & Masa Depan
             <div class="h-1 flex-1 bg-gray-100 rounded-full">
                 <div class="w-32 h-full bg-blue-600 rounded-full"></div>
             </div>
         </h2>
         
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-3 gap-6">
             <div class="space-y-6">
                 <div class="text-blue-600 font-bold flex items-center gap-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
@@ -279,9 +277,9 @@
 </section>
 
 <!-- FAQ CTA -->
-<section class="py-16 text-center">
+<section class="py-10 text-center">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[3rem] p-12 lg:p-20 text-center space-y-8 relative overflow-hidden shadow-2xl">
+        <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[2rem] p-8 lg:p-12 text-center space-y-6 relative overflow-hidden shadow-2xl">
             <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
             <div class="relative z-10 space-y-8">
                 <div class="inline-flex px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">Punya Pertanyaan?</div>
