@@ -38,7 +38,11 @@
 </section>
 
 <!-- Visi & Misi Header -->
+HEAD
 <section class="pt-10 pb-4 bg-white">
+
+<section class="pt-24 pb-6 bg-white">
+e2b222708551faeedbba4e800ed6d144ffa661f3
     <div class="max-w-7xl mx-auto px-4 text-center">
         <p class="text-blue-600 font-bold tracking-[0.2em] uppercase text-sm mb-4">FILOSOFI PENDIDIKAN</p>
         <h2 class="text-2xl lg:text-2xl font-black text-[#0F172A] relative inline-block">
@@ -127,7 +131,7 @@
 <!-- Values Section Placeholder (Line 96 - 128 Unchanged) -->
 
 <!-- History Section Header -->
-<section class="pt-20 pb-16 bg-gray-50/50 overflow-hidden">
+<section class="pt-24 pb-12 bg-gray-50/50 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10">
             <div class="space-y-4">
@@ -228,7 +232,7 @@
 </section>
 
 <!-- Final CTA -->
-<section class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[1.5rem] p-6 lg:p-20 text-center space-y-10 relative overflow-hidden shadow-2xl">
         <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="relative z-10 space-y-10">

@@ -2,16 +2,16 @@
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative pt-20 pb-24 overflow-hidden bg-white">
+<section class="relative pt-20 pb-16 overflow-hidden bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="grid lg:grid-cols-2 gap-6 items-center">
             <!-- Left Side: Text Content -->
             <div class="space-y-10">
                 <div class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gray-50 text-gray-400 text-[11px] font-bold tracking-widest uppercase border border-gray-100 shadow-sm">
                     Sarana & Prasarana
                 </div>
-                <div class="space-y-6">
-                    <h1 class="text-5xl lg:text-7xl font-black text-[#0F172A] leading-tight">
+                <div class="space-y-4">
+                    <h1 class="text-2xl lg:text-7xl font-black text-[#0F172A] leading-tight">
                         Apa itu <br>
                         <span class="text-blue-600 tracking-tight">Ekstrakurikuler?</span>
                     </h1>
@@ -27,7 +27,7 @@
 
             <!-- Right Side: Poster Card Image -->
             <div class="relative group lg:justify-self-end">
-                <div class="relative z-10 w-full lg:w-[536px] aspect-square rounded-[3rem] overflow-hidden shadow-2xl shadow-blue-900/10 border-8 border-white">
+                <div class="relative z-10 w-full lg:w-[536px] aspect-square rounded-[1.5rem] overflow-hidden shadow-2xl shadow-blue-900/10 border-8 border-white">
                     <img src="<?php echo e(asset('images/extracurriculars/hero-poster.png')); ?>" alt="Extracurricular Poster" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <!-- Decorative Elements -->
@@ -39,10 +39,10 @@
 </section>
 
 <!-- Filter Section -->
-<section id="explore" class="py-24 bg-white" x-data="{ active: 'semua' }">
+<section id="explore" class="py-10 bg-white" x-data="{ active: 'semua' }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         <div class="text-center space-y-4">
-            <h2 class="text-4xl font-bold text-[#0F172A]">Jelajahi Ekstrakurikuler</h2>
+            <h2 class="text-2xl font-bold text-[#0F172A]">Jelajahi Ekstrakurikuler</h2>
             <p class="text-gray-400 text-sm">Pilih kategori untuk melihat kegiatan yang sesuai dengan minat dan bakatmu.</p>
         </div>
 
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php $__currentLoopData = $extracurriculars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $eskul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <a href="<?php echo e(route('extracurriculars.show', $eskul->id)); ?>" 
                <?php
@@ -64,8 +64,8 @@
                     elseif (str_contains($cat, 'umum') || str_contains($cat, 'academic') || str_contains($cat, 'art') || str_contains($cat, 'tech') || str_contains($cat, 'social')) $normCat = 'umum';
                ?>
                x-show="active === 'semua' || active === '<?php echo e($normCat); ?>'"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
+               class="group space-y-4">
+                <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
                     <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" alt="<?php echo e($eskul->name); ?>" class="w-full h-full object-cover transition-transform duration-700 font-medium group-hover:scale-105">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm"><?php echo e($eskul->category); ?></div>
                 </div>
@@ -96,8 +96,8 @@
                  x-transition:leave="transition ease-in duration-200"
                  x-transition:leave-start="opacity-100 scale-100"
                  x-transition:leave-end="opacity-0 scale-95"
-                 class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
+                 class="group space-y-4">
+                <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
                     <img src="<?php echo e(asset('images/extracurriculars/thumbs/archery.png')); ?>" alt="Panahan" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Olahraga</div>
                 </div>
@@ -120,8 +120,8 @@
                  x-transition:leave="transition ease-in duration-200"
                  x-transition:leave-start="opacity-100 scale-100"
                  x-transition:leave-end="opacity-0 scale-95"
-                 class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
+                 class="group space-y-4">
+                <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
                     <img src="<?php echo e(asset('images/extracurriculars/thumbs/rohis.png')); ?>" alt="Rohis" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Umum</div>
                 </div>
@@ -144,8 +144,8 @@
                x-transition:leave="transition ease-in duration-200"
                x-transition:leave-start="opacity-100 scale-100"
                x-transition:leave-end="opacity-0 scale-95"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
+               class="group space-y-4">
+                <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
                     <img src="<?php echo e(asset('images/extracurriculars/thumbs/silat.png')); ?>" alt="Silat" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Olahraga</div>
                 </div>
@@ -168,8 +168,8 @@
                x-transition:leave="transition ease-in duration-200"
                x-transition:leave-start="opacity-100 scale-100"
                x-transition:leave-end="opacity-0 scale-95"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
+               class="group space-y-4">
+                <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
                     <img src="<?php echo e(asset('images/extracurriculars/thumbs/futsal.png')); ?>" alt="Futsal" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Olahraga</div>
                 </div>
@@ -192,8 +192,8 @@
                x-transition:leave="transition ease-in duration-200"
                x-transition:leave-start="opacity-100 scale-100"
                x-transition:leave-end="opacity-0 scale-95"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
+               class="group space-y-4">
+                <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
                     <img src="<?php echo e(asset('images/extracurriculars/thumbs/paskibra.png')); ?>" alt="Paskibra" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Umum</div>
                 </div>
@@ -216,8 +216,8 @@
                x-transition:leave="transition ease-in duration-200"
                x-transition:leave-start="opacity-100 scale-100"
                x-transition:leave-end="opacity-0 scale-95"
-               class="group space-y-6">
-                <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-xl relative">
+               class="group space-y-4">
+                <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
                     <img src="<?php echo e(asset('images/extracurriculars/thumbs/pramuka.png')); ?>" alt="Pramuka" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Umum</div>
                 </div>
@@ -236,14 +236,14 @@
 </section>
 
 <!-- Call to Action Section -->
-<section class="py-24 bg-gray-50">
+<section class="py-10 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
         <div class="space-y-4">
-            <h2 class="text-4xl font-bold text-[#0F172A] leading-tight">Ingin Melihat Kegiatan Kami Secara Langsung?</h2>
+            <h2 class="text-2xl font-bold text-[#0F172A] leading-tight">Ingin Melihat Kegiatan Kami Secara Langsung?</h2>
             <p class="text-gray-500 max-w-xl mx-auto">Kami mengadakan open house setiap hari Sabtu. Daftarkan diri Anda untuk tur kampus bersama tim akademik kami.</p>
         </div>
         <div class="flex flex-col md:flex-row justify-center gap-6">
-            <a href="https://wa.me/6281234567890" class="px-12 py-5 bg-white border border-gray-100 rounded-[2rem] font-bold shadow-sm transition-all">Tanya Lewat WhatsApp</a>
+            <a href="https://wa.me/6281234567890" class="px-12 py-5 bg-white border border-gray-100 rounded-[1.5rem] font-bold shadow-sm transition-all">Tanya Lewat WhatsApp</a>
         </div>
     </div>
 </section>

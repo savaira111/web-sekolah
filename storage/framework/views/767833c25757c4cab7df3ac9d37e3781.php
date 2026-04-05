@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Program Keahlian - SMKS Mahaputra Cerdas Utama'); ?>
 
 <?php $__env->startSection('content'); ?>

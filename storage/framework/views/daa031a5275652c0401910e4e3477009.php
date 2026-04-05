@@ -1,35 +1,33 @@
-
-
 <?php $__env->startSection('title', 'PPLG & Gim - SMKS Mahaputra'); ?>
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative pt-16 pb-20 overflow-hidden bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <a href="<?php echo e(route('jurusan')); ?>" class="w-10 h-10 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+<section class="relative pt-8 pb-10 overflow-hidden bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+            <div class="space-y-1.5 pt-1">
+                <div class="flex items-center gap-3">
+                    <a href="<?php echo e(route('jurusan')); ?>" class="w-9 h-9 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     </a>
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
+                    <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-[9px] font-bold tracking-widest uppercase border border-blue-100">
                         PROGRAM KEAHLIAN
                     </div>
                 </div>
-                <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
+                <h1 class="text-3xl lg:text-5xl font-bold text-[#0F172A] leading-tight">
                     Pengembangan <br> 
                     Perangkat Lunak <br>
                     & Gim (PPLG)
                 </h1>
-                <p class="text-base text-gray-500 max-w-xl leading-relaxed">
+                <p class="text-sm text-gray-400 max-w-xl leading-relaxed">
                     Membangun solusi digital masa depan melalui logika pemrograman mendalam, struktur data yang kuat, and pemahaman komprehensif tentang teknologi.
                 </p>
-                <div class="flex flex-wrap gap-3">
-                    <span class="px-4 py-2 bg-gray-50 rounded-lg text-xs font-bold text-gray-400 border border-gray-100">Web Development</span>
-                    <span class="px-4 py-2 bg-gray-50 rounded-lg text-xs font-bold text-gray-400 border border-gray-100">Mobile Apps</span>
-                    <span class="px-4 py-2 bg-gray-50 rounded-lg text-xs font-bold text-gray-400 border border-gray-100">Game Design</span>
-                    <span class="px-4 py-2 bg-gray-50 rounded-lg text-xs font-bold text-gray-400 border border-gray-100">Database Management</span>
-                    <span class="px-4 py-2 bg-gray-50 rounded-lg text-xs font-bold text-gray-400 border border-gray-100">Cloud Computing</span>
+                <div class="flex flex-wrap gap-2 pt-1.5">
+                    <span class="px-2.5 py-1 bg-gray-50 rounded-lg text-[9px] font-bold text-gray-400 border border-gray-100">Web Development</span>
+                    <span class="px-2.5 py-1 bg-gray-50 rounded-lg text-[9px] font-bold text-gray-400 border border-gray-100">Mobile Apps</span>
+                    <span class="px-2.5 py-1 bg-gray-50 rounded-lg text-[9px] font-bold text-gray-400 border border-gray-100">Game Design</span>
+                    <span class="px-2.5 py-1 bg-gray-50 rounded-lg text-[9px] font-bold text-gray-400 border border-gray-100">Database Management</span>
+                    <span class="px-2.5 py-1 bg-gray-50 rounded-lg text-[9px] font-bold text-gray-400 border border-gray-100">Cloud Computing</span>
                 </div>
             </div>
             <div class="relative">
@@ -37,14 +35,14 @@
                     <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1000" alt="PPLG" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
-                <div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 max-w-[200px] z-20">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
+                <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-gray-100 max-w-[180px] z-20">
+                    <div class="flex items-center gap-2.5 mb-1.5">
+                        <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
                         </div>
-                        <span class="font-bold text-gray-900">350+ Siswa</span>
+                        <span class="font-bold text-gray-900 text-sm">350+ Siswa</span>
                     </div>
-                    <p class="text-xs text-gray-500">Mempelajari pemrograman & gim di SMK Mahaputra.</p>
+                    <p class="text-[10px] text-gray-400">Mempelajari pemrograman & gim di SMK Mahaputra.</p>
                 </div>
                 <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-600/10 rounded-full blur-3xl"></div>
             </div>
@@ -53,36 +51,36 @@
 </section>
 
 <!-- Focus Kompetensi -->
-<section class="py-16 bg-white">
+<section class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-3 gap-12">
             <div class="lg:col-span-2 space-y-12">
                 <div class="grid sm:grid-cols-2 gap-8">
-                    <div class="p-10 bg-gray-50 rounded-[3rem] border border-gray-100 space-y-8 hover:border-blue-200 transition-all group">
-                        <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 transition-transform">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <div class="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 hover:border-blue-200 transition-all group">
+                        <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                         </div>
-                        <h3 class="text-2xl font-bold">Software Engineering</h3>
-                        <p class="text-gray-500 leading-relaxed">Mempelajari siklus hidup pengembangan perangkat lunak (SDLC), mulai dari analisis kebutuhan, perancangan algoritma, hingga pengkodean sistem yang kompleks.</p>
-                        <div class="rounded-2xl overflow-hidden shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000" alt="SE" class="w-full h-48 object-cover opacity-80 transition-opacity">
+                        <h3 class="text-xl font-bold">Software Engineering</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Mempelajari siklus hidup pengembangan perangkat lunak (SDLC), mulai dari analisis kebutuhan, perancangan algoritma, hingga pengkodean sistem yang kompleks.</p>
+                        <div class="rounded-xl overflow-hidden shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000" alt="SE" class="w-full h-32 object-cover opacity-80 transition-opacity">
                         </div>
                     </div>
-                    <div class="p-10 bg-gray-50 rounded-[3rem] border border-gray-100 space-y-8 hover:border-blue-200 transition-all group">
-                        <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 transition-transform">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                    <div class="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 hover:border-blue-200 transition-all group">
+                        <div class="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
                         </div>
-                        <h3 class="text-2xl font-bold">Game Development</h3>
-                        <p class="text-gray-500 leading-relaxed">Menguasai engine game populer seperti Unity dan Unreal Engine, merancang level, pemograman AI makluk, baik untuk platform PC, Konsol, maupun Mobile.</p>
-                        <div class="rounded-2xl overflow-hidden shadow-inner">
-                            <img src="https://images.unsplash.com/photo-1556438064-2d7646166914?q=80&w=1000" alt="GameDev" class="w-full h-48 object-cover opacity-80 transition-opacity">
+                        <h3 class="text-xl font-bold">Game Development</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Menguasai engine game populer seperti Unity dan Unreal Engine, merancang level, pemograman AI makluk, baik untuk platform PC, Konsol, maupun Mobile.</p>
+                        <div class="rounded-xl overflow-hidden shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1556438064-2d7646166914?q=80&w=1000" alt="GameDev" class="w-full h-32 object-cover opacity-80 transition-opacity">
                         </div>
                     </div>
                 </div>
 
                 <!-- Kurikulum IT -->
-                <div class="space-y-12">
-                     <h2 class="text-3xl font-bold text-[#0F172A]">
+                <div class="space-y-6">
+                     <h2 class="text-2xl font-bold text-[#0F172A]">
                         Kurikulum Merdeka IT
                     </h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -129,7 +127,7 @@
             <!-- Sidebar Info -->
             <div class="space-y-6">
                 <!-- Enrollment Card -->
-                <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                <div class="bg-white p-6 lg:p-7 rounded-[2rem] border border-gray-100 shadow-sm transition-all group">
                     <h3 class="text-xl font-bold text-gray-900 mb-5 font-outfit">Mulai Perjalananmu</h3>
                     <p class="text-gray-500 text-xs mb-6 leading-relaxed">Jadi bagian dari generasi digital SMK Mahaputra. Pendaftaran TA 2025/2026 telah dibuka!</p>
                     
@@ -171,7 +169,7 @@
                 </div>
 
                 <!-- Mentor Card -->
-                <div class="bg-[#0F172A] p-8 lg:p-10 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+                <div class="bg-[#0F172A] p-6 lg:p-7 rounded-[2rem] text-white shadow-2xl relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
                     <h3 class="text-xl font-bold mb-8 relative z-10">Hubungi Pembimbing</h3>
                     <div class="flex items-center gap-5 mb-10 relative z-10">
@@ -195,17 +193,17 @@
 </section>
 
 <!-- Showcase Proyek -->
-<section class="py-16 bg-gray-50">
+<section class="py-10 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-end mb-16 gap-8">
-            <div class="space-y-4">
-                <h2 class="text-4xl lg:text-5xl font-bold text-[#0F172A]">Showcase Proyek Siswa</h2>
+        <div class="flex justify-between items-end mb-8 gap-8">
+            <div class="space-y-2">
+                <h2 class="text-2xl font-bold text-[#0F172A]">Showcase Proyek Siswa</h2>
                 <p class="text-gray-500">Karya nyata yang telah dilahirkan oleh siswa-siswi berbakat kami.</p>
             </div>
             <a href="#" class="text-blue-600 font-bold hover:underline">Lihat Galeri +</a>
         </div>
         
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-3 gap-6">
             <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm transition-all border border-gray-100">
                 <div class="bg-green-100 aspect-video relative p-8">
                      <span class="absolute top-4 left-4 px-3 py-1 bg-green-200 text-green-700 text-[10px] font-bold rounded-full uppercase">Mobile Development</span>
@@ -250,16 +248,16 @@
 </section>
 
 <!-- Prospek Masa Depan -->
-<section class="py-16 bg-white">
+<section class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-[#0F172A] flex items-center gap-4 mb-20">
+        <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3 mb-10">
             Prospek Masa Depan
             <div class="h-1 flex-1 bg-gray-100 rounded-full">
                 <div class="w-32 h-full bg-blue-600 rounded-full"></div>
             </div>
         </h2>
         
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-3 gap-6">
             <div class="space-y-6">
                 <div class="text-blue-600 font-bold flex items-center gap-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
@@ -301,9 +299,9 @@
 </section>
 
 <!-- FAQ CTA -->
-<section class="py-16 text-center">
+<section class="py-10 text-center">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[3rem] p-12 lg:p-20 text-center space-y-8 relative overflow-hidden shadow-2xl">
+        <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[2rem] p-8 lg:p-12 text-center space-y-6 relative overflow-hidden shadow-2xl">
             <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
             <div class="relative z-10 space-y-8">
                 <div class="inline-flex px-4 py-2 rounded-full bg-white/10 border border-white/10 text-xs font-bold text-blue-400 uppercase tracking-widest">Punya Pertanyaan?</div>
