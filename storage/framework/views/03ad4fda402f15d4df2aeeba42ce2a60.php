@@ -4,7 +4,7 @@
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative h-[500px] lg:h-[600px] flex items-center justify-center overflow-hidden">
+<section class="relative h-[450px] lg:h-[550px] flex items-center justify-center overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
         <img src="<?php echo e(asset('images/gedung-sekolah.jpg')); ?>" alt="Gedung SMKS Mahaputra" class="w-full h-full object-cover">
@@ -12,17 +12,17 @@
     </div>
 
     <!-- Hero Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
         <div class="inline-flex items-center px-6 py-2 rounded-full bg-[#F97316] text-white text-xs lg:text-sm font-bold tracking-widest uppercase">
             INSTITUSI PENDIDIKAN TERAKREDITASI A
         </div>
         
-        <h1 class="text-4xl lg:text-7xl font-black text-white leading-tight">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
             Membangun Karakter, <br>
             <span class="text-blue-400">Mengukir Masa Depan</span>
         </h1>
         
-        <p class="text-lg lg:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-medium">
+        <p class="text-base lg:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed font-medium">
             Profil Institusi SMKS Mahaputra Cerdas Utama - Dedikasi tiada henti dalam mencetak generasi unggul yang siap kerja dan berwirausaha.
         </p>
         
@@ -41,7 +41,7 @@
 <section class="pt-20 pb-4 bg-white">
     <div class="max-w-7xl mx-auto px-4 text-center">
         <p class="text-blue-600 font-bold tracking-[0.2em] uppercase text-sm mb-4">FILOSOFI PENDIDIKAN</p>
-        <h2 class="text-4xl lg:text-5xl font-black text-[#0F172A] relative inline-block">
+        <h2 class="text-2xl lg:text-2xl font-black text-[#0F172A] relative inline-block">
             Visi & Misi Sekolah
             <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-[#F97316] rounded-full"></div>
         </h2>
@@ -49,73 +49,73 @@
 </section>
 
 <!-- Visi & Misi Content -->
-<section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-10 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid md:grid-cols-2 gap-8">
             <!-- Visi Card -->
-            <div class="bg-blue-50/50 p-10 lg:p-12 rounded-[2.5rem] relative overflow-hidden group">
+            <div class="bg-blue-50/50 p-6 lg:p-8 rounded-[1.5rem] relative overflow-hidden group">
                 <div class="absolute top-8 right-8 w-24 h-24 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
-                <div class="relative z-10 space-y-6">
-                    <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                <div class="relative z-10 space-y-4">
+                    <div class="w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-black text-[#0F172A]">Visi Kami</h3>
-                    <p class="text-gray-600 leading-relaxed font-bold uppercase text-sm">
+                    <h3 class="text-xl lg:text-2xl font-black text-[#0F172A]">Visi Kami</h3>
+                    <p class="text-gray-600 leading-relaxed font-bold uppercase text-xs lg:text-sm">
                         Menjadi Penyelenggara Pendidikan Kejuruan Berkarakter Religius dan Berakhlak Mulia yang Melahirkan Tenaga Ahli Kreatif, Inovatif dan Berpengetahuan Global yang Ramah Lingkungan.
                     </p>
                 </div>
             </div>
 
             <!-- Misi Card -->
-            <div class="bg-gray-50/50 p-10 lg:p-12 rounded-[2.5rem] relative overflow-hidden group">
+            <div class="bg-gray-50/50 p-6 lg:p-8 rounded-[1.5rem] relative overflow-hidden group">
                 <div class="absolute top-8 right-8 w-24 h-24 bg-orange-100 rounded-full blur-3xl opacity-50"></div>
-                <div class="relative z-10 space-y-6">
-                    <div class="w-14 h-14 bg-[#F97316] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-200">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="Mflag M3 4h13a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z M3 4v16"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a1 1 0 011-1h13a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1z"></path></svg>
+                <div class="relative z-10 space-y-4">
+                    <div class="w-10 h-10 bg-[#F97316] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="Mflag M3 4h13a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z M3 4v16"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a1 1 0 011-1h13a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-black text-[#0F172A]">Misi Kami</h3>
-                    <ul class="space-y-4">
+                    <h3 class="text-xl lg:text-2xl font-black text-[#0F172A]">Misi Kami</h3>
+                    <ul class="space-y-3">
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <span class="text-[#F97316] font-black text-xs">1</span>
+                            <div class="mt-0.5 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-[10px]">1</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-bold uppercase">Menyelenggarakan pendidikan kejuruan.</span>
+                            <span class="text-gray-600 text-xs lg:text-sm font-bold uppercase">Menyelenggarakan pendidikan kejuruan.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <span class="text-[#F97316] font-black text-xs">2</span>
+                            <div class="mt-0.5 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-[10px]">2</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-bold uppercase">Melahirkan tenaga ahli tingkat menengah.</span>
+                            <span class="text-gray-600 text-xs lg:text-sm font-bold uppercase">Melahirkan tenaga ahli tingkat menengah.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <span class="text-[#F97316] font-black text-xs">3</span>
+                            <div class="mt-0.5 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-[10px]">3</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-bold uppercase">Mewujudkan tenaga kreatif inovatif dan berpengalaman.</span>
+                            <span class="text-gray-600 text-xs lg:text-sm font-bold uppercase">Mewujudkan tenaga kreatif inovatif dan berpengalaman.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <span class="text-[#F97316] font-black text-xs">4</span>
+                            <div class="mt-0.5 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-[10px]">4</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-bold uppercase">Menyediakan sarana prasarana pendukung kegiatan pembelajaran yang berwawasan global dan lingkungan.</span>
+                            <span class="text-gray-600 text-xs lg:text-sm font-bold uppercase">Menyediakan sarana prasarana pendukung kegiatan pembelajaran yang berwawasan global dan lingkungan.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <span class="text-[#F97316] font-black text-xs">5</span>
+                            <div class="mt-0.5 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-[10px]">5</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-bold uppercase">Mewujudkan lingkungan sekolah yang bersih, hijau dan sehat.</span>
+                            <span class="text-gray-600 text-xs lg:text-sm font-bold uppercase">Mewujudkan lingkungan sekolah yang bersih, hijau dan sehat.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <span class="text-[#F97316] font-black text-xs">6</span>
+                            <div class="mt-0.5 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-[10px]">6</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-bold uppercase">Menerapkan kesadaran warga sekolah berperilaku hidup yang berbudaya lingkungan.</span>
+                            <span class="text-gray-600 text-xs lg:text-sm font-bold uppercase">Menerapkan kesadaran warga sekolah berperilaku hidup yang berbudaya lingkungan.</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
-                                <span class="text-[#F97316] font-black text-xs">7</span>
+                            <div class="mt-0.5 w-5 h-5 bg-orange-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-[#F97316] font-black text-[10px]">7</span>
                             </div>
-                            <span class="text-gray-600 text-sm font-bold uppercase">Menjalin kemitraan dan kerjasama yang harmonis dengan masyarakat dan instansi terkait.</span>
+                            <span class="text-gray-600 text-xs lg:text-sm font-bold uppercase">Menjalin kemitraan dan kerjasama yang harmonis dengan masyarakat dan instansi terkait.</span>
                         </li>
                     </ul>
                 </div>
@@ -129,10 +129,10 @@
 <!-- History Section Header -->
 <section class="pt-20 pb-16 bg-gray-50/50 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10">
             <div class="space-y-4">
                 <p class="text-blue-600 font-bold tracking-widest uppercase text-xs">JEJAK LANGKAH</p>
-                <h2 class="text-4xl lg:text-5xl font-black text-[#0F172A]">Sejarah & Milestone Sekolah</h2>
+                <h2 class="text-2xl lg:text-2xl font-black text-[#0F172A]">Sejarah & Milestone Sekolah</h2>
                 <p class="text-gray-500 max-w-2xl text-sm font-medium">Perjalanan panjang kami dalam dunia pendidikan, bertransformasi dari sebuah gagasan kecil menjadi salah satu SMK unggulan di Indonesia.</p>
             </div>
         </div>
@@ -146,7 +146,7 @@
                 <!-- 2014 Milestone (Left) -->
                 <div class="relative flex items-center justify-between lg:justify-start lg:flex-row-reverse group">
                     <div class="w-full lg:w-1/2 lg:pr-16">
-                        <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all text-right">
+                        <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all text-right">
                             <span class="text-[#F97316] font-black text-xl lg:text-2xl block mb-1">22 Agustus 2016.</span>
                             <span class="text-gray-400 font-bold text-[10px] uppercase block mb-3">Tahun Pendirian</span>
                             <p class="text-gray-500 text-[11px] leading-relaxed font-medium">Berdirinya Yayasan Mahaputra dengan visi awal menyediakan akses pendidikan terjangkau bagi masyarakat sekitar.</p>
@@ -159,7 +159,7 @@
                 <!-- 2016 Milestone (Right) -->
                 <div class="relative flex items-center justify-between lg:justify-end group">
                     <div class="w-full lg:w-1/2 lg:pl-16">
-                        <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
+                        <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
                             <span class="text-blue-600 font-black text-xl lg:text-2xl block mb-1">2016</span>
                             <span class="text-gray-400 font-bold text-[10px] uppercase block mb-3">Akreditasi Pertama</span>
                             <p class="text-gray-500 text-[11px] leading-relaxed font-medium">SMKS Mahaputra Cerdas Utama secara resmi mendapatkan izin operasional dan akreditasi awal dari Dinas Pendidikan.</p>
@@ -172,7 +172,7 @@
                 <!-- 2018 Milestone (Left) -->
                 <div class="relative flex items-center justify-between lg:justify-start lg:flex-row-reverse group">
                     <div class="w-full lg:w-1/2 lg:pr-16">
-                        <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all text-right">
+                        <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all text-right">
                             <span class="text-[#F97316] font-black text-xl lg:text-2xl block mb-1">2018</span>
                             <span class="text-gray-400 font-bold text-[10px] uppercase block mb-3">Ekspansi Kemitraan Industri</span>
                             <p class="text-gray-500 text-[11px] leading-relaxed font-medium">Menjalin kerjasama dengan 50+ perusahaan multinasional untuk program magang dan penyaluran kerja lulusan.</p>
@@ -185,7 +185,7 @@
                 <!-- 2023 Milestone (Right) -->
                 <div class="relative flex items-center justify-between lg:justify-end group">
                     <div class="w-full lg:w-1/2 lg:pl-16">
-                        <div class="bg-white p-8 lg:p-10 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
+                        <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
                             <span class="text-blue-600 font-black text-xl lg:text-2xl block mb-1">2023</span>
                             <span class="text-gray-400 font-bold text-[10px] uppercase block mb-3">Pusat Keunggulan (COE)</span>
                             <p class="text-gray-500 text-[11px] leading-relaxed font-medium">Ditetapkan sebagai SMK Pusat Keunggulan oleh Kemendikbudristek RI untuk bidang Teknologi Informasi.</p>
@@ -200,27 +200,27 @@
 </section>
 
 <!-- Stats Section -->
-<section class="bg-[#1D82F6] py-12 lg:py-16">
+<section class="bg-[#1D82F6] py-8 lg:py-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-center items-center">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 text-center items-center">
             <!-- Stat 1 -->
             <div class="space-y-2">
-                <div class="text-4xl lg:text-6xl font-black text-white">15+</div>
+                <div class="text-2xl lg:text-2xl font-black text-white">15+</div>
                 <div class="text-white/80 font-bold text-xs lg:text-sm tracking-widest uppercase">Tahun Berbakti</div>
             </div>
             <!-- Stat 2 -->
             <div class="space-y-2">
-                <div class="text-4xl lg:text-6xl font-black text-white">3.5k+</div>
+                <div class="text-2xl lg:text-2xl font-black text-white">3.5k+</div>
                 <div class="text-white/80 font-bold text-xs lg:text-sm tracking-widest uppercase">Alumni Sukses</div>
             </div>
             <!-- Stat 3 -->
             <div class="space-y-2">
-                <div class="text-4xl lg:text-6xl font-black text-white">85+</div>
+                <div class="text-2xl lg:text-2xl font-black text-white">85+</div>
                 <div class="text-white/80 font-bold text-xs lg:text-sm tracking-widest uppercase">Mitra Industri</div>
             </div>
             <!-- Stat 4 -->
             <div class="space-y-2">
-                <div class="text-4xl lg:text-6xl font-black text-white">42</div>
+                <div class="text-2xl lg:text-2xl font-black text-white">42</div>
                 <div class="text-white/80 font-bold text-xs lg:text-sm tracking-widest uppercase">Ruang Lab Modern</div>
             </div>
         </div>
@@ -228,11 +228,11 @@
 </section>
 
 <!-- Final CTA -->
-<section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[3rem] p-10 lg:p-20 text-center space-y-10 relative overflow-hidden shadow-2xl">
+<section class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[1.5rem] p-6 lg:p-20 text-center space-y-10 relative overflow-hidden shadow-2xl">
         <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="relative z-10 space-y-10">
-            <h2 class="text-4xl lg:text-6xl font-bold text-white leading-tight">Mari Wujudkan Masa Depan <br> Digital Bersama Kami</h2>
+            <h2 class="text-2xl lg:text-2xl font-bold text-white leading-tight">Mari Wujudkan Masa Depan <br> Digital Bersama Kami</h2>
             <div class="flex flex-wrap justify-center gap-5">
                 <a href="<?php echo e(route('registration')); ?>" class="px-10 py-5 bg-blue-600 text-white rounded-[1.5rem] font-bold text-xl hover:bg-blue-700 transition-all">Daftar Sekarang</a>
                 <a href="<?php echo e(asset('images/brosur-sekolah.jpg')); ?>" download="Brosur-SMKS-Mahaputra.jpg" class="px-10 py-5 bg-white/5 border border-white/20 text-white rounded-[1.5rem] font-bold text-xl hover:bg-white/10 transition-all text-center">Lihat Brosur Sekolah</a>

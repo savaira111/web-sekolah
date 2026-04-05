@@ -15,7 +15,7 @@
         </a>
 
         <!-- Success Card -->
-        <div class="bg-white rounded-[3rem] shadow-2xl overflow-hidden relative">
+        <div class="bg-white rounded-[1.5rem] shadow-2xl overflow-hidden relative">
             <!-- Header with Icon -->
             <div class="h-48 bg-gradient-to-b from-blue-50 to-white flex items-center justify-center relative">
                 <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 20px 20px;"></div>
@@ -29,16 +29,16 @@
             </div>
 
             <!-- Content Area -->
-            <div class="p-10 pt-0 space-y-8 text-center">
+            <div class="p-6 pt-0 space-y-4 text-center">
                 <div class="space-y-3">
-                    <h1 class="text-3xl font-black text-[#0F172A] leading-tight">Selamat! Kamu <br>Resmi Terdaftar!</h1>
+                    <h1 class="text-2xl font-black text-[#0F172A] leading-tight">Selamat! Kamu <br>Resmi Terdaftar!</h1>
                     <p class="text-gray-500 text-sm leading-relaxed">Ayo bergabung dengan <span class="text-blue-600 font-black">Basket Mahaputra</span> dan kembangkan bakatmu!</p>
                 </div>
 
                 <!-- Training Schedule Highlight -->
                 <div class="bg-blue-50/50 rounded-3xl p-6 border border-blue-100/50 flex items-center gap-6 group transition-all duration-500">
-                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-blue-200 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg>
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-blue-200 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg>
                     </div>
                     <div class="text-left space-y-1">
                         <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] leading-none">Jadwal Latihan Perdana</p>
@@ -48,10 +48,10 @@
 
                 <!-- Action Buttons -->
                 <div class="space-y-4 pt-4">
-                    <button onclick="window.location.href='{{ route('home') }}'" class="w-full py-5 bg-blue-50 text-blue-600 rounded-[2rem] font-black text-lg hover:bg-blue-100 transition-all uppercase">
+                    <button onclick="window.location.href='{{ route('home') }}'" class="w-full py-5 bg-blue-50 text-blue-600 rounded-[1.5rem] font-black text-lg hover:bg-blue-100 transition-all uppercase">
                         Kembali ke Beranda
                     </button>
-                    <button onclick="window.location.href='{{ route('extracurriculars.index') }}'" class="w-full py-5 bg-gray-50 text-[#0F172A] rounded-[2rem] font-black text-lg hover:bg-gray-100 transition-all uppercase">
+                    <button onclick="window.location.href='{{ route('extracurriculars.index') }}'" class="w-full py-5 bg-gray-50 text-[#0F172A] rounded-[1.5rem] font-black text-lg hover:bg-gray-100 transition-all uppercase">
                         Tutup
                     </button>
                 </div>

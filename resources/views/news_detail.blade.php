@@ -3,7 +3,7 @@
 @section('title', $article->title . ' - SMKS Mahaputra Cerdas Utama')
 
 @section('content')
-<div class="bg-white min-h-screen pt-24 pb-20">
+<div class="bg-white min-h-screen pt-16 pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Breadcrumbs -->
@@ -23,7 +23,7 @@
             </ol>
         </nav>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             <!-- Main Content Area (Left) -->
             <div class="lg:col-span-8">
@@ -40,7 +40,7 @@
                 </div>
                 
                 <!-- Featured Image -->
-                <div class="relative rounded-[2rem] overflow-hidden shadow-2xl mb-10 aspect-video group">
+                <div class="relative rounded-[1.5rem] overflow-hidden shadow-2xl mb-10 aspect-video group">
                     @if($article->featured_image)
                         <img src="{{ asset('storage/' . $article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     @else
@@ -55,7 +55,7 @@
 
                 <!-- Article Header -->
                 <div class="mb-10">
-                    <h1 class="text-4xl lg:text-5xl font-extrabold text-[#0F172A] leading-[1.2] mb-6 tracking-tight">
+                    <h1 class="text-2xl lg:text-2xl font-extrabold text-[#0F172A] leading-[1.2] mb-6 tracking-tight">
                         {{ $article->title }}
                     </h1>
                     
@@ -76,7 +76,7 @@
                 </div>
 
                 <!-- Article Content -->
-                <div class="prose prose-lg prose-blue max-w-none text-gray-600 leading-relaxed space-y-8 font-medium">
+                <div class="prose prose-lg prose-blue max-w-none text-gray-600 leading-relaxed space-y-4 font-medium">
                     <style>
                         .article-body blockquote {
                             border-left: 4px solid #3b82f6;
@@ -99,7 +99,7 @@
                 </div>
 
                 <!-- Article Footer (Tags & Share) -->
-                <div class="mt-16 pt-8 border-t border-gray-100 flex flex-wrap items-center justify-between gap-8">
+                <div class="mt-10 pt-8 border-t border-gray-100 flex flex-wrap items-center justify-between gap-8">
                     <div class="flex flex-wrap items-center gap-4">
                         <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Tags:</span>
                         <div class="flex flex-wrap gap-2">
@@ -127,7 +127,7 @@
 
                 @if($article->allow_comments)
                 <!-- Comments Section -->
-                <div class="mt-20 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 shadow-sm" x-data="{
+                <div class="mt-20 p-6 bg-gray-50 rounded-[1.5rem] border border-gray-100 shadow-sm" x-data="{
                     newComment: '',
                     comments: [
                         { name: 'Ahmad Fauzi', date: '24 MEI 2026 - 14:20', body: 'Kegiatan yang sangat bermanfaat untuk menambah wawasan siswa tentang dunia kerja nyata!' },
@@ -155,10 +155,10 @@
                         <h2 class="text-2xl font-extrabold text-[#0F172A]">Komentar (<span x-text="comments.length"></span>)</h2>
                     </div>
 
-                    <div class="space-y-8 mb-12">
+                    <div class="space-y-4 mb-8">
                         <template x-for="(comment, index) in comments" :key="index">
                             <div class="flex flex-col sm:flex-row gap-6 p-6 bg-white rounded-3xl shadow-sm border border-gray-50 transition-all duration-500 hover:shadow-md">
-                                <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center shrink-0">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center shrink-0">
                                     <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                 </div>
                                 <div class="flex-1">
@@ -173,7 +173,7 @@
                     </div>
 
                     <!-- Comment Form -->
-                    <div class="space-y-6">
+                    <div class="space-y-4">
                         <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Tinggalkan Komentar</h3>
                         <div class="relative group">
                             <textarea x-model="newComment" placeholder="Tulis komentar Anda di sini..." class="w-full bg-white border border-gray-200 rounded-3xl p-6 h-32 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-gray-700 placeholder:text-gray-300"></textarea>
@@ -191,7 +191,7 @@
             <aside class="lg:col-span-4 space-y-10">
                 
                 <!-- Search Card -->
-                <div class="p-8 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group relative z-50">
+                <div class="p-6 bg-white rounded-[1.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group relative z-50">
                     <h3 class="text-xl font-bold text-[#0F172A] mb-8 flex items-center gap-2">
                         <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -210,7 +210,7 @@
                 </div>
 
                 <!-- Popular News Card -->
-                <div class="p-8 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                <div class="p-6 bg-white rounded-[1.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
                     <div class="flex items-center gap-3 mb-8">
                         <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shadow-sm">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
@@ -218,7 +218,7 @@
                         <h3 class="text-xl font-bold text-[#0F172A]">Berita Terpopuler</h3>
                     </div>
                     
-                    <div class="space-y-8">
+                    <div class="space-y-4">
                         @foreach($relatedArticles as $pop)
                         <a href="{{ route('news.detail', $pop->slug) }}" class="flex gap-4 group/item">
                             <div class="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-sm group-hover/item:scale-105 transition-all duration-500">
@@ -240,7 +240,7 @@
                 </div>
 
                 <!-- Categories Card -->
-                <div class="p-8 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
+                <div class="p-6 bg-white rounded-[1.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group">
                     <h3 class="text-xl font-bold text-[#0F172A] mb-8">Kategori</h3>
                     <div class="space-y-3">
                         @php
@@ -254,15 +254,15 @@
                         @foreach($catCounts as $name => $count)
                         <a href="#" class="flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-blue-600 hover:text-white group/cat transition-all duration-300">
                             <span class="text-sm font-bold text-gray-600 group-hover/cat:text-white transition-colors">{{ $name }}</span>
-                            <span class="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-[10px] font-black text-blue-600 shadow-sm">{{ $count }}</span>
+                            <span class="w-6 h-6 rounded-lg bg-white flex items-center justify-center text-[10px] font-black text-blue-600 shadow-sm">{{ $count }}</span>
                         </a>
                         @endforeach
                     </div>
                 </div>
 
                 <!-- CTA Card -->
-                <div class="relative p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-600 to-blue-800 text-white overflow-hidden shadow-2xl shadow-blue-500/40 group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-3xl transition-transform duration-700 group-hover:scale-150"></div>
+                <div class="relative p-6 rounded-[1.5rem] bg-gradient-to-br from-blue-600 to-blue-800 text-white overflow-hidden shadow-2xl shadow-blue-500/40 group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-10 blur-3xl transition-transform duration-700 group-hover:scale-150"></div>
                     <div class="relative z-10 space-y-4">
                         <h3 class="text-xl font-black leading-tight">Ingin Bergabung Bersama Kami?</h3>
                         <p class="text-sm text-blue-100/80 leading-relaxed font-medium">Pendaftaran Peserta Didik Baru (PPDB) TA 2026/2027 telah dibuka secara resmi. Segera amankan kuota Anda!</p>

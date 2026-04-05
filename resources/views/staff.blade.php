@@ -22,7 +22,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-10 pt-12">
         <div class="space-y-4">
             <p class="text-blue-600 font-bold tracking-[0.3em] uppercase text-xs">TEAM KAMI</p>
-            <h1 class="text-4xl lg:text-6xl font-black text-[#0F172A] leading-tight">
+            <h1 class="text-2xl lg:text-2xl font-black text-[#0F172A] leading-tight">
                 Mengenal Tim <span class="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Pengajar & Staf</span> Kami
             </h1>
             <p class="text-lg lg:text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed font-medium">
@@ -57,7 +57,7 @@
 </section>
 
 <!-- Staff Grid -->
-<section class="pb-24 bg-white">
+<section class="pb-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div id="staff-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-16">
             @php
@@ -97,7 +97,7 @@
             @endphp
 
             @foreach ($staff as $person)
-            <div class="staff-card group text-center space-y-6 transition-all duration-300" data-category="{{ $person['category'] }}">
+            <div class="staff-card group text-center space-y-4 transition-all duration-300" data-category="{{ $person['category'] }}">
                 <!-- Circular Image Container -->
                 <div class="relative inline-block">
                     <div class="w-40 h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-white shadow-xl relative z-10 transition-transform duration-500 group-hover:scale-105">
@@ -180,9 +180,9 @@
 </style>
 
 <!-- Call to Action -->
-<section class="py-24 bg-white">
+<section class="py-10 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative bg-white rounded-[2.5rem] p-10 lg:p-16 text-center space-y-8 border-2 border-dashed border-blue-400 overflow-hidden shadow-sm">
+        <div class="relative bg-white rounded-[1.5rem] p-6 lg:p-6 text-center space-y-4 border-2 border-dashed border-blue-400 overflow-hidden shadow-sm">
             <!-- Decorative Elements -->
             <div class="absolute -top-6 -right-6 w-24 h-24 bg-blue-50 rounded-full"></div>
             <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-blue-50 rounded-full"></div>
@@ -198,7 +198,7 @@
             </div>
             
             <div class="space-y-4 relative z-10">
-                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900">Ingin Menjadi Bagian dari Kami?</h2>
+                <h2 class="text-2xl lg:text-2xl font-bold text-slate-900">Ingin Menjadi Bagian dari Kami?</h2>
                 <p class="text-slate-500 text-base lg:text-lg max-w-3xl mx-auto font-medium leading-relaxed">
                     Kami selalu mencari talenta berbakat di bidang teknologi dan kreatif untuk bergabung menciptakan masa depan digital yang lebih baik bagi siswa kami.
                 </p>

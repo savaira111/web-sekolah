@@ -147,11 +147,11 @@
 
     <!-- Hero Section -->
     <section class="relative pt-12 pb-20 overflow-hidden bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
                 PENDAFTARAN SISWA BARU 2026/2027
             </div>
-            <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
+            <h1 class="text-2xl lg:text-2xl font-bold text-[#0F172A] leading-tight">
                 Mulai Perjalanan <br>
                 <span class="text-blue-600">Hebatmu</span> Hari Ini
             </h1>
@@ -168,10 +168,10 @@
     </section>
 
     <!-- Main Form Section -->
-    <section class="pb-24 relative">
+    <section class="pb-16 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Warning Message -->
-            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-12 shadow-sm">
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-8 shadow-sm">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
@@ -182,14 +182,14 @@
                     </div>
                 </div>
             </div>
-            <div class="grid lg:grid-cols-4 gap-12">
+            <div class="grid lg:grid-cols-4 gap-8">
                 
                 <!-- Left Sidebar: Progress & Info -->
-                <div class="lg:col-span-1 space-y-8">
+                <div class="lg:col-span-1 space-y-4">
                     <!-- Progress Card -->
-                    <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-8 sticky top-24">
+                    <div class="bg-white p-6 rounded-[1.5rem] border border-gray-100 shadow-sm space-y-4 sticky top-24">
                         <h4 class="font-bold text-gray-400 text-xs uppercase tracking-widest">Progres Pendaftaran</h4>
-                        <div class="space-y-6">
+                        <div class="space-y-4">
                             <div class="flex items-center gap-4 group transition-all" :class="step >= 1 ? 'opacity-100' : 'opacity-30'">
                                 <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg" :class="step >= 1 ? 'bg-blue-600 text-white shadow-blue-200' : 'bg-gray-100 text-gray-400'">
                                     <template x-if="step > 1">
@@ -225,7 +225,7 @@
                     </div>
 
                     <!-- Schedule Card -->
-                    <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-6">
+                    <div class="bg-white p-6 rounded-[1.5rem] border border-gray-100 shadow-sm space-y-4">
                         <h4 class="font-bold flex items-center gap-2 text-gray-900">
                             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg>
                             Jadwal PPDB
@@ -242,7 +242,7 @@
                     </div>
 
                     <!-- Help Card -->
-                    <div class="bg-blue-50 p-8 rounded-[2.5rem] border border-blue-100 space-y-4">
+                    <div class="bg-blue-50 p-6 rounded-[1.5rem] border border-blue-100 space-y-4">
                         <h4 class="font-bold text-blue-900">Butuh Bantuan?</h4>
                         <p class="text-xs text-blue-700 leading-relaxed">Hubungi Admin kami jika Anda mengalami kesulitan dalam pendaftaran.</p>
                         <a href="#" class="flex justify-center w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs uppercase shadow-lg shadow-blue-200">WhatsApp CS</a>
@@ -266,7 +266,7 @@
 
                     <form action="{{ route('registration.store') }}" method="POST" enctype="multipart/form-data" x-ref="regForm" class="space-y-12">
                     @if($errors->any())
-                        <div class="bg-red-50 border border-red-200 text-red-600 px-8 py-6 rounded-[2rem] mb-12 flex items-center gap-4">
+                        <div class="bg-red-50 border border-red-200 text-red-600 px-8 py-6 rounded-[1.5rem] mb-8 flex items-center gap-4">
                             <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                             <div>
                                 <p class="font-bold text-sm">Ada kesalahan dalam pendaftaran:</p>
@@ -282,8 +282,8 @@
                     
                     <!-- Step 1: Data Diri -->
                     <div x-show="step === 1" x-ref="step1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
-                        <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
-                            <div class="mb-12">
+                        <div class="bg-white rounded-[1.5rem] p-12 shadow-sm border border-gray-100">
+                            <div class="mb-8">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
                                     <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                     Langkah 1: Data Diri Calon Siswa
@@ -385,8 +385,8 @@
 
                     <!-- Step 2: Data Orang Tua -->
                     <div x-show="step === 2" x-ref="step2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
-                        <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
-                            <div class="mb-12">
+                        <div class="bg-white rounded-[1.5rem] p-12 shadow-sm border border-gray-100">
+                            <div class="mb-8">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
                                     <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                     Langkah 2: Data Orang Tua
@@ -396,7 +396,7 @@
 
                             <div class="space-y-10">
                                 <!-- Ayah Section -->
-                                <div class="space-y-6">
+                                <div class="space-y-4">
                                     <h3 class="font-bold flex items-center gap-3 text-gray-900 border-l-4 border-blue-600 pl-4">
                                         <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                         Data Ayah Kandung
@@ -433,7 +433,7 @@
                                 </div>
 
                                 <!-- Ibu Section -->
-                                <div class="space-y-6 pt-8">
+                                <div class="space-y-4 pt-8">
                                     <h3 class="font-bold flex items-center gap-3 text-gray-900 border-l-4 border-pink-500 pl-4">
                                         <svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                         Data Ibu Kandung
@@ -469,12 +469,12 @@
                                 </div>
 
                                 <!-- Informasi Tambahan -->
-                                <div class="space-y-6 pt-8">
+                                <div class="space-y-4 pt-8">
                                     <h3 class="font-bold flex items-center gap-3 text-gray-900 border-l-4 border-orange-400 pl-4">
                                         <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                         Informasi Tambahan
                                     </h3>
-                                    <div class="space-y-6">
+                                    <div class="space-y-4">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Alamat Lengkap Orang Tua</label>
                                             <textarea name="address" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Jl. Raya No. 123, Kel. Merdeka, Kec. Maju Jaya, Kota Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm h-32 transition-all focus:ring-2 focus:ring-blue-100">{{ old('address') }}</textarea>
@@ -517,8 +517,8 @@
 
                     <!-- Step 3: Unggah Dokumen -->
                     <div x-show="step === 3" x-ref="step3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
-                        <div class="bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
-                            <div class="mb-12">
+                        <div class="bg-white rounded-[1.5rem] p-12 shadow-sm border border-gray-100">
+                            <div class="mb-8">
                                 <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-4">
                                     <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                                     Langkah 3: Unggah Berkas Pendaftaran
@@ -526,7 +526,7 @@
                                 <p class="text-gray-400 text-sm mt-3">Silakan unggah dokumen persyaratan dalam format Gambar (JPG/PNG) atau PDF. Maksimal ukuran file 2MB per dokumen.</p>
                             </div>
 
-                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                                 <!-- 1. Formulir -->
                                 <div class="space-y-2">
                                     <label class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">1. Formulir Pendaftaran</label>
@@ -725,10 +725,10 @@
                             </div>
 
                             <!-- 13. Pas Foto (Pas Foto 3x4) -->
-                            <div class="space-y-4 mb-12">
+                            <div class="space-y-4 mb-8">
                                 <label class="text-sm font-bold text-gray-700">13. Pas Foto 3x4 (Hitam Putih/Warna)</label>
                                 <input type="file" name="profile_image" x-ref="photoInput" class="hidden" @change="profile_image = $event.target.files[0].name" accept=".jpg,.jpeg,.png">
-                                <div @click="$refs.photoInput.click()" class="border-2 border-dashed border-gray-200 rounded-[2rem] p-12 text-center hover:border-blue-400 transition-colors cursor-pointer group bg-gray-50/30 relative z-20">
+                                <div @click="$refs.photoInput.click()" class="border-2 border-dashed border-gray-200 rounded-[1.5rem] p-12 text-center hover:border-blue-400 transition-colors cursor-pointer group bg-gray-50/30 relative z-20">
                                     <svg class="w-10 h-10 mx-auto text-blue-400 transition-transform mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                     <p class="font-bold text-gray-900 text-sm" x-text="profile_image ? profile_image : 'Klik untuk unggah Pas Foto'"></p>
                                     <p class="text-[10px] text-gray-400 mt-2 italic text-center">Format PNG/JPG, Maksimal 2MB. Kertas Dove lebih disarankan.</p>
@@ -762,7 +762,7 @@
         </div> <!-- closes grid (108) -->
 
             <!-- Bottom Document Checklist -->
-            <div class="mt-12 bg-white rounded-[3rem] p-12 shadow-sm border border-gray-100">
+            <div class="mt-8 bg-white rounded-[1.5rem] p-12 shadow-sm border border-gray-100">
                 <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
                         <h3 class="text-xl font-bold text-[#0F172A] flex items-center gap-4">
@@ -778,7 +778,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-8">
                     <!-- Column 1 -->
-                    <div class="space-y-6">
+                    <div class="space-y-4">
                         <div class="flex items-start gap-4">
                             <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">01</div>
                             <div>
@@ -817,7 +817,7 @@
                     </div>
 
                     <!-- Column 2 -->
-                    <div class="space-y-6">
+                    <div class="space-y-4">
                         <div class="flex items-start gap-4">
                             <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">06</div>
                             <div>
@@ -856,7 +856,7 @@
                     </div>
 
                     <!-- Column 3 -->
-                    <div class="space-y-6">
+                    <div class="space-y-4">
                         <div class="flex items-start gap-4">
                             <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">11</div>
                             <div>
@@ -895,7 +895,7 @@
                     </div>
                 </div>
 
-                <div class="mt-12 pt-8 border-t border-gray-50 grid md:grid-cols-2 gap-8">
+                <div class="mt-8 pt-8 border-t border-gray-50 grid md:grid-cols-2 gap-8">
                     <div class="flex gap-4 p-4 bg-gray-50 rounded-2xl">
                         <span class="text-blue-600 font-bold">(*)</span>
                         <p class="text-[10px] text-gray-500 leading-relaxed italic">Bagi pendaftar dari keluarga tidak mampu mendaftarkan melalui jalur afirmasi.</p>
@@ -921,24 +921,24 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
-         class="fixed inset-0 z-[200] flex items-start justify-center p-8 bg-[#0F172A]/80 backdrop-blur-sm pt-20">
+         class="fixed inset-0 z-[200] flex items-start justify-center p-6 bg-[#0F172A]/80 backdrop-blur-sm pt-20">
         
         <div @click.away="showSuccessModal = false" 
              x-show="showSuccessModal"
              x-transition:enter="transition ease-out duration-500"
              x-transition:enter-start="opacity-0 scale-90 -translate-y-12"
              x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-             class="max-w-md w-full bg-white rounded-[3rem] p-12 text-center shadow-2xl relative overflow-hidden">
+             class="max-w-md w-full bg-white rounded-[1.5rem] p-12 text-center shadow-2xl relative overflow-hidden">
             
             <div class="absolute -top-24 -left-24 w-48 h-48 bg-green-50 rounded-full blur-3xl opacity-50"></div>
             
-            <div class="relative z-10 space-y-8">
+            <div class="relative z-10 space-y-4">
                 <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto shadow-xl shadow-green-100 animate-bounce">
                     <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
                 </div>
                 
                 <div class="space-y-4">
-                    <h2 class="text-3xl font-bold text-gray-900">Pendaftaran Berhasil!</h2>
+                    <h2 class="text-2xl font-bold text-gray-900">Pendaftaran Berhasil!</h2>
                     <p class="text-gray-500 text-sm leading-relaxed">{{ session('success_registration') }}</p>
                 </div>
 

@@ -5,13 +5,13 @@
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
 <section class="relative pt-12 pb-20 overflow-hidden bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
             LINGKUNGAN BELAJAR MODERN
         </div>
         <div class="flex flex-col md:flex-row justify-between items-end gap-8">
             <div class="space-y-3 max-w-2xl">
-                <h1 class="text-4xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
+                <h1 class="text-2xl lg:text-2xl font-bold text-[#0F172A] leading-tight">
                     Fasilitas Unggulan <br>
                     <span class="text-blue-600">Standar Industri</span>
                 </h1>
@@ -30,7 +30,7 @@
 <!-- Category Tabs -->
 <section class="pt-6 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Category Tabs -->
-    <div class="flex flex-wrap gap-4 mb-12" id="facility-filters">
+    <div class="flex flex-wrap gap-4 mb-8" id="facility-filters">
         <button onclick="filterFacilities('all')" class="filter-btn px-8 py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 transition-all active-filter" data-filter="all">Semua Fasilitas</button>
         <button onclick="filterFacilities('Akademik')" class="filter-btn px-8 py-3 bg-white text-gray-500 border border-gray-100 rounded-xl font-bold hover:bg-gray-50 transition-all" data-filter="Akademik">Akademik</button>
         <button onclick="filterFacilities('Umum')" class="filter-btn px-8 py-3 bg-white text-gray-500 border border-gray-100 rounded-xl font-bold hover:bg-gray-50 transition-all" data-filter="Umum">Umum</button>
@@ -40,12 +40,12 @@
     <!-- Facility Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="facility-grid">
         <!-- Lab DKV -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/lab dkv.png')); ?>" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
             </div>
-            <div class="p-8 space-y-5">
+            <div class="p-6 space-y-5">
                 <h3 class="text-xl font-bold text-[#0F172A]">Lab DKV</h3>
                 <p class="text-gray-500 text-sm">Ruang kreatif yang dilengkapi dengan peralatan desain grafis dan fotografi standar profesional untuk mengasah jiwa artistik.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -56,12 +56,12 @@
         </div>
 
         <!-- Lab PPLG -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/lab pplg.png')); ?>" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
             </div>
-            <div class="p-10 space-y-6">
+            <div class="p-6 space-y-4">
                 <h3 class="text-2xl font-bold text-[#0F172A]">Lab PPLG</h3>
                 <p class="text-gray-500 text-sm">Pusat pengembangan perangkat lunak dengan infrastruktur terkini untuk pemrograman web, mobile, dan game development.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -73,12 +73,12 @@
         </div>
 
         <!-- Lab Multimedia -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/lab multimedia.png')); ?>" alt="Lab Multimedia" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
             </div>
-            <div class="p-10 space-y-6">
+            <div class="p-6 space-y-4">
                 <h3 class="text-2xl font-bold text-[#0F172A]">Lab Multimedia</h3>
                 <p class="text-gray-500 text-sm">Ruang produksi konten digital, editing video, dan animasi dengan workstation spesifikasi tinggi dan ruang kedap suara.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -90,12 +90,12 @@
         </div>
 
         <!-- Lab Interaktif -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/lab interaktif.png')); ?>" alt="Lab Interaktif" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-400 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
             </div>
-            <div class="p-10 space-y-6">
+            <div class="p-6 space-y-4">
                 <h3 class="text-2xl font-bold text-[#0F172A]">Lab Interaktif</h3>
                 <p class="text-gray-500 text-sm">Ruang kelas cerdas yang dirancang untuk pembelajaran kolaboratif dengan teknologi layar sentuh interaktif.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -107,12 +107,12 @@
         </div>
 
         <!-- VIP Lounge -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/vip.png')); ?>" alt="VIP" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
             </div>
-            <div class="p-10 space-y-6">
+            <div class="p-6 space-y-4">
                 <h3 class="text-2xl font-bold text-[#0F172A]">VIP Lounge</h3>
                 <p class="text-gray-500 text-sm">Fasilitas lobi premium dengan spesifikasi tertinggi untuk proyek khusus dan sertifikasi internasional.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -124,12 +124,12 @@
         </div>
 
         <!-- BNB Cafe -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/bnb.png')); ?>" alt="Cafe" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
             </div>
-            <div class="p-10 space-y-6">
+            <div class="p-6 space-y-4">
                 <h3 class="text-2xl font-bold text-[#0F172A]">BNB (Business & Cafe)</h3>
                 <p class="text-gray-500 text-sm">Pusat kewirausahaan siswa sekaligus area lounge yang nyaman untuk berdiskusi sambil menikmati sajian cafe.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -141,12 +141,12 @@
         </div>
 
         <!-- Masjid -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/masjid mushola.png')); ?>" alt="Masjid" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
             </div>
-            <div class="p-10 space-y-6">
+            <div class="p-6 space-y-4">
                 <h3 class="text-2xl font-bold text-[#0F172A]">Masjid Sekolah</h3>
                 <p class="text-gray-500 text-sm">Pusat kegiatan religi dengan desain arsitektur modern yang memberikan ketenangan dan kenyamanan beribadah.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -158,12 +158,12 @@
         </div>
 
         <!-- Gedung Kelas -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/gedung kelas.png')); ?>" alt="Gedung" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Akademik</span>
             </div>
-            <div class="p-10 space-y-6">
+            <div class="p-6 space-y-4">
                 <h3 class="text-2xl font-bold text-[#0F172A]">Gedung Kelas</h3>
                 <p class="text-gray-500 text-sm">Gedung pembelajaran bertingkat dengan ruang-ruang kelas yang representatif, bersih, dan menunjang fokus belajar.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -175,12 +175,12 @@
         </div>
 
         <!-- Bale Mahaputra -->
-        <div class="facility-card group bg-white rounded-[3rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="<?php echo e(asset('images/fasilitas/bale mahaputra.png')); ?>" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
             </div>
-            <div class="p-10 space-y-6">
+            <div class="p-6 space-y-4">
                 <h3 class="text-2xl font-bold text-[#0F172A]">Bale Mahaputra</h3>
                 <p class="text-gray-500 text-sm">Aula pertemuan multifungsi dengan sentuhan desain tradisional modern untuk berbagai acara dan kegiatan siswa.</p>
                 <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
@@ -194,7 +194,7 @@
 </section>
 
 <!-- parkiran -->
-<div class="facility-card group bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 max-w-sm mx-auto" data-category="Umum">
+<div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 max-w-sm mx-auto" data-category="Umum">
     <div class="aspect-video relative overflow-hidden">
         <img src="<?php echo e(asset('images/fasilitas/parkiran.png')); ?>" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
         <span class="absolute top-4 left-4 px-3 py-1 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
@@ -277,10 +277,10 @@
 
 <!-- Direct Contact -->
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-    <div class="bg-blue-600 rounded-[3rem] p-10 lg:p-16 text-center relative overflow-hidden shadow-2xl shadow-blue-200">
+    <div class="bg-blue-600 rounded-[1.5rem] p-6 lg:p-6 text-center relative overflow-hidden shadow-2xl shadow-blue-200">
         <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-700 opacity-50"></div>
-        <div class="relative z-10 space-y-6">
-            <h2 class="text-3xl lg:text-5xl font-bold text-white">Ingin melihat fasilitas kami <br> secara langsung?</h2>
+        <div class="relative z-10 space-y-4">
+            <h2 class="text-2xl lg:text-2xl font-bold text-white">Ingin melihat fasilitas kami <br> secara langsung?</h2>
             <p class="text-lg text-blue-100 max-w-2xl mx-auto">Kami mengundang Anda untuk berkunjung dan merasakan langsung atmosfer belajar di SMKS Mahaputra Cerdas Utama. Jadwalkan kunjungan Anda sekarang.</p>
             <div class="pt-6">
                 <a href="https://wa.me/message/AKIGOHHXFZGWB1?src=qr" class="inline-flex py-4 px-10 border-2 border-white/30 text-white rounded-2xl font-bold text-lg hover:bg-white/10 transition-all">Hubungi Kami</a>

@@ -26,7 +26,7 @@
                 </a>
 
                 <div class="flex-1">
-                    <h1 class="text-4xl lg:text-5xl font-black text-[#0F172A] mb-4 leading-tight tracking-tight">
+                    <h1 class="text-2xl lg:text-2xl font-black text-[#0F172A] mb-4 leading-tight tracking-tight">
                         {{ $album->title }}
                     </h1>
                     
@@ -52,7 +52,7 @@
     <!-- Description Card -->
     <div class="mb-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-blue-50/40 border-l-[6px] border-blue-600 rounded-[2rem] p-10 md:p-12">
+            <div class="bg-blue-50/40 border-l-[6px] border-blue-600 rounded-[1.5rem] p-6 md:p-12">
                 <h2 class="text-xl font-black text-slate-800 mb-6 flex items-center gap-3">
                     <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                     Tentang Album Ini
@@ -65,12 +65,12 @@
     </div>
 
     <!-- Gallery Grid -->
-    <div class="pb-32">
+    <div class="pb-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 @foreach($album->photos as $photo)
                     <div x-data="{ open: false }" class="group">
-                        <div @click="open = true" class="aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 cursor-zoom-in relative">
+                        <div @click="open = true" class="aspect-[4/3] rounded-[1.5rem] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 cursor-zoom-in relative">
                             <img src="{{ asset('storage/' . $photo->path) }}" alt="Dokumentasi SMKS Mahaputra" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>

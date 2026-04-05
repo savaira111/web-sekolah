@@ -3,18 +3,18 @@
 @section('title', 'Pendaftaran Eskul - SMKS Mahaputra')
 
 @section('content')
-<div class="bg-gray-50 min-h-screen py-12">
+<div class="bg-gray-50 min-h-screen py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Breadcrumbs & Header -->
-        <div class="mb-12">
+        <div class="mb-8">
             <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
                 <div class="flex items-start gap-4">
                     <a href="{{ route('extracurriculars.index') }}" class="inline-flex items-center justify-center w-12 h-12 bg-white border border-gray-200 text-blue-600 rounded-full hover:bg-blue-50 hover:border-blue-200 transition-all shadow-sm shrink-0" title="Kembali">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
                     </a>
                     <div class="space-y-2 mt-1 xl:mt-0">
-                        <h1 class="text-4xl font-black text-[#0F172A] tracking-tight">Pendaftaran Eskul</h1>
+                        <h1 class="text-2xl font-black text-[#0F172A] tracking-tight">Pendaftaran Eskul</h1>
                         <p class="text-gray-600 text-sm max-w-2xl leading-relaxed">Wujudkan potensimu melalui berbagai kegiatan ekstrakurikuler yang inspiratif di SMKS Mahaputra.</p>
                     </div>
                 </div>
@@ -25,13 +25,13 @@
             </div>
         </div>
 
-        <div class="grid lg:grid-cols-12 gap-12">
+        <div class="grid lg:grid-cols-12 gap-8">
             
             <!-- Left Side: Form & Preview -->
             <div class="lg:col-span-8 space-y-12">
                 
                 <!-- Registration Form Card -->
-                <div class="bg-white rounded-[2.5rem] p-10 shadow-sm border border-gray-100">
+                <div class="bg-white rounded-[1.5rem] p-6 shadow-sm border border-gray-100">
                     <div class="flex items-center gap-4 mb-10">
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
@@ -39,7 +39,7 @@
                         <h2 class="text-2xl font-black text-[#0F172A]">Formulir Pendaftaran</h2>
                     </div>
 
-                    <form action="{{ route('extracurriculars.registration.store') }}" method="POST" class="space-y-8">
+                    <form action="{{ route('extracurriculars.registration.store') }}" method="POST" class="space-y-4">
                         @csrf
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="space-y-3">
@@ -94,7 +94,7 @@
                 </div>
 
                 <!-- Schedule Preview Card -->
-                <div class="bg-white rounded-[2.5rem] p-10 shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-white rounded-[1.5rem] p-6 shadow-sm border border-gray-100 overflow-hidden">
                     <div class="flex items-center gap-4 mb-10">
                         <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -143,16 +143,16 @@
             </div>
 
             <!-- Right Side: Info & Help -->
-            <div class="lg:col-span-4 space-y-8">
+            <div class="lg:col-span-4 space-y-4">
                 
                 <!-- Why Join Card -->
-                <div class="bg-blue-600 rounded-[3rem] p-10 text-white space-y-10 shadow-2xl shadow-blue-500/20 relative overflow-hidden">
+                <div class="bg-blue-600 rounded-[1.5rem] p-6 text-white space-y-10 shadow-2xl shadow-blue-500/20 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 blur-3xl rounded-full translate-x-12 -translate-y-12"></div>
                     <div class="absolute top-1/2 left-1/2 w-40 h-40 bg-white/5 blur-3xl rounded-full -translate-x-1/2 -translate-y-1/2"></div>
                     
-                    <h4 class="text-3xl font-black leading-tight">Mengapa <br>Bergabung?</h4>
+                    <h4 class="text-2xl font-black leading-tight">Mengapa <br>Bergabung?</h4>
                     
-                    <div class="space-y-8">
+                    <div class="space-y-4">
                         <div class="flex gap-6 group transition-all duration-500">
                             <div class="w-12 h-12 bg-white/20 backdrop-blur-md rounded-[1.25rem] border border-white/20 flex items-center justify-center shrink-0 group-hover:bg-white group-hover:text-blue-600 transition-all duration-500">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
@@ -184,7 +184,7 @@
                 </div>
 
                 <!-- Help Card -->
-                <div class="bg-white rounded-[3rem] border border-gray-100 p-10 space-y-8 shadow-sm">
+                <div class="bg-white rounded-[1.5rem] border border-gray-100 p-6 space-y-4 shadow-sm">
                     <h4 class="text-xl font-bold text-[#0F172A] border-l-4 border-blue-600 pl-4">Butuh Bantuan?</h4>
                     <div class="space-y-4">
                         <div class="flex items-center gap-6 p-4 bg-gray-50 rounded-2xl group cursor-pointer transition-colors hover:bg-white hover:shadow-lg hover:shadow-gray-100">
@@ -209,9 +209,9 @@
                 </div>
 
                 <!-- Location Card -->
-                <div class="bg-teal-700 h-64 rounded-[3rem] p-1 shadow-sm relative overflow-hidden group ring-8 ring-white">
-                    <img src="https://static.promediateknologi.id/desktop/fallback/600x400.png" class="w-full h-full object-cover rounded-[2.5rem] opacity-50 contrast-125 transition-transform duration-1000">
-                    <div class="absolute inset-0 flex items-center justify-center p-8">
+                <div class="bg-teal-700 h-64 rounded-[1.5rem] p-1 shadow-sm relative overflow-hidden group ring-8 ring-white">
+                    <img src="https://static.promediateknologi.id/desktop/fallback/600x400.png" class="w-full h-full object-cover rounded-[1.5rem] opacity-50 contrast-125 transition-transform duration-1000">
+                    <div class="absolute inset-0 flex items-center justify-center p-6">
                          <div class="px-6 py-4 bg-white/90 backdrop-blur-md rounded-2xl flex items-center gap-4 shadow-2xl">
                             <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>

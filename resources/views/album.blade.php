@@ -32,7 +32,7 @@
     <!-- Hero Section -->
     <section class="pt-20 pb-12 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl lg:text-5xl font-extrabold text-[#0F172A] mb-6">
+            <h1 class="text-2xl lg:text-2xl font-extrabold text-[#0F172A] mb-6">
                 Galeri Kegiatan & <br>
                 <span class="text-blue-600">Dokumentasi</span>
             </h1>
@@ -41,7 +41,7 @@
             </p>
 
             <!-- Filter Buttons -->
-            <div class="flex flex-wrap justify-center gap-3 mb-16">
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
                 <template x-for="filter in ['Semua', 'Akademik', 'Kesiswaan', 'Prestasi', 'Fasilitas']">
                     <button 
                         @click="activeFilter = filter"
@@ -55,7 +55,7 @@
     </section>
 
     <!-- Album Grid -->
-    <section class="pb-24 bg-white">
+    <section class="pb-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <template x-for="album in filteredAlbums" :key="album.id">
@@ -66,7 +66,7 @@
                         x-transition:leave="transition ease-in duration-300 transform"
                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                         x-transition:leave-end="opacity-0 translate-y-12 scale-95"
-                        class="group bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col"
+                        class="group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col"
                     >
                         <!-- Image Container -->
                         <div class="aspect-[4/3] relative overflow-hidden">
@@ -83,7 +83,7 @@
                         </div>
 
                         <!-- Content -->
-                        <div class="p-8 flex-1 flex flex-col">
+                        <div class="p-6 flex-1 flex flex-col">
                             <!-- Date -->
                             <div class="flex items-center gap-2 text-blue-600 mb-4 px-1">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

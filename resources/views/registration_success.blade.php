@@ -8,7 +8,7 @@
          x-transition:enter="transition ease-out duration-700"
          x-transition:enter-start="opacity-0 scale-90 translate-y-12"
          x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-         class="max-w-md w-full bg-white rounded-[3rem] p-10 shadow-2xl space-y-8 text-center relative overflow-hidden">
+         class="max-w-md w-full bg-white rounded-[1.5rem] p-6 shadow-2xl space-y-4 text-center relative overflow-hidden">
         
         <!-- Animated Background Decor -->
         <div class="absolute -top-24 -left-24 w-48 h-48 bg-green-50 rounded-full blur-3xl opacity-50"></div>
@@ -28,7 +28,7 @@
 
         <!-- Text Content -->
         <div class="space-y-3 relative z-10">
-            <h1 class="text-2xl lg:text-3xl font-bold text-[#0F172A]">Pendaftaran Berhasil!</h1>
+            <h1 class="text-2xl lg:text-2xl font-bold text-[#0F172A]">Pendaftaran Berhasil!</h1>
             <p class="text-gray-500 text-sm">Terima kasih, data Anda telah kami terima dengan ID Pendaftaran:</p>
             <div class="bg-blue-50 py-3 rounded-2xl border border-blue-100">
                 <span class="text-xl font-black text-blue-600 tracking-wider">REG-{{ date('Y') }}{{ strtoupper(substr(md5(time()), 0, 4)) }}</span>
