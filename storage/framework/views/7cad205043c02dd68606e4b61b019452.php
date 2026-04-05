@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Guru & Staff - SMKS Mahaputra'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -118,7 +116,7 @@
                     </p>
                     
                     <!-- Icons -->
-                    <div class="flex justify-center gap-4 pt-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-0 lg:translate-y-2 group-hover:translate-y-0">
+                    <div class="flex justify-center gap-4 pt-4 opacity-100 transition-all duration-500 translate-y-0 relative z-50">
                         <a href="#" class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         </a>

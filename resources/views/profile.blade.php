@@ -38,11 +38,7 @@
 </section>
 
 <!-- Visi & Misi Header -->
-HEAD
-<section class="pt-10 pb-4 bg-white">
-
 <section class="pt-24 pb-6 bg-white">
-e2b222708551faeedbba4e800ed6d144ffa661f3
     <div class="max-w-7xl mx-auto px-4 text-center">
         <p class="text-blue-600 font-bold tracking-[0.2em] uppercase text-sm mb-4">FILOSOFI PENDIDIKAN</p>
         <h2 class="text-2xl lg:text-2xl font-black text-[#0F172A] relative inline-block">

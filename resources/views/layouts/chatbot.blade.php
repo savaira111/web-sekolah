@@ -1,7 +1,7 @@
 <!-- Chatbot Widget -->
 <div id="chatbot-wrapper" class="fixed bottom-6 right-6 z-[9999] flex flex-col items-end pointer-events-none">
     <!-- Chat Popup -->
-    <div id="chatbot-popup" class="mb-4 w-[350px] sm:w-[380px] max-h-[600px] h-[75vh] bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden opacity-0 scale-90 translate-y-10 transition-all duration-300 pointer-events-none">
+    <div id="chatbot-popup" class="hidden mb-4 w-[350px] sm:w-[380px] max-h-[600px] h-[75vh] bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden opacity-0 scale-90 translate-y-10 transition-all duration-300 pointer-events-none">
         
         <!-- Header -->
         <div class="bg-[#1e88e5] px-6 py-5 flex items-center justify-between border-b border-white/10 pointer-events-auto">
@@ -106,15 +106,21 @@ document.addEventListener('DOMContentLoaded', function() {
         isOpen = !isOpen;
         if (isOpen) {
             chatbotWrapper.classList.remove('pointer-events-none');
-            chatbotPopup.classList.remove('opacity-0', 'scale-90', 'translate-y-10', 'pointer-events-none');
-            chatbotPopup.classList.add('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
+            chatbotPopup.classList.remove('hidden');
+            setTimeout(() => {
+                chatbotPopup.classList.remove('opacity-0', 'scale-90', 'translate-y-10', 'pointer-events-none');
+                chatbotPopup.classList.add('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
+            }, 10);
             btnIcon.innerHTML = `<svg class="w-8 h-8 text-white stroke-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
             chatbotToggle.classList.add('rotate-90');
             setTimeout(() => chatInput.focus(), 300);
         } else {
-            chatbotWrapper.classList.add('pointer-events-none');
             chatbotPopup.classList.add('opacity-0', 'scale-90', 'translate-y-10', 'pointer-events-none');
             chatbotPopup.classList.remove('opacity-100', 'scale-100', 'translate-y-0', 'pointer-events-auto');
+            setTimeout(() => {
+                chatbotPopup.classList.add('hidden');
+                chatbotWrapper.classList.add('pointer-events-none');
+            }, 300);
             btnIcon.innerHTML = `<img src="{{ asset('images/chatbot-mascot.png') }}" alt="MCU Mascot" class="w-full h-full object-cover">`;
             chatbotToggle.classList.remove('rotate-90');
         }
