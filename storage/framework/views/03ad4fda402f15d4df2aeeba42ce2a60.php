@@ -38,7 +38,7 @@
 </section>
 
 <!-- Visi & Misi Header -->
-<section class="pt-20 pb-4 bg-white">
+<section class="pt-10 pb-4 bg-white">
     <div class="max-w-7xl mx-auto px-4 text-center">
         <p class="text-blue-600 font-bold tracking-[0.2em] uppercase text-sm mb-4">FILOSOFI PENDIDIKAN</p>
         <h2 class="text-2xl lg:text-2xl font-black text-[#0F172A] relative inline-block">
@@ -50,8 +50,8 @@
 
 <!-- Visi & Misi Content -->
 <section class="py-10 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
             <!-- Visi Card -->
             <div class="bg-blue-50/50 p-6 lg:p-8 rounded-[1.5rem] relative overflow-hidden group">
                 <div class="absolute top-8 right-8 w-24 h-24 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
@@ -144,11 +144,11 @@
 
             <div class="space-y-12 lg:space-y-20">
                 <!-- 2014 Milestone (Left) -->
-                <div class="relative flex items-center justify-between lg:justify-start lg:flex-row-reverse group">
+                <div class="relative flex items-center justify-between lg:justify-start group">
                     <div class="w-full lg:w-1/2 lg:pr-16">
                         <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all text-right">
                             <span class="text-[#F97316] font-black text-xl lg:text-2xl block mb-1">22 Agustus 2016.</span>
-                            <span class="text-gray-400 font-bold text-[10px] uppercase block mb-3">Tahun Pendirian</span>
+                            <span class="text-[#0F172A] font-bold text-sm block mb-3">Founding Year</span>
                             <p class="text-gray-500 text-[11px] leading-relaxed font-medium">Berdirinya Yayasan Mahaputra dengan visi awal menyediakan akses pendidikan terjangkau bagi masyarakat sekitar.</p>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                     <div class="w-full lg:w-1/2 lg:pl-16">
                         <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
                             <span class="text-blue-600 font-black text-xl lg:text-2xl block mb-1">2016</span>
-                            <span class="text-gray-400 font-bold text-[10px] uppercase block mb-3">Akreditasi Pertama</span>
+                            <span class="text-[#0F172A] font-bold text-sm block mb-3">First Accreditation</span>
                             <p class="text-gray-500 text-[11px] leading-relaxed font-medium">SMKS Mahaputra Cerdas Utama secara resmi mendapatkan izin operasional dan akreditasi awal dari Dinas Pendidikan.</p>
                         </div>
                     </div>
@@ -170,11 +170,11 @@
                 </div>
 
                 <!-- 2018 Milestone (Left) -->
-                <div class="relative flex items-center justify-between lg:justify-start lg:flex-row-reverse group">
+                <div class="relative flex items-center justify-between lg:justify-start group">
                     <div class="w-full lg:w-1/2 lg:pr-16">
                         <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all text-right">
                             <span class="text-[#F97316] font-black text-xl lg:text-2xl block mb-1">2018</span>
-                            <span class="text-gray-400 font-bold text-[10px] uppercase block mb-3">Ekspansi Kemitraan Industri</span>
+                            <span class="text-[#0F172A] font-bold text-sm block mb-3">Industrial Partnership Expansion</span>
                             <p class="text-gray-500 text-[11px] leading-relaxed font-medium">Menjalin kerjasama dengan 50+ perusahaan multinasional untuk program magang dan penyaluran kerja lulusan.</p>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                     <div class="w-full lg:w-1/2 lg:pl-16">
                         <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
                             <span class="text-blue-600 font-black text-xl lg:text-2xl block mb-1">2023</span>
-                            <span class="text-gray-400 font-bold text-[10px] uppercase block mb-3">Pusat Keunggulan (COE)</span>
+                            <span class="text-[#0F172A] font-bold text-sm block mb-3">Center of Excellence (COE)</span>
                             <p class="text-gray-500 text-[11px] leading-relaxed font-medium">Ditetapkan sebagai SMK Pusat Keunggulan oleh Kemendikbudristek RI untuk bidang Teknologi Informasi.</p>
                         </div>
                     </div>
@@ -232,7 +232,7 @@
     <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[1.5rem] p-6 lg:p-20 text-center space-y-10 relative overflow-hidden shadow-2xl">
         <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="relative z-10 space-y-10">
-            <h2 class="text-2xl lg:text-2xl font-bold text-white leading-tight">Mari Wujudkan Masa Depan <br> Digital Bersama Kami</h2>
+            <h2 class="text-3xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">Mari Wujudkan Masa Depan <br> Digital Bersama Kami</h2>
             <div class="flex flex-wrap justify-center gap-5">
                 <a href="<?php echo e(route('registration')); ?>" class="px-10 py-5 bg-blue-600 text-white rounded-[1.5rem] font-bold text-xl hover:bg-blue-700 transition-all">Daftar Sekarang</a>
                 <a href="<?php echo e(asset('images/brosur-sekolah.jpg')); ?>" download="Brosur-SMKS-Mahaputra.jpg" class="px-10 py-5 bg-white/5 border border-white/20 text-white rounded-[1.5rem] font-bold text-xl hover:bg-white/10 transition-all text-center">Lihat Brosur Sekolah</a>

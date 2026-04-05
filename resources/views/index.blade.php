@@ -4,8 +4,8 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative overflow-hidden pt-4 pb-16 lg:pt-6 lg:pb-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<section class="relative overflow-hidden pt-4 pb-16 lg:pt-6 lg:pb-20 min-h-[calc(100vh-80px)] flex items-center">
+    <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-2 gap-8 items-center">
             <div class="space-y-4">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold">

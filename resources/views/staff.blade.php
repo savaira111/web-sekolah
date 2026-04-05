@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative pt-20 pb-16 bg-white overflow-hidden animate-fade-in">
+<section class="relative pt-4 pb-16 bg-white overflow-hidden animate-fade-in">
     <!-- Decorative Elements -->
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#1D82F6 1px, transparent 1px); background-size: 40px 40px;"></div>
     
@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-10 pt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-10 pt-0">
         <div class="space-y-4">
             <p class="text-blue-600 font-bold tracking-[0.3em] uppercase text-xs">TEAM KAMI</p>
             <h1 class="text-2xl lg:text-2xl font-black text-[#0F172A] leading-tight">
@@ -57,7 +57,7 @@
 </section>
 
 <!-- Staff Grid -->
-<section class="pb-16 bg-white">
+<section class="pb-8 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div id="staff-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-16">
             @php
@@ -111,17 +111,21 @@
                     <h3 class="text-lg font-bold text-[#0F172A] leading-tight group-hover:text-blue-600 transition-colors capitalize">
                         {{ $person['name'] }}
                     </h3>
-                    <p class="text-blue-600 text-xs font-bold uppercase tracking-widest">
+                    <p class="text-blue-600 text-xs font-bold uppercase tracking-widest line-clamp-2" title="{{ $person['role'] }}">
                         {{ $person['role'] }}
                     </p>
                     
                     <!-- Icons -->
-                    <div class="flex justify-center gap-4 pt-2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                    <div class="flex justify-center gap-4 pt-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-0 lg:translate-y-2 group-hover:translate-y-0">
                         <a href="#" class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         </a>
-                        <a href="#" class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-blue-400 hover:text-white transition-all">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-pink-600 hover:text-white transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke-width="2"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2" stroke-linecap="round"></line>
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -180,7 +184,7 @@
 </style>
 
 <!-- Call to Action -->
-<section class="py-10 bg-white">
+<section class="pt-0 pb-10 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative bg-white rounded-[1.5rem] p-6 lg:p-6 text-center space-y-4 border-2 border-dashed border-blue-400 overflow-hidden shadow-sm">
             <!-- Decorative Elements -->
