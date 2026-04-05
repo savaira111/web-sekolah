@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Seragam Sekolah - SMKS Mahaputra'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -35,7 +33,7 @@
 </section>
 
 <!-- Content Section -->
-<section class="pb-24 bg-white relative z-10" x-data="seragamData()">
+<section class="pt-10 pb-24 bg-white relative z-10" x-data="seragamData()">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
