@@ -27,7 +27,14 @@
                     <a href="{{ route('profile') }}" class="px-6 py-3.5 bg-white text-gray-700 border border-gray-200 rounded-xl font-bold text-base hover:bg-gray-50 transition-all flex items-center gap-2">Profil Sekolah</a>
                 </div>
                 
-                <div class="flex items-center gap-8 pt-4">
+                <div class="flex flex-wrap items-center gap-x-8 gap-y-4 pt-4">
+                    @forelse($landingStats->take(3) as $stat)
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold text-[#0F172A]">{{ $stat->value }}</span>
+                        <span class="text-gray-500 text-xs">{{ $stat->title }}</span>
+                    </div>
+                    @if(!$loop->last) <div class="hidden sm:block h-10 w-px bg-gray-200"></div> @endif
+                    @empty
                     <div class="flex flex-col">
                         <span class="text-xl font-bold text-[#0F172A]">200+</span>
                         <span class="text-gray-500 text-xs">Siswa Aktif</span>
@@ -42,6 +49,7 @@
                         <span class="text-xl font-bold text-[#0F172A]">20+</span>
                         <span class="text-gray-500 text-xs">Mitra Industri</span>
                     </div>
+                    @endforelse
                 </div>
             </div>
             <div class="relative">
@@ -68,7 +76,18 @@
 <!-- Stats Grid -->
 <section class="py-8 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 lg:grid-cols-3 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-2 lg:grid-cols-{{ count($landingStats) > 0 ? count($landingStats) : 3 }} md:grid-cols-{{ count($landingStats) > 0 ? count($landingStats) : 3 }} gap-8">
+            @forelse($landingStats as $stat)
+            <div class="p-6 rounded-3xl bg-{{ $stat->color }}-50 border border-{{ $stat->color }}-100 text-center transition-all group">
+                <div class="w-12 h-12 bg-{{ $stat->color }}-100 rounded-2xl flex items-center justify-center text-{{ $stat->color }}-600 mx-auto mb-5 transition-transform">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $stat->icon }}"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-[#0F172A] mb-2">{{ $stat->value }}</h3>
+                <p class="text-gray-500 font-medium">{{ $stat->title }}</p>
+            </div>
+            @empty
             <div class="p-6 rounded-3xl bg-blue-50 border border-blue-100 text-center transition-all group">
                 <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
@@ -90,7 +109,7 @@
                 <h3 class="text-2xl font-bold text-[#0F172A] mb-2">20+</h3>
                 <p class="text-gray-500 font-medium">Mitra Industri</p>
             </div>
-
+            @endforelse
         </div>
     </div>
 </section>

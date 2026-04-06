@@ -9,6 +9,8 @@ use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LandingStatController;
+use App\Http\Controllers\PartnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -147,5 +149,12 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
     Route::post('/comments/{id}/approve', [CommentController::class, 'approve'])->name('comments.approve');
     Route::post('/comments/{id}/reject', [CommentController::class, 'reject'])->name('comments.reject');
     Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+    // Landing Stats
+    Route::resource('landing-stats', LandingStatController::class);
+
+    // Mitra Industri (Partners)
+    Route::resource('partners', PartnerController::class);
+    Route::patch('/partners/{partner}/toggle-status', [PartnerController::class, 'toggleStatus'])->name('partners.toggle-status');
 
 });

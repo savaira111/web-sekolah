@@ -9,7 +9,7 @@ class PageController extends Controller
     public function index()
     {
         $articles = \App\Models\Article::published()
-            ->latest('created_at')
+            ->latest('published_at')
             ->take(3)
             ->get();
             
@@ -21,7 +21,14 @@ class PageController extends Controller
             ->take(3)
             ->get();
             
-        return view('index', compact('articles', 'activeEskulCount', 'albums'));
+        $landingStats = collect();
+        if (\Illuminate\Support\Facades\Schema::hasTable('landing_stats')) {
+            $landingStats = \App\Models\LandingStat::where('is_active', true)
+                ->orderBy('order')
+                ->get();
+        }
+            
+        return view('index', compact('articles', 'activeEskulCount', 'albums', 'landingStats'));
     }
 
     public function jurusan()

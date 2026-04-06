@@ -55,7 +55,7 @@
 
         <!-- Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <?php $__currentLoopData = $extracurriculars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $eskul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $extracurriculars->take(6); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $eskul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <a href="<?php echo e(route('extracurriculars.show', $eskul->id)); ?>" 
                <?php
                     $cat = strtolower($eskul->category);
