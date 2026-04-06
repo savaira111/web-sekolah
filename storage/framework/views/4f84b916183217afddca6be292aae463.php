@@ -1,19 +1,21 @@
+
+
 <?php $__env->startSection('title', 'Fasilitas - SMKS Mahaputra'); ?>
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative pt-12 pb-20 overflow-hidden bg-white">
+<section class="relative pt-6 pb-20 overflow-hidden bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
             LINGKUNGAN BELAJAR MODERN
         </div>
         <div class="flex flex-col md:flex-row justify-between items-end gap-8">
-            <div class="space-y-3 max-w-2xl">
-                <h1 class="text-2xl lg:text-2xl font-bold text-[#0F172A] leading-tight">
+            <div class="space-y-4 max-w-3xl">
+                <h1 class="text-4xl lg:text-5xl font-bold text-[#0F172A] leading-tight">
                     Fasilitas Unggulan <br>
                     <span class="text-blue-600">Standar Industri</span>
                 </h1>
-                <p class="text-lg text-gray-500 leading-relaxed">
+                <p class="text-xl text-gray-500 leading-relaxed font-medium">
                     Kami menyediakan ekosistem pembelajaran yang dirancang khusus untuk mengasah kreativitas dan keterampilan teknis siswa sesuai kebutuhan dunia kerja masa kini.
                 </p>
             </div>
@@ -188,26 +190,23 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- parkiran -->
-<div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 max-w-sm mx-auto" data-category="Umum">
-    <div class="aspect-video relative overflow-hidden">
-        <img src="<?php echo e(asset('images/fasilitas/parkiran.png')); ?>" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
-        <span class="absolute top-4 left-4 px-3 py-1 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
-    </div>
-    <div class="p-6 space-y-4">
-        <h3 class="text-lg font-bold text-[#0F172A]">Parkiran</h3>
-        <p class="text-gray-500 text-xs">Area parkir yang nyaman dan aman untuk kendaraan siswa dan karyawan.</p>
-        <div class="pt-4 border-t border-gray-50 flex flex-wrap gap-2">
-            <span class="px-2 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Sound System</span>
-            <span class="px-2 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Stage Lighting</span>
-            <span class="px-2 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Multi-purpose</span>
+        <!-- Parkiran -->
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+            <div class="aspect-video relative overflow-hidden">
+                <img src="<?php echo e(asset('images/fasilitas/parkiran.png')); ?>" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
+                <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
+            </div>
+            <div class="p-6 space-y-4">
+                <h3 class="text-2xl font-bold text-[#0F172A]">Parkiran</h3>
+                <p class="text-gray-500 text-sm">Area parkir yang nyaman dan aman untuk kendaraan siswa dan karyawan.</p>
+                <div class="pt-6 border-t border-gray-50 flex flex-wrap gap-3">
+                    <span class="px-3 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Secure</span>
+                    <span class="px-3 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Spacious</span>
+                    <span class="px-3 py-1 bg-gray-50 rounded-lg text-[10px] font-bold text-gray-400">Organized</span>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </section>
 
 <script>
@@ -274,14 +273,16 @@
 </section>
 
 <!-- Direct Contact -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-    <div class="bg-blue-600 rounded-[1.5rem] p-6 lg:p-6 text-center relative overflow-hidden shadow-2xl shadow-blue-200">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 mt-4 text-center">
+    <div class="bg-blue-600 rounded-[2rem] p-12 lg:p-16 relative overflow-hidden shadow-2xl shadow-blue-200">
         <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-700 opacity-50"></div>
-        <div class="relative z-10 space-y-4">
-            <h2 class="text-2xl lg:text-2xl font-bold text-white">Ingin melihat fasilitas kami <br> secara langsung?</h2>
-            <p class="text-lg text-blue-100 max-w-2xl mx-auto">Kami mengundang Anda untuk berkunjung dan merasakan langsung atmosfer belajar di SMKS Mahaputra Cerdas Utama. Jadwalkan kunjungan Anda sekarang.</p>
+        <div class="relative z-10 space-y-8">
+            <h2 class="text-3xl lg:text-4xl font-bold text-white leading-tight">Ingin melihat fasilitas kami <br> secara langsung?</h2>
+            <p class="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+                Kami mengundang Anda untuk berkunjung dan merasakan langsung atmosfer belajar di SMKS Mahaputra Cerdas Utama. Jadwalkan kunjungan Anda sekarang.
+            </p>
             <div class="pt-6">
-                <a href="https://wa.me/message/AKIGOHHXFZGWB1?src=qr" class="inline-flex py-4 px-10 border-2 border-white/30 text-white rounded-2xl font-bold text-lg hover:bg-white/10 transition-all">Hubungi Kami</a>
+                <a href="https://wa.me/message/AKIGOHHXFZGWB1?src=qr" class="inline-flex py-4 px-12 border-2 border-white/30 text-white rounded-2xl font-bold text-xl hover:bg-white/10 hover:border-white transition-all">Hubungi Kami</a>
             </div>
         </div>
     </div>

@@ -43,6 +43,7 @@ class PageController extends Controller
     {
         $query = \App\Models\Article::published();
 
+        // Search by Title/Content
         if ($request->filled('search')) {
             $searchTerm = '%' . $request->search . '%';
             $query->where(function($q) use ($searchTerm) {
@@ -51,14 +52,32 @@ class PageController extends Controller
             });
         }
 
-        $articles = $query->latest('published_at')->paginate(6);
+        // Filter by Month
+        if ($request->filled('month')) {
+            $query->whereMonth('published_at', $request->month);
+        }
+
+        // Filter by Year
+        if ($request->filled('year')) {
+            $query->whereYear('published_at', $request->year);
+        }
+
+        $articles = $query->latest('published_at')->paginate(6)->withQueryString();
         
         $trendingArticles = \App\Models\Article::published()
             ->orderBy('views_count', 'desc')
             ->take(3)
             ->get();
+
+        // Dynamic Archive Data
+        $archiveData = \App\Models\Article::published()
+            ->selectRaw('year(published_at) year, month(published_at) month, count(*) data')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get();
             
-        return view('news', compact('articles', 'trendingArticles'));
+        return view('news', compact('articles', 'trendingArticles', 'archiveData'));
     }
 
     public function facilities()
@@ -115,7 +134,12 @@ class PageController extends Controller
             ->take(3)
             ->get();
             
-        return view('news_detail', compact('article', 'relatedArticles'));
+        $comments = \App\Models\Comment::where('article_id', $article->id)
+            ->approved()
+            ->latest()
+            ->get();
+            
+        return view('news_detail', compact('article', 'relatedArticles', 'comments'));
     }
 
     public function contact()

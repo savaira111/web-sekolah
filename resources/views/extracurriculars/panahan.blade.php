@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative h-[600px] flex items-center overflow-hidden">
+<section class="relative h-[540px] flex items-center overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
         <img src="{{ asset('images/extracurriculars/thumbs/archery.png') }}" alt="Hero" class="w-full h-full object-cover">
@@ -12,20 +12,20 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div class="mb-8">
-            <a href="{{ route('extracurriculars.index') }}" class="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white/30 transition-all shadow-lg" title="Kembali">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
-            </a>
-        </div>
-        <div class="space-y-8 max-w-4xl">
-            <div class="space-y-4">
-                <span class="inline-block px-4 py-1.5 bg-blue-600 text-white text-[10px] font-bold rounded-lg uppercase tracking-wider">Olahraga</span>
-                <h1 class="text-6xl lg:text-8xl font-black text-white leading-tight">
-                    Panahan <br><span class="text-blue-500">(Archery)</span>
+        <div class="space-y-6 max-w-4xl">
+            <span class="inline-block px-4 py-1.5 bg-blue-600 text-white text-[10px] font-bold rounded-lg uppercase tracking-wider">Olahraga</span>
+            
+            <div class="flex items-center gap-6">
+                <a href="{{ route('extracurriculars.index') }}" class="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white/30 transition-all shadow-lg shrink-0" title="Kembali">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+                </a>
+                <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight">
+                    Panahan <span class="text-blue-500">(Archery)</span>
                 </h1>
-                <p class="text-xl text-gray-300 max-w-2xl leading-relaxed">
-                    Melatih fokus dan presisi melalui teknik memanah tradisional maupun modern bagi seluruh siswa.
-                </p>
+            </div>
+                    <p class="text-xl text-gray-300 max-w-3xl leading-relaxed font-medium">
+                        Melatih fokus dan presisi melalui teknik memanah tradisional maupun modern bagi seluruh siswa.
+                    </p>
             </div>
 
             <div class="flex flex-wrap gap-4 pt-4">
@@ -38,21 +38,21 @@
 </section>
 
 <!-- Main Content -->
-<section class="py-24 bg-gray-50">
+<section class="py-12 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-16">
             
             <!-- Left Side: Information -->
-            <div class="lg:col-span-8 space-y-20">
+            <div class="lg:col-span-8 space-y-12">
                 
                 <!-- About & Stats -->
                 <div class="space-y-12">
                     <div class="space-y-6">
                         <div class="flex items-center gap-4">
                             <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
-                            <h2 class="text-4xl font-black text-[#0F172A]">Tentang Panahan</h2>
+                            <h2 class="text-3xl font-black text-[#0F172A]">Tentang Panahan</h2>
                         </div>
-                        <p class="text-lg text-gray-500 leading-relaxed">
+                        <p class="text-base text-gray-500 leading-relaxed">
                             Panahan SMKS Mahaputra Cerdas Utama merupakan wadah pembinaan generasi muda untuk mengembangkan potensi, bakat, dan semangat positif. Anggota dilatih untuk memiliki karakter unggul, kedisiplinan, dan etika yang baik serta berprestasi dalam berbagai kegiatan.
                         </p>
                     </div>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="space-y-1">
                                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Anggota Aktif</p>
-                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">30 Siswa</p>
+                                <p class="text-2xl font-black text-[#0F172A] tracking-tight">30 Siswa</p>
                             </div>
                         </div>
                         <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4 group transition-all duration-500">
@@ -74,7 +74,7 @@
                             </div>
                             <div class="space-y-1">
                                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Penghargaan</p>
-                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">10+ Trophy</p>
+                                <p class="text-2xl font-black text-[#0F172A] tracking-tight">10+ Trophy</p>
                             </div>
                         </div>
                         <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4 group transition-all duration-500">
@@ -83,7 +83,7 @@
                             </div>
                             <div class="space-y-1">
                                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Berdiri</p>
-                                <p class="text-3xl font-black text-[#0F172A] tracking-tight">Sejak 2015</p>
+                                <p class="text-2xl font-black text-[#0F172A] tracking-tight">Sejak 2015</p>
                             </div>
                         </div>
                     </div>
@@ -93,28 +93,28 @@
                  <div class="space-y-12">
                      <div class="flex items-center gap-4">
                         <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
-                        <h2 class="text-4xl font-black text-[#0F172A]">Syarat Masuk & Seleksi</h2>
+                        <h2 class="text-3xl font-black text-[#0F172A]">Syarat Masuk & Seleksi</h2>
                     </div>
                     <div class="space-y-8">
                         <div class="flex gap-8 group">
-                            <div class="w-14 h-14 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-center text-xl font-black text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">1</div>
+                            <div class="w-12 h-12 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-center text-lg font-black text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">1</div>
                             <div class="space-y-2">
-                                <h4 class="text-xl font-bold text-[#0F172A]">Fokus & Ketelitian</h4>
-                                <p class="text-gray-500">Memiliki tingkat konsentrasi dan kefokusan yang tinggi, serta ketelitian yang mumpuni dalam setiap proses latihan memanah.</p>
+                                <h4 class="text-lg font-bold text-[#0F172A]">Fokus & Ketelitian</h4>
+                                <p class="text-sm text-gray-500">Memiliki tingkat konsentrasi dan kefokusan yang tinggi, serta ketelitian yang mumpuni dalam setiap proses latihan memanah.</p>
                             </div>
                         </div>
                         <div class="flex gap-8 group">
-                            <div class="w-14 h-14 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-center text-xl font-black text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">2</div>
+                            <div class="w-12 h-12 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-center text-lg font-black text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">2</div>
                             <div class="space-y-2">
-                                <h4 class="text-xl font-bold text-[#0F172A]">Kesehatan & Postur</h4>
-                                <p class="text-gray-500">Memiliki postur tubuh yang baik dan kesehatan fisik yang stabil untuk mendukung keakuratan saat menarik busur panah.</p>
+                                <h4 class="text-lg font-bold text-[#0F172A]">Kesehatan & Postur</h4>
+                                <p class="text-sm text-gray-500">Memiliki postur tubuh yang baik dan kesehatan fisik yang stabil untuk mendukung keakuratan saat menarik busur panah.</p>
                             </div>
                         </div>
                         <div class="flex gap-8 group">
-                            <div class="w-14 h-14 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-center text-xl font-black text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">3</div>
+                            <div class="w-12 h-12 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-center text-lg font-black text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">3</div>
                             <div class="space-y-2">
-                                <h4 class="text-xl font-bold text-[#0F172A]">Integritas & Akademik</h4>
-                                <p class="text-gray-500">Menunjukkan perilaku yang baik di sekolah, rata-rata nilai akademik memenuhi standar, serta mendapat izin tertulis dari orang tua.</p>
+                                <h4 class="text-lg font-bold text-[#0F172A]">Integritas & Akademik</h4>
+                                <p class="text-sm text-gray-500">Menunjukkan perilaku yang baik di sekolah, rata-rata nilai akademik memenuhi standar, serta mendapat izin tertulis dari orang tua.</p>
                             </div>
                         </div>
                     </div>
@@ -124,15 +124,15 @@
                 <div class="space-y-12">
                      <div class="flex items-center gap-4">
                         <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
-                        <h2 class="text-4xl font-black text-[#0F172A]">Jadwal Latihan Rutin</h2>
+                        <h2 class="text-3xl font-black text-[#0F172A]">Jadwal Latihan Rutin</h2>
                     </div>
-                    <div class="bg-white rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden">
                         <table class="w-full text-left">
                             <thead>
                                 <tr class="bg-gray-50 border-b border-gray-100">
-                                    <th class="px-8 py-6 text-sm font-black text-gray-400 uppercase tracking-widest">Hari</th>
-                                    <th class="px-8 py-6 text-sm font-black text-gray-400 uppercase tracking-widest">Waktu</th>
-                                    <th class="px-8 py-6 text-sm font-black text-gray-400 uppercase tracking-widest">Materi Latihan</th>
+                                    <th class="px-8 py-6 text-xs font-black text-gray-400 uppercase tracking-widest">Hari</th>
+                                    <th class="px-8 py-6 text-xs font-black text-gray-400 uppercase tracking-widest">Waktu</th>
+                                    <th class="px-8 py-6 text-xs font-black text-gray-400 uppercase tracking-widest">Materi Latihan</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50">
@@ -150,40 +150,40 @@
                 <div class="space-y-12">
                     <div class="flex items-center gap-4">
                         <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
-                        <h2 class="text-4xl font-black text-[#0F172A]">Galeri Kegiatan</h2>
+                        <h2 class="text-3xl font-black text-[#0F172A]">Galeri Kegiatan</h2>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
                             <img src="{{ asset('images/extracurriculars/panahan/card 1.jpg') }}" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
                             <img src="{{ asset('images/extracurriculars/panahan/card 2.jpg') }}" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
                             <img src="{{ asset('images/extracurriculars/panahan/card 3.jpg') }}" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
                             <img src="{{ asset('images/extracurriculars/panahan/card 4.jpg') }}" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
                             <img src="{{ asset('images/extracurriculars/panahan/card 5.jpg') }}" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
                             <img src="{{ asset('images/extracurriculars/panahan/card 6.jpg') }}" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -197,13 +197,13 @@
                     <div class="flex items-center justify-between gap-4">
                         <div class="flex items-center gap-4">
                             <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
-                            <h2 class="text-4xl font-black text-[#0F172A]">Jelajahi Prestasi</h2>
+                            <h2 class="text-3xl font-black text-[#0F172A]">Jelajahi Prestasi</h2>
                         </div>
                         <a href="{{ route('news') }}" class="text-blue-600 font-bold hover:underline text-sm">Lihat Semua Berita</a>
                     </div>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="group space-y-4">
-                            <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-100">
+                            <div class="aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border border-gray-100">
                                 <img src="{{ asset('images/extracurriculars/thumbs/archery.png') }}" class="w-full h-full object-cover transition-transform duration-500">
                             </div>
                             <div class="space-y-2">
@@ -212,7 +212,7 @@
                                     <span>•</span>
                                     <span>5 Min Read</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Prestasi Gemilang Panahan Tingkat Provinsi</h3>
+                                <h3 class="text-lg font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Prestasi Gemilang Panahan Tingkat Provinsi</h3>
                                 <div class="flex items-center gap-3 pt-2">
                                     <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                                         <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
@@ -222,7 +222,7 @@
                             </div>
                         </div>
                         <div class="group space-y-4">
-                            <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-100">
+                            <div class="aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border border-gray-100">
                                 <img src="{{ asset('images/extracurriculars/thumbs/archery.png') }}" class="w-full h-full object-cover transition-transform duration-500">
                             </div>
                             <div class="space-y-2">
@@ -231,7 +231,7 @@
                                     <span>•</span>
                                     <span>3 Min Read</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Agenda Tahunan & Pelatihan Anggota Baru Panahan</h3>
+                                <h3 class="text-lg font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Agenda Tahunan & Pelatihan Anggota Baru Panahan</h3>
                                 <div class="flex items-center gap-3 pt-2">
                                     <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                                         <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
@@ -249,17 +249,17 @@
             <div class="lg:col-span-4 space-y-8">
                 
                 <!-- Registration CTA Card -->
-                <div class="bg-blue-600 rounded-[3rem] p-10 text-center space-y-8 shadow-2xl shadow-blue-500/20 relative overflow-hidden">
+                <div class="bg-blue-600 rounded-[2rem] py-12 px-8 text-center space-y-8 shadow-2xl shadow-blue-500/20 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full translate-x-12 -translate-y-12"></div>
                     <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 blur-2xl rounded-full -translate-x-12 translate-y-12"></div>
                     
-                    <div class="relative z-10 space-y-4">
-                        <h4 class="text-3xl font-black text-white leading-tight uppercase">Siap Bergabung?</h4>
-                        <p class="text-sm text-blue-100">Jadilah bagian dari pasukan elit sekolah. Pendaftaran gelombang baru sedang dibuka sekarang!</p>
+                    <div class="relative z-10 space-y-3">
+                        <h4 class="text-2xl font-black text-white leading-tight uppercase">Siap Bergabung?</h4>
+                        <p class="text-xs text-blue-100">Jadilah bagian dari pasukan elit sekolah. Pendaftaran gelombang baru sedang dibuka sekarang!</p>
                     </div>
 
                     <div class="relative z-10 p-6 bg-white/10 backdrop-blur-md rounded-[2rem] border border-white/20">
-                        <a href="{{ route('extracurriculars.registration') }}" class="block w-full py-5 bg-white text-blue-600 rounded-2xl font-black text-lg uppercase shadow-xl transition-all">
+                        <a href="{{ route('extracurriculars.registration') }}" class="block w-full py-4 bg-white text-blue-600 rounded-2xl font-black text-base uppercase shadow-xl transition-all">
                             Daftar Sekarang
                         </a>
                         <p class="text-[10px] text-blue-100 font-bold mt-4 uppercase tracking-widest">Berlaku Sejak 12-03-2024</p>
@@ -267,7 +267,7 @@
                 </div>
 
                 <!-- Staff/Coaches -->
-                <div class="bg-white rounded-[3rem] border border-gray-100 p-10 space-y-8 shadow-sm">
+                <div class="bg-white rounded-[2rem] border border-gray-100 p-8 space-y-6 shadow-sm">
                     <h4 class="text-xl font-bold text-[#0F172A] border-l-4 border-blue-600 pl-4">Pembimbing & Ketua</h4>
                     <div class="space-y-6">
                         <div class="flex items-center gap-6 group">
@@ -294,9 +294,9 @@
                 </div>
 
                 <!-- Location Map -->
-                <div class="bg-white rounded-[3rem] border border-gray-100 p-10 space-y-6 shadow-sm">
+                <div class="bg-white rounded-[2rem] border border-gray-100 p-8 space-y-6 shadow-sm">
                     <div class="space-y-1">
-                        <h4 class="text-xl font-bold text-[#0F172A] leading-tight">Lokasi Latihan</h4>
+                        <h4 class="text-lg font-bold text-[#0F172A] leading-tight">Lokasi Latihan</h4>
                         <p class="text-[10px] text-gray-400">Kampus A SMK Mahaputra Cerdas Utama</p>
                     </div>
                     <div class="relative aspect-square rounded-[2rem] overflow-hidden border border-gray-100 group">
@@ -320,22 +320,22 @@
 </section>
 
 <!-- Footer Overlay CTA (Optional matching UI) -->
-<section class="py-24 bg-white">
+<section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative bg-[#0F172A] rounded-[4rem] p-12 lg:p-24 overflow-hidden shadow-2xl">
+        <div class="relative bg-[#0F172A] rounded-[2.5rem] p-12 lg:p-16 overflow-hidden shadow-2xl">
             <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-3xl rounded-full"></div>
             <div class="absolute bottom-0 left-0 w-1/3 h-full bg-indigo-600/10 blur-3xl rounded-full"></div>
             
             <div class="relative z-10 text-center space-y-8">
-                <h2 class="text-5xl lg:text-7xl font-black text-white leading-tight">
+                <h2 class="text-4xl lg:text-5xl font-black text-white leading-tight">
                     Mulai Langkahmu <br>
                     <span class="text-blue-500">Bersama Kami!</span>
                 </h2>
-                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
                     Bergabunglah dengan organisasi yang akan merubah masa depanmu menjadi lebih disiplin dan kompeten.
                 </p>
                 <div class="flex justify-center pt-8">
-                     <a href="{{ route('extracurriculars.registration') }}" class="px-16 py-6 bg-blue-600 text-white rounded-2xl font-black text-2xl uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
+                     <a href="{{ route('extracurriculars.registration') }}" class="px-12 py-4 bg-blue-600 text-white rounded-2xl font-black text-lg uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
                         Daftar Panahan
                     </a>
                 </div>

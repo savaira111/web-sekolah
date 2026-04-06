@@ -47,58 +47,7 @@
             </div>
 
             <!-- Main Content Area -->
-            <div class="lg:col-span-2 space-y-12">
-                <!-- Biaya Section -->
-                <div class="space-y-8">
-                    <h3 class="text-2xl font-bold text-blue-600">BIAYA MASUK AWAL</h3>
-                    <div class="bg-blue-600 rounded-[3rem] p-12 text-center text-white relative overflow-hidden shadow-2xl shadow-blue-200">
-                        <div class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/5 to-transparent"></div>
-                        <p class="text-sm font-bold uppercase tracking-[0.2em] mb-4">Penerimaan Peserta Didik Baru 2026 - 2027</p>
-                        <div class="flex items-baseline justify-center gap-2 mb-4">
-                            <span class="text-2xl font-bold opacity-60">Rp</span>
-                            <span class="text-7xl font-bold leading-none">3.500.000,-</span>
-                        </div>
-                        <p class="text-blue-100 text-sm">Hanya dengan 3,5 Juta sudah bisa masuk di SMK Mahaputra Cerdas Utama</p>
-                    </div>
-                </div>
-
-                <!-- Diskon Section -->
-                <div class="space-y-8">
-                    <h3 class="text-2xl font-bold text-[#0F172A]">GEBYAR DISKON!!!</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-blue-600 p-8 rounded-[2.5rem] text-white text-center space-y-4 shadow-lg">
-                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
-                            <h4 class="text-4xl font-bold">GRATIS</h4>
-                            <p class="text-xs font-medium opacity-80">Hafiz Quran 30 Juz</p>
-                        </div>
-                        <div class="bg-blue-600 p-8 rounded-[2.5rem] text-white text-center space-y-4 shadow-lg">
-                             <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
-                            <h4 class="text-4xl font-bold">75%</h4>
-                            <p class="text-xs font-medium opacity-80">Hafiz Quran 20 Juz</p>
-                        </div>
-                         <div class="bg-blue-600 p-8 rounded-[2.5rem] text-white text-center space-y-4 shadow-lg">
-                             <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
-                            <h4 class="text-4xl font-bold">50%</h4>
-                            <p class="text-xs font-medium opacity-80">Hafiz Quran 10 Juz</p>
-                        </div>
-                         <div class="bg-blue-500 p-8 rounded-[2.5rem] text-white text-center space-y-4 shadow-lg">
-                             <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
-                            <h4 class="text-4xl font-bold">25%</h4>
-                            <p class="text-xs font-medium opacity-80">Hafiz Quran 5 Juz</p>
-                        </div>
-                         <div class="bg-blue-500 p-8 rounded-[2.5rem] text-white text-center space-y-4 shadow-lg">
-                             <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
-                            <h4 class="text-4xl font-bold">50%</h4>
-                            <p class="text-xs font-medium opacity-80">Yatim Piatu</p>
-                        </div>
-                         <div class="bg-blue-500 p-8 rounded-[2.5rem] text-white text-center space-y-4 shadow-lg">
-                             <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
-                            <h4 class="text-4xl font-bold">25%</h4>
-                            <p class="text-xs font-medium opacity-80">Yatim atau Piatu</p>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="lg:col-span-2 space-y-8">
                 <!-- Flowchart Section -->
                 <div class="bg-white p-12 rounded-[3rem] border-2 border-blue-600 space-y-12">
                     <h3 class="text-2xl font-bold text-blue-600 flex items-center gap-4">
@@ -135,10 +84,154 @@
                     </div>
                 </div>
 
-                <!-- Accordion / Detail Info -->
+                <!-- Accordion Container -->
                 <div class="space-y-4">
-                    <!-- 1. Persyaratan Dokumen -->
-                    <div x-data="{ isOpen: true }" class="bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:border-blue-100 transition-all" :class="isOpen ? 'ring-2 ring-blue-600/10 border-blue-600/20' : ''">
+                    <!-- 1. Biaya Masuk Awal -->
+                    <div x-data="{ isOpen: false }" class="bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:border-blue-100 transition-all" :class="isOpen ? 'ring-2 ring-blue-600/10 border-blue-600/20' : ''">
+                        <button @click="isOpen = !isOpen" class="w-full p-8 flex justify-between items-center text-left transition-colors" :class="isOpen ? 'bg-blue-50/30' : ''">
+                            <div class="flex items-center gap-4">
+                                <svg class="w-6 h-6 text-blue-600 transition-transform duration-300" :class="isOpen ? 'scale-110' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="font-bold text-gray-900 text-lg uppercase tracking-wide">Biaya Masuk Awal</span>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 transition-transform duration-300" :class="isOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="isOpen" 
+                             x-transition:enter="transition ease-out duration-300 origin-top" 
+                             x-transition:enter-start="opacity-0 scale-y-95 -translate-y-2" 
+                             x-transition:enter-end="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-200 origin-top"
+                             x-transition:leave-start="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-y-95 -translate-y-2"
+                             class="px-8 pb-8">
+                            <div class="bg-blue-600 rounded-[2.5rem] p-10 text-center text-white relative overflow-hidden shadow-xl mt-2">
+                                <div class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/5 to-transparent"></div>
+                                <p class="text-[10px] font-bold uppercase tracking-[0.2em] mb-4 opacity-80">Penerimaan Peserta Didik Baru 2026 - 2027</p>
+                                <div class="flex items-baseline justify-center gap-2 mb-4">
+                                    <span class="text-xl font-bold opacity-60">Rp</span>
+                                    <span class="text-6xl font-bold leading-none tracking-tight">3.500.000,-</span>
+                                </div>
+                                <p class="text-blue-100 text-xs font-medium">Hanya dengan 3,5 Juta sudah bisa masuk di SMK Mahaputra Cerdas Utama</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Gebyar Diskon -->
+                    <div x-data="{ isOpen: false }" class="bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:border-blue-100 transition-all" :class="isOpen ? 'ring-2 ring-blue-600/10 border-blue-600/20' : ''">
+                        <button @click="isOpen = !isOpen" class="w-full p-8 flex justify-between items-center text-left transition-colors" :class="isOpen ? 'bg-blue-50/30' : ''">
+                            <div class="flex items-center gap-4">
+                                <svg class="w-6 h-6 text-blue-600 transition-transform duration-300" :class="isOpen ? 'scale-110' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 2h2zm0 0h3l4 9v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4l4-9h3z"></path></svg>
+                                <span class="font-bold text-gray-900 text-lg uppercase tracking-wide">Gebyar Diskon Spesial</span>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400 transition-transform duration-300" :class="isOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="isOpen" 
+                             x-transition:enter="transition ease-out duration-300 origin-top" 
+                             x-transition:enter-start="opacity-0 scale-y-95 -translate-y-2" 
+                             x-transition:enter-end="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-200 origin-top"
+                             x-transition:leave-start="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-y-95 -translate-y-2"
+                             class="px-8 pb-8">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
+                                <!-- Gratis -->
+                                <div class="group relative bg-blue-600 p-6 rounded-[2rem] text-white text-center shadow-lg overflow-hidden cursor-pointer h-40 flex flex-col justify-center transition-all duration-500 hover:bg-blue-700">
+                                    <div class="space-y-2 transition-all duration-500 group-hover:scale-50 group-hover:-translate-y-10 group-hover:opacity-0">
+                                        <p class="text-[9px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
+                                        <h4 class="text-4xl font-bold">GRATIS</h4>
+                                        <p class="text-[10px] font-medium opacity-80">Hafiz Quran 30 Juz</p>
+                                    </div>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-6 opacity-0 translate-y-10 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                                        <p class="text-[10px] font-bold opacity-60 line-through">Rp 3.500.000</p>
+                                        <div class="h-px w-8 bg-white/20 my-2"></div>
+                                        <p class="text-2xl font-black">Rp 0</p>
+                                        <p class="text-[9px] font-bold uppercase tracking-widest mt-2 bg-white/20 px-3 py-1 rounded-full">Lunas!</p>
+                                    </div>
+                                </div>
+
+                                <!-- 75% -->
+                                <div class="group relative bg-blue-600 p-6 rounded-[2rem] text-white text-center shadow-lg overflow-hidden cursor-pointer h-40 flex flex-col justify-center transition-all duration-500 hover:bg-blue-700">
+                                    <div class="space-y-2 transition-all duration-500 group-hover:scale-50 group-hover:-translate-y-10 group-hover:opacity-0">
+                                        <p class="text-[9px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
+                                        <h4 class="text-4xl font-bold">75%</h4>
+                                        <p class="text-[10px] font-medium opacity-80">Hafiz Quran 20 Juz</p>
+                                    </div>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-6 opacity-0 translate-y-10 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                                        <p class="text-[10px] font-bold opacity-60 line-through">Rp 3.500.000</p>
+                                        <div class="h-px w-8 bg-white/20 my-2"></div>
+                                        <p class="text-2xl font-black">Rp 875.000</p>
+                                        <p class="text-[9px] font-bold uppercase tracking-widest mt-2 bg-white/20 px-3 py-1 rounded-full">Hemat 75%</p>
+                                    </div>
+                                </div>
+
+                                <!-- 50% -->
+                                <div class="group relative bg-blue-600 p-6 rounded-[2rem] text-white text-center shadow-lg overflow-hidden cursor-pointer h-40 flex flex-col justify-center transition-all duration-500 hover:bg-blue-700">
+                                    <div class="space-y-2 transition-all duration-500 group-hover:scale-50 group-hover:-translate-y-10 group-hover:opacity-0">
+                                        <p class="text-[9px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
+                                        <h4 class="text-4xl font-bold">50%</h4>
+                                        <p class="text-[10px] font-medium opacity-80">Hafiz Quran 10 Juz</p>
+                                    </div>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-6 opacity-0 translate-y-10 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                                        <p class="text-[10px] font-bold opacity-60 line-through">Rp 3.500.000</p>
+                                        <div class="h-px w-8 bg-white/20 my-2"></div>
+                                        <p class="text-2xl font-black">Rp 1.750.000</p>
+                                        <p class="text-[9px] font-bold uppercase tracking-widest mt-2 bg-white/20 px-3 py-1 rounded-full">Hemat 50%</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                                <!-- 25% -->
+                                <div class="group relative bg-blue-500 p-6 rounded-[2rem] text-white text-center shadow-lg overflow-hidden cursor-pointer h-40 flex flex-col justify-center transition-all duration-500 hover:bg-blue-600">
+                                    <div class="space-y-2 transition-all duration-500 group-hover:scale-50 group-hover:-translate-y-10 group-hover:opacity-0">
+                                        <p class="text-[9px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
+                                        <h4 class="text-4xl font-bold">25%</h4>
+                                        <p class="text-[10px] font-medium opacity-80">Hafiz Quran 5 Juz</p>
+                                    </div>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-6 opacity-0 translate-y-10 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                                        <p class="text-[10px] font-bold opacity-60 line-through">Rp 3.500.000</p>
+                                        <div class="h-px w-8 bg-white/20 my-2"></div>
+                                        <p class="text-2xl font-black">Rp 2.625.000</p>
+                                        <p class="text-[9px] font-bold uppercase tracking-widest mt-2 bg-white/20 px-3 py-1 rounded-full">Hemat 25%</p>
+                                    </div>
+                                </div>
+
+                                <!-- 50% Yatim Piatu -->
+                                <div class="group relative bg-blue-500 p-6 rounded-[2rem] text-white text-center shadow-lg overflow-hidden cursor-pointer h-40 flex flex-col justify-center transition-all duration-500 hover:bg-blue-600">
+                                    <div class="space-y-2 transition-all duration-500 group-hover:scale-50 group-hover:-translate-y-10 group-hover:opacity-0">
+                                        <p class="text-[9px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
+                                        <h4 class="text-4xl font-bold">50%</h4>
+                                        <p class="text-[10px] font-medium opacity-80">Yatim Piatu</p>
+                                    </div>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-6 opacity-0 translate-y-10 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                                        <p class="text-[10px] font-bold opacity-60 line-through">Rp 3.500.000</p>
+                                        <div class="h-px w-8 bg-white/20 my-2"></div>
+                                        <p class="text-2xl font-black">Rp 1.750.000</p>
+                                        <p class="text-[9px] font-bold uppercase tracking-widest mt-2 bg-white/20 px-3 py-1 rounded-full">Khusus Yatim Piatu</p>
+                                    </div>
+                                </div>
+
+                                <!-- 25% Yatim/Piatu -->
+                                <div class="group relative bg-blue-500 p-6 rounded-[2rem] text-white text-center shadow-lg overflow-hidden cursor-pointer h-40 flex flex-col justify-center transition-all duration-500 hover:bg-blue-600">
+                                    <div class="space-y-2 transition-all duration-500 group-hover:scale-50 group-hover:-translate-y-10 group-hover:opacity-0">
+                                        <p class="text-[9px] font-bold uppercase tracking-widest opacity-60">DISKON</p>
+                                        <h4 class="text-4xl font-bold">25%</h4>
+                                        <p class="text-[10px] font-medium opacity-80">Yatim atau Piatu</p>
+                                    </div>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-6 opacity-0 translate-y-10 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                                        <p class="text-[10px] font-bold opacity-60 line-through">Rp 3.500.000</p>
+                                        <div class="h-px w-8 bg-white/20 my-2"></div>
+                                        <p class="text-2xl font-black">Rp 2.625.000</p>
+                                        <p class="text-[9px] font-bold uppercase tracking-widest mt-2 bg-white/20 px-3 py-1 rounded-full">Khusus Yatim/Piatu</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- 3. Persyaratan Dokumen -->
+                    <div x-data="{ isOpen: false }" class="bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:border-blue-100 transition-all" :class="isOpen ? 'ring-2 ring-blue-600/10 border-blue-600/20' : ''">
                         <button @click="isOpen = !isOpen" class="w-full p-8 flex justify-between items-center text-left transition-colors" :class="isOpen ? 'bg-blue-50/30' : ''">
                             <div class="flex items-center gap-4">
                                 <svg class="w-6 h-6 text-blue-600 transition-transform duration-300" :class="isOpen ? 'scale-110' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
@@ -146,7 +239,14 @@
                             </div>
                             <svg class="w-5 h-5 text-gray-400 transition-transform duration-300" :class="isOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-8 pb-8">
+                        <div x-show="isOpen" 
+                             x-transition:enter="transition ease-out duration-300 origin-top" 
+                             x-transition:enter-start="opacity-0 scale-y-95 -translate-y-2" 
+                             x-transition:enter-end="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-200 origin-top"
+                             x-transition:leave-start="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-y-95 -translate-y-2"
+                             class="px-8 pb-8">
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-8 mt-4">
                                 <!-- Column 1 -->
                                 <div class="space-y-6">
@@ -282,7 +382,14 @@
                             </div>
                             <svg class="w-5 h-5 text-gray-400 transition-transform duration-300" :class="isOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-8 pb-8 space-y-4">
+                        <div x-show="isOpen" 
+                             x-transition:enter="transition ease-out duration-300 origin-top" 
+                             x-transition:enter-start="opacity-0 scale-y-95 -translate-y-2" 
+                             x-transition:enter-end="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-200 origin-top"
+                             x-transition:leave-start="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-y-95 -translate-y-2"
+                             class="px-8 pb-8 space-y-4">
                             <div class="p-6 bg-blue-50/50 rounded-2xl border border-blue-100/50">
                                 <p class="text-xs text-blue-800 font-medium leading-relaxed mb-4">Seluruh proses pembayaran pendaftaran dilakukan melalui Admin Mahaputra Cerdas Utama untuk keamanan dan verifikasi dana secara langsung.</p>
                                 <a href="https://wa.me/6282260337300?text=Halo%20Admin%20Mahaputra%20Cerdas%20Utama%2C%20saya%20mau%20tanya%20soal%20pendaftaran%20sekolah%20sampai%20dengan%20detail%20pembayarannya.%20Mohon%20infonya%20ya%2C%20terima%20kasih." target="_blank" class="inline-flex items-center gap-3 px-6 py-4 bg-[#25D366] text-white rounded-xl font-bold text-[11px] uppercase tracking-wider hover:bg-[#20ba59] transition-all shadow-lg shadow-green-100 group">
@@ -302,7 +409,14 @@
                             </div>
                             <svg class="w-5 h-5 text-gray-400 transition-transform duration-300" :class="isOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div x-show="isOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-8 pb-8 space-y-6">
+                        <div x-show="isOpen" 
+                             x-transition:enter="transition ease-out duration-300 origin-top" 
+                             x-transition:enter-start="opacity-0 scale-y-95 -translate-y-2" 
+                             x-transition:enter-end="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-200 origin-top"
+                             x-transition:leave-start="opacity-100 scale-y-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-y-95 -translate-y-2"
+                             class="px-8 pb-8 space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="p-5 bg-gray-50 rounded-2xl border border-gray-100 group hover:border-blue-200 transition-all">
                                     <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-2">Hari Kerja</p>
@@ -322,44 +436,23 @@
                 </div>
 
 
-                <!-- FAQ Footer -->
-                <div id="faq" class="pt-12">
-                     <h3 class="text-2xl font-bold text-[#0F172A] mb-8">FAQ - Pertanyaan Umum</h3>
-                     <div class="grid md:grid-cols-2 gap-12">
-                        <div class="space-y-4">
-                            <h6 class="font-bold text-blue-600">Kapan batas akhir pendaftaran Gelombang 1?</h6>
-                            <p class="text-xs text-gray-500">Batas akhir pendaftaran Gelombang 1 adalah tanggal 10 Juli 2027. Segera daftar sebelum kuota penuh.</p>
-                        </div>
-                        <div class="space-y-4">
-                            <h6 class="font-bold text-blue-600">Apakah ada biaya pendaftaran?</h6>
-                            <p class="text-xs text-gray-500">Biaya pendaftaran sebesar Rp 150.000 untuk penggantian biaya administrasi dan modul tes seleksi.</p>
-                        </div>
-                        <div class="space-y-4">
-                            <h6 class="font-bold text-blue-600">Bagaimana jika saya lupa password akun?</h6>
-                            <p class="text-xs text-gray-500">Gunakan fitur 'Lupa Password' pada halaman Login atau hubungi admin via WhatsApp untuk reset akun.</p>
-                        </div>
-                        <div class="space-y-4">
-                            <h6 class="font-bold text-blue-600">Apa saja pilihan jurusan yang tersedia?</h6>
-                            <p class="text-xs text-gray-500">Kami memiliki 4 kompetensi keahlian: PPLG, DKV, Multimedia, dan Akuntansi Pemasaran.</p>
-                        </div>
-                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Final CTA - Expanded and Full Width -->
-        <div class="bg-blue-600 rounded-[3rem] p-12 lg:p-20 text-center space-y-10 shadow-2xl shadow-blue-200 mt-20 relative overflow-hidden">
+        <!-- Final CTA - Centered & Compact -->
+        <div class="max-w-5xl mx-auto bg-blue-600 rounded-[2.5rem] p-10 lg:p-14 text-center space-y-8 shadow-2xl shadow-blue-200 mt-20 relative overflow-hidden">
              <!-- Decorative elements -->
              <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
              <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-400 opacity-20 rounded-full -ml-40 -mb-40 blur-3xl"></div>
              
-             <div class="relative z-10 space-y-6">
-                <h3 class="text-4xl lg:text-6xl font-bold text-white leading-tight">Sudah Paham Alurnya?</h3>
-                <p class="text-blue-100 text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
+             <div class="relative z-10 space-y-5">
+                <h3 class="text-3xl lg:text-5xl font-bold text-white leading-tight">Sudah Paham Alurnya?</h3>
+                <p class="text-blue-100 text-base max-w-2xl mx-auto leading-relaxed">
                     Mulai pendaftaran Anda sekarang juga secara online dan raih masa depan digital Anda bersama kami di SMKS Mahaputra Cerdas Utama.
                 </p>
-                <div class="pt-8">
-                    <a href="{{ route('registration') }}" class="inline-flex py-6 px-16 bg-white text-blue-600 rounded-[2.5rem] font-bold text-2xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-blue-900/20">
+                <div class="pt-4">
+                    <a href="{{ route('registration') }}" class="inline-flex py-4 px-10 bg-white text-blue-600 rounded-2xl font-bold text-xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-blue-900/10">
                         Daftar Online Sekarang
                     </a>
                 </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::get('/jurusan/pplg', [PageController::class, 'pplg'])->name('jurusan.pplg
 
 Route::get('/berita', [PageController::class, 'news'])->name('news');
 Route::get('/berita/{slug}', [PageController::class, 'newsDetail'])->name('news.detail');
+Route::post('/berita/{articleId}/comments', [CommentController::class, 'store'])->name('news.comments.store');
 
 Route::get('/fasilitas', [PageController::class, 'facilities'])->name('facilities');
 Route::get('/staff', [PageController::class, 'staff'])->name('staff');
@@ -139,5 +141,11 @@ Route::middleware('auth')->prefix('superadmin')->name('superadmin.')->group(func
     // Gallery/Album
     Route::post('/albums/{album}/toggle', [AlbumController::class, 'toggleVisibility'])->name('albums.toggle');
     Route::resource('albums', AlbumController::class);
+
+    // Comments Management
+    Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+    Route::post('/comments/{id}/approve', [CommentController::class, 'approve'])->name('comments.approve');
+    Route::post('/comments/{id}/reject', [CommentController::class, 'reject'])->name('comments.reject');
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 });

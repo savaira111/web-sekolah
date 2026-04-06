@@ -73,11 +73,29 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
 
+            // 4. Comment Notifications
+            $rawComments = \App\Models\Comment::where('status', 'pending')
+                ->latest()
+                ->take(5)
+                ->get();
+
+            foreach($rawComments as $item) {
+                $allNotifications->push([
+                    'title' => 'Komentar Baru',
+                    'description' => $item->name . ': ' . \Illuminate\Support\Str::limit($item->body, 30),
+                    'link' => route('superadmin.comments.index'),
+                    'created_at' => $item->created_at,
+                    'time' => $item->created_at->diffForHumans(),
+                    'type' => 'comment'
+                ]);
+            }
+
             $adminNotifications = $allNotifications->sortByDesc('created_at')->take(10);
             
             $unreadCount = \App\Models\Applicant::where('status', 'Menunggu Review')->count() + 
                           \App\Models\ExtracurricularRegistration::where('status', 'pending')->count() +
-                          \App\Models\ContactMessage::where('is_read', false)->count();
+                          \App\Models\ContactMessage::where('is_read', false)->count() +
+                          \App\Models\Comment::where('status', 'pending')->count();
 
             $view->with('adminNotifications', $adminNotifications)
                  ->with('unreadNotificationsCount', $unreadCount);

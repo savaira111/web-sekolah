@@ -30,23 +30,23 @@
 </script>
 <div x-data="albumGallery()">
     <!-- Hero Section -->
-    <section class="pt-20 pb-12 bg-white">
+    <section class="pt-6 pb-12 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-2xl lg:text-2xl font-extrabold text-[#0F172A] mb-6">
+            <h1 class="text-4xl lg:text-5xl font-extrabold text-[#0F172A] mb-6">
                 Galeri Kegiatan & <br>
                 <span class="text-blue-600">Dokumentasi</span>
             </h1>
-            <p class="text-gray-500 max-w-2xl mx-auto mb-10 text-sm lg:text-base leading-relaxed">
+            <p class="text-base lg:text-lg text-gray-500 max-w-3xl mx-auto mb-10 leading-relaxed">
                 Melihat kembali momen-momen berharga dan prestasi yang diukir oleh civitas akademika di SMKS Mahaputra Cerdas Utama.
             </p>
 
             <!-- Filter Buttons -->
-            <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <div class="flex flex-wrap justify-center gap-4 mb-4">
                 <template x-for="filter in ['Semua', 'Akademik', 'Kesiswaan', 'Prestasi', 'Fasilitas']">
                     <button 
                         @click="activeFilter = filter"
-                        :class="activeFilter === filter ? 'bg-blue-600 text-white' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'"
-                        class="px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-300 min-w-[100px]"
+                        :class="activeFilter === filter ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'"
+                        class="px-8 py-3.5 rounded-full text-sm font-bold transition-all duration-300 min-w-[120px]"
                         x-text="filter">
                     </button>
                 </template>
@@ -55,24 +55,42 @@
     </section>
 
     <!-- Album Grid -->
-    <section class="pb-16 bg-white">
+    <section class="pb-16 bg-white min-h-[400px]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Empty State -->
+            <template x-if="filteredAlbums.length === 0">
+                <div class="flex flex-col items-center justify-center py-20 animate-fade-in" x-transition>
+                    <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Konten tidak ditemukan</h3>
+                    <p class="text-gray-500">Belum ada dokumentasi untuk kategori <span class="font-bold font-blue-600" x-text="activeFilter"></span>.</p>
+                </div>
+            </template>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <template x-for="album in filteredAlbums" :key="album.id">
                     <div 
-                        x-transition:enter="transition ease-out duration-500 transform"
-                        x-transition:enter-start="opacity-0 translate-y-12 scale-95"
+                        x-show="true"
+                        x-transition:enter="transition ease-out duration-700"
+                        x-transition:enter-start="opacity-0 translate-y-12 scale-90"
                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                        x-transition:leave="transition ease-in duration-300 transform"
-                        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-                        x-transition:leave-end="opacity-0 translate-y-12 scale-95"
                         class="group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col"
                     >
                         <!-- Image Container -->
                         <div class="aspect-[4/3] relative overflow-hidden">
                             <img :src="album.image" :alt="album.title" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                            <!-- Photo Count Badge -->
-                            <div class="absolute top-5 right-5">
+                            
+                            <!-- Badges -->
+                            <div class="absolute top-5 left-5 right-5 flex justify-between items-start">
+                                <!-- Category Label -->
+                                <div class="px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-lg flex items-center shadow-sm">
+                                    <span class="text-[10px] font-black tracking-widest uppercase text-blue-600" x-text="album.category"></span>
+                                </div>
+
+                                <!-- Photo Count Badge -->
                                 <div class="px-3 py-1.5 bg-blue-600/90 backdrop-blur-sm rounded-lg flex items-center gap-2 text-white shadow-lg">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>

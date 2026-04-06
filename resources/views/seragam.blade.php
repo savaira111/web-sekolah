@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative pt-20 pb-16 bg-cover bg-center overflow-hidden animate-fade-in" style="background-image: url('{{ asset('images/card.jpg') }}');">
+<section class="relative pt-24 pb-24 lg:pb-32 bg-cover bg-center overflow-hidden animate-fade-in min-h-[50vh] lg:min-h-[65vh]" style="background-image: url('{{ asset('images/card.jpg') }}');">
     <!-- Overlay for readability (softened) -->
     <div class="absolute inset-0 bg-white/70 z-0"></div>
     <!-- Decorative Elements -->
@@ -21,13 +21,13 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-10 pt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center -mt-10">
         <div class="space-y-4">
-            <p class="text-blue-600 font-bold tracking-[0.3em] uppercase text-xs">ATRIBUT SISWA</p>
-            <h1 class="text-4xl lg:text-6xl font-black text-[#0F172A] leading-tight">
+            <p class="text-blue-600 font-bold tracking-[0.3em] uppercase text-sm">ATRIBUT SISWA</p>
+            <h1 class="text-5xl lg:text-7xl font-black text-[#0F172A] leading-tight">
                 Ketentuan <span class="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Seragam</span> Sekolah
             </h1>
-            <p class="text-lg lg:text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed font-medium">
+            <p class="text-xl lg:text-2xl text-slate-500 max-w-4xl mx-auto leading-relaxed font-medium">
                 Pakaian seragam SMKS Mahaputra Cerdas Utama yang mencerminkan kedisiplinan, kerapian, dan identitas kami sebagai siswa unggul.
             </p>
         </div>
@@ -35,12 +35,12 @@
 </section>
 
 <!-- Content Section -->
-<section class="pt-10 pb-24 bg-white relative z-10" x-data="seragamData()">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<section class="pt-6 pb-24 bg-white relative z-10" x-data="seragamData()">
+    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 xl:gap-8">
             
             <!-- Notes Card (Moved to top right area) -->
-            <div class="bg-[#0F172A] rounded-[2rem] p-8 shadow-xl text-white relative overflow-hidden group border border-slate-700 md:col-span-2 lg:col-span-1 lg:row-span-2 order-first lg:order-last">
+            <div class="bg-[#0F172A] rounded-[2rem] p-8 shadow-xl text-white relative overflow-hidden group border border-slate-700 md:col-span-2 lg:col-span-1 lg:row-span-2 2xl:col-span-1 2xl:row-span-2 order-first lg:order-last">
                 <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-600/20 rounded-full blur-3xl group-hover:bg-blue-500/30 transition-all duration-500"></div>
                 <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl mb-6 shadow-lg shadow-blue-900/50">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>

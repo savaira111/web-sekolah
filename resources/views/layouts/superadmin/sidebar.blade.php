@@ -20,6 +20,13 @@
             Menu Utama
         </p>
 
+        @php
+            $pendingCommentsCount = \App\Models\Comment::where('status', 'pending')->count();
+            $unreadMessagesCount = \App\Models\ContactMessage::where('is_read', false)->count();
+            $pendingPpdbCount = \App\Models\Applicant::where('status', 'Menunggu Review')->count();
+            $pendingEskulCount = \App\Models\ExtracurricularRegistration::where('status', 'pending')->count();
+        @endphp
+
         <!-- Landing Page -->
         <a href="/" target="_blank"
         class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors sidebar-item">
@@ -88,26 +95,41 @@
 
 
         @if(auth()->user()->role === 'Superadmin' || auth()->user()->role === 'operator artikel/berita')
-        <!-- Articles -->
-        <a href="/superadmin/articles"
-        class="flex items-center gap-3 px-4 py-3 rounded-full font-medium text-sm transition-colors
-        {{ request()->routeIs('superadmin.articles.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
+        <!-- Articles Dropdown -->
+        <div x-data="{ open: {{ request()->routeIs('superadmin.articles.*') || request()->routeIs('superadmin.comments.*') ? 'true' : 'false' }} }">
+            <button @click="open = !open"
+            class="flex items-center justify-between w-full px-4 py-3 rounded-full font-medium text-sm transition-colors
+            {{ request()->routeIs('superadmin.articles.*') || request()->routeIs('superadmin.comments.*') ? 'sidebar-active shadow-lg shadow-blue-500/20' : 'sidebar-item' }}">
+                <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 {{ request()->routeIs('superadmin.articles.*') || request()->routeIs('superadmin.comments.*') ? 'text-white' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Berita & Komentar
+                </div>
+                <svg class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
 
-
-            <svg class="w-5 h-5 {{ request()->routeIs('superadmin.articles.*') ? 'text-white' : '' }}"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9 12h6m-6 4h6m2 
-                5H7a2 2 0 01-2-2V5a2 2 
-                0 012-2h5.586a1 1 0 
-                01.707.293l5.414 
-                5.414a1 1 0 01.293.707V19a2 
-                2 0 01-2 2z"/>
-            </svg>
-
-            Artikel / Berita
-        </a>
+            <!-- Submenu -->
+            <div x-show="open" 
+                 x-transition:enter="transition ease-out duration-100"
+                 x-transition:enter-start="opacity-0 -translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 class="mt-2 ml-6 space-y-1 pl-4 border-l border-gray-800">
+                <a href="/superadmin/articles" 
+                   class="block py-2 text-sm transition-colors {{ request()->routeIs('superadmin.articles.*') ? 'text-blue-500 font-bold' : 'text-gray-500 hover:text-white' }}">
+                    Berita Management
+                </a>
+                <a href="/superadmin/comments" 
+                   class="flex items-center justify-between py-2 text-sm transition-colors {{ request()->routeIs('superadmin.comments.*') ? 'text-blue-500 font-bold' : 'text-gray-500 hover:text-white' }}">
+                    <span>Manajemen Komentar</span>
+                    @if($pendingCommentsCount > 0)
+                        <span class="px-2 py-0.5 bg-blue-500 text-white text-[10px] font-bold rounded-full mr-2">{{ $pendingCommentsCount }}</span>
+                    @endif
+                </a>
+            </div>
+        </div>
         @endif
 
         @if(auth()->user()->role === 'Superadmin')
@@ -127,7 +149,12 @@
                 01-2 2h-5l-5 5v-5z"/>
             </svg>
 
-            Pesan Masuk
+            <div class="flex items-center justify-between flex-1 truncate">
+                <span>Pesan Masuk</span>
+                @if($unreadMessagesCount > 0)
+                    <span class="px-2 py-0.5 bg-amber-500 text-white text-[10px] font-bold rounded-full">{{ $unreadMessagesCount }}</span>
+                @endif
+            </div>
         </a>
         @endif
 
@@ -146,7 +173,12 @@
                 20a6 6 0 0112 0v1H3v-1z"/>
             </svg>
 
-            PPDB Management
+            <div class="flex items-center justify-between flex-1 truncate">
+                <span>PPDB Management</span>
+                @if($pendingPpdbCount > 0)
+                    <span class="px-2 py-0.5 bg-blue-500 text-white text-[10px] font-bold rounded-full">{{ $pendingPpdbCount }}</span>
+                @endif
+            </div>
         </a>
         @endif
 
@@ -178,8 +210,11 @@
                     Manajemen Eskul
                 </a>
                 <a href="{{ route('superadmin.extracurricular-registrations.index') }}" 
-                   class="block py-2 text-sm transition-colors {{ request()->routeIs('superadmin.extracurricular-registrations.index') ? 'text-blue-500 font-bold' : 'text-gray-500 hover:text-white' }}">
-                    Pendaftaran
+                   class="flex items-center justify-between py-2 text-sm transition-colors {{ request()->routeIs('superadmin.extracurricular-registrations.index') ? 'text-blue-500 font-bold' : 'text-gray-500 hover:text-white' }}">
+                    <span>Pendaftaran</span>
+                    @if($pendingEskulCount > 0)
+                        <span class="px-2 py-0.5 bg-purple-500 text-white text-[10px] font-bold rounded-full mr-2">{{ $pendingEskulCount }}</span>
+                    @endif
                 </a>
             </div>
         </div>

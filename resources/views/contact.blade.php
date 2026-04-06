@@ -4,17 +4,17 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="relative pt-12 pb-20 overflow-hidden bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+    <section class="relative pt-4 pb-12 overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
             <div
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold tracking-widest uppercase border border-blue-100 shadow-sm">
                 HUBUNGI KAMI
             </div>
-            <h1 class="text-2xl lg:text-2xl font-bold text-[#0F172A] leading-tight">
+            <h1 class="text-5xl lg:text-7xl font-black text-[#0F172A] leading-tight">
                 Mari <span class="text-blue-600">Terhubung</span> <br>
                 Dengan Kami
             </h1>
-            <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed font-medium">
                 Punya pertanyaan mengenai pendaftaran atau fasilitas sekolah? Tim kami siap membantu memberikan informasi
                 yang Anda butuhkan.
             </p>
