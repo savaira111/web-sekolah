@@ -39,6 +39,7 @@
                 <a href="{{ route('facilities') }}" class="{{ request()->routeIs('facilities') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600' }} font-medium transition-colors">Fasilitas</a>
                 <a href="{{ route('news') }}" class="{{ request()->routeIs('news*') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600' }} font-medium transition-colors">Berita</a>
                 <a href="{{ route('extracurriculars.index') }}" class="{{ request()->routeIs('extracurriculars*') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600' }} font-medium transition-colors">Ekstrakurikuler</a>
+                <a href="{{ route('mitra') }}" class="{{ request()->routeIs('mitra') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600' }} font-medium transition-colors">Mitra</a>
                 <a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600' }} font-medium transition-colors">Kontak</a>
                 <a href="{{ route('enrollment.guide') }}" class="{{ request()->routeIs('enrollment.guide') || request()->routeIs('registration') ? 'bg-blue-600 shadow-blue-200' : 'bg-[#0F172A]' }} text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-sm">Pendaftaran</a>
             </div>

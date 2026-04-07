@@ -59,10 +59,17 @@
                 &copy; <?php echo e(date('Y')); ?> SMKS MAHAPUTRA CERDAS UTAMA. All Rights Reserved.
             </p>
             <div class="flex items-center">
+                <?php if(auth()->guard()->check()): ?>
+                <a href="/superadmin/dashboard" class="text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-wider flex items-center gap-2 group">
+                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    Dashboard Admin
+                </a>
+                <?php else: ?>
                 <a href="/login" class="text-xs font-bold text-gray-400 hover:text-blue-600 transition-colors uppercase tracking-wider flex items-center gap-2 group">
                     <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
                     Login Superadmin
                 </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

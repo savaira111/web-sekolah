@@ -1,14 +1,12 @@
-@extends('layouts.superadmin.app')
+<?php $__env->startSection('title', 'Edit Mitra Industri - Admin Mahput'); ?>
 
-@section('title', 'Tambah Mitra Industri - Admin Mahput')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="p-8 -mt-2 flex-1 w-full" :class="$store.theme.darkMode ? '' : 'bg-[#F3F4F6]'">
     <!-- Breadcrumbs -->
     <nav class="flex mb-6 text-sm" aria-label="Breadcrumb">
         <ol class="flex items-center space-x-2">
             <li>
-                <a href="{{ route('superadmin.dashboard') }}" class="text-gray-500 hover:text-blue-600 transition-colors">
+                <a href="<?php echo e(route('superadmin.dashboard')); ?>" class="text-gray-500 hover:text-blue-600 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                     </svg>
@@ -18,13 +16,13 @@
                 <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <a href="{{ route('superadmin.partners.index') }}" class="text-gray-500 hover:text-blue-600">Mitra Industri</a>
+                <a href="<?php echo e(route('superadmin.partners.index')); ?>" class="text-gray-500 hover:text-blue-600">Mitra Industri</a>
             </li>
             <li class="flex items-center space-x-2 text-gray-400">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <span class="font-medium">Tambah Mitra Baru</span>
+                <span class="font-medium">Edit Mitra</span>
             </li>
         </ol>
     </nav>
@@ -32,7 +30,7 @@
     <!-- Header Section -->
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
         <div class="flex items-start space-x-5">
-            <a href="{{ route('superadmin.partners.index') }}" 
+            <a href="<?php echo e(route('superadmin.partners.index')); ?>" 
                class="w-12 h-12 flex items-center justify-center rounded-full bg-[#111827] border border-gray-800 text-gray-400 hover:text-white transition-all duration-300 group shadow-lg"
                :class="$store.theme.darkMode ? 'bg-[#0B0F19]' : ''">
                 <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,18 +39,20 @@
             </a>
             <div>
                 <h1 class="text-3xl font-extrabold tracking-tight" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">
-                    Tambah Mitra Industri
+                    Edit Mitra: <?php echo e($partner->name); ?>
+
                 </h1>
                 <p class="mt-1 text-gray-500 max-w-2xl">
-                    Daftarkan partner atau instansi yang bekerja sama dengan sekolah.
+                    Perbarui informasi partner atau instansi yang bekerja sama dengan sekolah.
                 </p>
             </div>
         </div>
     </div>
 
-    <form id="partnerForm" action="{{ route('superadmin.partners.store') }}" method="POST" enctype="multipart/form-data" class="w-full">
-        @csrf
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:pb-16 items-start">
+    <form id="partnerForm" action="<?php echo e(route('superadmin.partners.update', $partner->id)); ?>" method="POST" enctype="multipart/form-data" class="w-full">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <!-- Left Sidebar: Main Form Content -->
         <div class="lg:col-span-8 space-y-8">
@@ -65,10 +65,17 @@
                            class="w-full text-2xl lg:text-3xl font-bold bg-transparent border-none focus:ring-0 placeholder:text-gray-300 p-0"
                            :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'"
                            placeholder="Masukkan nama instansi..."
-                           value="{{ old('name') }}">
-                    @error('name')
-                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                    @enderror
+                           value="<?php echo e(old('name', $partner->name)); ?>">
+                    <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -84,7 +91,7 @@
                                    class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4"
                                    :class="$store.theme.darkMode ? 'text-white' : 'text-slate-700'"
                                    placeholder="https://example.com"
-                                   value="{{ old('website_url') }}">
+                                   value="<?php echo e(old('website_url', $partner->website_url)); ?>">
                         </div>
                     </div>
 
@@ -100,11 +107,18 @@
                                    class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4"
                                    :class="$store.theme.darkMode ? 'text-white' : 'text-slate-700'"
                                    placeholder="Contoh: Bandung, Jawa Barat"
-                                   value="{{ old('location') }}">
+                                   value="<?php echo e(old('location', $partner->location)); ?>">
                         </div>
-                        @error('location')
-                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
+                        <?php $__errorArgs = ['location'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
 
@@ -114,22 +128,39 @@
                     <textarea name="description" id="description" rows="4"
                               class="w-full rounded-2xl border transition-all duration-200 p-4 font-medium focus:ring-4 focus:ring-blue-500/10"
                               :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-800 text-white focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus:border-blue-400/50 focus:bg-white'"
-                              placeholder="Berikan deskripsi singkat mengenai profil mitra...">{{ old('description') }}</textarea>
-                    @error('description')
-                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                    @enderror
+                              placeholder="Berikan deskripsi singkat mengenai profil mitra..."><?php echo e(old('description', $partner->description)); ?></textarea>
+                    <?php $__errorArgs = ['description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
             </div>
 
             <!-- Testimonial Section -->
-            @php
-                $initialTestimonials = old('student_testimonials_data', []);
+            <?php
+                $initialTestimonials = old('student_testimonials_data', $partner->student_testimonials_data ?? []);
                 if (empty($initialTestimonials)) {
-                    $initialTestimonials = [['text' => '', 'author' => '', 'role' => '', 'rating' => 5, 'existing_photo' => null]];
+                    // Fallback to legacy single-testimonial for backwards-compatibility when displaying old data
+                    if ($partner->testimonial_text) {
+                        $initialTestimonials = [[
+                            'text' => $partner->testimonial_text,
+                            'author' => $partner->testimonial_author,
+                            'role' => $partner->testimonial_author_role,
+                            'existing_photo' => $partner->testimonial_author_photo
+                        ]];
+                    } else {
+                        $initialTestimonials = [['text' => '', 'author' => '', 'role' => '', 'rating' => 5, 'existing_photo' => null]];
+                    }
                 }
-            @endphp
+            ?>
             <div class="rounded-3xl p-8 shadow-xl transition-all duration-200" :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'"
-                 x-data="{ testimonials: {{ json_encode($initialTestimonials) }} }">
+                 x-data="{ testimonials: <?php echo e(json_encode($initialTestimonials)); ?> }">
                 
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold flex items-center gap-2" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">
@@ -194,6 +225,14 @@
                                 </div>
 
                                 <div class="flex items-center gap-6 p-4 rounded-xl" :class="$store.theme.darkMode ? 'bg-gray-800' : 'bg-white'">
+                                    
+                                    <template x-if="t.photo_url || t.existing_photo">
+                                        <div class="w-16 h-16 rounded-xl overflow-hidden border-2 border-gray-100 shrink-0 shadow-sm relative group/btn">
+                                            <img :src="t.photo_url ? '/storage/' + t.photo_url : '/storage/' + t.existing_photo" alt="Author Image" class="w-full h-full object-cover">
+                                            <input type="hidden" :name="`student_testimonials_data[${index}][existing_photo]`" :value="t.photo_url || t.existing_photo">
+                                        </div>
+                                    </template>
+                                    
                                     <div class="flex-1">
                                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">FOTO SISWA (OPSIONAL)</label>
                                         <input type="file" :name="`student_testimonials_data[${index}][photo]`" class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100">
@@ -207,7 +246,7 @@
 
             <!-- Gallery Images -->
             <div class="rounded-3xl p-8 shadow-xl transition-all duration-200" :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'"
-                 x-data="{ galleryFields: 1 }">
+                 x-data="{ galleryFields: <?php echo e(count($partner->gallery_images ?? []) > 0 ? count($partner->gallery_images) : 1); ?> }">
                 
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold flex items-center gap-2" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">
@@ -221,9 +260,19 @@
                         Tambah Foto
                     </button>
                 </div>
+                
+                <?php if($partner->gallery_images): ?>
+                <div class="grid grid-cols-4 gap-4 mb-6">
+                    <?php $__currentLoopData = $partner->gallery_images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="relative group aspect-square rounded-xl overflow-hidden border border-gray-100 shadow-sm bg-gray-900">
+                            <img src="<?php echo e(asset('storage/' . $image)); ?>" alt="Gallery" class="w-full h-full object-cover">
+                        </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+                <?php endif; ?>
 
                 <div class="space-y-4">
-                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">UNGGAH BEBERAPA FOTO (MAKS. 4)</p>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest"><?php echo e($partner->gallery_images ? 'UPDATE KOLEKSI FOTO (GANTI SEMUA)' : 'UNGGAH KOLEKSI FOTO'); ?></p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <template x-for="i in galleryFields" :key="i">
@@ -237,10 +286,17 @@
                             </div>
                         </template>
                     </div>
+                    <?php $__errorArgs = ['gallery_images.*'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
-                @error('gallery_images.*')
-                    <p class="mt-4 text-sm text-red-500">{{ $message }}</p>
-                @enderror
             </div>
         </div>
 
@@ -260,15 +316,29 @@
                 </div>
 
                 <div class="space-y-4">
+                    <?php if($partner->featured_image): ?>
+                    <div class="mb-4 rounded-xl overflow-hidden aspect-video border border-purple-100 shadow-sm shadow-purple-500/5">
+                        <img src="<?php echo e(asset('storage/' . $partner->featured_image)); ?>" alt="Featured" class="w-full h-full object-cover">
+                    </div>
+                    <?php endif; ?>
                     <input type="file" name="featured_image" class="block w-full text-[10px] text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100">
-                    <p class="text-[10px] text-gray-400 leading-relaxed font-medium bg-purple-50 p-3 rounded-xl border border-purple-100">
-                        Foto ini akan tampil sebagai banner di halaman detail mitra. Gunakan foto kantor atau kegiatan siswa di sana.
-                    </p>
+                    <?php $__errorArgs = ['featured_image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
-                @error('featured_image')
-                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                @enderror
-        </div>
+            </div>
+
+        <!-- Right Sidebar: Settings and Metadata -->
+        <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-8 self-start">
+            
+            <!-- Logo Card -->
             <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
                  :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
                 <div class="flex items-center space-x-2 mb-6 text-indigo-500">
@@ -286,24 +356,37 @@
                            class="flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed transition-all cursor-pointer group-hover:border-blue-500/50"
                            :class="$store.theme.darkMode ? 'border-gray-800 bg-[#111827]/40' : 'border-gray-200 bg-gray-50 hover:bg-gray-100/50'">
                         
-                        <div id="image-preview-container" class="hidden w-full mb-4 rounded-xl overflow-hidden aspect-square bg-white p-4">
-                            <img id="image-preview" src="#" alt="Preview" class="w-full h-full object-contain">
+                        <div id="image-preview-container" class="<?php echo e($partner->logo ? '' : 'hidden'); ?> w-full mb-4 rounded-xl overflow-hidden aspect-square bg-white p-4 shadow-inner">
+                            <img id="image-preview" src="<?php echo e($partner->logo ? asset('storage/' . $partner->logo) : '#'); ?>" alt="Preview" class="w-full h-full object-contain">
                         </div>
 
-                        <div id="upload-placeholder" class="text-center">
+                        <div id="upload-placeholder" class="<?php echo e($partner->logo ? 'hidden' : ''); ?> text-center">
                             <div class="w-12 h-12 rounded-full bg-indigo-500/10 flex items-center justify-center mx-auto mb-4 text-indigo-500 group-hover:scale-110 transition-transform duration-300">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                                 </svg>
                             </div>
-                            <p class="text-sm font-bold text-gray-500 mb-1">Pilih Logo</p>
+                            <p class="text-sm font-bold text-gray-500 mb-1">Ganti Logo</p>
                             <p class="text-[10px] text-gray-400 font-medium tracking-tighter">Format: PNG, JPG, WEBP, SVG</p>
                         </div>
+
+                        <?php if($partner->logo): ?>
+                        <div class="mt-4 px-4 py-2 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase tracking-widest">
+                            Klik untuk ganti logo
+                        </div>
+                        <?php endif; ?>
                     </label>
                 </div>
-                @error('logo')
-                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                @enderror
+                <?php $__errorArgs = ['logo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
 
             <!-- Settings Card -->
@@ -324,9 +407,9 @@
                         <div class="relative group">
                             <select name="category" id="category" class="w-full appearance-none px-4 py-3 rounded-xl border font-medium focus:ring-0 transition-all duration-200"
                                     :class="$store.theme.darkMode ? 'bg-[#111827]/50 border-gray-800 text-white focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus:border-blue-400/50'">
-                                @foreach($categories as $key => $value)
-                                    <option value="{{ $key }}" {{ old('category') == $key ? 'selected' : '' }}>{{ $value }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($key); ?>" <?php echo e(old('category', $partner->category) == $key ? 'selected' : ''); ?>><?php echo e($value); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -342,27 +425,26 @@
                             <p class="text-[10px] text-gray-400 mt-1">Tampilkan di halaman utama</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="is_active" value="1" checked class="sr-only peer">
+                            <input type="checkbox" name="is_active" value="1" <?php echo e($partner->is_active ? 'checked' : ''); ?> class="sr-only peer">
                             <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                         </label>
                     </div>
                 </div>
             </div>
         </div>
-        </div> <!-- TEPAT: Menutup Grid Container grid-cols-12 -->
 
         <!-- Absolute Bottom Submit Button -->
-        <div class="mt-8 pt-8 border-t w-full relative z-10 block" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
+        <div class="mt-12 pt-8 border-t w-full" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
             <div class="flex justify-end">
-                <button type="submit" class="w-full md:w-auto px-10 py-5 rounded-2xl font-black text-sm bg-blue-600 text-white hover:bg-blue-700 shadow-2xl shadow-blue-500/20 active:scale-95 transition-all text-center uppercase tracking-widest">
-                    Simpan Informasi Mitra
+                <button type="submit" class="w-full md:w-auto px-10 py-4 rounded-2xl font-black text-sm bg-blue-600 text-white hover:bg-blue-700 shadow-xl shadow-blue-500/20 active:scale-95 transition-all text-center uppercase tracking-widest">
+                    Update Informasi Mitra
                 </button>
             </div>
         </div>
     </form>
 </div>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     window.previewImage = function(input) {
         const container = document.getElementById('image-preview-container');
@@ -380,5 +462,7 @@
         }
     };
 </script>
-@endpush
-@endsection
+<?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.superadmin.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/superadmin/partners/edit.blade.php ENDPATH**/ ?>

@@ -1,14 +1,12 @@
-@extends('layouts.superadmin.app')
+<?php $__env->startSection('title', 'Tambah Mitra Industri - Admin Mahput'); ?>
 
-@section('title', 'Tambah Mitra Industri - Admin Mahput')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="p-8 -mt-2 flex-1 w-full" :class="$store.theme.darkMode ? '' : 'bg-[#F3F4F6]'">
     <!-- Breadcrumbs -->
     <nav class="flex mb-6 text-sm" aria-label="Breadcrumb">
         <ol class="flex items-center space-x-2">
             <li>
-                <a href="{{ route('superadmin.dashboard') }}" class="text-gray-500 hover:text-blue-600 transition-colors">
+                <a href="<?php echo e(route('superadmin.dashboard')); ?>" class="text-gray-500 hover:text-blue-600 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                     </svg>
@@ -18,7 +16,7 @@
                 <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
                 </svg>
-                <a href="{{ route('superadmin.partners.index') }}" class="text-gray-500 hover:text-blue-600">Mitra Industri</a>
+                <a href="<?php echo e(route('superadmin.partners.index')); ?>" class="text-gray-500 hover:text-blue-600">Mitra Industri</a>
             </li>
             <li class="flex items-center space-x-2 text-gray-400">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -32,7 +30,7 @@
     <!-- Header Section -->
     <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
         <div class="flex items-start space-x-5">
-            <a href="{{ route('superadmin.partners.index') }}" 
+            <a href="<?php echo e(route('superadmin.partners.index')); ?>" 
                class="w-12 h-12 flex items-center justify-center rounded-full bg-[#111827] border border-gray-800 text-gray-400 hover:text-white transition-all duration-300 group shadow-lg"
                :class="$store.theme.darkMode ? 'bg-[#0B0F19]' : ''">
                 <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,8 +48,8 @@
         </div>
     </div>
 
-    <form id="partnerForm" action="{{ route('superadmin.partners.store') }}" method="POST" enctype="multipart/form-data" class="w-full">
-        @csrf
+    <form id="partnerForm" action="<?php echo e(route('superadmin.partners.store')); ?>" method="POST" enctype="multipart/form-data" class="w-full">
+        <?php echo csrf_field(); ?>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:pb-16 items-start">
         
         <!-- Left Sidebar: Main Form Content -->
@@ -65,10 +63,17 @@
                            class="w-full text-2xl lg:text-3xl font-bold bg-transparent border-none focus:ring-0 placeholder:text-gray-300 p-0"
                            :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'"
                            placeholder="Masukkan nama instansi..."
-                           value="{{ old('name') }}">
-                    @error('name')
-                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                    @enderror
+                           value="<?php echo e(old('name')); ?>">
+                    <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -84,7 +89,7 @@
                                    class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4"
                                    :class="$store.theme.darkMode ? 'text-white' : 'text-slate-700'"
                                    placeholder="https://example.com"
-                                   value="{{ old('website_url') }}">
+                                   value="<?php echo e(old('website_url')); ?>">
                         </div>
                     </div>
 
@@ -100,11 +105,18 @@
                                    class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4"
                                    :class="$store.theme.darkMode ? 'text-white' : 'text-slate-700'"
                                    placeholder="Contoh: Bandung, Jawa Barat"
-                                   value="{{ old('location') }}">
+                                   value="<?php echo e(old('location')); ?>">
                         </div>
-                        @error('location')
-                            <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                        @enderror
+                        <?php $__errorArgs = ['location'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
 
@@ -114,22 +126,29 @@
                     <textarea name="description" id="description" rows="4"
                               class="w-full rounded-2xl border transition-all duration-200 p-4 font-medium focus:ring-4 focus:ring-blue-500/10"
                               :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-800 text-white focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus:border-blue-400/50 focus:bg-white'"
-                              placeholder="Berikan deskripsi singkat mengenai profil mitra...">{{ old('description') }}</textarea>
-                    @error('description')
-                        <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                    @enderror
+                              placeholder="Berikan deskripsi singkat mengenai profil mitra..."><?php echo e(old('description')); ?></textarea>
+                    <?php $__errorArgs = ['description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
             </div>
 
             <!-- Testimonial Section -->
-            @php
+            <?php
                 $initialTestimonials = old('student_testimonials_data', []);
                 if (empty($initialTestimonials)) {
                     $initialTestimonials = [['text' => '', 'author' => '', 'role' => '', 'rating' => 5, 'existing_photo' => null]];
                 }
-            @endphp
+            ?>
             <div class="rounded-3xl p-8 shadow-xl transition-all duration-200" :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'"
-                 x-data="{ testimonials: {{ json_encode($initialTestimonials) }} }">
+                 x-data="{ testimonials: <?php echo e(json_encode($initialTestimonials)); ?> }">
                 
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold flex items-center gap-2" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">
@@ -238,9 +257,16 @@
                         </template>
                     </div>
                 </div>
-                @error('gallery_images.*')
-                    <p class="mt-4 text-sm text-red-500">{{ $message }}</p>
-                @enderror
+                <?php $__errorArgs = ['gallery_images.*'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="mt-4 text-sm text-red-500"><?php echo e($message); ?></p>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
         </div>
 
@@ -265,9 +291,16 @@
                         Foto ini akan tampil sebagai banner di halaman detail mitra. Gunakan foto kantor atau kegiatan siswa di sana.
                     </p>
                 </div>
-                @error('featured_image')
-                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                @enderror
+                <?php $__errorArgs = ['featured_image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
         </div>
             <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
                  :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
@@ -301,9 +334,16 @@
                         </div>
                     </label>
                 </div>
-                @error('logo')
-                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
-                @enderror
+                <?php $__errorArgs = ['logo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
 
             <!-- Settings Card -->
@@ -324,9 +364,9 @@
                         <div class="relative group">
                             <select name="category" id="category" class="w-full appearance-none px-4 py-3 rounded-xl border font-medium focus:ring-0 transition-all duration-200"
                                     :class="$store.theme.darkMode ? 'bg-[#111827]/50 border-gray-800 text-white focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus:border-blue-400/50'">
-                                @foreach($categories as $key => $value)
-                                    <option value="{{ $key }}" {{ old('category') == $key ? 'selected' : '' }}>{{ $value }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($key); ?>" <?php echo e(old('category') == $key ? 'selected' : ''); ?>><?php echo e($value); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -362,7 +402,7 @@
     </form>
 </div>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
     window.previewImage = function(input) {
         const container = document.getElementById('image-preview-container');
@@ -380,5 +420,7 @@
         }
     };
 </script>
-@endpush
-@endsection
+<?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.superadmin.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/superadmin/partners/create.blade.php ENDPATH**/ ?>

@@ -39,6 +39,7 @@
                 <a href="<?php echo e(route('facilities')); ?>" class="<?php echo e(request()->routeIs('facilities') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'); ?> font-medium transition-colors">Fasilitas</a>
                 <a href="<?php echo e(route('news')); ?>" class="<?php echo e(request()->routeIs('news*') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'); ?> font-medium transition-colors">Berita</a>
                 <a href="<?php echo e(route('extracurriculars.index')); ?>" class="<?php echo e(request()->routeIs('extracurriculars*') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'); ?> font-medium transition-colors">Ekstrakurikuler</a>
+                <a href="<?php echo e(route('mitra')); ?>" class="<?php echo e(request()->routeIs('mitra') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'); ?> font-medium transition-colors">Mitra</a>
                 <a href="<?php echo e(route('contact')); ?>" class="<?php echo e(request()->routeIs('contact') ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'); ?> font-medium transition-colors">Kontak</a>
                 <a href="<?php echo e(route('enrollment.guide')); ?>" class="<?php echo e(request()->routeIs('enrollment.guide') || request()->routeIs('registration') ? 'bg-blue-600 shadow-blue-200' : 'bg-[#0F172A]'); ?> text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-sm">Pendaftaran</a>
             </div>

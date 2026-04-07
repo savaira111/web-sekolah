@@ -86,13 +86,60 @@ class PartnerController extends Controller
             'description' => 'nullable|string',
             'category' => 'required|string|max:50',
             'is_active' => 'nullable',
+            // New Detail Fields
+            'location' => 'nullable|string|max:255',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'student_testimonials_data' => 'nullable|array',
+            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
         ]);
 
         $validated['is_active'] = $request->has('is_active') ? $request->is_active : true;
 
+        // Handle Logo
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('partners', 'public');
-            $validated['logo'] = $path;
+            $validated['logo'] = $request->file('logo')->store('partners/logos', 'public');
+        }
+
+        // Handle Featured Image
+        if ($request->hasFile('featured_image')) {
+            $validated['featured_image'] = $request->file('featured_image')->store('partners/featured', 'public');
+        }
+
+        // Handle Dynamic Testimonials Array
+        $testimonialsInput = $request->input('student_testimonials_data', []);
+        $savedTestimonials = [];
+        
+        if (is_array($testimonialsInput)) {
+            foreach ($testimonialsInput as $index => $t) {
+                // If the entire row is empty (just clicked add, but didn't fill anything), skip it
+                if (empty($t['text']) && empty($t['author'])) {
+                    continue;
+                }
+
+                $photoPath = $t['existing_photo'] ?? null;
+                
+                if ($request->hasFile("student_testimonials_data.{$index}.photo")) {
+                    $photoPath = $request->file("student_testimonials_data.{$index}.photo")->store('partners/testimonials', 'public');
+                }
+                
+                $savedTestimonials[] = [
+                    'text' => $t['text'] ?? '',
+                    'author' => $t['author'] ?? '',
+                    'role' => $t['role'] ?? '',
+                    'rating' => $t['rating'] ?? 5,
+                    'photo_url' => $photoPath,
+                ];
+            }
+        }
+        $validated['student_testimonials_data'] = $savedTestimonials;
+
+        // Handle Gallery Images
+        if ($request->hasFile('gallery_images')) {
+            $galleryPaths = [];
+            foreach ($request->file('gallery_images') as $image) {
+                $galleryPaths[] = $image->store('partners/gallery', 'public');
+            }
+            $validated['gallery_images'] = $galleryPaths;
         }
 
         $partner = Partner::create($validated);
@@ -137,18 +184,84 @@ class PartnerController extends Controller
             'description' => 'nullable|string',
             'category' => 'required|string|max:50',
             'is_active' => 'nullable',
+            // New Detail Fields
+            'location' => 'nullable|string|max:255',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'student_testimonials_data' => 'nullable|array',
+            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
         ]);
 
-        $validated['is_active'] = $request->has('is_active_toggle') ? ($request->get('is_published_toggle') == '1') : ($request->get('is_active') == '1');
-        // Let's make it simpler for checkbox/toggle
         $validated['is_active'] = $request->has('is_active');
 
+        // Handle Logo
         if ($request->hasFile('logo')) {
             if ($partner->logo) {
                 Storage::disk('public')->delete($partner->logo);
             }
-            $path = $request->file('logo')->store('partners', 'public');
-            $validated['logo'] = $path;
+            $validated['logo'] = $request->file('logo')->store('partners/logos', 'public');
+        }
+
+        // Handle Featured Image
+        if ($request->hasFile('featured_image')) {
+            if ($partner->featured_image) {
+                Storage::disk('public')->delete($partner->featured_image);
+            }
+            $validated['featured_image'] = $request->file('featured_image')->store('partners/featured', 'public');
+        }
+
+        // Handle Dynamic Testimonials Array
+        $testimonialsInput = $request->input('student_testimonials_data', []);
+        $savedTestimonials = [];
+        
+        if (is_array($testimonialsInput)) {
+            foreach ($testimonialsInput as $index => $t) {
+                // If they check a "_delete" flag, we delete the photo and don't add it
+                if (!empty($t['_delete'])) {
+                    if (!empty($t['existing_photo'])) {
+                        Storage::disk('public')->delete($t['existing_photo']);
+                    }
+                    continue;
+                }
+
+                if (empty($t['text']) && empty($t['author'])) {
+                    continue; // Skip silently if empty
+                }
+
+                $photoPath = $t['existing_photo'] ?? null;
+                
+                if ($request->hasFile("student_testimonials_data.{$index}.photo")) {
+                    // delete old if replacing
+                    if ($photoPath && Storage::disk('public')->exists($photoPath)) {
+                        Storage::disk('public')->delete($photoPath);
+                    }
+                    $photoPath = $request->file("student_testimonials_data.{$index}.photo")->store('partners/testimonials', 'public');
+                }
+                
+                $savedTestimonials[] = [
+                    'text' => $t['text'] ?? '',
+                    'author' => $t['author'] ?? '',
+                    'role' => $t['role'] ?? '',
+                    'rating' => $t['rating'] ?? 5,
+                    'photo_url' => $photoPath,
+                ];
+            }
+        }
+        $validated['student_testimonials_data'] = $savedTestimonials;
+
+        // Handle Gallery Images (Append or Replace logic, here we replace if new images provided)
+        if ($request->hasFile('gallery_images')) {
+            // Delete old gallery images if needed
+            if ($partner->gallery_images) {
+                foreach ($partner->gallery_images as $oldImage) {
+                    Storage::disk('public')->delete($oldImage);
+                }
+            }
+            
+            $galleryPaths = [];
+            foreach ($request->file('gallery_images') as $image) {
+                $galleryPaths[] = $image->store('partners/gallery', 'public');
+            }
+            $validated['gallery_images'] = $galleryPaths;
         }
 
         $partner->update($validated);

@@ -58,12 +58,12 @@ async function toggleStatus(partnerId, currentStatus, toggleUrl, csrfToken) {
 @endpush
 
 @section('content')
-<div class="px-8 pb-8 flex-1 w-full overflow-x-auto" x-data="{ isDeleteModalOpen: false, partnerToDelete: null }">
+<div class="p-8 -mt-2 flex-1 w-full overflow-x-auto" x-data="{ isDeleteModalOpen: false, partnerToDelete: null }">
     
-    <div class="flex items-center gap-2 mt-8 mb-6 text-[13px] font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">
+    <div class="flex items-center gap-2 mb-6 text-[13px] font-medium transition-colors duration-300" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'">
         <a href="/superadmin/dashboard" class="hover:text-blue-600 transition-colors">Dashboard</a>
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-        <span class="font-bold" :class="$store.theme.darkMode ? 'text-blue-400' : 'text-blue-600'">Manajemen Mitra</span>
+        <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        <span class="font-bold whitespace-nowrap" :class="$store.theme.darkMode ? 'text-blue-400' : 'text-blue-600'">Manajemen Mitra</span>
     </div>
 
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 mt-2">

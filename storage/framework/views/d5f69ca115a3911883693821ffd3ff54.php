@@ -28,7 +28,7 @@
 </head>
 <body class="antialiased min-h-screen flex items-center justify-center p-4 login-bg" x-data="loginForm">
 
-    <div class="max-w-[1000px] w-full bg-white rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+    <div class="max-w-[960px] w-full bg-white rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row min-h-[480px]">
         
         <!-- Left Side: Image -->
         <div class="md:w-1/2 relative hidden md:block group">
@@ -36,7 +36,7 @@
             <div class="absolute inset-0 bg-blue-600/20 mix-blend-multiply group-hover:bg-blue-600/10 transition-all duration-500"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/40 to-transparent"></div>
             
-            <div class="absolute bottom-10 left-10 right-10 z-10 space-y-4">
+            <div class="absolute bottom-8 left-8 right-8 z-10 space-y-4">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
@@ -55,17 +55,17 @@
         </div>
 
         <!-- Right Side: Form -->
-        <div class="md:w-1/2 p-10 lg:p-14 flex flex-col justify-center relative bg-white">
-            <div class="max-w-md w-full mx-auto space-y-8">
+        <div class="md:w-1/2 p-6 lg:p-8 flex flex-col justify-center relative bg-white">
+            <div class="max-w-md w-full mx-auto space-y-4">
                 
                 <!-- Header -->
                 <div class="space-y-2">
-                    <h1 class="text-3xl font-bold text-[#0F172A] tracking-tight">Login Admin Mahput</h1>
+                    <h1 class="text-2xl font-bold text-[#0F172A] tracking-tight">Login Admin Mahput</h1>
                     <p class="text-gray-500 text-sm">Silakan masukkan kredensial Anda untuk mengakses portal siswa dan staf.</p>
                 </div>
 
                 <!-- Form -->
-                <form action="<?php echo e(route('login.post')); ?>" method="POST" class="space-y-5">
+                <form action="<?php echo e(route('login.post')); ?>" method="POST" class="space-y-3">
                     <?php echo csrf_field(); ?>
 
                     <div class="space-y-1.5">

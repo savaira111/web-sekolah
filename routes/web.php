@@ -44,6 +44,9 @@ Route::get('/pendaftaran/berhasil', [PageController::class, 'registrationSuccess
 Route::get('/kontak', [PageController::class, 'contact'])->name('contact');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 
+Route::get('/mitra', [PageController::class, 'mitra'])->name('mitra');
+Route::get('/mitra/{id}', [PageController::class, 'mitraDetail'])->name('mitra.show');
+
 
 use App\Http\Controllers\ExtracurricularRegistrationController;
 

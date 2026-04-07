@@ -224,4 +224,24 @@ class PageController extends Controller
     {
         return view('extracurriculars.registration_success');
     }
+
+    public function mitra(Request $request)
+    {
+        $query = \App\Models\Partner::where('is_active', true);
+        
+        if ($request->filled('category') && $request->category !== 'all') {
+            $query->where('category', $request->category);
+        }
+        
+        $partners = $query->latest()->get();
+        $categories = \App\Models\Partner::where('is_active', true)->distinct()->pluck('category');
+        
+        return view('mitra', compact('partners', 'categories', 'request'));
+    }
+
+    public function mitraDetail($id)
+    {
+        $partner = \App\Models\Partner::where('is_active', true)->findOrFail($id);
+        return view('mitra_detail', compact('partner'));
+    }
 }
