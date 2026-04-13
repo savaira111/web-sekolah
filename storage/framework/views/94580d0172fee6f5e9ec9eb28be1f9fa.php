@@ -14,7 +14,7 @@
     <!-- Styles -->
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <style>
         body {
@@ -81,32 +81,53 @@
       x-init="
         Alpine.store('theme', {
             darkMode: localStorage.getItem('darkMode') === 'true' || !('darkMode' in localStorage),
-            sidebarOpen: true,
+            sidebarOpen: window.innerWidth > 768,
             init() {
                 document.documentElement.classList.toggle('dark', this.darkMode);
                 document.documentElement.style.backgroundColor = this.darkMode ? '#000000' : '#FFFFFF';
+                window.addEventListener('resize', () => {
+                    if(window.innerWidth > 768) this.sidebarOpen = true;
+                });
             },
             toggle() {
                 this.darkMode = !this.darkMode;
                 localStorage.setItem('darkMode', this.darkMode);
                 document.documentElement.classList.toggle('dark', this.darkMode);
                 document.documentElement.style.backgroundColor = this.darkMode ? '#000000' : '#FFFFFF';
+            },
+            toggleSidebar() {
+                this.sidebarOpen = !this.sidebarOpen;
             }
         });
       "
       :class="$store.theme.darkMode ? 'bg-black text-white' : 'bg-white text-black'">
 
+    <!-- Backdrop for Mobile -->
+    <div x-show="$store.theme.sidebarOpen && window.innerWidth <= 768" 
+         x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="$store.theme.toggleSidebar()"
+         class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden">
+    </div>
+
     <!-- Sidebar Layout -->
     <?php echo $__env->make('layouts.superadmin.sidebar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <!-- Main Content Wrapper -->
-    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full transition-colors duration-300" :class="$store.theme.darkMode ? 'bg-[#000000]' : 'bg-[#FFFFFF]'">
+    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full relative" 
+          style="transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;"
+          :class="$store.theme.darkMode ? 'bg-[#000000]' : 'bg-[#FFFFFF]'">
         
         <!-- Navbar Layout -->
         <?php echo $__env->make('layouts.superadmin.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
         <!-- Dynamic Page Content with Transition Wrapper -->
-        <div class="page-transition flex-1 flex flex-col w-full">
+        <div class="page-transition flex-1 flex flex-col w-full px-4 md:px-0">
             <?php echo $__env->yieldContent('content'); ?>
         </div>
         

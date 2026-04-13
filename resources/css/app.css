@@ -9,3 +9,45 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Quill Editor Formatting Support */
+.ql-align-center {
+    text-align: center !important;
+}
+
+.ql-align-right {
+    text-align: right !important;
+}
+
+.ql-align-justify {
+    text-align: justify !important;
+}
+
+.ql-indent-1 { padding-left: 32px; }
+.ql-indent-2 { padding-left: 64px; }
+.ql-indent-3 { padding-left: 96px; }
+.ql-indent-4 { padding-left: 128px; }
+
+/* Quill Sizes */
+.ql-size-small { font-size: 0.75em; }
+.ql-size-large { font-size: 1.5em; }
+.ql-size-huge { font-size: 2.5em; }
+
+/* Quill Fonts */
+.ql-font-serif { font-family: Georgia, Times New Roman, serif; }
+.ql-font-monospace { font-family: Monaco, Courier New, monospace; }
+
+/* Ensure lists have proper styling inside prose if needed */
+.prose ul, .article-body ul {
+    list-style-type: disc !important;
+    padding-left: 1.5em !important;
+    margin: 1em 0 !important;
+}
+.prose ol, .article-body ol {
+    list-style-type: decimal !important;
+    padding-left: 1.5em !important;
+    margin: 1em 0 !important;
+}
+.prose li, .article-body li {
+    margin-bottom: 0.5em !important;
+}

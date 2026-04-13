@@ -1,16 +1,14 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Formulir Pendaftaran - SMKS Mahaputra'); ?>
 
-@section('title', 'Formulir Pendaftaran - SMKS Mahaputra')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div x-data="{ 
-    step: {{ $errors->any() ? 1 : 1 }}, 
+    step: <?php echo e($errors->any() ? 1 : 1); ?>, 
     maxStep: 3,
     showToast: false,
     toastMsg: '',
     isLoading: false,
-    showSuccessModal: @if(session('success_registration')) true @else false @endif,
-    @php
+    showSuccessModal: <?php if(session('success_registration')): ?> true <?php else: ?> false <?php endif; ?>,
+    <?php
         $fatherJobs = ['PNS', 'TNI/POLRI', 'Karyawan Swasta', 'Wiraswasta', 'Buruh', 'Petani/Nelayan', 'Pedagang', 'Pensiunan'];
         $oldFatherJob = old('father_job');
         $isFatherJobOther = $oldFatherJob && !in_array($oldFatherJob, $fatherJobs);
@@ -18,11 +16,11 @@
         $motherJobs = ['Ibu Rumah Tangga', 'PNS', 'Karyawan Swasta', 'Wiraswasta', 'Pedagang', 'Petani/Nelayan', 'Buruh'];
         $oldMotherJob = old('mother_job');
         $isMotherJobOther = $oldMotherJob && !in_array($oldMotherJob, $motherJobs);
-    @endphp
-    father_job_internal: '{{ $isFatherJobOther ? 'Lainnya' : $oldFatherJob }}',
-    father_job_custom: '{{ $isFatherJobOther ? $oldFatherJob : '' }}',
-    mother_job_internal: '{{ $isMotherJobOther ? 'Lainnya' : $oldMotherJob }}',
-    mother_job_custom: '{{ $isMotherJobOther ? $oldMotherJob : '' }}',
+    ?>
+    father_job_internal: '<?php echo e($isFatherJobOther ? 'Lainnya' : $oldFatherJob); ?>',
+    father_job_custom: '<?php echo e($isFatherJobOther ? $oldFatherJob : ''); ?>',
+    mother_job_internal: '<?php echo e($isMotherJobOther ? 'Lainnya' : $oldMotherJob); ?>',
+    mother_job_custom: '<?php echo e($isMotherJobOther ? $oldMotherJob : ''); ?>',
     async nextStep() { 
         if(this.isLoading) return;
         this.isLoading = true;
@@ -91,11 +89,11 @@
             }
             
             try {
-                let response = await fetch('{{ route('registration.check-uniqueness') }}', {
+                let response = await fetch('<?php echo e(route('registration.check-uniqueness')); ?>', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        'X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>'
                     },
                     body: JSON.stringify({ nik, nisn })
                 });
@@ -146,7 +144,7 @@
 }" class="bg-gray-50 min-h-screen">
 
     <!-- Hero Section -->
-    <section class="relative pt-12 pb-20 overflow-hidden bg-white reveal">
+    <section class="relative pt-12 pb-20 overflow-hidden bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
                 PENDAFTARAN SISWA BARU 2026/2027
@@ -159,7 +157,7 @@
                 Hanya butuh 5 menit untuk mengisi data awal. Tim admin kami akan segera menghubungimu untuk proses selanjutnya.
             </p>
             <div class="flex justify-center pt-4">
-                <a href="{{ asset('images/brosur-sekolah.jpg') }}" download="Brosur_SPMB_SMKS_Mahaputra_2026.jpg" class="inline-flex items-center gap-2 px-8 py-4 bg-orange-500 text-white rounded-full font-bold shadow-lg shadow-orange-200 hover:bg-orange-600 hover:-translate-y-1 transition-all">
+                <a href="<?php echo e(asset('images/brosur-sekolah.jpg')); ?>" download="Brosur_SPMB_SMKS_Mahaputra_2026.jpg" class="inline-flex items-center gap-2 px-8 py-4 bg-orange-500 text-white rounded-full font-bold shadow-lg shadow-orange-200 hover:bg-orange-600 hover:-translate-y-1 transition-all">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     Unduh Brosur SPMB
                 </a>
@@ -171,7 +169,7 @@
     <section class="pb-16 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Warning Message -->
-            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-8 shadow-sm reveal reveal-scale">
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-8 shadow-sm">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
@@ -250,7 +248,7 @@
                 </div>
 
                 <!-- Right Content: The Form Areas -->
-                <div class="lg:col-span-3 reveal">
+                <div class="lg:col-span-3">
                     <!-- Validation Toast -->
                     <div x-show="showToast" 
                          x-transition:enter="transition ease-out duration-300"
@@ -264,21 +262,21 @@
                         <span class="text-sm font-bold" x-text="toastMsg"></span>
                     </div>
 
-                    <form action="{{ route('registration.store') }}" method="POST" enctype="multipart/form-data" x-ref="regForm" class="space-y-12">
-                    @if($errors->any())
+                    <form action="<?php echo e(route('registration.store')); ?>" method="POST" enctype="multipart/form-data" x-ref="regForm" class="space-y-12">
+                    <?php if($errors->any()): ?>
                         <div class="bg-red-50 border border-red-200 text-red-600 px-8 py-6 rounded-[1.5rem] mb-8 flex items-center gap-4">
                             <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                             <div>
                                 <p class="font-bold text-sm">Ada kesalahan dalam pendaftaran:</p>
                                 <ul class="text-xs list-disc list-inside mt-1 opacity-80">
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
+                                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <li><?php echo e($error); ?></li>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </ul>
                             </div>
                         </div>
-                    @endif
-                    @csrf
+                    <?php endif; ?>
+                    <?php echo csrf_field(); ?>
                     
                     <!-- Step 1: Data Diri -->
                     <div x-show="step === 1" x-ref="step1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="space-y-12 relative z-10">
@@ -294,72 +292,72 @@
                             <div class="grid md:grid-cols-2 gap-8">
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Nama Lengkap (Sesuai Ijazah)</label>
-                                    <input type="text" name="full_name" value="{{ old('full_name') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Muhammad Arkan" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="full_name" value="<?php echo e(old('full_name')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Muhammad Arkan" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Email (Aktif)</label>
-                                    <input type="email" name="email" value="{{ old('email') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: arkan@gmail.com" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="email" name="email" value="<?php echo e(old('email')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: arkan@gmail.com" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Pilihan Jurusan</label>
                                     <select name="major" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
                                         <option value="">Pilih Jurusan</option>
-                                        <option value="PPLG" {{ old('major') == 'PPLG' ? 'selected' : '' }}>PPLG (Pengembangan Perangkat Lunak & Gim)</option>
-                                        <option value="DKV" {{ old('major') == 'DKV' ? 'selected' : '' }}>DKV (Desain Komunikasi Visual)</option>
+                                        <option value="PPLG" <?php echo e(old('major') == 'PPLG' ? 'selected' : ''); ?>>PPLG (Pengembangan Perangkat Lunak & Gim)</option>
+                                        <option value="DKV" <?php echo e(old('major') == 'DKV' ? 'selected' : ''); ?>>DKV (Desain Komunikasi Visual)</option>
                                     </select>
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">NIK (Nomor Induk Kependudukan)</label>
-                                    <input type="text" name="nik" value="{{ old('nik') }}" required maxlength="16" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="16 digit nomor NIK (Sesuai KK)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="nik" value="<?php echo e(old('nik')); ?>" required maxlength="16" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="16 digit nomor NIK (Sesuai KK)" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">NISN</label>
-                                    <input type="text" name="nisn" value="{{ old('nisn') }}" required maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="nisn" value="<?php echo e(old('nisn')); ?>" required maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="10 digit nomor NISN" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tempat Lahir</label>
-                                    <input type="text" name="birth_place" value="{{ old('birth_place') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="birth_place" value="<?php echo e(old('birth_place')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tanggal Lahir</label>
-                                    <input type="date" name="birth_date" value="{{ old('birth_date') }}" required @change="validateInput($event.target)" @blur="validateInput($event.target)" onclick="this.showPicker()" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
+                                    <input type="date" name="birth_date" value="<?php echo e(old('birth_date')); ?>" required @change="validateInput($event.target)" @blur="validateInput($event.target)" onclick="this.showPicker()" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Asal Sekolah</label>
-                                    <input type="text" name="school_origin" value="{{ old('school_origin') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: SMPN 1 Jakarta" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="school_origin" value="<?php echo e(old('school_origin')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: SMPN 1 Jakarta" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Tahun Lulus</label>
-                                    <input type="text" name="graduation_year" value="{{ old('graduation_year') }}" required maxlength="4" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 2024" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="graduation_year" value="<?php echo e(old('graduation_year')); ?>" required maxlength="4" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 2024" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Rata-rata Nilai Ijazah/Raport</label>
-                                    <input type="text" name="average_grade" value="{{ old('average_grade') }}" required inputmode="decimal" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 85.50" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
+                                    <input type="text" name="average_grade" value="<?php echo e(old('average_grade')); ?>" required inputmode="decimal" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 85.50" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm transition-all">
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Jenis Kelamin</label>
                                     <select name="gender" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
-                                        <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Laki-laki</option>
-                                        <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Perempuan</option>
+                                        <option value="Male" <?php echo e(old('gender') == 'Male' ? 'selected' : ''); ?>>Laki-laki</option>
+                                        <option value="Female" <?php echo e(old('gender') == 'Female' ? 'selected' : ''); ?>>Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Agama</label>
                                     <select name="religion" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
                                         <option value="">Pilih Agama</option>
-                                        <option value="Islam" {{ old('religion') == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                        <option value="Kristen" {{ old('religion') == 'Kristen' ? 'selected' : '' }}>Kristen (Protestan)</option>
-                                        <option value="Katolik" {{ old('religion') == 'Katolik' ? 'selected' : '' }}>Katolik</option>
-                                        <option value="Hindu" {{ old('religion') == 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                        <option value="Buddha" {{ old('religion') == 'Buddha' ? 'selected' : '' }}>Buddha</option>
-                                        <option value="Khonghucu" {{ old('religion') == 'Khonghucu' ? 'selected' : '' }}>Khonghucu</option>
+                                        <option value="Islam" <?php echo e(old('religion') == 'Islam' ? 'selected' : ''); ?>>Islam</option>
+                                        <option value="Kristen" <?php echo e(old('religion') == 'Kristen' ? 'selected' : ''); ?>>Kristen (Protestan)</option>
+                                        <option value="Katolik" <?php echo e(old('religion') == 'Katolik' ? 'selected' : ''); ?>>Katolik</option>
+                                        <option value="Hindu" <?php echo e(old('religion') == 'Hindu' ? 'selected' : ''); ?>>Hindu</option>
+                                        <option value="Buddha" <?php echo e(old('religion') == 'Buddha' ? 'selected' : ''); ?>>Buddha</option>
+                                        <option value="Khonghucu" <?php echo e(old('religion') == 'Khonghucu' ? 'selected' : ''); ?>>Khonghucu</option>
                                     </select>
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-sm font-bold text-gray-700">Kewarganegaraan</label>
                                     <select name="citizenship" required @blur="validateInput($event.target)" @input="validateInput($event.target)" class="w-full p-5 bg-white rounded-2xl border border-gray-100 focus:ring-2 focus:ring-blue-100 text-sm text-gray-700 transition-all cursor-pointer relative z-20">
-                                        <option value="WNI" {{ old('citizenship') == 'WNI' ? 'selected' : '' }}>WNI (Warga Negara Indonesia)</option>
-                                        <option value="WNA" {{ old('citizenship') == 'WNA' ? 'selected' : '' }}>WNA (Warga Negara Asing)</option>
+                                        <option value="WNI" <?php echo e(old('citizenship') == 'WNI' ? 'selected' : ''); ?>>WNI (Warga Negara Indonesia)</option>
+                                        <option value="WNA" <?php echo e(old('citizenship') == 'WNA' ? 'selected' : ''); ?>>WNA (Warga Negara Asing)</option>
                                     </select>
                                 </div>
                             </div>
@@ -404,7 +402,7 @@
                                     <div class="grid md:grid-cols-2 gap-8">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Nama Lengkap Ayah</label>
-                                            <input type="text" name="father_name" value="{{ old('father_name') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Ahmad Subarja" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="father_name" value="<?php echo e(old('father_name')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Ahmad Subarja" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ayah</label>
@@ -427,7 +425,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ayah (WhatsApp)</label>
-                                            <input type="text" name="father_phone" value="{{ old('father_phone') }}" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="father_phone" value="<?php echo e(old('father_phone')); ?>" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0812xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                     </div>
                                 </div>
@@ -441,7 +439,7 @@
                                     <div class="grid md:grid-cols-2 gap-8">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Nama Lengkap Ibu</label>
-                                            <input type="text" name="mother_name" value="{{ old('mother_name') }}" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Siti Aminah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="mother_name" value="<?php echo e(old('mother_name')); ?>" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: Siti Aminah" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Pekerjaan Ibu</label>
@@ -463,7 +461,7 @@
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">No. HP Ibu (WhatsApp)</label>
-                                            <input type="text" name="mother_phone" value="{{ old('mother_phone') }}" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
+                                            <input type="text" name="mother_phone" value="<?php echo e(old('mother_phone')); ?>" required inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Contoh: 0813xxxxxxxx" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm transition-all focus:ring-2 focus:ring-blue-100">
                                         </div>
                                     </div>
                                 </div>
@@ -477,15 +475,15 @@
                                     <div class="space-y-4">
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Alamat Lengkap Orang Tua</label>
-                                            <textarea name="address" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Jl. Raya No. 123, Kel. Merdeka, Kec. Maju Jaya, Kota Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm h-32 transition-all focus:ring-2 focus:ring-blue-100">{{ old('address') }}</textarea>
+                                            <textarea name="address" required @blur="validateInput($event.target)" @input="validateInput($event.target)" placeholder="Jl. Raya No. 123, Kel. Merdeka, Kec. Maju Jaya, Kota Bandung" class="w-full p-5 bg-gray-50 rounded-2xl border-none text-sm h-32 transition-all focus:ring-2 focus:ring-blue-100"><?php echo e(old('address')); ?></textarea>
                                         </div>
                                         <div class="space-y-3">
                                             <label class="text-sm font-bold text-gray-700">Penghasilan Gabungan Per Bulan</label>
                                             <select name="parent_income" class="w-full p-5 bg-white rounded-2xl border border-gray-100 text-sm text-gray-700 transition-all focus:ring-2 focus:ring-blue-100 cursor-pointer relative z-20">
                                                 <option value="">Pilih Rentang Penghasilan</option>
-                                                <option value="< 2.000.000" {{ old('parent_income') == '< 2.000.000' ? 'selected' : '' }}>< Rp 2.000.000</option>
-                                                <option value="2.000.000 - 5.000.000" {{ old('parent_income') == '2.000.000 - 5.000.000' ? 'selected' : '' }}>Rp 2.000.000 - Rp 5.000.000</option>
-                                                <option value="> 5.000.000" {{ old('parent_income') == '> 5.000.000' ? 'selected' : '' }}>> Rp 5.000.000</option>
+                                                <option value="< 2.000.000" <?php echo e(old('parent_income') == '< 2.000.000' ? 'selected' : ''); ?>>< Rp 2.000.000</option>
+                                                <option value="2.000.000 - 5.000.000" <?php echo e(old('parent_income') == '2.000.000 - 5.000.000' ? 'selected' : ''); ?>>Rp 2.000.000 - Rp 5.000.000</option>
+                                                <option value="> 5.000.000" <?php echo e(old('parent_income') == '> 5.000.000' ? 'selected' : ''); ?>>> Rp 5.000.000</option>
                                             </select>
                                         </div>
                                     </div>
@@ -762,7 +760,7 @@
         </div> <!-- closes grid (108) -->
 
             <!-- Bottom Document Checklist -->
-            <div class="mt-8 bg-white rounded-[1.5rem] p-12 shadow-sm border border-gray-100 reveal">
+            <div class="mt-8 bg-white rounded-[1.5rem] p-12 shadow-sm border border-gray-100">
                 <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
                         <h3 class="text-xl font-bold text-[#0F172A] flex items-center gap-4">
@@ -939,7 +937,7 @@
                 
                 <div class="space-y-4">
                     <h2 class="text-2xl font-bold text-gray-900">Pendaftaran Berhasil!</h2>
-                    <p class="text-gray-500 text-sm leading-relaxed">{{ session('success_registration') }}</p>
+                    <p class="text-gray-500 text-sm leading-relaxed"><?php echo e(session('success_registration')); ?></p>
                 </div>
 
                 <div class="pt-4">
@@ -950,4 +948,6 @@
     </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/registration.blade.php ENDPATH**/ ?>

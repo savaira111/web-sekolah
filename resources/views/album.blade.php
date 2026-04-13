@@ -17,21 +17,24 @@
     })->values()->all();
 @endphp
 <script>
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('albumGallery', () => ({
+    function albumGallery() {
+        return {
             activeFilter: 'Semua',
             albums: @json($formattedAlbums),
-            get filteredAlbums() {
+            get filteredItems() {
                 if (this.activeFilter === 'Semua') return this.albums;
-                return this.albums.filter(album => album.category === this.activeFilter);
+                return this.albums.filter(album => {
+                    if (!album.category) return false;
+                    return album.category.toLowerCase().trim() === this.activeFilter.toLowerCase().trim();
+                });
             }
-        }));
-    });
+        };
+    }
 </script>
 <div x-data="albumGallery()">
     <!-- Hero Section -->
     <section class="pt-6 pb-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
             <h1 class="text-4xl lg:text-5xl font-extrabold text-[#0F172A] mb-6">
                 Galeri Kegiatan & <br>
                 <span class="text-blue-600">Dokumentasi</span>
@@ -42,12 +45,12 @@
 
             <!-- Filter Buttons -->
             <div class="flex flex-wrap justify-center gap-4 mb-4">
-                <template x-for="filter in ['Semua', 'Akademik', 'Kesiswaan', 'Prestasi', 'Fasilitas']">
+                <template x-for="cat in ['Semua', 'Akademik', 'Kesiswaan', 'Prestasi', 'Fasilitas']">
                     <button 
-                        @click="activeFilter = filter"
-                        :class="activeFilter === filter ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'"
-                        class="px-8 py-3.5 rounded-full text-sm font-bold transition-all duration-300 min-w-[120px]"
-                        x-text="filter">
+                        @click="activeFilter = cat"
+                        :class="activeFilter === cat ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-white text-gray-500 border border-gray-100 hover:bg-gray-50'"
+                        class="px-8 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 min-w-[140px] relative z-30 cursor-pointer"
+                        x-text="cat">
                     </button>
                 </template>
             </div>
@@ -55,7 +58,7 @@
     </section>
 
     <!-- Album Grid -->
-    <section class="pb-16 bg-white min-h-[400px]">
+    <section class="pb-16 bg-white min-h-[400px] reveal">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Empty State -->
             <template x-if="filteredAlbums.length === 0">
@@ -71,7 +74,7 @@
             </template>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <template x-for="album in filteredAlbums" :key="album.id">
+                <template x-for="album in filteredItems" :key="album.id">
                     <div 
                         x-show="true"
                         x-transition:enter="transition ease-out duration-700"

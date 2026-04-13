@@ -4,20 +4,11 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative pt-4 pb-16 bg-white overflow-hidden animate-fade-in">
+<section class="relative pt-4 pb-16 bg-white overflow-hidden reveal">
     <!-- Decorative Elements -->
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#1D82F6 1px, transparent 1px); background-size: 40px 40px;"></div>
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-        <!-- Back Button -->
-        <div class="absolute left-4 sm:left-6 lg:left-8 top-0">
-            <a href="{{ route('profile') }}" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-slate-400 hover:bg-blue-600 hover:text-white transition-all shadow-sm border border-slate-200 group" title="Kembali">
-                <svg class="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </a>
-        </div>
-    </div>
+
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-10 pt-0">
         <div class="space-y-4">
@@ -97,7 +88,7 @@
             @endphp
 
             @foreach ($staff as $person)
-            <div class="staff-card group text-center space-y-4 transition-all duration-300" data-category="{{ $person['category'] }}">
+            <div class="staff-card group text-center space-y-4 transition-all duration-300 reveal reveal-scale" style="transition-delay: {{ $loop->index * 50 }}ms" data-category="{{ $person['category'] }}">
                 <!-- Circular Image Container -->
                 <div class="relative inline-block">
                     <div class="w-40 h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-white shadow-xl relative z-10 transition-transform duration-500 group-hover:scale-105">
@@ -184,7 +175,7 @@
 </style>
 
 <!-- Call to Action -->
-<section class="pt-0 pb-10 bg-white">
+<section class="pt-0 pb-10 bg-white reveal reveal-scale">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative bg-white rounded-[1.5rem] p-6 lg:p-6 text-center space-y-4 border-2 border-dashed border-blue-400 overflow-hidden shadow-sm">
             <!-- Decorative Elements -->

@@ -14,6 +14,7 @@ class Partner extends Model
         'description',
         'category',
         'location',
+        'partnership_year',
         'is_active',
         'testimonial_text',
         'testimonial_author',

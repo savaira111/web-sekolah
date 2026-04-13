@@ -1,9 +1,12 @@
-<aside class="w-64 sidebar h-full flex flex-col transition-all duration-300 z-20 shrink-0 border-r border-gray-800" :class="{'hidden': !sidebarOpen}">
+<aside class="fixed md:static inset-y-0 left-0 sidebar h-full flex flex-col z-50 shrink-0 border-r border-gray-800 transform overflow-hidden" 
+       style="transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;"
+       :class="$store.theme.sidebarOpen ? 'translate-x-0 w-64 md:w-64 opacity-100' : '-translate-x-full md:translate-x-0 w-64 md:w-0 md:border-none md:opacity-100 opacity-0'">
+    <div class="w-64 flex flex-col h-full shrink-0">
     
     <!-- Logo -->
     <div class="h-20 flex items-center px-6">
-        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0 overflow-hidden border border-gray-700">
-            <img src="{{ asset('images/logo-mahaputra.jpg') }}" alt="Logo" class="w-full h-full object-cover">
+        <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0 overflow-hidden border border-gray-700 p-1">
+            <img src="{{ asset('images/logo-smk.png') }}" alt="Logo" class="w-full h-full object-contain">
         </div>
 
         <div class="ml-3">
@@ -14,9 +17,9 @@
     </div>
 
     <!-- Menu -->
-    <div class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+    <div class="flex-1 overflow-y-auto pt-2 pb-6 px-4 space-y-1">
 
-        <p class="px-4 text-[10px] font-extrabold text-gray-500 uppercase tracking-widest mb-3 mt-2">
+        <p class="px-4 text-[10px] font-extrabold text-gray-500 uppercase tracking-widest mb-2 mt-0">
             Menu Utama
         </p>
 
@@ -27,18 +30,7 @@
             $pendingEskulCount = \App\Models\ExtracurricularRegistration::where('status', 'pending')->count();
         @endphp
 
-        <!-- Landing Page -->
-        <a href="/"
-        class="flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/30 hover:from-blue-500 hover:to-blue-400 hover:shadow-blue-400/40 hover:-translate-y-0.5">
 
-            <svg class="w-5 h-5 text-white"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-
-            Landing Page
-        </a>
 
         <!-- Dashboard -->
         <a href="/superadmin/dashboard"
@@ -249,42 +241,6 @@
         @endif
     </div>
 
-    <!-- Keluar Link -->
-    <div class="px-4 pt-2 pb-6 border-t border-white/5">
-        <form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
-            @csrf
-        </form>
-        <button type="button" 
-            onclick="confirmLogout()"
-            class="flex items-center gap-3 px-4 py-2 text-gray-500 hover:text-red-400 font-bold text-xs transition-colors w-full group">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-            </svg>
-            Keluar
-        </button>
+
     </div>
-
-    <script>
-        function confirmLogout() {
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Anda akan keluar dari sesi admin ini.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3B82F6',
-                cancelButtonColor: '#6B7280',
-                confirmButtonText: 'Ya, Keluar!',
-                cancelButtonText: 'Batal',
-                reverseButtons: true,
-                borderRadius: '20px',
-                background: document.documentElement.classList.contains('dark') ? '#1E293B' : '#FFFFFF',
-                color: document.documentElement.classList.contains('dark') ? '#FFFFFF' : '#000000',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('logout-form').submit();
-                }
-            })
-        }
-    </script>
-
 </aside>

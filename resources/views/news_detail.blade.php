@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- Article Content -->
-                <div class="prose prose-lg prose-blue max-w-none text-gray-600 leading-relaxed space-y-4 font-medium">
+                <div class="prose prose-lg prose-blue max-w-none article-body">
                     <style>
                         .article-body blockquote {
                             border-left: 4px solid #3b82f6;

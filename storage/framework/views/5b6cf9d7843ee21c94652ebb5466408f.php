@@ -4,8 +4,8 @@
 <!-- Hero Section -->
 <section class="relative overflow-hidden pt-4 pb-16 lg:pt-6 lg:pb-20 min-h-[calc(100vh-80px)] flex items-center">
     <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-8 items-center">
-            <div class="space-y-4">
+        <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+            <div class="space-y-3">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -25,7 +25,7 @@
                     <a href="<?php echo e(route('profile')); ?>" class="px-6 py-3.5 bg-white text-gray-700 border border-gray-200 rounded-xl font-bold text-base hover:bg-gray-50 transition-all flex items-center gap-2">Profil Sekolah</a>
                 </div>
                 
-                <div class="flex flex-wrap items-center gap-x-8 gap-y-4 pt-4">
+                <div class="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
                     <?php $__empty_1 = true; $__currentLoopData = $landingStats->take(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <div class="flex flex-col">
                         <span class="text-xl font-bold text-[#0F172A]"><?php echo e($stat->value); ?></span>
@@ -74,10 +74,10 @@
 <!-- Stats Grid -->
 <section class="py-8 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 lg:grid-cols-<?php echo e(count($landingStats) > 0 ? count($landingStats) : 3); ?> md:grid-cols-<?php echo e(count($landingStats) > 0 ? count($landingStats) : 3); ?> gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
             <?php $__empty_1 = true; $__currentLoopData = $landingStats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-            <div class="p-6 rounded-3xl bg-<?php echo e($stat->color); ?>-50 border border-<?php echo e($stat->color); ?>-100 text-center transition-all group">
-                <div class="w-12 h-12 bg-<?php echo e($stat->color); ?>-100 rounded-2xl flex items-center justify-center text-<?php echo e($stat->color); ?>-600 mx-auto mb-5 transition-transform">
+            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 text-center transition-all group duration-300 reveal reveal-scale">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform duration-300 group-hover:scale-110">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="<?php echo e($stat->icon); ?>"></path>
                     </svg>
@@ -86,22 +86,22 @@
                 <p class="text-gray-500 font-medium"><?php echo e($stat->title); ?></p>
             </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-            <div class="p-6 rounded-3xl bg-blue-50 border border-blue-100 text-center transition-all group">
-                <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform">
+            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 text-center transition-all group duration-300">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform duration-300 group-hover:scale-110">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
                 <h3 class="text-2xl font-bold text-[#0F172A] mb-2">200+</h3>
                 <p class="text-gray-500 font-medium">Siswa Aktif</p>
             </div>
-            <div class="p-6 rounded-3xl bg-indigo-50 border border-indigo-100 text-center transition-all group">
-                <div class="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 mx-auto mb-5 transition-transform">
+            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 text-center transition-all group duration-300">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform duration-300 group-hover:scale-110">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <h3 class="text-2xl font-bold text-[#0F172A] mb-2">98%</h3>
                 <p class="text-gray-500 font-medium">Lulusan Bekerja</p>
             </div>
-            <div class="p-6 rounded-3xl bg-orange-50 border border-orange-100 text-center transition-all group">
-                <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 mx-auto mb-5 transition-transform">
+            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 text-center transition-all group duration-300">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform duration-300 group-hover:scale-110">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </div>
                 <h3 class="text-2xl font-bold text-[#0F172A] mb-2">20+</h3>
@@ -116,7 +116,7 @@
 <section class="pt-10 pb-24 bg-gray-50 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-2 gap-8 items-center lg:gap-16">
-            <div class="relative mx-auto max-w-[350px] lg:max-w-[420px] w-full">
+            <div class="relative mx-auto max-w-[350px] lg:max-w-[420px] w-full reveal reveal-left">
                 <div class="aspect-square rounded-[2rem] overflow-hidden shadow-2xl bg-white border-8 border-white p-2">
                     <img src="<?php echo e(asset('images/kepala-sekolah.png')); ?>" alt="Kepala Sekolah" class="w-full h-full object-contain rounded-[1.5rem]">
                 </div>
@@ -126,7 +126,7 @@
                     <p class="text-gray-500 text-sm">SMKS Mahaputra Cerdas Utama</p>
                 </div>
             </div>
-            <div class="space-y-4">
+            <div class="space-y-4 reveal reveal-right">
                 <div class="space-y-2">
                     <p class="text-blue-600 font-bold tracking-wider uppercase text-xs">Sambutan Pimpinan</p>
                     <h2 class="text-2xl lg:text-2xl font-bold text-[#0F172A]">Sambutan Kepala Sekolah</h2>
@@ -155,7 +155,7 @@
         
         <div class="grid md:grid-cols-2 gap-12 lg:gap-16">
             <!-- DKV -->
-            <div class="group relative bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden transition-all duration-500">
+            <div class="group relative bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden transition-all duration-500 reveal">
                 <div class="aspect-video relative overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000" alt="DKV" class="w-full h-full object-cover transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -181,7 +181,7 @@
             </div>
 
             <!-- PPLG -->
-            <div class="group relative bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden transition-all duration-500">
+            <div class="group relative bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden transition-all duration-500 reveal">
                 <div class="aspect-video relative overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1000" alt="PPLG" class="w-full h-full object-cover transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -221,28 +221,28 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="group relative aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-lg">
+            <div class="group relative aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-lg reveal reveal-scale">
                 <img src="<?php echo e(asset('images/fasilitas/lab dkv.png')); ?>" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Lab DKV</h4>
                 </div>
             </div>
-            <div class="group relative aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-lg">
+            <div class="group relative aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-lg reveal reveal-scale" style="transition-delay: 100ms">
                 <img src="<?php echo e(asset('images/fasilitas/lab pplg.png')); ?>" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Lab PPLG</h4>
                 </div>
             </div>
-            <div class="group relative aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-lg">
+            <div class="group relative aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-lg reveal reveal-scale" style="transition-delay: 200ms">
                 <img src="<?php echo e(asset('images/fasilitas/parkiran.png')); ?>" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <h4 class="text-xl font-bold text-white mb-2">Parkiran</h4>
                 </div>
             </div>
-            <div class="group relative aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-lg">
+            <div class="group relative aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-lg reveal reveal-scale" style="transition-delay: 300ms">
                 <img src="<?php echo e(asset('images/fasilitas/bale mahaputra.png')); ?>" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
@@ -269,7 +269,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php $__empty_1 = true; $__currentLoopData = $albums; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $album): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-            <div class="group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col">
+            <div class="group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col reveal" style="transition-delay: <?php echo e($loop->index * 100); ?>ms">
                 <div class="aspect-[4/3] relative overflow-hidden">
                     <?php
                         $firstPhoto = $album->photos->first();
@@ -338,7 +338,7 @@
             <?php
                 $style = $categoryStyles[$article->category] ?? $categoryStyles['Kegiatan'];
             ?>
-            <div class="group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
+            <div class="group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 reveal" style="transition-delay: <?php echo e($loop->index * 100); ?>ms">
                 <div class="aspect-video relative overflow-hidden">
                     <?php if($article->featured_image): ?>
                         <img src="<?php echo e(asset('storage/' . $article->featured_image)); ?>" alt="<?php echo e($article->title); ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
@@ -403,7 +403,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+<section class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 reveal reveal-scale">
     <div class="relative bg-[#0F172A] rounded-[2rem] p-8 lg:p-12 overflow-hidden shadow-2xl">
         <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-600/10 blur-3xl rounded-full"></div>
         <div class="absolute bottom-0 left-0 w-1/3 h-full bg-indigo-600/10 blur-3xl rounded-full"></div>

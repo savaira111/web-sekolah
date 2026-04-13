@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative pt-12 pb-20 overflow-hidden bg-white">
+<section class="relative pt-12 pb-20 overflow-hidden bg-white reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
             PPDB ONLINE 2026/2027
@@ -17,7 +17,7 @@
     </div>
 </section>
 
-<section class="relative pt-16 pb-24 bg-white overflow-hidden">
+<section class="relative pt-16 pb-24 bg-white overflow-hidden reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-3 gap-12">
             <!-- Sidebar Navigation -->
@@ -47,7 +47,7 @@
             <!-- Main Content Area -->
             <div class="lg:col-span-2 space-y-8">
                 <!-- Flowchart Section -->
-                <div class="bg-white p-12 rounded-[3rem] border-2 border-blue-600 space-y-12">
+                <div class="bg-white p-12 rounded-[3rem] border-2 border-blue-600 space-y-12 reveal">
                     <h3 class="text-2xl font-bold text-blue-600 flex items-center gap-4">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                         Alur Pendaftaran (Flowchart)
@@ -439,7 +439,7 @@
         </div>
 
         <!-- Final CTA - Centered & Compact -->
-        <div class="max-w-5xl mx-auto bg-blue-600 rounded-[2.5rem] p-10 lg:p-14 text-center space-y-8 shadow-2xl shadow-blue-200 mt-20 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto bg-blue-600 rounded-[2.5rem] p-10 lg:p-14 text-center space-y-8 shadow-2xl shadow-blue-200 mt-20 relative overflow-hidden reveal reveal-scale">
              <!-- Decorative elements -->
              <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
              <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-400 opacity-20 rounded-full -ml-40 -mb-40 blur-3xl"></div>

@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="relative pt-4 pb-12 overflow-hidden bg-white">
+    <section class="relative pt-4 pb-12 overflow-hidden bg-white reveal">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
             <div
                 class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold tracking-widest uppercase border border-blue-100 shadow-sm">
@@ -25,7 +25,7 @@
     <section class="pt-6 pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-24 items-start">
             <!-- Contact Form -->
-            <div class="bg-white rounded-[3.5rem] p-6 lg:p-12 shadow-2xl shadow-blue-900/5 border border-gray-50">
+            <div class="bg-white rounded-[3.5rem] p-6 lg:p-12 shadow-2xl shadow-blue-900/5 border border-gray-50 reveal reveal-left">
                 @if (session('success'))
                     <div class="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-2xl">
                         {{ session('success') }}
@@ -114,7 +114,7 @@
             </div>
 
             <!-- Contact Channels -->
-            <div class="space-y-12">
+            <div class="space-y-12 reveal reveal-right">
                 <div class="bg-blue-50 p-12 rounded-[4rem] space-y-12 border border-blue-100 shadow-sm">
                     <h3 class="text-2xl font-bold text-blue-900 flex items-center gap-4">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -208,7 +208,7 @@
     </section>
 
     <!-- Maps Section -->
-    <section id="map" class="h-[600px] w-full bg-gray-100 relative grayscale hover:grayscale-0 transition-all duration-1000">
+    <section id="map" class="h-[600px] w-full bg-gray-100 relative grayscale hover:grayscale-0 transition-all duration-1000 reveal reveal-scale">
         <iframe src="https://maps.google.com/maps?q=SMKS%20MAHAPUTRA%20CERDAS%20UTAMA&t=&z=15&ie=UTF8&iwloc=&output=embed"
             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">

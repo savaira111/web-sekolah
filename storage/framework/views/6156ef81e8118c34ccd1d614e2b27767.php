@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative pt-12 pb-20 overflow-hidden bg-white">
+<section class="relative pt-12 pb-20 overflow-hidden bg-white reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
             KABAR MAHAPUTRA
@@ -47,7 +47,7 @@
             <?php endif; ?>
 
             <!-- News Grid -->
-            <div class="grid md:grid-cols-2 gap-6" id="news-grid">
+            <div class="grid md:grid-cols-2 gap-6 reveal" id="news-grid">
                 <?php
                     $categoryColors = [
                         'Berita Sekolah' => 'bg-slate-600',
@@ -82,7 +82,7 @@
                     <div class="space-y-4 px-2">
                         <div class="flex items-center gap-4 text-xs text-gray-400 font-bold">
                             <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg> <?php echo e($article->published_at ? $article->published_at->format('d M Y') : $article->created_at->format('d M Y')); ?></span>
-                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 5 mnt</span>
+                            <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <?php echo e(($article->published_at ?? $article->created_at)->format('H:i')); ?></span>
                         </div>
                         <a href="<?php echo e(route('news.detail', $article->slug)); ?>">
                             <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-tight uppercase line-clamp-2"><?php echo e($article->title); ?></h3>
@@ -98,10 +98,15 @@
                     </div>
                 </article>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                <div class="col-span-2 text-center py-8 bg-gray-50 rounded-[1.5rem] border-2 border-dashed border-gray-200">
-                    <p class="text-gray-500 font-bold italic">Belum ada artikel yang ditemukan.</p>
+                <div class="col-span-2 text-center py-20 bg-gray-50 rounded-[2rem] border-2 border-dashed border-gray-200">
+                    <p class="text-gray-500 font-bold italic">konten tidak tersedia</p>
                 </div>
                 <?php endif; ?>
+                
+                <!-- Client-side filter empty state -->
+                <div id="empty-filter-state" class="hidden col-span-2 text-center py-20 bg-gray-50 rounded-[2rem] border-2 border-dashed border-gray-200">
+                    <p class="text-gray-500 font-bold italic">konten tidak tersedia</p>
+                </div>
             </div>
 
                 <div class="mt-8">
@@ -111,7 +116,7 @@
             </div>
 
         <!-- Sidebar -->
-        <div class="space-y-12">
+        <div class="space-y-12 reveal reveal-right">
             <!-- Search -->
             <div class="bg-white p-6 rounded-[1.5rem] border border-gray-100 shadow-sm relative z-20">
                 <h4 class="font-bold flex items-center gap-2 mb-6"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> Cari Artikel</h4>
@@ -234,10 +239,12 @@
         });
 
         // Filter cards
+        let visibleCount = 0;
         cards.forEach(card => {
             const categories = card.getAttribute('data-category').split(' ');
             if (category === 'all' || categories.includes(category)) {
                 card.style.display = 'block';
+                visibleCount++;
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
@@ -250,6 +257,16 @@
                 }, 300);
             }
         });
+
+        // Show/hide empty state
+        const emptyState = document.getElementById('empty-filter-state');
+        if (emptyState) {
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
     }
 </script>
 <?php $__env->stopSection(); ?>

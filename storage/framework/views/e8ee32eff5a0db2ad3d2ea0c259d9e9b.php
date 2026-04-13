@@ -8,16 +8,7 @@
     <!-- Decorative Elements -->
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#1D82F6 1px, transparent 1px); background-size: 40px 40px;"></div>
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-        <!-- Back Button -->
-        <div class="absolute left-4 sm:left-6 lg:left-8 top-0">
-            <a href="<?php echo e(route('profile')); ?>" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white text-slate-400 hover:bg-blue-600 hover:text-white transition-all shadow-sm border border-slate-200 group" title="Kembali">
-                <svg class="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </a>
-        </div>
-    </div>
+
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center -mt-10">
         <div class="space-y-4">

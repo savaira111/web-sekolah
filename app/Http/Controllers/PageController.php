@@ -21,12 +21,9 @@ class PageController extends Controller
             ->take(3)
             ->get();
             
-        $landingStats = collect();
-        if (\Illuminate\Support\Facades\Schema::hasTable('landing_stats')) {
-            $landingStats = \App\Models\LandingStat::where('is_active', true)
-                ->orderBy('order')
-                ->get();
-        }
+        $landingStats = \App\Models\LandingStat::where('is_active', true)
+            ->orderBy('order')
+            ->get();
             
         return view('index', compact('articles', 'activeEskulCount', 'albums', 'landingStats'));
     }
@@ -134,6 +131,9 @@ class PageController extends Controller
         $article = \App\Models\Article::published()
             ->where('slug', $slug)
             ->firstOrFail();
+            
+        // Perbarui jumlah tayangan
+        $article->incrementViews();
 
         $relatedArticles = \App\Models\Article::published()
             ->where('id', '!=', $article->id)

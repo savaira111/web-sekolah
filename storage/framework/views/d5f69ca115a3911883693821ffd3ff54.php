@@ -60,6 +60,7 @@
                 
                 <!-- Header -->
                 <div class="space-y-2">
+                    <img src="<?php echo e(asset('images/logo-smk.png')); ?>" alt="Logo SMK" class="h-24 w-auto mx-auto mb-3 -mt-8 block">
                     <h1 class="text-2xl font-bold text-[#0F172A] tracking-tight">Login Admin Mahput</h1>
                     <p class="text-gray-500 text-sm">Silakan masukkan kredensial Anda untuk mengakses portal siswa dan staf.</p>
                 </div>

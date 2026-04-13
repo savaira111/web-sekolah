@@ -88,8 +88,10 @@ class PartnerController extends Controller
             'is_active' => 'nullable',
             // New Detail Fields
             'location' => 'nullable|string|max:255',
+            'partnership_year' => 'nullable|string|max:4',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
             'student_testimonials_data' => 'nullable|array',
+            'gallery_images' => 'nullable|array',
             'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
         ]);
 
@@ -119,7 +121,10 @@ class PartnerController extends Controller
                 $photoPath = $t['existing_photo'] ?? null;
                 
                 if ($request->hasFile("student_testimonials_data.{$index}.photo")) {
-                    $photoPath = $request->file("student_testimonials_data.{$index}.photo")->store('partners/testimonials', 'public');
+                    $file = $request->file("student_testimonials_data.{$index}.photo");
+                    if ($file && $file->isValid()) {
+                        $photoPath = $file->store('partners/testimonials', 'public');
+                    }
                 }
                 
                 $savedTestimonials[] = [
@@ -136,10 +141,14 @@ class PartnerController extends Controller
         // Handle Gallery Images
         if ($request->hasFile('gallery_images')) {
             $galleryPaths = [];
-            foreach ($request->file('gallery_images') as $image) {
-                $galleryPaths[] = $image->store('partners/gallery', 'public');
+            foreach ($request->file('gallery_images', []) as $image) {
+                if ($image && $image->isValid()) {
+                    $galleryPaths[] = $image->store('partners/gallery', 'public');
+                }
             }
-            $validated['gallery_images'] = $galleryPaths;
+            if (count($galleryPaths) > 0) {
+                $validated['gallery_images'] = $galleryPaths;
+            }
         }
 
         $partner = Partner::create($validated);
@@ -186,8 +195,10 @@ class PartnerController extends Controller
             'is_active' => 'nullable',
             // New Detail Fields
             'location' => 'nullable|string|max:255',
+            'partnership_year' => 'nullable|string|max:4',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
             'student_testimonials_data' => 'nullable|array',
+            'gallery_images' => 'nullable|array',
             'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
         ]);
 
@@ -230,11 +241,14 @@ class PartnerController extends Controller
                 $photoPath = $t['existing_photo'] ?? null;
                 
                 if ($request->hasFile("student_testimonials_data.{$index}.photo")) {
-                    // delete old if replacing
-                    if ($photoPath && Storage::disk('public')->exists($photoPath)) {
-                        Storage::disk('public')->delete($photoPath);
+                    $file = $request->file("student_testimonials_data.{$index}.photo");
+                    if ($file && $file->isValid()) {
+                        // delete old if replacing
+                        if ($photoPath && Storage::disk('public')->exists($photoPath)) {
+                            Storage::disk('public')->delete($photoPath);
+                        }
+                        $photoPath = $file->store('partners/testimonials', 'public');
                     }
-                    $photoPath = $request->file("student_testimonials_data.{$index}.photo")->store('partners/testimonials', 'public');
                 }
                 
                 $savedTestimonials[] = [
@@ -248,20 +262,26 @@ class PartnerController extends Controller
         }
         $validated['student_testimonials_data'] = $savedTestimonials;
 
-        // Handle Gallery Images (Append or Replace logic, here we replace if new images provided)
+        // Handle Gallery Images (Replace if new images provided)
         if ($request->hasFile('gallery_images')) {
-            // Delete old gallery images if needed
-            if ($partner->gallery_images) {
-                foreach ($partner->gallery_images as $oldImage) {
-                    Storage::disk('public')->delete($oldImage);
+            $galleryPaths = [];
+            $files = $request->file('gallery_images', []);
+            
+            foreach ($files as $image) {
+                if ($image && $image->isValid()) {
+                    $galleryPaths[] = $image->store('partners/gallery', 'public');
                 }
             }
             
-            $galleryPaths = [];
-            foreach ($request->file('gallery_images') as $image) {
-                $galleryPaths[] = $image->store('partners/gallery', 'public');
+            if (count($galleryPaths) > 0) {
+                // Delete old gallery images only if we actually have new valid ones
+                if ($partner->gallery_images) {
+                    foreach ($partner->gallery_images as $oldImage) {
+                        Storage::disk('public')->delete($oldImage);
+                    }
+                }
+                $validated['gallery_images'] = $galleryPaths;
             }
-            $validated['gallery_images'] = $galleryPaths;
         }
 
         $partner->update($validated);

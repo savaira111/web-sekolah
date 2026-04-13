@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative pt-6 pb-12 overflow-hidden bg-white">
+<section class="relative pt-6 pb-12 overflow-hidden bg-white reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-2 gap-12 items-start">
             <!-- Left Side: Text Content -->
@@ -39,7 +39,7 @@
 </section>
 
 <!-- Filter Section -->
-<section id="explore" class="py-10 bg-white" x-data="{ active: 'semua' }">
+<section id="explore" class="py-10 bg-white reveal" x-data="{ active: 'semua' }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         <div class="text-center space-y-4">
             <h2 class="text-2xl font-bold text-[#0F172A]">Jelajahi Ekstrakurikuler</h2>
@@ -55,8 +55,10 @@
 
         <!-- Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <?php $__currentLoopData = $extracurriculars->take(6); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $eskul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = $extracurriculars->take(6); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $eskul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <a href="<?php echo e(route('extracurriculars.show', $eskul->id)); ?>" 
+               class="group space-y-4 reveal"
+               style="transition-delay: <?php echo e(($index % 3) * 150); ?>ms"
                <?php
                     $cat = strtolower($eskul->category);
                     $normCat = 'umum';
@@ -107,7 +109,7 @@
 </section>
 
 <!-- Call to Action Section -->
-<section class="py-10 bg-gray-50">
+<section class="py-10 bg-gray-50 reveal reveal-scale">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
         <div class="space-y-4">
             <h2 class="text-2xl font-bold text-[#0F172A] leading-tight">Ingin Melihat Kegiatan Kami Secara Langsung?</h2>

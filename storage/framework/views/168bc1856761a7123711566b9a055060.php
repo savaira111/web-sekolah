@@ -13,7 +13,30 @@
         }
     </style>
     
-    <div class="flex items-center gap-4 ml-auto" 
+    <div class="flex items-center gap-4">
+        <!-- Sidebar Toggle -->
+        <button @click="$store.theme.toggleSidebar()" 
+                class="p-2 rounded-xl transition-all duration-300 hover:scale-105 shrink-0"
+                :class="$store.theme.darkMode ? 'bg-[#111827] text-white hover:bg-gray-800' : 'bg-white border border-gray-100 text-gray-600 hover:bg-gray-50'">
+            <svg class="w-6 h-6 transition-transform duration-300" :class="$store.theme.sidebarOpen ? '' : 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8M4 18h16"></path>
+            </svg>
+        </button>
+
+        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+            <h2 class="text-lg md:text-xl font-black tracking-tight leading-none" 
+                :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">
+                <?php echo $__env->yieldContent('navbar_title', 'Dashboard Overview'); ?>
+            </h2>
+            <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-[10px] font-bold uppercase tracking-wider" 
+                    :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'">Sistem Aktif</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flex items-center gap-3 sm:gap-4 ml-auto" 
          x-data="{ 
             showNotifications: false,
             hasSeen: localStorage.getItem('last_notif_count') == '<?php echo e($unreadNotificationsCount); ?>',
@@ -114,18 +137,84 @@
 
     <div class="h-6 w-px transition-colors duration-300 mx-1" :class="$store.theme.darkMode ? 'bg-gray-700' : 'bg-gray-200'"></div>
     
-    <!-- Profile -->
-    <a href="/superadmin/profile" class="flex items-center gap-4 px-2 py-1.5 rounded-2xl transition-all hover:bg-gray-50 dark:hover:bg-gray-800/50 group">
-        <div class="text-right hidden sm:block">
-            <p class="text-[13.5px] font-extrabold leading-none transition-colors duration-300" 
-                :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'"><?php echo e(auth()->user()->name ?? 'Superadmin'); ?></p>
-            <p class="text-[10px] font-black tracking-[0.05em] uppercase transition-colors duration-300 mt-1.5" 
-                :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'"><?php echo e(auth()->user()->role ?? 'Superadmin'); ?></p>
+    <style>
+        .dropdown-anim-enter { animation: dropdownFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .dropdown-anim-leave { animation: dropdownFadeOut 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes dropdownFadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        @keyframes dropdownFadeOut {
+            from { opacity: 1; transform: scale(1) translateY(0); }
+            to { opacity: 0; transform: scale(0.95) translateY(-10px); }
+        }
+    </style>
+    <!-- Profile Dropdown -->
+    <div class="relative" x-data="{ showProfile: false }">
+        <button @click="showProfile = !showProfile" @click.away="showProfile = false" class="flex items-center gap-2 sm:gap-4 px-2 py-1.5 rounded-2xl transition-all hover:bg-gray-50 dark:hover:bg-gray-800/50 group text-left">
+            <div class="text-right hidden sm:block">
+                <p class="text-[13.5px] font-extrabold leading-none transition-colors duration-300" 
+                    :class="$store.theme.darkMode ? 'text-white' : 'text-gray-900'"><?php echo e(auth()->user()->name ?? 'Superadmin'); ?></p>
+                <p class="text-[10px] font-black tracking-[0.05em] uppercase transition-colors duration-300 mt-1.5" 
+                    :class="$store.theme.darkMode ? 'text-gray-500' : 'text-gray-400'"><?php echo e(auth()->user()->role ?? 'Superadmin'); ?></p>
+            </div>
+            <div class="w-11 h-11 rounded-full flex items-center justify-center font-black text-[15px] transition-all shadow-sm relative overflow-hidden shrink-0 border-2" 
+                    :class="$store.theme.darkMode ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 'bg-[#EBF1FF] text-[#3B82F6] border-white'">
+                    SU
+            </div>
+            <svg class="w-4 h-4 transition-transform duration-300 mx-1" :class="showProfile ? 'rotate-180' : ''" :class="$store.theme.darkMode ? 'text-gray-400' : 'text-gray-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div x-cloak x-show="showProfile" 
+             x-transition:enter="dropdown-anim-enter"
+             x-transition:leave="dropdown-anim-leave"
+             style="transform-origin: top right;"
+             class="absolute right-0 mt-3 w-56 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] border overflow-hidden z-50 transition-colors duration-300" 
+             :class="$store.theme.darkMode ? 'bg-[#111827] border-gray-800' : 'bg-white border-gray-100'">
+            
+            <a href="/superadmin/profile" class="flex items-center gap-3 px-4 py-3 border-b hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800 text-gray-200' : 'border-gray-100 text-gray-700'">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <span class="text-sm font-semibold">Profil Saya</span>
+            </a>
+            
+            <a href="/" class="flex items-center gap-3 px-4 py-3 border-b hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-300" :class="$store.theme.darkMode ? 'border-gray-800 text-gray-200' : 'border-gray-100 text-gray-700'">
+                <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                <span class="text-sm font-semibold text-blue-500">Landing Page</span>
+            </a>
+
+            <form id="logout-form-nav" method="POST" action="<?php echo e(route('logout')); ?>" class="hidden">
+                <?php echo csrf_field(); ?>
+            </form>
+            <button type="button" @click="confirmLogoutNav()" class="flex items-center gap-3 px-4 py-3 w-full text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-300 text-red-500">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                <span class="text-sm font-semibold">Keluar</span>
+            </button>
+            <script>
+                function confirmLogoutNav() {
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda akan keluar dari sesi admin ini.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#EF4444',
+                        cancelButtonColor: '#6B7280',
+                        confirmButtonText: 'Ya, Keluar!',
+                        cancelButtonText: 'Batal',
+                        reverseButtons: true,
+                        borderRadius: '20px',
+                        background: document.documentElement.classList.contains('dark') ? '#1E293B' : '#FFFFFF',
+                        color: document.documentElement.classList.contains('dark') ? '#FFFFFF' : '#000000',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            document.getElementById('logout-form-nav').submit();
+                        }
+                    })
+                }
+            </script>
         </div>
-        <div class="w-11 h-11 rounded-full flex items-center justify-center font-black text-[15px] transition-all shadow-sm relative overflow-hidden shrink-0 border-2" 
-                :class="$store.theme.darkMode ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 'bg-[#EBF1FF] text-[#3B82F6] border-white'">
-                SU
-        </div>
-    </a>
+    </div>
     </div>
 </header><?php /**PATH C:\laragon\www\web-sekolah\resources\views/layouts/superadmin/navbar.blade.php ENDPATH**/ ?>

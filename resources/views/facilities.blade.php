@@ -4,12 +4,12 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative pt-6 pb-20 overflow-hidden bg-white">
+<section class="relative pt-6 pb-20 overflow-hidden bg-white reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
             LINGKUNGAN BELAJAR MODERN
         </div>
-        <div class="flex flex-col md:flex-row justify-between items-end gap-8">
+        <div class="flex flex-col md:flex-row justify-between items-end gap-8 reveal reveal-right">
             <div class="space-y-4 max-w-3xl">
                 <h1 class="text-4xl lg:text-5xl font-bold text-[#0F172A] leading-tight">
                     Fasilitas Unggulan <br>
@@ -19,7 +19,7 @@
                     Kami menyediakan ekosistem pembelajaran yang dirancang khusus untuk mengasah kreativitas dan keterampilan teknis siswa sesuai kebutuhan dunia kerja masa kini.
                 </p>
             </div>
-            <a href="#" class="inline-flex items-center gap-3 px-6 py-3 bg-white border border-gray-100 rounded-xl font-bold text-gray-900 shadow-sm hover:bg-gray-50 transition-all">
+            <a href="https://youtu.be/2E-FszPDakM?si=2E3T4Nl1eKWMh_L1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-6 py-3 bg-white border border-gray-100 rounded-xl font-bold text-gray-900 shadow-sm hover:bg-gray-50 transition-all">
                 <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 00-2 2z"></path></svg>
                 Virtual Tour
             </a>
@@ -40,7 +40,7 @@
     <!-- Facility Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="facility-grid">
         <!-- Lab DKV -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/lab dkv.png') }}" alt="Lab DKV" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
@@ -56,7 +56,7 @@
         </div>
 
         <!-- Lab PPLG -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/lab pplg.png') }}" alt="Lab PPLG" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
@@ -73,7 +73,7 @@
         </div>
 
         <!-- Lab Multimedia -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/lab multimedia.png') }}" alt="Lab Multimedia" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-600 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
@@ -90,7 +90,7 @@
         </div>
 
         <!-- Lab Interaktif -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik Laboratorium">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Akademik Laboratorium">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/lab interaktif.png') }}" alt="Lab Interaktif" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-blue-400 text-white text-[10px] font-bold rounded-full uppercase">Laboratorium</span>
@@ -107,7 +107,7 @@
         </div>
 
         <!-- VIP Lounge -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/vip.png') }}" alt="VIP" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
@@ -124,7 +124,7 @@
         </div>
 
         <!-- BNB Cafe -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/bnb.png') }}" alt="Cafe" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
@@ -141,7 +141,7 @@
         </div>
 
         <!-- Masjid -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/masjid mushola.png') }}" alt="Masjid" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
@@ -158,7 +158,7 @@
         </div>
 
         <!-- Gedung Kelas -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Akademik">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Akademik">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/gedung kelas.png') }}" alt="Gedung" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Akademik</span>
@@ -175,7 +175,7 @@
         </div>
 
         <!-- Bale Mahaputra -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/bale mahaputra.png') }}" alt="Aula" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
@@ -191,7 +191,7 @@
             </div>
         </div>
         <!-- Parkiran -->
-        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500" data-category="Umum">
+        <div class="facility-card group bg-white rounded-[1.5rem] border border-gray-100 overflow-hidden shadow-sm transition-all duration-500 reveal" data-category="Umum">
             <div class="aspect-video relative overflow-hidden">
                 <img src="{{ asset('images/fasilitas/parkiran.png') }}" alt="Parkiran" class="w-full h-full object-cover transition-transform duration-700">
                 <span class="absolute top-6 left-6 px-4 py-2 bg-orange-600 text-white text-[10px] font-bold rounded-full uppercase">Umum</span>
@@ -274,7 +274,7 @@
 
 <!-- Direct Contact -->
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 mt-4 text-center">
-    <div class="bg-blue-600 rounded-[2rem] p-12 lg:p-16 relative overflow-hidden shadow-2xl shadow-blue-200">
+    <div class="bg-blue-600 rounded-[2rem] p-12 lg:p-16 relative overflow-hidden shadow-2xl shadow-blue-200 reveal reveal-scale">
         <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-700 opacity-50"></div>
         <div class="relative z-10 space-y-8">
             <h2 class="text-3xl lg:text-4xl font-bold text-white leading-tight">Ingin melihat fasilitas kami <br> secara langsung?</h2>

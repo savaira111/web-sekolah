@@ -158,11 +158,11 @@
                     <h3 class="text-xl font-bold mb-8 relative z-10">Hubungi Pembimbing</h3>
                     <div class="flex items-center gap-5 mb-10 relative z-10">
                         <div class="relative">
-                            <img src="https://i.pravatar.cc/150?u=mentor-dkv" alt="Mentor" class="w-20 h-20 rounded-2xl object-cover">
+                            <img src="{{ asset('images/guru/refangga.png') }}" alt="Mentor" class="w-20 h-20 rounded-2xl object-cover">
                             <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-4 border-[#0F172A] rounded-full"></div>
                         </div>
                         <div class="space-y-1">
-                            <p class="font-bold text-lg leading-tight">Rafangga Agus Triono, S.Ds</p>
+                            <p class="font-bold text-lg leading-tight">Refangga Agus Triono, S.Ds</p>
                             <p class="text-gray-400 text-xs font-medium">Ketua Program Keahlian DKV</p>
                         </div>
                     </div>

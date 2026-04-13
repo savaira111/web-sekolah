@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Scripts and Styles -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <style>
@@ -32,6 +32,40 @@
         body.page-exit {
             opacity: 0;
             transform: translateY(-20px);
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .reveal-left {
+            transform: translateX(-50px);
+        }
+
+        .reveal-right {
+            transform: translateX(50px);
+        }
+
+        .reveal-scale {
+            transform: scale(0.9);
+        }
+
+        .reveal-left.active, .reveal-right.active {
+            transform: translateX(0);
+        }
+
+        .reveal-scale.active {
+            transform: scale(1);
         }
     </style>
 </head>
@@ -84,6 +118,28 @@
                     }, 400); // slightly less than CSS transition duration
                 });
             });
+        });
+
+        // Scroll Reveal Implementation
+        document.addEventListener("DOMContentLoaded", () => {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    } else {
+                        // Remove active class when element is out of view to re-trigger animation
+                        // Only if we want it to repeat. User asked for "saat scroll keatas dan bawah"
+                        entry.target.classList.remove('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -20px 0px'
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
         });
 
         // Restore state if navigating back via browser history

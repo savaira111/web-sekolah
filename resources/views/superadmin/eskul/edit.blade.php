@@ -66,10 +66,13 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Deskripsi Kegiatan</label>
-                                <textarea name="description" rows="5" required class="w-full px-5 py-4 rounded-2xl border-none font-bold text-gray-700 transition-all outline-none leading-relaxed" :class="$store.theme.darkMode ? 'bg-black/20 text-white' : 'bg-gray-50/80 text-gray-700'">{{ $eskul->description }}</textarea>
-                            </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Deskripsi Kegiatan</label>
+                                    <div class="rounded-2xl border-none transition-all outline-none leading-relaxed" :class="$store.theme.darkMode ? 'bg-black/20 text-white' : 'bg-gray-50/80 text-gray-700'">
+                                        <div id="editor" class="min-h-[250px] text-[15px]">{!! $eskul->description !!}</div>
+                                    </div>
+                                    <textarea name="description" id="description_textarea" class="hidden"></textarea>
+                                </div>
                         </div>
                     </div>
 
@@ -159,12 +162,28 @@
 @endsection
 
 @push('scripts')
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function editEskulForm() {
         return {
             imagePreview: null,
             isActive: {{ $eskul->is_active ? 'true' : 'false' }},
+            quill: null,
+            init() {
+                this.quill = new Quill('#editor', {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline'],
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            [{ 'align': [] }],
+                            ['link', 'clean']
+                        ]
+                    }
+                });
+            },
             handleImage(e) {
                 const file = e.target.files[0];
                 if (file) {
@@ -177,6 +196,19 @@
             },
             async submitForm() {
                 const form = this.$refs.form;
+                const descriptionContent = this.quill.root.innerHTML;
+
+                if (!form.name.value || !form.category.value || descriptionContent === '<p><br></p>') {
+                    Swal.fire({ 
+                        icon: 'warning', 
+                        title: 'Data belum lengkap', 
+                        text: 'Mohon lengkapi nama, kategori, dan deskripsi.',
+                        confirmButtonColor: '#F15A24',
+                    });
+                    return;
+                }
+
+                document.getElementById('description_textarea').value = descriptionContent;
                 
                 Swal.fire({
                     title: 'Memperbarui Data...',

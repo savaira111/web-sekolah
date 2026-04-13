@@ -1,15 +1,13 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'PPLG & Gim - SMKS Mahaputra'); ?>
 
-@section('title', 'PPLG & Gim - SMKS Mahaputra')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
 <section class="relative pt-8 pb-10 overflow-hidden bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-2 gap-10 items-start">
             <div class="space-y-1.5 pt-1">
                 <div class="flex items-center gap-3">
-                    <a href="{{ route('jurusan') }}" class="w-9 h-9 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
+                    <a href="<?php echo e(route('jurusan')); ?>" class="w-9 h-9 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     </a>
                     <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 text-[9px] font-bold tracking-widest uppercase border border-blue-100">
@@ -165,7 +163,7 @@
                     </div>
 
                     <div class="mt-8 space-y-4">
-                        <a href="{{ route('registration') }}" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan PPLG</a>
+                        <a href="<?php echo e(route('registration')); ?>" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan PPLG</a>
                         <p class="text-center text-[10px] text-gray-400">Pendaftaran Gelombang 1 berakhir dalam 14 hari lagi.</p>
                     </div>
                 </div>
@@ -176,7 +174,7 @@
                     <h3 class="text-xl font-bold mb-8 relative z-10">Hubungi Pembimbing</h3>
                     <div class="flex items-center gap-5 mb-10 relative z-10">
                         <div class="relative">
-                            <img src="{{ asset('images/guru/azhara fathiyah silmi.png') }}" alt="Mentor" class="w-20 h-20 rounded-2xl object-cover">
+                            <img src="<?php echo e(asset('images/guru/azhara fathiyah silmi.png')); ?>" alt="Mentor" class="w-20 h-20 rounded-2xl object-cover">
                             <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-4 border-[#0F172A] rounded-full"></div>
                         </div>
                         <div class="space-y-1">
@@ -310,7 +308,7 @@
                 <h2 class="text-4xl lg:text-5xl font-bold text-white">Masih bingung dengan pilihanmu?</h2>
                 <p class="text-gray-400 max-w-2xl mx-auto text-lg">Konsultasikan minat dan bakatmu dengan konselor pengarahan kami untuk menemukan jalan karir IT yang paling sesuai untukmu.</p>
                 <div class="flex flex-wrap justify-center gap-6 pt-6">
-                    <a href="{{ route('contact') }}" class="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/20 transition-all group">
+                    <a href="<?php echo e(route('contact')); ?>" class="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/20 transition-all group">
                         Hubungi Konselor
                         <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
@@ -320,4 +318,6 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/programs/pplg.blade.php ENDPATH**/ ?>

@@ -17,7 +17,7 @@
                 <div class="flex flex-wrap justify-center lg:justify-start gap-4 pt-2">
                     <div class="flex items-center gap-3 px-5 py-2.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-sm font-bold shadow-sm">
                         <div class="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></div>
-                        150+ Mitra Aktif
+                        20+ Mitra Industri
                     </div>
                     <div class="flex items-center gap-3 px-5 py-2.5 rounded-full bg-orange-50 border border-orange-100 text-orange-700 text-sm font-bold shadow-sm">
                         <div class="w-6 h-6 rounded-lg bg-orange-200 flex items-center justify-center text-[12px]">💼</div>
@@ -120,11 +120,20 @@
                 </div>
 
                 <!-- Card Footer -->
-                <div class="pt-6 border-t border-gray-50 flex items-center gap-2 text-gray-400">
-                    <svg class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="text-xs font-bold tracking-tight"><?php echo e($partner->location ?? 'Bandung, Indonesia'); ?></span>
+                <div class="pt-6 border-t border-gray-50 flex items-center justify-between">
+                    <div class="flex items-center gap-2 text-gray-400">
+                        <svg class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-xs font-bold tracking-tight"><?php echo e($partner->location ?? 'Bandung, Indonesia'); ?></span>
+                    </div>
+                    <?php if($partner->partnership_year): ?>
+                    <div class="flex items-center gap-1 px-2 py-1 rounded-md bg-blue-50 text-blue-600 text-[9px] font-black uppercase tracking-wider whitespace-nowrap overflow-hidden">
+                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Sejak <?php echo e($partner->partnership_year); ?>
+
+                    </div>
+                    <?php endif; ?>
                 </div>
             </a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

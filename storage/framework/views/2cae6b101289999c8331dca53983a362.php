@@ -2,55 +2,34 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="p-8 -mt-2 flex-1 w-full" :class="$store.theme.darkMode ? '' : 'bg-[#F3F4F6]'">
-    <!-- Breadcrumbs -->
-    <nav class="flex mb-6 text-sm" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2">
-            <li>
-                <a href="<?php echo e(route('superadmin.dashboard')); ?>" class="text-gray-500 hover:text-blue-600 transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                    </svg>
-                </a>
-            </li>
-            <li class="flex items-center space-x-2">
-                <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                <a href="<?php echo e(route('superadmin.partners.index')); ?>" class="text-gray-500 hover:text-blue-600">Mitra Industri</a>
-            </li>
-            <li class="flex items-center space-x-2 text-gray-400">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="font-medium">Tambah Mitra Baru</span>
-            </li>
-        </ol>
-    </nav>
-
-    <!-- Header Section -->
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
-        <div class="flex items-start space-x-5">
-            <a href="<?php echo e(route('superadmin.partners.index')); ?>" 
-               class="w-12 h-12 flex items-center justify-center rounded-full bg-[#111827] border border-gray-800 text-gray-400 hover:text-white transition-all duration-300 group shadow-lg"
-               :class="$store.theme.darkMode ? 'bg-[#0B0F19]' : ''">
-                <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </a>
-            <div>
-                <h1 class="text-3xl font-extrabold tracking-tight" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">
-                    Tambah Mitra Industri
-                </h1>
-                <p class="mt-1 text-gray-500 max-w-2xl">
-                    Daftarkan partner atau instansi yang bekerja sama dengan sekolah.
-                </p>
-            </div>
-        </div>
-    </div>
 
     <form id="partnerForm" action="<?php echo e(route('superadmin.partners.store')); ?>" method="POST" enctype="multipart/form-data" class="w-full">
         <?php echo csrf_field(); ?>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:pb-16 items-start">
+
+        <!-- Header Section -->
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+            <div class="flex items-start space-x-5">
+                <a href="<?php echo e(route('superadmin.partners.index')); ?>" 
+                   class="w-12 h-12 flex items-center justify-center rounded-full bg-[#111827] border border-gray-800 text-gray-400 hover:text-white transition-all duration-300 group shadow-lg"
+                   :class="$store.theme.darkMode ? 'bg-[#0B0F19]' : ''">
+                    <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight" :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'">
+                        Tambah Mitra Industri
+                    </h1>
+                    <p class="mt-1 text-gray-500 max-w-2xl">
+                        Daftarkan partner atau instansi yang bekerja sama dengan sekolah.
+                    </p>
+                </div>
+            </div>
+
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:pb-6 items-start">
         
         <!-- Left Sidebar: Main Form Content -->
         <div class="lg:col-span-8 space-y-8">
@@ -60,8 +39,8 @@
                 <div class="mb-8 group">
                     <label for="name" class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 group-focus-within:text-blue-500 transition-colors">NAMA MITRA / INSTANSI</label>
                     <input type="text" name="name" id="name" required
-                           class="w-full text-2xl lg:text-3xl font-bold bg-transparent border-none focus:ring-0 placeholder:text-gray-300 p-0"
-                           :class="$store.theme.darkMode ? 'text-white' : 'text-slate-900'"
+                           class="w-full text-2xl lg:text-3xl font-bold bg-transparent border-none focus:ring-0 p-0 transition-colors"
+                           :class="$store.theme.darkMode ? 'text-white placeholder:text-gray-500' : 'text-slate-900 placeholder:text-gray-300'"
                            placeholder="Masukkan nama instansi..."
                            value="<?php echo e(old('name')); ?>">
                     <?php $__errorArgs = ['name'];
@@ -76,7 +55,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <!-- Website URL -->
                     <div class="group">
                         <label for="website_url" class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 group-focus-within:text-blue-500 transition-colors">WEBSITE URL</label>
@@ -86,8 +65,8 @@ unset($__errorArgs, $__bag); ?>
                                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.826L10.242 9.172a4 4 0 015.656 0l4 4a4 4 0 01-5.656 5.656l-1.103-1.103"></path></svg>
                             </span>
                             <input type="url" name="website_url" id="website_url" 
-                                   class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4"
-                                   :class="$store.theme.darkMode ? 'text-white' : 'text-slate-700'"
+                                   class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4 transition-colors"
+                                   :class="$store.theme.darkMode ? 'text-white placeholder:text-gray-500' : 'text-slate-700 placeholder:text-gray-400'"
                                    placeholder="https://example.com"
                                    value="<?php echo e(old('website_url')); ?>">
                         </div>
@@ -102,12 +81,38 @@ unset($__errorArgs, $__bag); ?>
                                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </span>
                             <input type="text" name="location" id="location" 
-                                   class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4"
-                                   :class="$store.theme.darkMode ? 'text-white' : 'text-slate-700'"
+                                   class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4 transition-colors"
+                                   :class="$store.theme.darkMode ? 'text-white placeholder:text-gray-500' : 'text-slate-700 placeholder:text-gray-400'"
                                    placeholder="Contoh: Bandung, Jawa Barat"
                                    value="<?php echo e(old('location')); ?>">
                         </div>
                         <?php $__errorArgs = ['location'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <p class="mt-2 text-sm text-red-500"><?php echo e($message); ?></p>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+
+                    <!-- Partnership Year -->
+                    <div class="group">
+                        <label for="partnership_year" class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 group-focus-within:text-blue-500 transition-colors">TAHUN KERJA SAMA</label>
+                        <div class="flex items-center rounded-2xl border transition-all duration-200 overflow-hidden"
+                             :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-800' : 'bg-gray-50 border-gray-200 focus-within:border-blue-400/50 focus-within:bg-white'">
+                            <span class="pl-4 text-gray-400">
+                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </span>
+                            <input type="number" name="partnership_year" id="partnership_year" 
+                                   class="w-full bg-transparent border-none focus:ring-0 text-sm font-semibold p-4 transition-colors"
+                                   :class="$store.theme.darkMode ? 'text-white placeholder:text-gray-500' : 'text-slate-700 placeholder:text-gray-400'"
+                                   placeholder="Contoh: 2024"
+                                   value="<?php echo e(old('partnership_year')); ?>">
+                        </div>
+                        <?php $__errorArgs = ['partnership_year'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -124,9 +129,9 @@ unset($__errorArgs, $__bag); ?>
                 <div class="space-y-3">
                     <label for="description" class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">DESKRIPSI SINGKAT</label>
                     <textarea name="description" id="description" rows="4"
-                              class="w-full rounded-2xl border transition-all duration-200 p-4 font-medium focus:ring-4 focus:ring-blue-500/10"
-                              :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-800 text-white focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 focus:border-blue-400/50 focus:bg-white'"
-                              placeholder="Berikan deskripsi singkat mengenai profil mitra..."><?php echo e(old('description')); ?></textarea>
+                               class="w-full rounded-2xl border transition-all duration-200 p-4 font-medium focus:ring-4 focus:ring-blue-500/10"
+                               :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500/50' : 'bg-gray-50 border-gray-200 text-slate-700 placeholder:text-gray-400 focus:border-blue-400/50 focus:bg-white'"
+                               placeholder="Berikan deskripsi singkat mengenai profil mitra..."><?php echo e(old('description')); ?></textarea>
                     <?php $__errorArgs = ['description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -177,7 +182,7 @@ unset($__errorArgs, $__bag); ?>
                                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3 group-focus-within:text-amber-500 transition-colors">ISI TESTIMONI / KESAN <span x-text="(index + 1)"></span></label>
                                     <textarea :name="`student_testimonials_data[${index}][text]`" x-model="t.text" rows="2"
                                               class="w-full rounded-2xl border transition-all duration-200 p-4 font-medium focus:ring-4 focus:ring-amber-500/10"
-                                              :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white focus:border-amber-500/50' : 'bg-white border-gray-200 focus:border-amber-400/50'"
+                                              :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder:text-gray-500 focus:border-amber-500/50' : 'bg-white border-gray-200 text-slate-700 placeholder:text-gray-400 focus:border-amber-400/50'"
                                               placeholder="Tulis kesan siswa magang di sini..."></textarea>
                                 </div>
 
@@ -199,15 +204,15 @@ unset($__errorArgs, $__bag); ?>
                                     <div class="group">
                                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">NAMA SISWA</label>
                                         <input type="text" :name="`student_testimonials_data[${index}][author]`" x-model="t.author"
-                                               class="w-full rounded-2xl border transition-all duration-200 p-4 font-semibold text-sm"
-                                               :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200'"
+                                               class="w-full rounded-2xl border transition-all duration-200 p-4 font-semibold text-sm transition-colors"
+                                               :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder:text-gray-500' : 'bg-white border-gray-200 text-slate-700 placeholder:text-gray-400'"
                                                placeholder="Contoh: Ahmad Pratama">
                                     </div>
                                     <div class="group">
                                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">ANGKATAN / KELAS</label>
                                         <input type="text" :name="`student_testimonials_data[${index}][role]`" x-model="t.role"
-                                               class="w-full rounded-2xl border transition-all duration-200 p-4 font-semibold text-sm"
-                                               :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white' : 'bg-white border-gray-200'"
+                                               class="w-full rounded-2xl border transition-all duration-200 p-4 font-semibold text-sm transition-colors"
+                                               :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-700 text-white placeholder:text-gray-500' : 'bg-white border-gray-200 text-slate-700 placeholder:text-gray-400'"
                                                placeholder="Contoh: XII RPL 1">
                                     </div>
                                 </div>
@@ -250,7 +255,7 @@ unset($__errorArgs, $__bag); ?>
                                 <input type="file" name="gallery_images[]" 
                                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-all cursor-pointer bg-gray-50 rounded-xl border border-gray-100"
                                        :class="$store.theme.darkMode ? 'bg-[#0F172A] border-gray-800' : ''">
-                                <button type="button" @click="galleryFields--" x-show="galleryFields > 1" class="absolute top-1/2 -translate-y-1/2 right-2 p-2 rounded-lg text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors tooltip-target" title="Hapus field">
+                                <button type="button" @click="galleryFields--" x-show="galleryFields > 1" class="absolute top-1/2 -translate-y-1/2 right-2 p-2 rounded-lg text-red-100 hover:text-red-100 hover:bg-red-50 transition-colors tooltip-target" title="Hapus field">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
                             </div>
@@ -301,7 +306,8 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-        </div>
+            </div>
+
             <div class="rounded-3xl p-6 shadow-xl transition-all duration-200"
                  :class="$store.theme.darkMode ? 'bg-[#111827]/50' : 'bg-white hover:shadow-2xl hover:-translate-y-1'">
                 <div class="flex items-center space-x-2 mb-6 text-indigo-500">
@@ -391,8 +397,8 @@ unset($__errorArgs, $__bag); ?>
         </div>
         </div> <!-- TEPAT: Menutup Grid Container grid-cols-12 -->
 
-        <!-- Absolute Bottom Submit Button -->
-        <div class="mt-8 pt-8 border-t w-full relative z-10 block" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
+        <!-- Bottom Submit Button (Fallback) -->
+        <div class="mt-0 pt-8 border-t w-full relative z-10 block" :class="$store.theme.darkMode ? 'border-gray-800' : 'border-gray-100'">
             <div class="flex justify-end">
                 <button type="submit" class="w-full md:w-auto px-10 py-5 rounded-2xl font-black text-sm bg-blue-600 text-white hover:bg-blue-700 shadow-2xl shadow-blue-500/20 active:scale-95 transition-all text-center uppercase tracking-widest">
                     Simpan Informasi Mitra

@@ -92,9 +92,11 @@
 
                         <div>
                             <label class="block text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Deskripsi Kegiatan</label>
-                            <textarea name="description" rows="6" required placeholder="Jelaskan mengenai kegiatan ini, tujuan, dan apa yang akan dipelajari siswa..." 
-                                class="w-full px-6 py-4 rounded-3xl border font-semibold text-[15px] leading-relaxed transition-all duration-300 outline-none focus:ring-4 focus:ring-blue-500/10"
-                                :class="$store.theme.darkMode ? 'bg-black/20 border-gray-800 text-white focus:border-blue-500' : 'bg-gray-50 border-gray-100 text-[#111827] focus:border-blue-500'"></textarea>
+                            <div class="rounded-3xl border overflow-hidden transition-all duration-300"
+                                :class="$store.theme.darkMode ? 'bg-black/20 border-gray-800' : 'bg-gray-50 border-gray-100'">
+                                <div id="editor" class="min-h-[250px] text-[15px]"></div>
+                            </div>
+                            <textarea name="description" id="description_textarea" class="hidden"></textarea>
                         </div>
                     </div>
                 </div>
@@ -141,11 +143,27 @@
 @endsection
 
 @push('scripts')
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function eskulForm() {
         return {
             imagePreview: null,
+            quill: null,
+            init() {
+                this.quill = new Quill('#editor', {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline'],
+                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                            [{ 'align': [] }],
+                            ['link', 'clean']
+                        ]
+                    }
+                });
+            },
             handleImage(e) {
                 const file = e.target.files[0];
                 if (file) {
@@ -158,7 +176,9 @@
             },
             async submitForm() {
                 const form = this.$refs.form;
-                if (!form.name.value || !form.category.value || !form.description.value) {
+                const descriptionContent = this.quill.root.innerHTML;
+                
+                if (!form.name.value || !form.category.value || descriptionContent === '<p><br></p>') {
                     Swal.fire({ 
                         icon: 'warning', 
                         title: 'Data belum lengkap', 
@@ -167,6 +187,8 @@
                     });
                     return;
                 }
+
+                document.getElementById('description_textarea').value = descriptionContent;
 
                 Swal.fire({
                     title: 'Sedang Menyimpan...',

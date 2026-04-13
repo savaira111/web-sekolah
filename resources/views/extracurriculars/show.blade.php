@@ -52,8 +52,8 @@
                             <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
                             <h2 class="text-4xl font-black text-[#0F172A]">Tentang {{ $eskul->name }}</h2>
                         </div>
-                        <div class="text-lg text-gray-500 leading-relaxed prose prose-blue max-w-none">
-                            {!! nl2br(e($eskul->description)) !!}
+                        <div class="text-lg leading-relaxed prose prose-blue max-w-none article-body">
+                            {!! $eskul->description !!}
                         </div>
                     </div>
 

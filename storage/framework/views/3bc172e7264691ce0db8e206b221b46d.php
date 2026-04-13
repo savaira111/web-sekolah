@@ -4,15 +4,19 @@
 <!-- Detail Header Section -->
 <section class="relative overflow-hidden pt-4 pb-12 bg-[#F8FAFC]">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <!-- Breadcrumb -->
-        <nav class="flex mb-4 items-center gap-2 text-sm font-bold text-gray-400">
-            <a href="<?php echo e(route('mitra')); ?>" class="hover:text-blue-600 transition-colors flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                Kembali ke Daftar Mitra
-            </a>
-        </nav>
+        <div class="flex flex-col lg:flex-row gap-6 items-start">
+            <!-- Back Button -->
+            <div class="shrink-0 lg:pt-2">
+                <a href="<?php echo e(route('mitra')); ?>" 
+                   class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white border border-gray-100 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-blue-500/20 group" 
+                   title="Kembali ke Daftar Mitra">
+                    <svg class="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                </a>
+            </div>
 
-        <div class="bg-white rounded-[2rem] shadow-xl shadow-blue-900/5 overflow-hidden border border-white">
+            <div class="flex-1 bg-white rounded-[2rem] shadow-xl shadow-blue-900/5 overflow-hidden border border-white">
             <div class="grid lg:grid-cols-2">
                 <!-- Left Content -->
                 <div class="p-8 lg:p-10 space-y-6">
@@ -79,6 +83,7 @@
                     <!-- Decorative Overlay -->
                     <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
+            </div>
             </div>
         </div>
     </div>

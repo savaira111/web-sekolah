@@ -49,6 +49,33 @@
         </div>
     </div>
 
+    <div class="mb-8 p-6 rounded-3xl border border-blue-100 bg-blue-50/50" x-data="{
+        presets: [
+            { title: 'Serapan Kerja', value: '98%', color: 'emerald', icon: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745V20a2 2 0 002 2h14a2 2 0 002-2v-6.745zM16 8V5a2 2 0 00-2-2H10a2 2 0 00-2 2v3H4a2 2 0 00-2 2v3.414l1.293.707a23.903 23.903 0 0017.414 0l1.293-.707V10a2 2 0 00-2-2h-4zm-2 0H10V5h4v3z' },
+            { title: 'Siswa Aktif', value: '500+', color: 'blue', icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
+            { title: 'Mitra Industri', value: '50+', color: 'orange', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' }
+        ],
+        applyPreset(preset) {
+            document.getElementById('title').value = preset.title;
+            document.getElementById('value').value = preset.value;
+            document.getElementById('color').value = preset.color;
+            document.getElementById('icon').value = preset.icon;
+        }
+    }">
+        <h3 class="text-sm font-black text-blue-900 mb-4 uppercase tracking-widest flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Template Cepat
+        </h3>
+        <div class="flex flex-wrap gap-3">
+            <template x-for="p in presets">
+                <button type="button" @click="applyPreset(p)" 
+                    class="px-5 py-2.5 rounded-xl bg-white border border-blue-100 text-blue-600 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all shadow-sm">
+                    <span x-text="p.title"></span>
+                </button>
+            </template>
+        </div>
+    </div>
+
     <form action="{{ route('superadmin.landing-stats.store') }}" method="POST" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         @csrf
         
