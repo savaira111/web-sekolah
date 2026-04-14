@@ -14,17 +14,66 @@
     <!-- Styles -->
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine Plugins -->
+    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.14.0/dist/cdn.min.js"></script>
+
+    <!-- Unpoly: SPA-like Navigation -->
+    <link rel="stylesheet" href="https://unpkg.com/unpoly@3.8.0/unpoly.min.css">
+    <script src="https://unpkg.com/unpoly@3.8.0/unpoly.min.js"></script>
     
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
         
-        .sidebar { background-color: #111827; border-color: #1F2937; }
-        .sidebar-active { background-color: #3B82F6; color: white; }
-        .sidebar-item { color: #9CA3AF; transition: all 0.3s; }
-        .sidebar-item:hover { background-color: #1F2937; color: white; }
+        /* Sidebar Styles */
+        .sidebar { 
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .dark .sidebar {
+            background: rgba(15, 23, 42, 0.7) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-active { 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 20px -5px rgba(59, 130, 246, 0.1);
+            color: #2563eb !important;
+        }
+        .dark .sidebar-active {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+            box-shadow: 0 4px 20px -5px rgba(59, 130, 246, 0.2);
+            color: #60a5fa !important;
+        }
+
+        .sidebar-item { 
+            color: #64748b; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid transparent;
+        }
+        .dark .sidebar-item {
+            color: #94a3b8;
+        }
+
+        .sidebar-item:hover { 
+            background-color: rgba(59, 130, 246, 0.05);
+            color: #1e40af;
+            transform: translateX(4px);
+        }
+        .dark .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: white;
+        }
+
+        .sidebar-active:hover {
+            transform: translateX(4px);
+        }
 
         /* Hide scrollbar for Chrome, Safari and Opera */
         *::-webkit-scrollbar {
@@ -119,9 +168,30 @@
     <?php echo $__env->make('layouts.superadmin.sidebar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <!-- Main Content Wrapper -->
-    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full relative" 
+    <main id="main-content" up-main class="flex-1 flex flex-col h-full overflow-y-auto w-full relative" 
           style="transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;"
           :class="$store.theme.darkMode ? 'bg-[#000000]' : 'bg-[#FFFFFF]'">
+        
+        <!-- Unpoly Transition Overlay -->
+        <script>
+            // Global Unpoly Configuration
+            up.compiler('a', (link) => {
+                const isInternal = link.host === location.host && !link.hasAttribute('download') && !link.hasAttribute('target');
+                if (isInternal) {
+                    // Only use fragment transition for admin-to-admin links
+                    if (link.pathname.startsWith('/superadmin')) {
+                        link.setAttribute('up-follow', '');
+                        link.setAttribute('up-target', '#main-content');
+                        link.setAttribute('up-transition', 'crossfade');
+                    } else {
+                        // For links leaving the admin area, do a full page transition targeting the body
+                        link.setAttribute('up-follow', '');
+                        link.setAttribute('up-target', 'body');
+                        link.setAttribute('up-transition', 'crossfade');
+                    }
+                }
+            });
+        </script>
         
         <!-- Navbar Layout -->
         <?php echo $__env->make('layouts.superadmin.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>

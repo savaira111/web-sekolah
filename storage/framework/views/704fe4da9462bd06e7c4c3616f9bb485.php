@@ -144,7 +144,7 @@
 }" class="bg-gray-50 min-h-screen">
 
     <!-- Hero Section -->
-    <section class="relative pt-12 pb-20 overflow-hidden bg-white">
+    <section class="relative pt-12 pb-20 overflow-hidden bg-white reveal">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold tracking-widest uppercase border border-blue-100">
                 PENDAFTARAN SISWA BARU 2026/2027
@@ -169,7 +169,7 @@
     <section class="pb-16 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Warning Message -->
-            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-8 shadow-sm">
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-2xl mb-8 shadow-sm reveal reveal-scale">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
@@ -248,7 +248,7 @@
                 </div>
 
                 <!-- Right Content: The Form Areas -->
-                <div class="lg:col-span-3">
+                <div class="lg:col-span-3 reveal">
                     <!-- Validation Toast -->
                     <div x-show="showToast" 
                          x-transition:enter="transition ease-out duration-300"
@@ -760,7 +760,7 @@
         </div> <!-- closes grid (108) -->
 
             <!-- Bottom Document Checklist -->
-            <div class="mt-8 bg-white rounded-[1.5rem] p-12 shadow-sm border border-gray-100">
+            <div class="mt-8 bg-white rounded-[1.5rem] p-12 shadow-sm border border-gray-100 reveal">
                 <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
                         <h3 class="text-xl font-bold text-[#0F172A] flex items-center gap-4">

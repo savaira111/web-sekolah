@@ -14,17 +14,62 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine Plugins -->
+    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.14.0/dist/cdn.min.js"></script>
     
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
         
-        .sidebar { background-color: #111827; border-color: #1F2937; }
-        .sidebar-active { background-color: #3B82F6; color: white; }
-        .sidebar-item { color: #9CA3AF; transition: all 0.3s; }
-        .sidebar-item:hover { background-color: #1F2937; color: white; }
+        /* Sidebar Styles */
+        .sidebar { 
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .dark .sidebar {
+            background: rgba(15, 23, 42, 0.7) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-active { 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 20px -5px rgba(59, 130, 246, 0.1);
+            color: #2563eb !important;
+        }
+        .dark .sidebar-active {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+            box-shadow: 0 4px 20px -5px rgba(59, 130, 246, 0.2);
+            color: #60a5fa !important;
+        }
+
+        .sidebar-item { 
+            color: #64748b; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid transparent;
+        }
+        .dark .sidebar-item {
+            color: #94a3b8;
+        }
+
+        .sidebar-item:hover { 
+            background-color: rgba(59, 130, 246, 0.05);
+            color: #1e40af;
+            transform: translateX(4px);
+        }
+        .dark .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: white;
+        }
+
+        .sidebar-active:hover {
+            transform: translateX(4px);
+        }
 
         /* Hide scrollbar for Chrome, Safari and Opera */
         *::-webkit-scrollbar {
