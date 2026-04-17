@@ -88,7 +88,7 @@
         <a href="<?php echo e(route('mitra')); ?>" class="block px-4 py-3 rounded-xl text-base font-semibold <?php echo e(request()->routeIs('mitra') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'); ?>">Mitra</a>
         <a href="<?php echo e(route('contact')); ?>" class="block px-4 py-3 rounded-xl text-base font-semibold <?php echo e(request()->routeIs('contact') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'); ?>">Kontak</a>
         <div class="pt-4 px-4">
-            <a href="<?php echo e(route('registration')); ?>" class="block w-full py-4 bg-blue-600 text-white text-center rounded-2xl font-bold transition-all shadow-lg shadow-blue-200">Daftar Sekarang</a>
+            <a href="<?php echo e(route('enrollment.guide')); ?>" class="block w-full py-4 bg-blue-600 text-white text-center rounded-2xl font-bold transition-all shadow-lg shadow-blue-200">Daftar Sekarang</a>
         </div>
     </div>
 </nav>

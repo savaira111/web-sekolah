@@ -131,97 +131,6 @@
 
                 @if($article->allow_comments)
                 <!-- Comments Section -->
-                <div class="mt-20 p-8 bg-gray-50 rounded-[2rem] border border-gray-100 shadow-sm" x-cloak x-data="commentSystem()">
-                    <!-- Error Popup Notification -->
-                    <div x-show="showError" 
-                         x-transition:enter="transition ease-out duration-300"
-                         x-transition:enter-start="opacity-0 transform -translate-y-4"
-                         x-transition:enter-end="opacity-100 transform translate-y-0"
-                         class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-md p-4 bg-red-600 text-white rounded-2xl shadow-2xl flex items-center gap-4 border border-red-500">
-                        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="text-sm font-black uppercase tracking-tight">Opps! Terjadi Kesalahan</h4>
-                            <p class="text-xs font-medium text-white/90" x-text="errorMessage"></p>
-                        </div>
-                        <button @click="showError = false" class="p-1 hover:bg-white/10 rounded-lg transition-all">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-                    </div>
-
-                    <div class="flex items-center gap-4 mb-10">
-                        <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        </div>
-                        <h2 class="text-2xl font-extrabold text-[#0F172A]">Komentar (<span x-text="comments.length"></span>)</h2>
-                    </div>
-
-                    <div class="space-y-4 mb-12">
-                        <template x-for="(comment, index) in comments" :key="index">
-                            <div class="flex flex-col sm:flex-row gap-6 p-6 bg-white rounded-3xl shadow-sm border border-gray-50 transition-all duration-500 hover:shadow-md">
-                                <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center shrink-0">
-                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h4 class="font-bold text-[#0F172A]" x-text="comment.name"></h4>
-                                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest" x-text="new Date(comment.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}) + ' - ' + new Date(comment.created_at).toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'})"></span>
-                                    </div>
-                                    <p class="text-gray-500 text-sm leading-relaxed" x-text="comment.body"></p>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-
-                    <!-- Comment Form -->
-                    <div class="space-y-6 pt-8 border-t border-gray-200/60">
-                        <div class="space-y-2">
-                            <h3 class="text-xl font-bold text-[#0F172A]">Tinggalkan Komentar</h3>
-                            <p class="text-xs text-gray-400 font-medium italic">Email Anda tidak akan dipublikasikan. Komentar akan ditinjau oleh admin sebelum ditampilkan.</p>
-                        </div>
-
-                        <!-- Success Message -->
-                        <div x-show="showSuccess" x-transition class="p-6 bg-green-50 border border-green-100 rounded-3xl flex items-center gap-4 text-green-700 shadow-sm">
-                            <div class="w-10 h-10 bg-green-600 text-white rounded-xl flex items-center justify-center shrink-0">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-black uppercase">Berhasil Dikirim!</h4>
-                                <p class="text-xs font-semibold opacity-80">Komentar Anda sedang menunggu persetujuan admin.</p>
-                            </div>
-                        </div>
-
-                        <div class="grid sm:grid-cols-2 gap-4">
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Nama Lengkap</label>
-                                <input type="text" x-model="name" placeholder="Nama Anda" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-sm font-medium">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Alamat Email</label>
-                                <input type="email" x-model="email" placeholder="nama@email.com" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-sm font-medium">
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Isi Komentar</label>
-                            <textarea x-model="newComment" placeholder="Tulis komentar Anda di sini..." class="w-full bg-white border border-gray-200 rounded-[1.5rem] p-6 h-32 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-sm font-medium"></textarea>
-                        </div>
-
-                        <button @click="addComment()" 
-                                :disabled="isSubmitting"
-                                type="button"
-                                class="inline-flex items-center justify-center gap-3 px-10 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:scale-100 transition-all shadow-xl shadow-blue-500/20 min-w-[220px]">
-                            <span x-show="!isSubmitting">kirim komentar</span>
-                            <span x-show="isSubmitting" class="flex items-center gap-2">
-                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                Memproses...
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                @push('scripts')
                 <script>
                     function commentSystem() {
                         return {
@@ -232,7 +141,7 @@
                             showSuccess: false,
                             showError: false,
                             errorMessage: '',
-                            comments: @json($comments),
+                            comments: @json($comments ?? []) || [],
                             addComment() {
                                 if (!this.name || !this.email || !this.newComment) {
                                     this.errorMessage = 'Mohon isi semua field (Nama, Email, dan Komentar)';
@@ -286,9 +195,101 @@
                         }
                     }
                 </script>
-                @endpush
-                @endif
+                <div class="mt-20 p-8 bg-gray-50 rounded-[2rem] border border-gray-100 shadow-sm" x-cloak x-data="commentSystem()">
+                    <!-- Error Popup Notification -->
+                    <div x-show="showError" 
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0 transform -translate-y-4"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-md p-4 bg-red-600 text-white rounded-2xl shadow-2xl flex items-center gap-4 border border-red-500">
+                        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-black uppercase tracking-tight">Opps! Terjadi Kesalahan</h4>
+                            <p class="text-xs font-medium text-white/90" x-text="errorMessage"></p>
+                        </div>
+                        <button @click="showError = false" class="p-1 hover:bg-white/10 rounded-lg transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
 
+                    <div class="flex items-center gap-4 mb-10">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-[#0F172A]">Komentar (<span x-text="comments ? comments.length : 0"></span>)</h2>
+                    </div>
+
+                    <div class="space-y-4 mb-12">
+                        <template x-for="(comment, index) in comments" :key="index">
+                            <div class="flex flex-col sm:flex-row gap-6 p-6 bg-white rounded-3xl shadow-sm border border-gray-50 transition-all duration-500 hover:shadow-md">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center shrink-0">
+                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-bold text-[#0F172A]" x-text="comment.name"></h4>
+                                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest" x-text="new Date(comment.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'}) + ' - ' + new Date(comment.created_at).toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'})"></span>
+                                    </div>
+                                    <p class="text-gray-500 text-sm leading-relaxed" x-text="comment.body"></p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Comment Form -->
+                    <form @submit.prevent="addComment()" class="space-y-6 pt-8 border-t border-gray-200/60">
+                        <div class="space-y-2">
+                            <h3 class="text-xl font-bold text-[#0F172A]">Tinggalkan Komentar</h3>
+                            <p class="text-xs text-gray-400 font-medium italic">Email Anda tidak akan dipublikasikan. Komentar akan ditinjau oleh admin sebelum ditampilkan.</p>
+                        </div>
+
+                        <!-- Success Message -->
+                        <div x-show="showSuccess" x-transition class="p-6 bg-green-50 border border-green-100 rounded-3xl flex items-center gap-4 text-green-700 shadow-sm">
+                            <div class="w-10 h-10 bg-green-600 text-white rounded-xl flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-black uppercase">Berhasil Dikirim!</h4>
+                                <p class="text-xs font-semibold opacity-80">Komentar Anda sedang menunggu persetujuan admin.</p>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Nama Lengkap</label>
+                                <input type="text" x-model="name" placeholder="Nama Anda" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-sm font-medium">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Alamat Email</label>
+                                <input type="email" x-model="email" placeholder="nama@email.com" class="w-full bg-white border border-gray-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-sm font-medium">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-2">Isi Komentar</label>
+                            <textarea x-model="newComment" placeholder="Tulis komentar Anda di sini..." class="w-full bg-white border border-gray-200 rounded-[1.5rem] p-6 h-32 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-sm font-medium"></textarea>
+                        </div>
+
+                        <button :disabled="isSubmitting"
+                                type="submit"
+                                class="inline-flex items-center justify-center gap-3 px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:scale-100 transition-all shadow-xl shadow-blue-500/20 min-w-[240px] uppercase tracking-widest text-sm relative z-30">
+                            
+                            <div x-show="!isSubmitting" class="flex items-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                <span class="font-bold">Kirim Komentar</span>
+                            </div>
+
+                            <div x-show="isSubmitting" style="display: none;" class="flex items-center gap-3">
+                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                <span class="font-bold">Memproses...</span>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+
+                @endif
             </div>
 
             <!-- Sidebar Area (Right) -->
@@ -351,7 +352,7 @@
                     <div class="relative z-10 space-y-4">
                         <h3 class="text-xl font-black leading-tight">Ingin Bergabung Bersama Kami?</h3>
                         <p class="text-sm text-blue-100/80 leading-relaxed font-medium">Pendaftaran Peserta Didik Baru (PPDB) TA 2026/2027 telah dibuka secara resmi. Segera amankan kuota Anda!</p>
-                        <a href="{{ route('registration') }}" class="block w-full py-4 bg-white text-blue-600 text-center rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                        <a href="{{ route('enrollment.guide') }}" class="block w-full py-4 bg-white text-blue-600 text-center rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 hover:scale-[1.02] active:scale-[0.98] transition-all">
                             Daftar Sekarang
                         </a>
                     </div>

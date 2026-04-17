@@ -199,7 +199,7 @@
                 <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-xl transition-all group border-t-4 border-t-blue-600">
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-14 h-14 rounded-2xl overflow-hidden shadow-md">
-                            <img src="{{ !empty($t['photo_url']) ? asset('storage/' . $t['photo_url']) : 'https://ui-avatars.com/api/?name='.urlencode($t['author'] ?? 'User').'&background=3B82F6&color=fff' }}" alt="Siswa PKL" class="w-full h-full object-cover">
+                            <img src="{{ !empty($t['photo_url']) ? asset('storage/' . $t['photo_url']) : asset('images/Sample_User_Icon.png') }}" alt="Siswa PKL" class="w-full h-full object-cover">
                         </div>
                         <div>
                             <h4 class="font-black text-[#0F172A]">{{ $t['author'] ?? 'Anonim' }}</h4>

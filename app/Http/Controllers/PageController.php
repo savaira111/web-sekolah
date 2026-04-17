@@ -234,7 +234,7 @@ class PageController extends Controller
         }
         
         $partners = $query->latest()->get();
-        $categories = \App\Models\Partner::where('is_active', true)->distinct()->pluck('category');
+        $categories = ['Mitra Industri', 'Sponsor', 'Universitas', 'Lembaga', 'Umum'];
         
         return view('mitra', compact('partners', 'categories', 'request'));
     }

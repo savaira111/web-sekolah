@@ -50,7 +50,7 @@ class PartnerController extends Controller
         $partners = $query->paginate(10)->withQueryString();
 
         // Get all categories
-        $categories = Partner::distinct()->pluck('category')->sort()->values();
+        $categories = ['Mitra Industri', 'Sponsor', 'Universitas', 'Lembaga', 'Umum'];
 
         return view('superadmin.partners.index', compact(
             'partners', 'total', 'active', 'inactive',

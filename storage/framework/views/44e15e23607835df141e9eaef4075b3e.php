@@ -4,8 +4,8 @@
 <!-- Hero Section -->
 <section class="relative pt-8 pb-10 overflow-hidden bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-10 items-start">
-            <div class="space-y-1.5 pt-1">
+        <div class="grid lg:grid-cols-2 gap-10 items-start reveal">
+            <div class="space-y-1.5 pt-1 reveal reveal-left">
                 <div class="flex items-center gap-3">
                     <a href="<?php echo e(route('jurusan')); ?>" class="w-9 h-9 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -21,10 +21,10 @@
                     Seni menyampaikan pesan secara visual. Menggabungkan kreativitas artistik dengan teknologi digital untuk menciptakan solusi visual yang inovatif dan berdampak.
                 </p>
                 <div class="flex gap-4 pt-1.5">
-                    <a href="<?php echo e(route('registration')); ?>" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 hover:shadow-xl transition-all">Daftar Sekarang</a>
+                    <a href="<?php echo e(route('enrollment.guide')); ?>" class="px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 hover:shadow-xl transition-all">Daftar Sekarang</a>
                 </div>
             </div>
-            <div class="relative">
+            <div class="relative reveal reveal-right">
                 <div class="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl">
                     <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000" alt="DKV" class="w-full h-full object-cover">
                 </div>
@@ -45,9 +45,9 @@
 <!-- Focus Kompetensi -->
 <section class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-3 gap-12">
+        <div class="grid lg:grid-cols-3 gap-12 reveal">
             <div class="lg:col-span-2 space-y-12">
-                <div class="space-y-6">
+                <div class="space-y-6 reveal">
                     <h2 class="text-3xl font-bold text-[#0F172A] flex items-center gap-4">
                         Tentang Jurusan
                         <div class="h-1 flex-1 bg-gray-100 rounded-full">
@@ -66,28 +66,28 @@
 
                 <!-- Kurikulum -->
                 <div class="space-y-6">
-                    <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3">
+                    <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3 reveal">
                         Kurikulum Pembelajaran
                         <div class="h-1 flex-1 bg-gray-100 rounded-full">
                             <div class="w-32 h-full bg-blue-600 rounded-full"></div>
                         </div>
                     </h2>
                     <div class="grid sm:grid-cols-2 gap-4">
-                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
+                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group reveal reveal-scale">
                             <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4 transition-transform">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                             </div>
                             <h4 class="text-lg font-bold text-gray-900 mb-2">Dasar Desain Grafis</h4>
                             <p class="text-gray-500 text-xs">Mempelajari teori warna, tipografi, and komposisi dasar menggunakan software standar industri.</p>
                         </div>
-                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
+                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group reveal reveal-scale" style="transition-delay: 100ms">
                             <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4 transition-transform">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812-1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
                             <h4 class="text-lg font-bold text-gray-900 mb-2">Fotografi Digital</h4>
                             <p class="text-gray-500 text-xs">Teknik pengambilan gambar, pencahayaan studio, dan pengolahan foto profesional.</p>
                         </div>
-                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group">
+                        <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:border-blue-200 transition-all group reveal reveal-scale" style="transition-delay: 200ms">
                             <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4 transition-transform">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 00-2 2z"></path></svg>
                             </div>
@@ -145,7 +145,7 @@
                     </div>
 
                     <div class="mt-8 space-y-4">
-                        <a href="<?php echo e(route('registration')); ?>" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan DKV</a>
+                        <a href="<?php echo e(route('enrollment.guide')); ?>" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan DKV</a>
                         <p class="text-center text-[10px] text-gray-400">Pendaftaran Gelombang 1 berakhir dalam 14 hari lagi.</p>
                     </div>
                 </div>
@@ -176,7 +176,7 @@
 
 <!-- Showcase Proyek -->
 <section class="py-10 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
         <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3 mb-10">
             Galeri Karya Siswa
             <div class="h-1 flex-1 bg-gray-100 rounded-full">
@@ -227,7 +227,7 @@
 
 <!-- Career Prospects -->
 <section class="py-10 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal reveal-scale">
         <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3 mb-10">
             Prospek Karir & Masa Depan
             <div class="h-1 flex-1 bg-gray-100 rounded-full">
@@ -278,7 +278,7 @@
 
 <!-- FAQ CTA -->
 <section class="py-10 text-center">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal reveal-scale">
         <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[2rem] p-8 lg:p-12 text-center space-y-6 relative overflow-hidden shadow-2xl">
             <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
             <div class="relative z-10 space-y-8">

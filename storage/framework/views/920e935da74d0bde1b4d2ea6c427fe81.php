@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
-<section class="relative overflow-hidden pt-4 pb-20 lg:pt-8 lg:pb-32 bg-white">
+<section class="relative overflow-hidden pt-4 pb-20 lg:pt-8 lg:pb-32 bg-white reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
             <div class="space-y-8 text-center lg:text-left">
@@ -56,11 +56,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Filter Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6 bg-white p-4 rounded-3xl shadow-sm border border-gray-100">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6 bg-white p-4 rounded-3xl shadow-sm border border-gray-100 reveal reveal-scale">
             <div class="flex flex-wrap items-center gap-2">
                 <a href="<?php echo e(route('mitra', ['category' => 'all'])); ?>" 
                    class="px-6 py-3 rounded-full text-sm font-extrabold transition-all <?php echo e(($request->category ?? 'all') === 'all' ? 'bg-[#1E3A8A] text-white shadow-lg' : 'text-gray-500 hover:bg-gray-100'); ?>">
-                   Semua Industri
+                   Semua Mitra
                 </a>
                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <a href="<?php echo e(route('mitra', ['category' => $cat])); ?>" 
@@ -78,8 +78,11 @@
 
         <!-- Partners Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <?php $__empty_1 = true; $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-            <a href="<?php echo e(route('mitra.show', $partner->id)); ?>" class="group bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-gray-50 flex flex-col h-full">
+            <?php $__empty_1 = true; $__currentLoopData = $partners; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $partner): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+            <a href="<?php echo e(route('mitra.show', $partner->id)); ?>" 
+               class="group bg-white rounded-[2rem] p-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-gray-50 flex flex-col h-full reveal"
+               style="transition-delay: <?php echo e(($index % 4) * 150); ?>ms"
+            >
                 <!-- Card Header -->
                 <div class="flex items-start justify-between mb-8">
                     <div class="w-16 h-16 rounded-2xl bg-gray-50 p-3 border border-gray-100 flex items-center justify-center overflow-hidden shrink-0">
@@ -150,7 +153,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-20 bg-white">
+<section class="py-20 bg-white reveal reveal-scale">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative bg-gradient-to-br from-[#0256B3] to-[#014188] rounded-[3rem] p-12 lg:p-20 overflow-hidden shadow-2xl text-center">
             <!-- Decorative Glow -->

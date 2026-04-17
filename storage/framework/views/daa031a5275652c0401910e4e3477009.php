@@ -4,7 +4,7 @@
 <!-- Hero Section -->
 <section class="relative pt-8 pb-10 overflow-hidden bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <div class="grid lg:grid-cols-2 gap-10 items-start reveal">
             <div class="space-y-1.5 pt-1">
                 <div class="flex items-center gap-3">
                     <a href="<?php echo e(route('jurusan')); ?>" class="w-9 h-9 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
@@ -53,7 +53,7 @@
 <!-- Focus Kompetensi -->
 <section class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-3 gap-12">
+        <div class="grid lg:grid-cols-3 gap-12 reveal">
             <div class="lg:col-span-2 space-y-12">
                 <div class="grid sm:grid-cols-2 gap-8">
                     <div class="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 hover:border-blue-200 transition-all group">
@@ -163,7 +163,7 @@
                     </div>
 
                     <div class="mt-8 space-y-4">
-                        <a href="<?php echo e(route('registration')); ?>" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan PPLG</a>
+                        <a href="<?php echo e(route('enrollment.guide')); ?>" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan PPLG</a>
                         <p class="text-center text-[10px] text-gray-400">Pendaftaran Gelombang 1 berakhir dalam 14 hari lagi.</p>
                     </div>
                 </div>
@@ -194,7 +194,7 @@
 
 <!-- Showcase Proyek -->
 <section class="py-10 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
         <div class="flex justify-between items-end mb-8 gap-8">
             <div class="space-y-2">
                 <h2 class="text-2xl font-bold text-[#0F172A]">Showcase Proyek Siswa</h2>
@@ -249,7 +249,7 @@
 
 <!-- Prospek Masa Depan -->
 <section class="py-10 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal reveal-scale">
         <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3 mb-10">
             Prospek Masa Depan
             <div class="h-1 flex-1 bg-gray-100 rounded-full">
@@ -300,7 +300,7 @@
 
 <!-- FAQ CTA -->
 <section class="py-10 text-center">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal reveal-scale">
         <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[2rem] p-8 lg:p-12 text-center space-y-6 relative overflow-hidden shadow-2xl">
             <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
             <div class="relative z-10 space-y-8">

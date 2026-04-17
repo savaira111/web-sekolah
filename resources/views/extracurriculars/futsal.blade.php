@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative h-[540px] flex items-center overflow-hidden">
+<section class="relative min-h-screen flex items-start pt-16 lg:pt-20 overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
         <img src="{{ asset('images/extracurriculars/thumbs/futsal.png') }}" alt="Hero" class="w-full h-full object-cover">
@@ -28,9 +28,13 @@
             </p>
         </div>
 
-            <div class="flex flex-wrap gap-4 pt-4">
+            <div class="flex flex-wrap gap-4 pt-10">
                 <a href="{{ route('extracurriculars.registration') }}" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all uppercase">
                     Gabung Sekarang
+                </a>
+                <a href="https://wa.me/6282260337300?text=Halo%20Admin%2C%20saya%20ingin%20tanya%20seputar%20ekstrakurikuler%20Futsal" target="_blank" class="px-10 py-5 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-2xl font-black text-xl hover:bg-white/20 transition-all uppercase flex items-center gap-3">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.996-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82l.303.18c1.397.83 3.009 1.269 4.655 1.269l.006.001c5.236 0 9.503-4.265 9.505-9.501.002-2.538-.99-4.923-2.791-6.726s-4.188-2.793-6.722-2.793c-5.238 0-9.503 4.267-9.506 9.505-.001 1.714.463 3.391 1.341 4.866l.197.33-1.003 3.666 3.755-.986zm11.455-6.533c-.301-.15-1.777-.878-2.053-.977-.275-.099-.475-.15-.675.15-.199.301-.776.977-.951 1.178-.175.199-.35.226-.65.075-.3-.15-1.265-.466-2.411-1.487-.893-.797-1.493-1.782-1.67-2.083-.175-.301-.018-.464.133-.613.135-.133.301-.35.45-.526.15-.175.199-.301.301-.502.1-.199.05-.376-.026-.526-.075-.15-.675-1.628-.925-2.23-.244-.582-.493-.504-.675-.513-.175-.01-.375-.011-.575-.011s-.525.075-.8.376c-.275.301-1.05 1.026-1.05 2.507 0 1.481 1.075 2.909 1.225 3.109.15.199 2.113 3.227 5.122 4.526.716.309 1.274.494 1.708.632.716.228 1.369.196 1.885.118.574-.087 1.777-.726 2.028-1.43.25-.702.25-1.305.175-1.43-.075-.124-.275-.199-.576-.349z"/></svg>
+                    Hubungi Admin
                 </a>
             </div>
         </div>
@@ -154,7 +158,37 @@
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                         <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="{{ asset('images/extracurriculars/thumbs/futsal.png') }}" class="w-full h-full object-cover transition-transform duration-700">
+                            <img src="{{ asset('images/extracurriculars/thumbs/futsal.png') }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                            <img src="{{ asset('images/extracurriculars/futsal/futsal_1.png') }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                            <img src="{{ asset('images/extracurriculars/futsal/futsal_2.png') }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                            <img src="{{ asset('images/extracurriculars/thumbs/hero-poster.png') }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                            <img src="{{ asset('images/extracurriculars/futsal/futsal_1.png') }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="aspect-square rounded-[1.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
+                            <img src="{{ asset('images/extracurriculars/futsal/futsal_2.png') }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
@@ -174,7 +208,7 @@
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="group space-y-4">
                             <div class="aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border border-gray-100">
-                                <img src="{{ asset('images/extracurriculars/thumbs/futsal.png') }}" class="w-full h-full object-cover transition-transform duration-500">
+                                <img src="{{ asset('images/extracurriculars/futsal/futsal_1.png') }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                             </div>
                             <div class="space-y-2">
                                 <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">
@@ -193,7 +227,7 @@
                         </div>
                         <div class="group space-y-4">
                             <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-100">
-                                <img src="{{ asset('images/extracurriculars/thumbs/futsal.png') }}" class="w-full h-full object-cover transition-transform duration-500">
+                                <img src="{{ asset('images/extracurriculars/futsal/futsal_2.png') }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                             </div>
                             <div class="space-y-2">
                                 <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">

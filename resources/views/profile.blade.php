@@ -205,22 +205,22 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 text-center items-center reveal reveal-scale">
             <!-- Stat 1 -->
             <div class="space-y-2">
-                <div class="text-2xl lg:text-2xl font-black text-white">15+</div>
+                <div class="text-2xl lg:text-2xl font-black text-white counter" data-to="15" data-append="+">15+</div>
                 <div class="text-white/80 font-bold text-xs lg:text-sm tracking-widest uppercase">Tahun Berbakti</div>
             </div>
             <!-- Stat 2 -->
             <div class="space-y-2">
-                <div class="text-2xl lg:text-2xl font-black text-white">3.5k+</div>
+                <div class="text-2xl lg:text-2xl font-black text-white counter" data-to="3500" data-append="+">3.5k+</div>
                 <div class="text-white/80 font-bold text-xs lg:text-sm tracking-widest uppercase">Alumni Sukses</div>
             </div>
             <!-- Stat 3 -->
             <div class="space-y-2">
-                <div class="text-2xl lg:text-2xl font-black text-white">85+</div>
+                <div class="text-2xl lg:text-2xl font-black text-white counter" data-to="85" data-append="+">85+</div>
                 <div class="text-white/80 font-bold text-xs lg:text-sm tracking-widest uppercase">Mitra Industri</div>
             </div>
             <!-- Stat 4 -->
             <div class="space-y-2">
-                <div class="text-2xl lg:text-2xl font-black text-white">42</div>
+                <div class="text-2xl lg:text-2xl font-black text-white counter" data-to="42" data-append="">42</div>
                 <div class="text-white/80 font-bold text-xs lg:text-sm tracking-widest uppercase">Ruang Lab Modern</div>
             </div>
         </div>
@@ -228,39 +228,48 @@
 </section>
 
 <!-- Final CTA -->
-<section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section x-data="{ showBrosur: false }" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[1.5rem] p-6 lg:p-20 text-center space-y-10 relative overflow-hidden shadow-2xl reveal reveal-scale">
         <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="relative z-10 space-y-10">
             <h2 class="text-3xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">Mari Wujudkan Masa Depan <br> Digital Bersama Kami</h2>
             <div class="flex flex-wrap justify-center gap-5">
-                <a href="{{ route('registration') }}" class="px-10 py-5 bg-blue-600 text-white rounded-[1.5rem] font-bold text-xl hover:bg-blue-700 transition-all">Daftar Sekarang</a>
-                <a href="{{ asset('images/brosur-sekolah.jpg') }}" download="Brosur-SMKS-Mahaputra.jpg" class="px-10 py-5 bg-white/5 border border-white/20 text-white rounded-[1.5rem] font-bold text-xl hover:bg-white/10 transition-all text-center">Lihat Brosur Sekolah</a>
+                <a href="{{ route('enrollment.guide') }}" class="px-10 py-5 bg-blue-600 text-white rounded-[1.5rem] font-bold text-xl hover:bg-blue-700 transition-all">Daftar Sekarang</a>
+                <button @click="showBrosur = true" class="px-10 py-5 bg-white/5 border border-white/20 text-white rounded-[1.5rem] font-bold text-xl hover:bg-white/10 transition-all text-center cursor-pointer">Lihat Brosur Sekolah</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Brochure Modal with Alpine.js Transitions -->
+    <div x-show="showBrosur" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md p-4 cursor-pointer" 
+         @click="showBrosur = false"
+         @keydown.escape.window="showBrosur = false"
+         style="display: none;">
+        
+        <!-- Modal Content Container (Centered & Fitting viewport) -->
+        <div class="relative w-full h-full max-w-5xl flex items-center justify-center">
+            <!-- Close Button (Moving down & using glass effect) -->
+            <div class="absolute top-4 right-4 lg:top-8 lg:right-8 z-55 p-3 bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 rounded-full transition-all shadow-2xl">
+                <svg class="w-6 h-6 lg:w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </div>
+            
+            <!-- Brochure Image: Set to contain within height to avoid scroll -->
+            <img src="{{ asset('images/brosur-sekolah.jpg') }}" 
+                 alt="Brosur SMKS Mahaputra" 
+                 class="max-h-full max-w-full w-auto h-auto object-contain rounded-xl shadow-2xl">
         </div>
     </div>
 </section>
 
-<!-- Brochure Modal -->
-<div id="brochureModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
-    <!-- Backdrop -->
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleModal('brochureModal')"></div>
-    
-    <!-- Modal Content -->
-    <div class="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-3xl overflow-hidden shadow-2xl transform transition-all">
-        <!-- Close Button -->
-        <button onclick="toggleModal('brochureModal')" class="absolute top-4 right-4 z-50 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full transition-all">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        
-        <!-- Image Container -->
-        <div class="overflow-y-auto max-h-[90vh]">
-            <img src="{{ asset('images/brosur-sekolah.jpg') }}" alt="Brosur SMKS Mahaputra" class="w-full h-auto">
-        </div>
-    </div>
-</div>
-
 <script>
+    // Keeping for other possible use, but brochure now uses Alpine.js
     function toggleModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) {
@@ -275,15 +284,5 @@
             }
         }
     }
-
-    // Close modal on Escape key
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            const modal = document.getElementById('brochureModal');
-            if (modal && !modal.classList.contains('hidden')) {
-                toggleModal('brochureModal');
-            }
-        }
-    });
 </script>
 @endsection

@@ -245,7 +245,7 @@
                     <div class="bg-blue-50 p-6 rounded-[1.5rem] border border-blue-100 space-y-4">
                         <h4 class="font-bold text-blue-900">Butuh Bantuan?</h4>
                         <p class="text-xs text-blue-700 leading-relaxed">Hubungi Admin kami jika Anda mengalami kesulitan dalam pendaftaran.</p>
-                        <a href="#" class="flex justify-center w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs uppercase shadow-lg shadow-blue-200">WhatsApp CS</a>
+                        <a href="https://wa.me/6282260337300?text=Halo%20Admin%20Mahaputra%2C%20saya%20butuh%20bantuan%20terkait%20proses%20pendaftaran." target="_blank" class="flex justify-center w-full py-3 bg-blue-600 text-white rounded-xl font-bold text-xs uppercase shadow-lg shadow-blue-200">WhatsApp CS</a>
                     </div>
                 </div>
 

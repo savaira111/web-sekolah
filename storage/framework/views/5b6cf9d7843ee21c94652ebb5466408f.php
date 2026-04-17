@@ -21,30 +21,30 @@
                     SMKS Mahaputra Cerdas Utama menghadirkan kurikulum yang diselaraskan dengan kebutuhan industri masa kini. Pilih jurusan yang sesuai dengan minat bakatmu dan jadilah tenaga ahli profesional.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="<?php echo e(route('registration')); ?>" class="px-6 py-3.5 bg-blue-600 text-white rounded-xl font-bold text-base hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all">Daftar Sekarang</a>
+                    <a href="<?php echo e(route('enrollment.guide')); ?>" class="px-6 py-3.5 bg-blue-600 text-white rounded-xl font-bold text-base hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all">Daftar Sekarang</a>
                     <a href="<?php echo e(route('profile')); ?>" class="px-6 py-3.5 bg-white text-gray-700 border border-gray-200 rounded-xl font-bold text-base hover:bg-gray-50 transition-all flex items-center gap-2">Profil Sekolah</a>
                 </div>
                 
                 <div class="flex flex-wrap items-center gap-x-8 gap-y-4 pt-2">
                     <?php $__empty_1 = true; $__currentLoopData = $landingStats->take(3); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <div class="flex flex-col">
-                        <span class="text-xl font-bold text-[#0F172A]"><?php echo e($stat->value); ?></span>
+                        <span class="text-xl font-bold text-[#0F172A] counter" data-to="<?php echo e(preg_replace('/[^0-9.]/', '', $stat->value)); ?>" data-append="<?php echo e(preg_replace('/[0-9.]/', '', $stat->value)); ?>"><?php echo e($stat->value); ?></span>
                         <span class="text-gray-500 text-xs"><?php echo e($stat->title); ?></span>
                     </div>
                     <?php if(!$loop->last): ?> <div class="hidden sm:block h-10 w-px bg-gray-200"></div> <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                     <div class="flex flex-col">
-                        <span class="text-xl font-bold text-[#0F172A]">200+</span>
+                        <span class="text-xl font-bold text-[#0F172A] counter" data-to="200" data-append="+">200+</span>
                         <span class="text-gray-500 text-xs">Siswa Aktif</span>
                     </div>
                     <div class="h-10 w-px bg-gray-200"></div>
                     <div class="flex flex-col">
-                        <span class="text-xl font-bold text-[#0F172A]">98%</span>
+                        <span class="text-xl font-bold text-[#0F172A] counter" data-to="98" data-append="%">98%</span>
                         <span class="text-gray-500 text-xs">Lulusan Bekerja</span>
                     </div>
                     <div class="h-10 w-px bg-gray-200"></div>
                     <div class="flex flex-col">
-                        <span class="text-xl font-bold text-[#0F172A]">20+</span>
+                        <span class="text-xl font-bold text-[#0F172A] counter" data-to="20" data-append="+">20+</span>
                         <span class="text-gray-500 text-xs">Mitra Industri</span>
                     </div>
                     <?php endif; ?>
@@ -82,29 +82,29 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="<?php echo e($stat->icon); ?>"></path>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#0F172A] mb-2"><?php echo e($stat->value); ?></h3>
+                <h3 class="text-2xl font-bold text-[#0F172A] mb-2 counter" data-to="<?php echo e(preg_replace('/[^0-9.]/', '', $stat->value)); ?>" data-append="<?php echo e(preg_replace('/[0-9.]/', '', $stat->value)); ?>"><?php echo e($stat->value); ?></h3>
                 <p class="text-gray-500 font-medium"><?php echo e($stat->title); ?></p>
             </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 text-center transition-all group duration-300">
-                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform duration-300 group-hover:scale-110">
+            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl text-center group transition-all duration-300 reveal reveal-scale">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#0F172A] mb-2">200+</h3>
+                <h3 class="text-2xl font-bold text-[#0F172A] mb-2 counter" data-to="200" data-append="+">200+</h3>
                 <p class="text-gray-500 font-medium">Siswa Aktif</p>
             </div>
-            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 text-center transition-all group duration-300">
-                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform duration-300 group-hover:scale-110">
+            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl text-center group transition-all duration-300 reveal reveal-scale" style="transition-delay: 100ms">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#0F172A] mb-2">98%</h3>
+                <h3 class="text-2xl font-bold text-[#0F172A] mb-2 counter" data-to="98" data-append="%">98%</h3>
                 <p class="text-gray-500 font-medium">Lulusan Bekerja</p>
             </div>
-            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 text-center transition-all group duration-300">
-                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 transition-transform duration-300 group-hover:scale-110">
+            <div class="p-6 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl text-center group transition-all duration-300 reveal reveal-scale" style="transition-delay: 200ms">
+                <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#0F172A] mb-2">20+</h3>
+                <h3 class="text-2xl font-bold text-[#0F172A] mb-2 counter" data-to="20" data-append="+">20+</h3>
                 <p class="text-gray-500 font-medium">Mitra Industri</p>
             </div>
             <?php endif; ?>
@@ -417,7 +417,7 @@
                     Pendaftaran siswa baru tahun ajaran 2026/2027 telah dibuka. Segera amankan kursimu di jurusan impian dan mulai langkah besarmu hari ini.
                 </p>
                 <div class="flex flex-wrap gap-3 pt-2">
-                    <a href="<?php echo e(route('registration')); ?>" class="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-900 transition-all uppercase tracking-wide">Daftar Sekarang</a>
+                    <a href="<?php echo e(route('enrollment.guide')); ?>" class="px-10 py-5 bg-blue-600 text-white rounded-[1.5rem] font-bold text-xl hover:bg-blue-700 transition-all">Daftar Sekarang</a>
                     <a href="<?php echo e(route('contact')); ?>" class="px-6 py-3 bg-white/5 border border-white/10 text-white rounded-xl font-bold text-sm hover:bg-white/10 transition-all uppercase tracking-wide">Hubungi Kami</a>
                 </div>
             </div>
@@ -446,6 +446,51 @@
         </div>
     </div>
 </section>
+<?php $__env->startPush('scripts'); ?>
+<script>
+    function animateCounter(el) {
+        const target = parseFloat(el.getAttribute('data-to'));
+        const append = el.getAttribute('data-append') || '';
+        const duration = 2000; // 2 seconds
+        const start = 0;
+        let startTime = null;
+
+        function easeOutQuart(t) {
+            return 1 - (--t) * t * t * t;
+        }
+
+        function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const value = Math.floor(easeOutQuart(progress) * target);
+            
+            el.textContent = value + append;
+
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                el.textContent = target + append;
+            }
+        }
+
+        window.requestAnimationFrame(step);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const counters = document.querySelectorAll('.counter');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => observer.observe(counter));
+    });
+</script>
+<?php $__env->stopPush(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/index.blade.php ENDPATH**/ ?>

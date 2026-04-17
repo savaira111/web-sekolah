@@ -17,10 +17,6 @@
     <!-- Alpine Plugins -->
     <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.14.0/dist/cdn.min.js"></script>
-
-    <!-- Unpoly: SPA-like Navigation -->
-    <link rel="stylesheet" href="https://unpkg.com/unpoly@3.8.0/unpoly.min.css">
-    <script src="https://unpkg.com/unpoly@3.8.0/unpoly.min.js"></script>
     
     <style>
         body {
@@ -168,30 +164,9 @@
     <?php echo $__env->make('layouts.superadmin.sidebar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <!-- Main Content Wrapper -->
-    <main id="main-content" up-main class="flex-1 flex flex-col h-full overflow-y-auto w-full relative" 
+    <main class="flex-1 flex flex-col h-full overflow-y-auto w-full relative" 
           style="transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;"
           :class="$store.theme.darkMode ? 'bg-[#000000]' : 'bg-[#FFFFFF]'">
-        
-        <!-- Unpoly Transition Overlay -->
-        <script>
-            // Global Unpoly Configuration
-            up.compiler('a', (link) => {
-                const isInternal = link.host === location.host && !link.hasAttribute('download') && !link.hasAttribute('target');
-                if (isInternal) {
-                    // Only use fragment transition for admin-to-admin links
-                    if (link.pathname.startsWith('/superadmin')) {
-                        link.setAttribute('up-follow', '');
-                        link.setAttribute('up-target', '#main-content');
-                        link.setAttribute('up-transition', 'crossfade');
-                    } else {
-                        // For links leaving the admin area, do a full page transition targeting the body
-                        link.setAttribute('up-follow', '');
-                        link.setAttribute('up-target', 'body');
-                        link.setAttribute('up-transition', 'crossfade');
-                    }
-                }
-            });
-        </script>
         
         <!-- Navbar Layout -->
         <?php echo $__env->make('layouts.superadmin.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>

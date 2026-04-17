@@ -1,16 +1,107 @@
 <?php $__env->startSection('title', $eskul->name . ' - SMKS Mahaputra'); ?>
 
 <?php $__env->startSection('content'); ?>
+<?php
+    $eskulName = strtolower($eskul->name);
+    $galleryImages = [];
+    
+    // Default hero/main image logic
+    $mainImage = $eskul->image ? asset('storage/' . $eskul->image) : null;
+    
+    if (!$mainImage) {
+        if (str_contains($eskulName, 'futsal') || str_contains($eskulName, 'bola')) {
+            $mainImage = asset('images/extracurriculars/futsal/futsal_1.png');
+            $galleryImages = [
+                asset('images/extracurriculars/futsal/futsal_1.png'),
+                asset('images/extracurriculars/futsal/futsal_2.png'),
+                asset('images/extracurriculars/thumbs/futsal.png'),
+                asset('images/extracurriculars/futsal/futsal_1.png'),
+                asset('images/extracurriculars/futsal/futsal_2.png'),
+                asset('images/extracurriculars/thumbs/futsal.png')
+            ];
+        } elseif (str_contains($eskulName, 'pramuka')) {
+            $mainImage = asset('images/extracurriculars/pramuka/pramuka_1.png');
+            $galleryImages = [
+                asset('images/extracurriculars/pramuka/pramuka_1.png'),
+                asset('images/extracurriculars/pramuka/pramuka_2.png'),
+                asset('images/extracurriculars/thumbs/pramuka.png'),
+                asset('images/extracurriculars/pramuka/pramuka_1.png'),
+                asset('images/extracurriculars/pramuka/pramuka_2.png'),
+                asset('images/extracurriculars/thumbs/pramuka.png')
+            ];
+        } elseif (str_contains($eskulName, 'paskibra')) {
+            $mainImage = asset('images/extracurriculars/paskibra/paskibra_1.png');
+            $galleryImages = [
+                asset('images/extracurriculars/paskibra/paskibra_1.png'),
+                asset('images/extracurriculars/paskibra/paskibra_2.png'),
+                asset('images/extracurriculars/thumbs/paskibra.png'),
+                asset('images/extracurriculars/paskibra/paskibra_1.png'),
+                asset('images/extracurriculars/paskibra/paskibra_2.png'),
+                asset('images/extracurriculars/thumbs/paskibra.png')
+            ];
+        } elseif (str_contains($eskulName, 'panahan') || str_contains($eskulName, 'archery')) {
+            $mainImage = asset('images/extracurriculars/panahan/panahan_1.png');
+            $galleryImages = [
+                asset('images/extracurriculars/panahan/panahan_1.png'),
+                asset('images/extracurriculars/thumbs/archery.png'),
+                asset('images/extracurriculars/thumbs/archery.png'),
+                asset('images/extracurriculars/panahan/panahan_1.png'),
+                asset('images/extracurriculars/thumbs/archery.png'),
+                asset('images/extracurriculars/thumbs/archery.png')
+            ];
+        } elseif (str_contains($eskulName, 'rohis') || str_contains($eskulName, 'islam') || str_contains($eskulName, 'dakwah')) {
+            $mainImage = asset('images/extracurriculars/thumbs/rohis.png');
+            $galleryImages = [
+                asset('images/extracurriculars/thumbs/rohis.png'),
+                'https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=800',
+                'https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=800',
+                asset('images/extracurriculars/thumbs/rohis.png'),
+                'https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=800',
+                'https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=800'
+            ];
+        } elseif (str_contains($eskulName, 'silat') || str_contains($eskulName, 'bela diri')) {
+            $mainImage = asset('images/extracurriculars/thumbs/silat.png');
+            $galleryImages = [
+                asset('images/extracurriculars/thumbs/silat.png'),
+                'https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=800',
+                'https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=800',
+                asset('images/extracurriculars/thumbs/silat.png'),
+                'https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=800',
+                'https://images.unsplash.com/photo-1555597673-b21d5c935865?q=80&w=800'
+            ];
+        } else {
+        $galleryImages = [
+            asset('images/extracurriculars/thumbs/default.png'),
+            asset('images/extracurriculars/thumbs/hero-poster.png'),
+            asset('images/extracurriculars/thumbs/futsal.png'),
+            asset('images/extracurriculars/thumbs/pramuka.png'),
+            asset('images/extracurriculars/thumbs/paskibra.png'),
+            asset('images/extracurriculars/thumbs/archery.png')
+        ];
+    }
+} else {
+    // If they have a main image, use it for gallery too
+    $galleryImages = [
+            $mainImage,
+            asset('images/extracurriculars/thumbs/hero-poster.png'),
+            asset('images/extracurriculars/thumbs/default.png'),
+            $mainImage,
+            asset('images/extracurriculars/thumbs/hero-poster.png'),
+            asset('images/extracurriculars/thumbs/default.png')
+        ];
+    }
+?>
+
 <!-- Hero Section -->
-<section class="relative h-[600px] flex items-center overflow-hidden">
+<section class="relative min-h-screen flex items-start pt-16 lg:pt-20 overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
-        <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" alt="<?php echo e($eskul->name); ?>" class="w-full h-full object-cover">
+        <img src="<?php echo e($mainImage); ?>" alt="<?php echo e($eskul->name); ?>" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-[#0F172A]/80 backdrop-blur-sm"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div class="mb-8">
+        <div class="mb-4">
             <a href="<?php echo e(route('extracurriculars.index')); ?>" class="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white/30 transition-all shadow-lg" title="Kembali">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
             </a>
@@ -23,13 +114,18 @@
 
                 </h1>
                 <p class="text-xl text-gray-300 max-w-2xl leading-relaxed">
-                    Menumbuhkan jiwa kepemimpinan, kedisiplinan, dan rasa nasionalisme tinggi melalui kegiatan yang bermanfaat.
+                    <?php echo e($eskul->description); ?>
+
                 </p>
             </div>
 
             <div class="flex flex-wrap gap-4 pt-4">
                 <a href="<?php echo e(route('extracurriculars.registration')); ?>" class="px-10 py-5 bg-blue-600 text-white rounded-2xl font-black text-xl shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all uppercase">
                     Gabung Sekarang
+                </a>
+                <a href="https://wa.me/6282260337300?text=Halo%20Admin%2C%20saya%20ingin%20tanya%20seputar%20ekstrakurikuler%20<?php echo e($eskul->name); ?>" target="_blank" class="px-10 py-5 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-2xl font-black text-xl hover:bg-white/20 transition-all uppercase flex items-center gap-3">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.996-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82l.303.18c1.397.83 3.009 1.269 4.655 1.269l.006.001c5.236 0 9.503-4.265 9.505-9.501.002-2.538-.99-4.923-2.791-6.726s-4.188-2.793-6.722-2.793c-5.238 0-9.503 4.267-9.506 9.505-.001 1.714.463 3.391 1.341 4.866l.197.33-1.003 3.666 3.755-.986zm11.455-6.533c-.301-.15-1.777-.878-2.053-.977-.275-.099-.475-.15-.675.15-.199.301-.776.977-.951 1.178-.175.199-.35.226-.65.075-.3-.15-1.265-.466-2.411-1.487-.893-.797-1.493-1.782-1.67-2.083-.175-.301-.018-.464.133-.613.135-.133.301-.35.45-.526.15-.175.199-.301.301-.502.1-.199.05-.376-.026-.526-.075-.15-.675-1.628-.925-2.23-.244-.582-.493-.504-.675-.513-.175-.01-.375-.011-.575-.011s-.525.075-.8.376c-.275.301-1.05 1.026-1.05 2.507 0 1.481 1.075 2.909 1.225 3.109.15.199 2.113 3.227 5.122 4.526.716.309 1.274.494 1.708.632.716.228 1.369.196 1.885.118.574-.087 1.777-.726 2.028-1.43.25-.702.25-1.305.175-1.43-.075-.124-.275-.199-.576-.349z"/></svg>
+                    Hubungi Admin
                 </a>
             </div>
         </div>
@@ -51,8 +147,8 @@
                             <div class="w-2 h-10 bg-blue-600 rounded-full"></div>
                             <h2 class="text-4xl font-black text-[#0F172A]">Tentang <?php echo e($eskul->name); ?></h2>
                         </div>
-                        <div class="text-lg text-gray-500 leading-relaxed prose prose-blue max-w-none">
-                            <?php echo nl2br(e($eskul->description)); ?>
+                        <div class="text-lg leading-relaxed prose prose-blue max-w-none article-body">
+                            <?php echo $eskul->description; ?>
 
                         </div>
                     </div>
@@ -170,30 +266,14 @@
                         <h2 class="text-4xl font-black text-[#0F172A]">Galeri Kegiatan</h2>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        <?php $__currentLoopData = $galleryImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" class="w-full h-full object-cover transition-transform duration-700">
+                            <img src="<?php echo e($img); ?>" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($eskul->name)); ?>&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-700">
-                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            </div>
-                        </div>
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" class="w-full h-full object-cover transition-transform duration-700">
-                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            </div>
-                        </div>
-                        <div class="aspect-square rounded-[2.5rem] overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($eskul->name)); ?>&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-700">
-                            <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            </div>
-                        </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
 
@@ -209,7 +289,7 @@
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="group space-y-4">
                             <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-100">
-                                <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" class="w-full h-full object-cover transition-transform duration-500">
+                                <img src="<?php echo e($galleryImages[0] ?? $mainImage); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                             </div>
                             <div class="space-y-2">
                                 <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">
@@ -228,7 +308,7 @@
                         </div>
                         <div class="group space-y-4">
                             <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg border border-gray-100">
-                                <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($eskul->name)); ?>&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-500">
+                                <img src="<?php echo e($galleryImages[1] ?? $mainImage); ?>" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                             </div>
                             <div class="space-y-2">
                                 <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">
@@ -254,7 +334,7 @@
             <div class="lg:col-span-4 space-y-8">
                 
                 <!-- Registration CTA Card -->
-                <div class="bg-blue-600 rounded-[3rem] p-10 text-center space-y-8 shadow-2xl shadow-blue-500/20 relative overflow-hidden">
+                <div class="bg-blue-600 rounded-[2.5rem] p-8 text-center space-y-8 shadow-2xl shadow-blue-500/20 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full translate-x-12 -translate-y-12"></div>
                     <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 blur-2xl rounded-full -translate-x-12 translate-y-12"></div>
                     
@@ -272,12 +352,12 @@
                 </div>
 
                 <!-- Staff/Coaches -->
-                <div class="bg-white rounded-[3rem] border border-gray-100 p-10 space-y-8 shadow-sm">
+                <div class="bg-white rounded-[2.5rem] border border-gray-100 p-8 space-y-6 shadow-sm">
                     <h4 class="text-xl font-bold text-[#0F172A] border-l-4 border-blue-600 pl-4">Pembina & Ketua</h4>
                     <div class="space-y-6">
                         <div class="flex items-center gap-6 group">
                             <div class="relative">
-                                <img src="https://ui-avatars.com/api/?name=Pembina+Utama&background=random" class="w-16 h-16 rounded-2xl object-cover shadow-lg transition-transform duration-500">
+                                <img src="<?php echo e(asset('images/Sample_User_Icon.png')); ?>" class="w-16 h-16 rounded-2xl object-cover shadow-lg transition-transform duration-500">
                                 <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
                             </div>
                             <div class="space-y-1">
@@ -287,7 +367,7 @@
                         </div>
                         <div class="flex items-center gap-6 group">
                             <div class="relative">
-                                <img src="https://ui-avatars.com/api/?name=Ketua+Eskul&background=random" class="w-16 h-16 rounded-2xl object-cover shadow-lg transition-transform duration-500">
+                                <img src="<?php echo e(asset('images/Sample_User_Icon.png')); ?>" class="w-16 h-16 rounded-2xl object-cover shadow-lg transition-transform duration-500">
                                 <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
                             </div>
                             <div class="space-y-1">
@@ -299,7 +379,7 @@
                 </div>
 
                 <!-- Location Map -->
-                <div class="bg-white rounded-[3rem] border border-gray-100 p-10 space-y-6 shadow-sm">
+                <div class="bg-white rounded-[2.5rem] border border-gray-100 p-8 space-y-6 shadow-sm">
                     <div class="space-y-1">
                         <h4 class="text-xl font-bold text-[#0F172A] leading-tight">Lokasi Latihan</h4>
                         <p class="text-[10px] text-gray-400">Kampus SMKS Mahaputra Cerdas Utama</p>

@@ -62,7 +62,7 @@
             <div class="flex flex-wrap items-center gap-2">
                 <a href="{{ route('mitra', ['category' => 'all']) }}" 
                    class="px-6 py-3 rounded-full text-sm font-extrabold transition-all {{ ($request->category ?? 'all') === 'all' ? 'bg-[#1E3A8A] text-white shadow-lg' : 'text-gray-500 hover:bg-gray-100' }}">
-                   Semua Industri
+                   Semua Mitra
                 </a>
                 @foreach($categories as $cat)
                 <a href="{{ route('mitra', ['category' => $cat]) }}" 

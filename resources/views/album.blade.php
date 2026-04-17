@@ -61,7 +61,7 @@
     <section class="pb-16 bg-white min-h-[400px] reveal">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Empty State -->
-            <template x-if="filteredAlbums.length === 0">
+            <template x-if="filteredItems.length === 0">
                 <div class="flex flex-col items-center justify-center py-20 animate-fade-in" x-transition>
                     <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
                         <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +69,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Konten tidak ditemukan</h3>
-                    <p class="text-gray-500">Belum ada dokumentasi untuk kategori <span class="font-bold font-blue-600" x-text="activeFilter"></span>.</p>
+                    <p class="text-gray-500">album untuk kategori <span class="font-bold text-blue-600" x-text="activeFilter"></span> belum tersedia.</p>
                 </div>
             </template>
 

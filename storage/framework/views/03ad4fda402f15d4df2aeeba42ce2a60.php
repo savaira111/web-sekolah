@@ -10,7 +10,7 @@
     </div>
 
     <!-- Hero Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4 reveal">
         <div class="inline-flex items-center px-6 py-2 rounded-full bg-[#F97316] text-white text-xs lg:text-sm font-bold tracking-widest uppercase">
             INSTITUSI PENDIDIKAN TERAKREDITASI A
         </div>
@@ -36,7 +36,7 @@
 </section>
 
 <!-- Visi & Misi Header -->
-<section class="pt-24 pb-6 bg-white">
+<section class="pt-24 pb-6 bg-white reveal">
     <div class="max-w-7xl mx-auto px-4 text-center">
         <p class="text-blue-600 font-bold tracking-[0.2em] uppercase text-sm mb-4">FILOSOFI PENDIDIKAN</p>
         <h2 class="text-2xl lg:text-2xl font-black text-[#0F172A] relative inline-block">
@@ -51,7 +51,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12">
         <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
             <!-- Visi Card -->
-            <div class="bg-blue-50/50 p-6 lg:p-8 rounded-[1.5rem] relative overflow-hidden group">
+            <div class="bg-blue-50/50 p-6 lg:p-8 rounded-[1.5rem] relative overflow-hidden group reveal reveal-left">
                 <div class="absolute top-8 right-8 w-24 h-24 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
                 <div class="relative z-10 space-y-4">
                     <div class="w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
@@ -65,7 +65,7 @@
             </div>
 
             <!-- Misi Card -->
-            <div class="bg-gray-50/50 p-6 lg:p-8 rounded-[1.5rem] relative overflow-hidden group">
+            <div class="bg-gray-50/50 p-6 lg:p-8 rounded-[1.5rem] relative overflow-hidden group reveal reveal-right">
                 <div class="absolute top-8 right-8 w-24 h-24 bg-orange-100 rounded-full blur-3xl opacity-50"></div>
                 <div class="relative z-10 space-y-4">
                     <div class="w-10 h-10 bg-[#F97316] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-200">
@@ -142,7 +142,7 @@
 
             <div class="space-y-12 lg:space-y-20">
                 <!-- 2014 Milestone (Left) -->
-                <div class="relative flex items-center justify-between lg:justify-start group">
+                <div class="relative flex items-center justify-between lg:justify-start group reveal reveal-left">
                     <div class="w-full lg:w-1/2 lg:pr-16">
                         <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all text-right">
                             <span class="text-[#F97316] font-black text-xl lg:text-2xl block mb-1">22 Agustus 2016.</span>
@@ -155,7 +155,7 @@
                 </div>
 
                 <!-- 2016 Milestone (Right) -->
-                <div class="relative flex items-center justify-between lg:justify-end group">
+                <div class="relative flex items-center justify-between lg:justify-end group reveal reveal-right">
                     <div class="w-full lg:w-1/2 lg:pl-16">
                         <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
                             <span class="text-blue-600 font-black text-xl lg:text-2xl block mb-1">2016</span>
@@ -168,7 +168,7 @@
                 </div>
 
                 <!-- 2018 Milestone (Left) -->
-                <div class="relative flex items-center justify-between lg:justify-start group">
+                <div class="relative flex items-center justify-between lg:justify-start group reveal reveal-left">
                     <div class="w-full lg:w-1/2 lg:pr-16">
                         <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all text-right">
                             <span class="text-[#F97316] font-black text-xl lg:text-2xl block mb-1">2018</span>
@@ -181,7 +181,7 @@
                 </div>
 
                 <!-- 2023 Milestone (Right) -->
-                <div class="relative flex items-center justify-between lg:justify-end group">
+                <div class="relative flex items-center justify-between lg:justify-end group reveal reveal-right">
                     <div class="w-full lg:w-1/2 lg:pl-16">
                         <div class="bg-white p-6 lg:p-6 rounded-[1.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
                             <span class="text-blue-600 font-black text-xl lg:text-2xl block mb-1">2023</span>
@@ -200,7 +200,7 @@
 <!-- Stats Section -->
 <section class="bg-[#1D82F6] py-8 lg:py-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 text-center items-center">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 text-center items-center reveal reveal-scale">
             <!-- Stat 1 -->
             <div class="space-y-2">
                 <div class="text-2xl lg:text-2xl font-black text-white">15+</div>
@@ -226,39 +226,48 @@
 </section>
 
 <!-- Final CTA -->
-<section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[1.5rem] p-6 lg:p-20 text-center space-y-10 relative overflow-hidden shadow-2xl">
+<section x-data="{ showBrosur: false }" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[1.5rem] p-6 lg:p-20 text-center space-y-10 relative overflow-hidden shadow-2xl reveal reveal-scale">
         <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 30px 30px;"></div>
         <div class="relative z-10 space-y-10">
             <h2 class="text-3xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">Mari Wujudkan Masa Depan <br> Digital Bersama Kami</h2>
             <div class="flex flex-wrap justify-center gap-5">
-                <a href="<?php echo e(route('registration')); ?>" class="px-10 py-5 bg-blue-600 text-white rounded-[1.5rem] font-bold text-xl hover:bg-blue-700 transition-all">Daftar Sekarang</a>
-                <a href="<?php echo e(asset('images/brosur-sekolah.jpg')); ?>" download="Brosur-SMKS-Mahaputra.jpg" class="px-10 py-5 bg-white/5 border border-white/20 text-white rounded-[1.5rem] font-bold text-xl hover:bg-white/10 transition-all text-center">Lihat Brosur Sekolah</a>
+                <a href="<?php echo e(route('enrollment.guide')); ?>" class="px-10 py-5 bg-blue-600 text-white rounded-[1.5rem] font-bold text-xl hover:bg-blue-700 transition-all">Daftar Sekarang</a>
+                <button @click="showBrosur = true" class="px-10 py-5 bg-white/5 border border-white/20 text-white rounded-[1.5rem] font-bold text-xl hover:bg-white/10 transition-all text-center cursor-pointer">Lihat Brosur Sekolah</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Brochure Modal with Alpine.js Transitions -->
+    <div x-show="showBrosur" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md p-4 cursor-pointer" 
+         @click="showBrosur = false"
+         @keydown.escape.window="showBrosur = false"
+         style="display: none;">
+        
+        <!-- Modal Content Container (Centered & Fitting viewport) -->
+        <div class="relative w-full h-full max-w-5xl flex items-center justify-center">
+            <!-- Close Button (Moving down & using glass effect) -->
+            <div class="absolute top-4 right-4 lg:top-8 lg:right-8 z-55 p-3 bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 rounded-full transition-all shadow-2xl">
+                <svg class="w-6 h-6 lg:w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </div>
+            
+            <!-- Brochure Image: Set to contain within height to avoid scroll -->
+            <img src="<?php echo e(asset('images/brosur-sekolah.jpg')); ?>" 
+                 alt="Brosur SMKS Mahaputra" 
+                 class="max-h-full max-w-full w-auto h-auto object-contain rounded-xl shadow-2xl">
         </div>
     </div>
 </section>
 
-<!-- Brochure Modal -->
-<div id="brochureModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
-    <!-- Backdrop -->
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleModal('brochureModal')"></div>
-    
-    <!-- Modal Content -->
-    <div class="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-3xl overflow-hidden shadow-2xl transform transition-all">
-        <!-- Close Button -->
-        <button onclick="toggleModal('brochureModal')" class="absolute top-4 right-4 z-50 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full transition-all">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        
-        <!-- Image Container -->
-        <div class="overflow-y-auto max-h-[90vh]">
-            <img src="<?php echo e(asset('images/brosur-sekolah.jpg')); ?>" alt="Brosur SMKS Mahaputra" class="w-full h-auto">
-        </div>
-    </div>
-</div>
-
 <script>
+    // Keeping for other possible use, but brochure now uses Alpine.js
     function toggleModal(modalId) {
         const modal = document.getElementById(modalId);
         if (modal) {
@@ -273,16 +282,6 @@
             }
         }
     }
-
-    // Close modal on Escape key
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            const modal = document.getElementById('brochureModal');
-            if (modal && !modal.classList.contains('hidden')) {
-                toggleModal('brochureModal');
-            }
-        }
-    });
 </script>
 <?php $__env->stopSection(); ?>
 

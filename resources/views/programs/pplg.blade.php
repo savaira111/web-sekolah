@@ -6,8 +6,8 @@
 <!-- Hero Section -->
 <section class="relative pt-8 pb-10 overflow-hidden bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-10 items-start">
-            <div class="space-y-1.5 pt-1">
+        <div class="grid lg:grid-cols-2 gap-10 items-start reveal">
+            <div class="space-y-1.5 pt-1 reveal reveal-left">
                 <div class="flex items-center gap-3">
                     <a href="{{ route('jurusan') }}" class="w-9 h-9 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600 hover:shadow-xl hover:bg-blue-50 transition-all" title="Kembali">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -32,7 +32,7 @@
                     <span class="px-2.5 py-1 bg-gray-50 rounded-lg text-[9px] font-bold text-gray-400 border border-gray-100">Cloud Computing</span>
                 </div>
             </div>
-            <div class="relative">
+            <div class="relative reveal reveal-right">
                 <div class="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative">
                     <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1000" alt="PPLG" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -42,7 +42,7 @@
                         <div class="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
                         </div>
-                        <span class="font-bold text-gray-900 text-sm">350+ Siswa</span>
+                        <span class="font-bold text-gray-900 text-sm"><span class="counter" data-to="350" data-append="+">350+</span> Siswa</span>
                     </div>
                     <p class="text-[10px] text-gray-400">Mempelajari pemrograman & gim di SMK Mahaputra.</p>
                 </div>
@@ -55,10 +55,10 @@
 <!-- Focus Kompetensi -->
 <section class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-3 gap-12">
+        <div class="grid lg:grid-cols-3 gap-12 reveal">
             <div class="lg:col-span-2 space-y-12">
                 <div class="grid sm:grid-cols-2 gap-8">
-                    <div class="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 hover:border-blue-200 transition-all group">
+                    <div class="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 hover:border-blue-200 transition-all group reveal reveal-left">
                         <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 transition-transform">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                         </div>
@@ -68,7 +68,7 @@
                             <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000" alt="SE" class="w-full h-32 object-cover opacity-80 transition-opacity">
                         </div>
                     </div>
-                    <div class="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 hover:border-blue-200 transition-all group">
+                    <div class="p-6 bg-gray-50 rounded-[2rem] border border-gray-100 space-y-4 hover:border-blue-200 transition-all group reveal reveal-right">
                         <div class="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 transition-transform">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
                         </div>
@@ -81,7 +81,7 @@
                 </div>
 
                 <!-- Kurikulum IT -->
-                <div class="space-y-6">
+                <div class="space-y-6 reveal">
                      <h2 class="text-2xl font-bold text-[#0F172A]">
                         Kurikulum Merdeka IT
                     </h2>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="flex justify-between items-center p-4 bg-gray-50/80 rounded-2xl border border-gray-100/50">
                             <span class="text-gray-600 text-sm font-medium">Mitra Industri</span>
-                            <span class="font-bold text-gray-900">25+ Perusahaan</span>
+                            <span class="font-bold text-gray-900"><span class="counter" data-to="25" data-append="+">25+</span> Perusahaan</span>
                         </div>
                     </div>
 
@@ -165,7 +165,7 @@
                     </div>
 
                     <div class="mt-8 space-y-4">
-                        <a href="{{ route('registration') }}" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan PPLG</a>
+                        <a href="{{ route('enrollment.guide') }}" class="block w-full text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all duration-300">Daftar Jurusan PPLG</a>
                         <p class="text-center text-[10px] text-gray-400">Pendaftaran Gelombang 1 berakhir dalam 14 hari lagi.</p>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
 
 <!-- Showcase Proyek -->
 <section class="py-10 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
         <div class="flex justify-between items-end mb-8 gap-8">
             <div class="space-y-2">
                 <h2 class="text-2xl font-bold text-[#0F172A]">Showcase Proyek Siswa</h2>
@@ -251,7 +251,7 @@
 
 <!-- Prospek Masa Depan -->
 <section class="py-10 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal reveal-scale">
         <h2 class="text-2xl font-bold text-[#0F172A] flex items-center gap-3 mb-10">
             Prospek Masa Depan
             <div class="h-1 flex-1 bg-gray-100 rounded-full">
@@ -302,7 +302,7 @@
 
 <!-- FAQ CTA -->
 <section class="py-10 text-center">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal reveal-scale">
         <div class="bg-gradient-to-br from-[#0F172A] to-blue-900 rounded-[2rem] p-8 lg:p-12 text-center space-y-6 relative overflow-hidden shadow-2xl">
             <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
             <div class="relative z-10 space-y-8">

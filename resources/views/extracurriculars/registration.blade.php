@@ -196,15 +196,15 @@
                                 <p class="font-black text-[#0F172A] text-sm">kesiswaan@mahaputra.sch.id</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-6 p-4 bg-gray-50 rounded-2xl group cursor-pointer transition-colors hover:bg-white hover:shadow-lg hover:shadow-gray-100">
+                        <a href="https://wa.me/6282260337300?text=Halo%20Admin%2C%20saya%20ingin%20tanya%20seputar%20pendaftaran%20ekstrakurikuler" class="flex items-center gap-6 p-4 bg-gray-50 rounded-2xl group cursor-pointer transition-colors hover:bg-white hover:shadow-lg hover:shadow-gray-100">
                             <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-green-500 transition-transform">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.996-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.224-3.82l.303.18c1.397.83 3.009 1.269 4.655 1.269l.006.001c5.236 0 9.503-4.265 9.505-9.501.002-2.538-.99-4.923-2.791-6.726s-4.188-2.793-6.722-2.793c-5.238 0-9.503 4.267-9.506 9.505-.001 1.714.463 3.391 1.341 4.866l.197.33-1.003 3.666 3.755-.986zm11.455-6.533c-.301-.15-1.777-.878-2.053-.977-.275-.099-.475-.15-.675.15-.199.301-.776.977-.951 1.178-.175.199-.35.226-.65.075-.3-.15-1.265-.466-2.411-1.487-.893-.797-1.493-1.782-1.67-2.083-.175-.301-.018-.464.133-.613.135-.133.301-.35.45-.526.15-.175.199-.301.301-.502.1-.199.05-.376-.026-.526-.075-.15-.675-1.628-.925-2.23-.244-.582-.493-.504-.675-.513-.175-.01-.375-.011-.575-.011s-.525.075-.8.376c-.275.301-1.05 1.026-1.05 2.507 0 1.481 1.075 2.909 1.225 3.109.15.199 2.113 3.227 5.122 4.526.716.309 1.274.494 1.708.632.716.228 1.369.196 1.885.118.574-.087 1.777-.726 2.028-1.43.25-.702.25-1.305.175-1.43-.075-.124-.275-.199-.576-.349z"/></svg>
                             </div>
                             <div class="space-y-0.5">
                                 <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none">WhatsApp</p>
-                                <p class="font-black text-[#0F172A] text-sm">+62 812-3456-7890</p>
+                                <p class="font-black text-[#0F172A] text-sm">+62 822-6033-7300</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
 

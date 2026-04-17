@@ -76,10 +76,10 @@
                             $thumb = asset('storage/' . $eskul->image);
                         } else {
                             $nameLower = strtolower($eskul->name);
-                            if (str_contains($nameLower, 'pramuka')) $thumb = asset('images/extracurriculars/thumbs/pramuka.png');
-                            elseif (str_contains($nameLower, 'futsal')) $thumb = asset('images/extracurriculars/thumbs/futsal.png');
-                            elseif (str_contains($nameLower, 'paskibra')) $thumb = asset('images/extracurriculars/thumbs/paskibra.png');
-                            elseif (str_contains($nameLower, 'panahan') || str_contains($nameLower, 'archery')) $thumb = asset('images/extracurriculars/thumbs/archery.png');
+                            if (str_contains($nameLower, 'pramuka')) $thumb = asset('images/extracurriculars/pramuka/pramuka_1.png');
+                            elseif (str_contains($nameLower, 'futsal') || str_contains($nameLower, 'bola')) $thumb = asset('images/extracurriculars/futsal/futsal_1.png');
+                            elseif (str_contains($nameLower, 'paskibra')) $thumb = asset('images/extracurriculars/paskibra/paskibra_1.png');
+                            elseif (str_contains($nameLower, 'panahan') || str_contains($nameLower, 'archery')) $thumb = asset('images/extracurriculars/panahan/panahan_1.png');
                             elseif (str_contains($nameLower, 'rohis')) $thumb = asset('images/extracurriculars/thumbs/rohis.png');
                             elseif (str_contains($nameLower, 'silat')) $thumb = asset('images/extracurriculars/thumbs/silat.png');
                         }
@@ -117,7 +117,7 @@
             <p class="text-gray-500 max-w-xl mx-auto">Kami mengadakan open house setiap hari Sabtu. Daftarkan diri Anda untuk tur kampus bersama tim akademik kami.</p>
         </div>
         <div class="flex flex-col md:flex-row justify-center gap-6">
-            <a href="https://wa.me/6281234567890" class="px-12 py-5 bg-white border border-gray-100 rounded-[1.5rem] font-bold shadow-sm transition-all">Tanya Lewat WhatsApp</a>
+            <a href="https://wa.me/6282260337300?text=Halo%20Admin%2C%20saya%20ingin%20tanya%20seputar%20kegiatan%20ekstrakurikuler%20di%20SMKS%20Mahaputra" class="px-12 py-5 bg-white border border-gray-100 rounded-[1.5rem] font-bold shadow-sm transition-all hover:bg-gray-50">Tanya Lewat WhatsApp</a>
         </div>
     </div>
 </section>
