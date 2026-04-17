@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::table('partners', function (Blueprint $table) {
             $table->string('location')->nullable()->after('category');
-            $table->string('detail_image')->nullable()->after('location');
-            $table->text('testimonial_text')->nullable()->after('detail_image');
+            $table->string('featured_image')->nullable()->after('location');
+            $table->text('testimonial_text')->nullable()->after('featured_image');
             $table->string('testimonial_author')->nullable()->after('testimonial_text');
-            $table->string('testimonial_role')->nullable()->after('testimonial_author');
-            $table->string('testimonial_avatar')->nullable()->after('testimonial_role');
-            $table->json('gallery_images')->nullable()->after('testimonial_avatar');
+            $table->string('testimonial_author_role')->nullable()->after('testimonial_author');
+            $table->string('testimonial_author_photo')->nullable()->after('testimonial_author_role');
+            $table->json('gallery_images')->nullable()->after('testimonial_author_photo');
         });
     }
 
@@ -30,11 +30,11 @@ return new class extends Migration
         Schema::table('partners', function (Blueprint $table) {
             $table->dropColumn([
                 'location',
-                'detail_image',
+                'featured_image',
                 'testimonial_text',
                 'testimonial_author',
-                'testimonial_role',
-                'testimonial_avatar',
+                'testimonial_author_role',
+                'testimonial_author_photo',
                 'gallery_images'
             ]);
         });
