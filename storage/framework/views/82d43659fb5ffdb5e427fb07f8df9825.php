@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Hubungi Kami - SMKS Mahaputra Cerdas Utama'); ?>
 
-@section('title', 'Hubungi Kami - SMKS Mahaputra Cerdas Utama')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Hero Section -->
     <section class="relative pt-12 pb-20 overflow-hidden bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
@@ -26,22 +24,23 @@
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <!-- Contact Form -->
             <div class="lg:col-span-7 bg-white rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-blue-900/5 border border-gray-50">
-                @if (session('success'))
+                <?php if(session('success')): ?>
                     <div class="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-2xl">
-                        {{ session('success') }}
+                        <?php echo e(session('success')); ?>
+
                     </div>
-                @endif
-                @if ($errors->any())
+                <?php endif; ?>
+                <?php if($errors->any()): ?>
                     <div class="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-2xl">
                         <ul class="list-disc pl-5">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                @endif
-                <form action="{{ route('contact.store') }}" method="POST" class="space-y-4">
-                    @csrf
+                <?php endif; ?>
+                <form action="<?php echo e(route('contact.store')); ?>" method="POST" class="space-y-4">
+                    <?php echo csrf_field(); ?>
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="space-y-3">
                             <label class="text-sm font-bold text-gray-700">Nama Lengkap</label>
@@ -54,7 +53,7 @@
                                 </span>
                                 <input type="text" name="name" placeholder="Nama Lengkap Anda"
                                     class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm"
-                                    value="{{ old('name') }}">
+                                    value="<?php echo e(old('name')); ?>">
                             </div>
                         </div>
                         <div class="space-y-3">
@@ -69,7 +68,7 @@
                                 </span>
                                 <input type="email" name="email" placeholder="contoh@email.com"
                                     class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm"
-                                    value="{{ old('email') }}">
+                                    value="<?php echo e(old('email')); ?>">
                             </div>
                         </div>
                     </div>
@@ -85,7 +84,7 @@
                             </span>
                             <input type="text" name="subject" placeholder="Tujuan pesan anda"
                                 class="w-full pl-14 pr-8 py-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-100 text-sm"
-                                value="{{ old('subject') }}">
+                                value="<?php echo e(old('subject')); ?>">
                         </div>
                     </div>
                     <div class="space-y-3">
@@ -99,7 +98,7 @@
                                 </svg>
                             </span>
                             <textarea name="message" placeholder="Ceritakan bagaimana kami dapat membantu anda..."
-                                class="w-full pl-14 pr-8 py-6 h-48 bg-gray-50 rounded-3xl border-none focus:ring-2 focus:ring-blue-100 text-sm">{{ old('message') }}</textarea>
+                                class="w-full pl-14 pr-8 py-6 h-48 bg-gray-50 rounded-3xl border-none focus:ring-2 focus:ring-blue-100 text-sm"><?php echo e(old('message')); ?></textarea>
                         </div>
                     </div>
                     <button type="submit"
@@ -214,4 +213,5 @@
             referrerpolicy="no-referrer-when-downgrade">
         </iframe>
     </section>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/contact.blade.php ENDPATH**/ ?>

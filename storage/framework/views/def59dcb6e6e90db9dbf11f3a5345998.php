@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Ekstrakurikuler - SMKS Mahaputra'); ?>
 
-@section('title', 'Ekstrakurikuler - SMKS Mahaputra')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
 <section class="relative pt-8 pb-10 overflow-hidden bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -22,15 +20,15 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <a href="{{ route('extracurriculars.registration') }}" class="px-6 py-3.5 bg-blue-600 text-white rounded-xl font-extrabold shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all uppercase tracking-wide text-xs">Daftar sekarang</a>
-                    <a href="{{ route('profile') }}" class="px-6 py-3.5 bg-gray-100 text-[#0F172A] rounded-xl font-extrabold hover:bg-gray-200 transition-all uppercase tracking-wide text-xs">Profil Sekolah</a>
+                    <a href="<?php echo e(route('extracurriculars.registration')); ?>" class="px-6 py-3.5 bg-blue-600 text-white rounded-xl font-extrabold shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all uppercase tracking-wide text-xs">Daftar sekarang</a>
+                    <a href="<?php echo e(route('profile')); ?>" class="px-6 py-3.5 bg-gray-100 text-[#0F172A] rounded-xl font-extrabold hover:bg-gray-200 transition-all uppercase tracking-wide text-xs">Profil Sekolah</a>
                 </div>
             </div>
 
             <!-- Right Side: Poster Card Image -->
             <div class="relative group lg:justify-self-end">
                 <div class="relative z-10 w-full lg:w-[400px] aspect-square rounded-[1.5rem] overflow-hidden shadow-xl shadow-blue-900/10 border-4 border-white">
-                    <img src="{{ asset('images/extracurriculars/hero-poster.png') }}" alt="Extracurricular Poster" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <img src="<?php echo e(asset('images/extracurriculars/hero-poster.png')); ?>" alt="Extracurricular Poster" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <!-- Decorative Elements -->
                 <div class="absolute -top-12 -right-12 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl -z-0"></div>
@@ -60,9 +58,9 @@
 
         <!-- Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($extracurriculars as $eskul)
-            <a href="{{ route('extracurriculars.show', $eskul->id) }}" 
-               @php
+            <?php $__currentLoopData = $extracurriculars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $eskul): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <a href="<?php echo e(route('extracurriculars.show', $eskul->id)); ?>" 
+               <?php
                     $cat = strtolower($eskul->category);
                     $normCat = 'umum';
                     if (str_contains($cat, 'sport') || $cat === 'olahraga') $normCat = 'olahraga';
@@ -70,20 +68,21 @@
                     elseif (str_contains($cat, 'pimpin') || str_contains($cat, 'kepemimpinan')) $normCat = 'kepemimpinan';
                     elseif (str_contains($cat, 'agama') || str_contains($cat, 'keagamaan')) $normCat = 'keagamaan';
                     elseif (str_contains($cat, 'beladiri') || str_contains($cat, 'silat') || str_contains($cat, 'seni beladiri')) $normCat = 'seni-beladiri';
-               @endphp
-               x-show="active === 'semua' || active === '{{ $normCat }}'"
+               ?>
+               x-show="active === 'semua' || active === '<?php echo e($normCat); ?>'"
                class="group space-y-4">
                 <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ $eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png') }}" alt="{{ $eskul->name }}" class="w-full h-full object-cover transition-transform duration-700 font-medium group-hover:scale-105">
-                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">{{ $eskul->category }}</div>
+                    <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" alt="<?php echo e($eskul->name); ?>" class="w-full h-full object-cover transition-transform duration-700 font-medium group-hover:scale-105">
+                    <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm"><?php echo e($eskul->category); ?></div>
                 </div>
                 <div class="space-y-2 pl-2">
-                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors">{{ $eskul->name }}</h3>
-                    <p class="text-sm text-gray-400 leading-relaxed line-clamp-2">{{ $eskul->description }}</p>
+                    <h3 class="text-2xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors"><?php echo e($eskul->name); ?></h3>
+                    <p class="text-sm text-gray-400 leading-relaxed line-clamp-2"><?php echo e($eskul->description); ?></p>
                     <div class="flex items-center justify-between pt-4">
                         <span class="text-[10px] font-bold text-gray-300 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 
-                            {{ $eskul->schedule_info }}
+                            <?php echo e($eskul->schedule_info); ?>
+
                         </span>
                         <span class="text-xs font-bold text-blue-600 flex items-center gap-2 transition-all">
                             Lihat Detail 
@@ -92,10 +91,10 @@
                     </div>
                 </div>
             </a>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             <!-- Card 1: Panahan -->
-            <a href="{{ route('extracurriculars.panahan') }}" 
+            <a href="<?php echo e(route('extracurriculars.panahan')); ?>" 
                  x-show="active === 'semua' || active === 'olahraga'"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95"
@@ -105,7 +104,7 @@
                  x-transition:leave-end="opacity-0 scale-95"
                  class="group space-y-4">
                 <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/archery.png') }}" alt="Panahan" class="w-full h-full object-cover transition-transform duration-700 font-medium">
+                    <img src="<?php echo e(asset('images/extracurriculars/thumbs/archery.png')); ?>" alt="Panahan" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Olahraga</div>
                 </div>
                 <div class="space-y-2 pl-2">
@@ -119,7 +118,7 @@
             </a>
 
             <!-- Card 2: Rohis -->
-            <a href="{{ route('extracurriculars.rohis') }}" 
+            <a href="<?php echo e(route('extracurriculars.rohis')); ?>" 
                  x-show="active === 'semua' || active === 'keagamaan'"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95"
@@ -129,7 +128,7 @@
                  x-transition:leave-end="opacity-0 scale-95"
                  class="group space-y-4">
                 <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/rohis.png') }}" alt="Rohis" class="w-full h-full object-cover transition-transform duration-700 font-medium">
+                    <img src="<?php echo e(asset('images/extracurriculars/thumbs/rohis.png')); ?>" alt="Rohis" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Keagamaan</div>
                 </div>
                 <div class="space-y-2 pl-2">
@@ -143,7 +142,7 @@
             </a>
 
             <!-- Card 3: Pencak Silat -->
-            <a href="{{ route('extracurriculars.silat') }}" 
+            <a href="<?php echo e(route('extracurriculars.silat')); ?>" 
                x-show="active === 'semua' || active === 'seni-beladiri'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
@@ -153,7 +152,7 @@
                x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-4">
                 <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/silat.png') }}" alt="Silat" class="w-full h-full object-cover transition-transform duration-700 font-medium">
+                    <img src="<?php echo e(asset('images/extracurriculars/thumbs/silat.png')); ?>" alt="Silat" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Seni Bela Diri</div>
                 </div>
                 <div class="space-y-2 pl-2">
@@ -167,7 +166,7 @@
             </a>
 
             <!-- Card 4: Futsal -->
-            <a href="{{ route('extracurriculars.futsal') }}" 
+            <a href="<?php echo e(route('extracurriculars.futsal')); ?>" 
                x-show="active === 'semua' || active === 'olahraga'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
@@ -177,7 +176,7 @@
                x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-4">
                 <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/futsal.png') }}" alt="Futsal" class="w-full h-full object-cover transition-transform duration-700 font-medium">
+                    <img src="<?php echo e(asset('images/extracurriculars/thumbs/futsal.png')); ?>" alt="Futsal" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Olahraga</div>
                 </div>
                 <div class="space-y-2 pl-2">
@@ -191,7 +190,7 @@
             </a>
 
             <!-- Card 5: Paskibra -->
-            <a href="{{ route('extracurriculars.paskibra') }}" 
+            <a href="<?php echo e(route('extracurriculars.paskibra')); ?>" 
                x-show="active === 'semua' || active === 'kepemimpinan'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
@@ -201,7 +200,7 @@
                x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-4">
                 <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/paskibra.png') }}" alt="Paskibra" class="w-full h-full object-cover transition-transform duration-700 font-medium">
+                    <img src="<?php echo e(asset('images/extracurriculars/thumbs/paskibra.png')); ?>" alt="Paskibra" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Kepemimpinan</div>
                 </div>
                 <div class="space-y-2 pl-2">
@@ -215,7 +214,7 @@
             </a>
 
             <!-- Card 6: Pramuka -->
-            <a href="{{ route('extracurriculars.pramuka') }}" 
+            <a href="<?php echo e(route('extracurriculars.pramuka')); ?>" 
                x-show="active === 'semua' || active === 'wajib'"
                x-transition:enter="transition ease-out duration-300"
                x-transition:enter-start="opacity-0 scale-95"
@@ -225,7 +224,7 @@
                x-transition:leave-end="opacity-0 scale-95"
                class="group space-y-4">
                 <div class="aspect-[4/3] rounded-[1.5rem] overflow-hidden shadow-xl relative">
-                    <img src="{{ asset('images/extracurriculars/thumbs/pramuka.png') }}" alt="Pramuka" class="w-full h-full object-cover transition-transform duration-700 font-medium">
+                    <img src="<?php echo e(asset('images/extracurriculars/thumbs/pramuka.png')); ?>" alt="Pramuka" class="w-full h-full object-cover transition-transform duration-700 font-medium">
                     <div class="absolute top-6 left-6 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-blue-600 uppercase tracking-widest shadow-sm">Wajib</div>
                 </div>
                 <div class="space-y-2 pl-2">
@@ -254,4 +253,5 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/extracurriculars/index.blade.php ENDPATH**/ ?>

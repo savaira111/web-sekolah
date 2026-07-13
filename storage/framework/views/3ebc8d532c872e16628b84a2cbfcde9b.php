@@ -1,24 +1,23 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', $eskul->name . ' - SMKS Mahaputra'); ?>
 
-@section('title', $eskul->name . ' - SMKS Mahaputra')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="relative pt-12 pb-10 overflow-hidden">
     <!-- Background Image with Overlay -->
     <div class="absolute inset-0 z-0">
-        <img src="{{ $eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png') }}" alt="{{ $eskul->name }}" class="w-full h-full object-cover">
+        <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" alt="<?php echo e($eskul->name); ?>" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-[#0F172A]/85 backdrop-blur-sm"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full space-y-6">
         <div class="flex items-center gap-4 lg:gap-6">
-            <a href="{{ route('extracurriculars.index') }}" class="inline-flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white/30 transition-all shadow-lg shrink-0" title="Kembali">
+            <a href="<?php echo e(route('extracurriculars.index')); ?>" class="inline-flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full hover:bg-white/30 transition-all shadow-lg shrink-0" title="Kembali">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
             </a>
             <div class="space-y-1">
-                <span class="inline-block px-3 py-1 bg-blue-600 text-white text-[9px] font-bold rounded-md uppercase tracking-wider">{{ $eskul->category ?? 'Ekstrakurikuler' }}</span>
+                <span class="inline-block px-3 py-1 bg-blue-600 text-white text-[9px] font-bold rounded-md uppercase tracking-wider"><?php echo e($eskul->category ?? 'Ekstrakurikuler'); ?></span>
                 <h1 class="text-3xl lg:text-4xl font-black text-white leading-tight">
-                    {{ $eskul->name }}
+                    <?php echo e($eskul->name); ?>
+
                 </h1>
             </div>
         </div>
@@ -28,7 +27,7 @@
             </p>
 
             <div class="flex flex-wrap gap-4 pt-1">
-                <a href="{{ route('extracurriculars.registration') }}" class="px-5 py-3 bg-blue-600 text-white rounded-xl font-bold text-xs shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-all uppercase tracking-wider">
+                <a href="<?php echo e(route('extracurriculars.registration')); ?>" class="px-5 py-3 bg-blue-600 text-white rounded-xl font-bold text-xs shadow-md shadow-blue-500/20 hover:bg-blue-700 transition-all uppercase tracking-wider">
                     Gabung Sekarang
                 </a>
             </div>
@@ -49,10 +48,11 @@
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
                             <div class="w-1.5 h-8 bg-blue-600 rounded-full"></div>
-                            <h2 class="text-2xl font-bold text-[#0F172A]">Tentang {{ $eskul->name }}</h2>
+                            <h2 class="text-2xl font-bold text-[#0F172A]">Tentang <?php echo e($eskul->name); ?></h2>
                         </div>
                         <div class="text-sm text-gray-500 leading-relaxed prose prose-blue max-w-none">
-                            {!! nl2br(e($eskul->description)) !!}
+                            <?php echo nl2br(e($eskul->description)); ?>
+
                         </div>
                     </div>
 
@@ -135,28 +135,28 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-50">
-                                @php
+                                <?php
                                     $schedule = $eskul->weekly_schedule;
                                     if (is_string($schedule)) {
                                         $schedule = json_decode($schedule, true);
                                     }
-                                @endphp
+                                ?>
 
-                                @if($schedule && is_array($schedule) && count($schedule) > 0)
-                                    @foreach($schedule as $item)
+                                <?php if($schedule && is_array($schedule) && count($schedule) > 0): ?>
+                                    <?php $__currentLoopData = $schedule; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="hover:bg-blue-50/30 transition-colors">
-                                        <td class="px-5 py-4 font-semibold text-[#0F172A]">{{ $item['day'] ?? '-' }}</td>
-                                        <td class="px-5 py-4 text-gray-500">{{ $item['start'] ?? '' }} - {{ $item['end'] ?? '' }}</td>
+                                        <td class="px-5 py-4 font-semibold text-[#0F172A]"><?php echo e($item['day'] ?? '-'); ?></td>
+                                        <td class="px-5 py-4 text-gray-500"><?php echo e($item['start'] ?? ''); ?> - <?php echo e($item['end'] ?? ''); ?></td>
                                         <td class="px-5 py-4 text-gray-500 font-semibold">Latihan Rutin</td>
                                     </tr>
-                                    @endforeach
-                                @else
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
                                     <tr class="hover:bg-blue-50/30 transition-colors">
                                         <td class="px-5 py-4 font-semibold text-[#0F172A]">Menyusul</td>
-                                        <td class="px-5 py-4 text-gray-500">{{ $eskul->schedule_info }}</td>
+                                        <td class="px-5 py-4 text-gray-500"><?php echo e($eskul->schedule_info); ?></td>
                                         <td class="px-5 py-4 text-gray-500 font-semibold">-</td>
                                     </tr>
-                                @endif
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -170,25 +170,25 @@
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         <div class="aspect-square rounded-2xl overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="{{ $eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png') }}" class="w-full h-full object-cover transition-transform duration-700">
+                            <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
                         <div class="aspect-square rounded-2xl overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($eskul->name) }}&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-700">
+                            <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($eskul->name)); ?>&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
                         <div class="aspect-square rounded-2xl overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="{{ $eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png') }}" class="w-full h-full object-cover transition-transform duration-700">
+                            <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
                         </div>
                         <div class="aspect-square rounded-2xl overflow-hidden group cursor-pointer border border-gray-100 shadow-sm relative">
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($eskul->name) }}&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-700">
+                            <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($eskul->name)); ?>&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-700">
                             <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
@@ -203,12 +203,12 @@
                             <div class="w-1.5 h-8 bg-blue-600 rounded-full"></div>
                             <h2 class="text-2xl font-bold text-[#0F172A]">Jelajahi Prestasi</h2>
                         </div>
-                        <a href="{{ route('news') }}" class="text-blue-600 font-bold hover:underline text-sm">Lihat Semua Berita</a>
+                        <a href="<?php echo e(route('news')); ?>" class="text-blue-600 font-bold hover:underline text-sm">Lihat Semua Berita</a>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="group space-y-4">
                             <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-                                <img src="{{ $eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png') }}" class="w-full h-full object-cover transition-transform duration-500">
+                                <img src="<?php echo e($eskul->image ? asset('storage/' . $eskul->image) : asset('images/extracurriculars/thumbs/default.png')); ?>" class="w-full h-full object-cover transition-transform duration-500">
                             </div>
                             <div class="space-y-2">
                                 <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">
@@ -216,7 +216,7 @@
                                     <span>•</span>
                                     <span>Prestasi</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Prestasi Gemilang {{ $eskul->name }} Tingkat Provinsi</h3>
+                                <h3 class="text-xl font-bold text-[#0F172A] group-hover:text-blue-600 transition-colors leading-snug">Prestasi Gemilang <?php echo e($eskul->name); ?> Tingkat Provinsi</h3>
                                 <div class="flex items-center gap-3 pt-2">
                                     <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                                         <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
@@ -227,7 +227,7 @@
                         </div>
                         <div class="group space-y-4">
                             <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($eskul->name) }}&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-500">
+                                <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($eskul->name)); ?>&background=EBF4FF&color=2563EB&size=512" class="w-full h-full object-cover transition-transform duration-500">
                             </div>
                             <div class="space-y-2">
                                 <div class="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase">
@@ -263,7 +263,7 @@
                     </div>
 
                     <div class="relative z-10 p-4 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
-                        <a href="{{ route('extracurriculars.registration') }}" class="block w-full py-3.5 bg-white text-blue-600 rounded-xl font-bold text-xs uppercase shadow-lg transition-all">
+                        <a href="<?php echo e(route('extracurriculars.registration')); ?>" class="block w-full py-3.5 bg-white text-blue-600 rounded-xl font-bold text-xs uppercase shadow-lg transition-all">
                             Daftar Sekarang
                         </a>
                         <p class="text-[9px] text-blue-100 font-bold mt-3 uppercase tracking-widest">Ayo Bergabung</p>
@@ -280,7 +280,7 @@
                                 <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border border-white rounded-full"></div>
                             </div>
                             <div class="space-y-0.5">
-                                <p class="font-bold text-[#0F172A] text-sm">Pembina {{ $eskul->name }}</p>
+                                <p class="font-bold text-[#0F172A] text-sm">Pembina <?php echo e($eskul->name); ?></p>
                                 <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Pembina Utama</p>
                             </div>
                         </div>
@@ -339,7 +339,7 @@
                     Bergabunglah dengan organisasi yang akan merubah masa depanmu menjadi lebih baik, disiplin dan kompeten.
                 </p>
                 <div class="flex justify-center pt-8">
-                     <a href="{{ route('extracurriculars.registration') }}" class="px-16 py-6 bg-blue-600 text-white rounded-2xl font-black text-2xl uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
+                     <a href="<?php echo e(route('extracurriculars.registration')); ?>" class="px-16 py-6 bg-blue-600 text-white rounded-2xl font-black text-2xl uppercase shadow-xl shadow-blue-900 transition-all hover:bg-blue-700">
                         Daftar Ekstrakurikuler
                     </a>
                 </div>
@@ -347,4 +347,6 @@
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\web-sekolah\resources\views/extracurriculars/show.blade.php ENDPATH**/ ?>
